@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "../components/core/sonner";
 import Providers from "../providers";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,6 +24,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <Providers>
           <main className="min-h-screen w-full flex">{children}</main>
+          <Toaster />
         </Providers>
       </body>
     </html>
