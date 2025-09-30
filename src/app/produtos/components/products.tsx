@@ -1,6 +1,6 @@
 import Column from "@/src/components/core/column";
 import ProductsHeaderSection from "./products-header-section";
-import { ProductsTable } from "./products-table";
+import ProductsTable from "./products-table";
 
 const Products = () => {
   return (
