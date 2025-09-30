@@ -6,13 +6,13 @@ import { toast } from "sonner";
 import { Button } from "../components/core";
 import AuthGuard from "../components/core/auth-guard";
 import Column from "../components/core/column";
-import { doLogout } from "./entrar/services";
+import { logout } from "./entrar/services";
 
 export default function Home() {
   const route = useRouter();
 
-  const { mutate: logout, isPending: pendingLogout } = useMutation({
-    mutationFn: doLogout,
+  const { mutate: doLogout, isPending: pendingLogout } = useMutation({
+    mutationFn: logout,
     onSuccess: () => {
       route.push("/entrar");
     },
@@ -31,7 +31,7 @@ export default function Home() {
           type="button"
           variant="link"
           className="text-red-500"
-          onClick={() => logout()}
+          onClick={() => doLogout()}
           disabled={pendingLogout}
         >
           Sair

@@ -1,2 +1,2 @@
-export * from "./do-login";
-export * from "./do-logout";
+export * from "./login";
+export * from "./logout";
