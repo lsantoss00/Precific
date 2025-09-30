@@ -4,6 +4,7 @@ import { Toaster } from "../components/core/sonner";
 import Providers from "../providers";
 import "./globals.css";
 
+// TO-DO: change to Poppins
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} antialiased`}>
+      <body
+        className={`${inter.className} antialiased bg-[url('/app-background-image.svg')] bg-cover bg-center bg-no-repeat bg-fixed`}
+      >
         <Providers>
           <main className="min-h-screen w-full flex">{children}</main>
           <Toaster />
