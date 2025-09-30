@@ -33,7 +33,7 @@ const LoginForm = () => {
 
   const { mutate: login, isPending: pendingLogin } = useMutation({
     mutationFn: doLogin,
-    onSuccess: () => router.push("/dashboard"),
+    onSuccess: () => router.push("/"),
     onError: (error) => {
       toast.error(error.message, {
         className: "!bg-red-600/80 !text-white",
