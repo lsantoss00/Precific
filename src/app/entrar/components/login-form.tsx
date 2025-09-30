@@ -52,7 +52,7 @@ const LoginForm = () => {
     <form
       id="login-form"
       onSubmit={handleSubmit(handleLogin)}
-      className="space-y-4 my-10"
+      className="space-y-4 my-10 flex flex-col justify-between"
     >
       <Column className="space-y-2">
         <Label htmlFor="email" className="text-white">
@@ -130,7 +130,7 @@ const LoginForm = () => {
           Entrar
         </Button>
         <Link
-          href="/recuperar-senha"
+          href="/redefinir-senha"
           className="flex self-center w-fit"
           passHref
         >

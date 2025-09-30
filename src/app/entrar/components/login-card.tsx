@@ -10,7 +10,9 @@ const LoginCard = () => {
       <Column className="space-y-1">
         <h2 className="font-bold text-white text-2xl">Entrar</h2>
         <div className="h-2 w-1/3 rounded-full bg-gradient-to-r from-[#750085] via-[#8D287F] to-[#6F27FF]" />
-        <h3 className="font-semibold text-white">Acesse o sistema Precific</h3>
+        <h3 className="font-semibold text-white text-sm">
+          Acesse o sistema Precific
+        </h3>
       </Column>
       <LoginForm />
     </Card>
