@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { AppSidebar } from "../components/app-sidebar";
+import { SidebarTrigger } from "../components/core";
 import { Toaster } from "../components/core/sonner";
-import Header from "../components/header";
 import Providers from "../providers";
 import "./globals.css";
 
@@ -27,8 +28,11 @@ export default function RootLayout({
         className={`${inter.className} antialiased bg-[url('/app-background-image.svg')] bg-cover bg-center bg-no-repeat bg-fixed`}
       >
         <Providers>
-          <Header />
-          <main className="min-h-screen w-full flex">{children}</main>
+          <AppSidebar />
+          <main className="min-h-screen mr-7 w-full flex">
+            <SidebarTrigger />
+            <div className="flex w-full my-7">{children}</div>
+          </main>
           <Toaster />
         </Providers>
       </body>
