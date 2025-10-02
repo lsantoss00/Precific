@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <Providers>
           <AppSidebar />
-          <main className="min-h-screen mr-7 my-7 w-full flex">{children}</main>
+          <main className="min-h-screen px-7 py-7 w-full flex">{children}</main>
           <Toaster />
         </Providers>
       </body>
