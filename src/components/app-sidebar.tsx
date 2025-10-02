@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { logout } from "../app/entrar/services";
 import { useAuth } from "../hooks/use-auth";
@@ -35,6 +35,7 @@ import Show from "./core/show";
 export function AppSidebar() {
   const { user } = useAuth();
   const route = useRouter();
+  const pathname = usePathname();
 
   const { mutate: doLogout, isPending: pendingLogout } = useMutation({
     mutationFn: logout,
@@ -52,7 +53,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent className="p-3">
+      <SidebarContent className="p-2">
         <SidebarGroup>
           <SidebarGroupLabel>
             <Image
@@ -64,18 +65,19 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-10">
             <SidebarMenu>
-              {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon className="text-[#66289B] !w-5 !h-5" />
-                      <span className="text-[#66289B] font-medium">
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {mainItems.map((item) => {
+                const isActive = pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.url}>
+                        <item.icon className="!w-5 !h-5" />
+                        <span className="font-medium">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -83,37 +85,38 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {secondaryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon className="text-[#66289B] !w-5 !h-5" />
-                      <span className="text-[#66289B] font-medium">
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {secondaryItems.map((item) => {
+                const isActive = pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.url}>
+                        <item.icon className="!w-5 !h-5" />
+                        <span className="font-medium">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <Separator />
       <SidebarFooter>
         <SidebarMenu>
-          <Separator />
-          <SidebarMenuItem className="p-3">
+          <SidebarMenuItem className="px-2">
             <Row className="justify-between items-center">
               <Column>
                 <span className="text-xs">Bem vindo,</span>
-                <span className="text-sm">{user?.email}</span>
+                <span className="text-xs">{user?.email}</span>
               </Column>
               <Button variant="ghost" onClick={() => doLogout()}>
                 <Show
                   when={pendingLogout}
                   fallback={<DoorOpen className="text-destructive !w-5 !h-5" />}
                 >
-                  <Loader2 />
+                  <Loader2 className="animate-spin text-destructive !w-5 !h-5" />
                 </Show>
               </Button>
             </Row>
@@ -129,11 +132,13 @@ const mainItems = [
     title: "Dashboard",
     url: "/dashboard",
     icon: LayoutDashboard,
+    disabled: true,
   },
   {
     title: "Produtos",
     url: "/produtos",
     icon: Inbox,
+    disabled: false,
   },
 ];
 
@@ -142,10 +147,12 @@ const secondaryItems = [
     title: "Configurações",
     url: "/configuracoes",
     icon: Settings,
+    disabled: true,
   },
   {
     title: "Suporte",
     url: "/suporte",
     icon: Info,
+    disabled: true,
   },
 ];
