@@ -4,10 +4,13 @@ import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+import { recoveryPassword } from "../services";
 
 const RecoveryPasswordSchema = z.object({
   email: z.string().min(1, "O campo email é obrigatório."),
@@ -16,8 +19,6 @@ const RecoveryPasswordSchema = z.object({
 type RecoveryPasswordSchemaType = z.infer<typeof RecoveryPasswordSchema>;
 
 const RecoveryPasswordForm = () => {
-  const router = useRouter();
-
   const { handleSubmit, control, watch } = useForm<RecoveryPasswordSchemaType>({
     resolver: zodResolver(RecoveryPasswordSchema),
     defaultValues: {
@@ -25,31 +26,33 @@ const RecoveryPasswordForm = () => {
     },
   });
 
-  // const { mutate: doRecoveryPassword, isPending: pendingRecoveryPassword } = useMutation({
-  //   mutationFn: recoveryPassword,
-  //   onSuccess: () => null,
-  //   onError: (error) => {
-  //     toast.error(error.message, {
-  //       className: "!bg-red-600/80 !text-white",
-  //     });
-  //   },
-  // });
+  const { mutate: doRecoveryPassword, isPending: pendingDoRecoveryPassword } =
+    useMutation({
+      mutationFn: recoveryPassword,
+      onSuccess: () => null,
+      onError: (error) => {
+        toast.error(error.message, {
+          className: "!bg-red-600/80",
+        });
+      },
+    });
 
-  // const handleRecoveryPassword = ({ email }: LoginFormSchemaType) => {
-  //   login({ email });
-  // };
+  const handleRecoveryPassword = ({ email }: RecoveryPasswordSchemaType) => {
+    doRecoveryPassword({ email });
+  };
 
   const { email } = watch();
+
   const formInputFieldIsBlank = [email].some((value) => value === "");
 
   return (
     <form
       id="login-form"
-      // onSubmit={handleSubmit(handleRecoveryPassword)}
+      onSubmit={handleSubmit(handleRecoveryPassword)}
       className="space-y-4 my-10 flex flex-col justify-between"
     >
       <Column className="space-y-2">
-        <Label htmlFor="email" className="text-white">
+        <Label htmlFor="email" className="">
           E-mail<span className="text-red-500">*</span>
         </Label>
         <Controller
@@ -78,15 +81,15 @@ const RecoveryPasswordForm = () => {
         <Button
           className="hover:cursor-pointer w-full"
           type="submit"
-          // disabled={pendingLogin || formInputFieldIsBlank}
+          disabled={pendingDoRecoveryPassword || formInputFieldIsBlank}
         >
-          {/* <Show when={pendingLogin}>
+          <Show when={pendingDoRecoveryPassword}>
             <Loader2Icon className="animate-spin" />
-          </Show> */}
+          </Show>
           Enviar instruções
         </Button>
         <Link href="/entrar" className="flex self-center w-fit" passHref>
-          <Button type="button" variant="link" className="text-white">
+          <Button type="button" variant="link" className="">
             Voltar ao Login
           </Button>
         </Link>
