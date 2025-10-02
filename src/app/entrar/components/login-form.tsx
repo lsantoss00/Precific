@@ -36,7 +36,7 @@ const LoginForm = () => {
     onSuccess: () => router.push("/"),
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600/80",
       });
     },
   });
@@ -55,7 +55,7 @@ const LoginForm = () => {
       className="space-y-4 my-10 flex flex-col justify-between"
     >
       <Column className="space-y-2">
-        <Label htmlFor="email" className="text-white">
+        <Label htmlFor="email" className="">
           E-mail<span className="text-red-500">*</span>
         </Label>
         <Controller
@@ -82,7 +82,7 @@ const LoginForm = () => {
       </Column>
       <Column className="space-y-2">
         {/* <Row className="justify-between"> */}
-        <Label htmlFor="password" className="text-white">
+        <Label htmlFor="password" className="">
           Senha<span className="text-red-500">*</span>
         </Label>
         {/* <Button
@@ -134,7 +134,7 @@ const LoginForm = () => {
           className="flex self-center w-fit"
           passHref
         >
-          <Button type="button" variant="link" className="text-white">
+          <Button type="button" variant="link" className="">
             Esqueci minha senha
           </Button>
         </Link>
