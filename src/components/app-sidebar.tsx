@@ -1,10 +1,26 @@
-import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
+"use client";
+
+import { useMutation } from "@tanstack/react-query";
+import {
+  DoorOpen,
+  Inbox,
+  Info,
+  LayoutDashboard,
+  Loader2,
+  Settings,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { logout } from "../app/entrar/services";
+import { useAuth } from "../hooks/use-auth";
 import {
+  Button,
   Separator,
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,11 +28,32 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./core";
+import Column from "./core/column";
+import Row from "./core/row";
+import Show from "./core/show";
 
 export function AppSidebar() {
+  const { user } = useAuth();
+
+  if (!user) return null;
+
+  const route = useRouter();
+
+  const { mutate: doLogout, isPending: pendingLogout } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      route.push("/entrar");
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        className: "!bg-red-600/80 !text-white",
+      });
+    },
+  });
+
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent className="p-6">
+      <SidebarContent className="p-3">
         <SidebarGroup>
           <SidebarGroupLabel>
             <Image
@@ -63,6 +100,27 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <Separator />
+          <SidebarMenuItem className="p-3">
+            <Row className="justify-between items-center">
+              <Column>
+                <span className="text-xs">Bem vindo,</span>
+                <span className="text-sm">{user?.email}</span>
+              </Column>
+              <Button variant="ghost" onClick={() => doLogout()}>
+                <Show
+                  when={pendingLogout}
+                  fallback={<DoorOpen className="text-destructive !w-5 !h-5" />}
+                >
+                  <Loader2 />
+                </Show>
+              </Button>
+            </Row>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
