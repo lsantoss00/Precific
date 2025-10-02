@@ -29,10 +29,13 @@ const RecoveryPasswordForm = () => {
   const { mutate: doRecoveryPassword, isPending: pendingDoRecoveryPassword } =
     useMutation({
       mutationFn: recoveryPassword,
-      onSuccess: () => null,
+      onSuccess: () =>
+        toast.success("E-mail enviado com sucesso!", {
+          className: "!bg-green-600 !text-white",
+        }),
       onError: (error) => {
         toast.error(error.message, {
-          className: "!bg-red-600/80",
+          className: "!bg-red-600/80 !text-white",
         });
       },
     });
