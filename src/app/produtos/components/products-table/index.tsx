@@ -18,7 +18,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
-import { productsTableColumns } from "./products-table-columns";
+import { Product, productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -27,7 +27,7 @@ const ProductsTable = () => {
   );
 
   const table = useReactTable({
-    data: mockData,
+    data: mockProducts,
     columns: productsTableColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -92,65 +92,55 @@ const ProductsTable = () => {
 
 export default ProductsTable;
 
-const mockData: any[] = [
+export const mockProducts: Product[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
+    id: "1",
+    sku: "ABC123",
+    productName: "Cimento Portland",
+    ncm: "2523.29.10",
+    priceToday: 28.5,
+    priceIn2026: 32.9,
+    priceIn2027: 35.1,
+    isDeleting: false,
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
+    id: "2",
+    sku: "XYZ987",
+    productName: "Aço Longo CA-50",
+    ncm: "7214.20.00",
+    priceToday: 4500,
+    priceIn2026: 4890,
+    priceIn2027: 5100,
+    isDeleting: false,
   },
   {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
+    id: "3",
+    sku: "LMN456",
+    productName: "Tinta Acrílica Premium",
+    ncm: "3209.10.10",
+    priceToday: 210,
+    priceIn2026: 239,
+    priceIn2027: 255,
+    isDeleting: false,
   },
   {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
+    id: "4",
+    sku: "QWE741",
+    productName: "Cabo Elétrico 2,5mm",
+    ncm: "8544.49.00",
+    priceToday: 180,
+    priceIn2026: 199,
+    priceIn2027: 210,
+    isDeleting: false,
   },
   {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
+    id: "5",
+    sku: "RTY852",
+    productName: "Caixa de Ferramentas",
+    ncm: "7326.90.90",
+    priceToday: 320,
+    priceIn2026: 350,
+    priceIn2027: 370,
+    isDeleting: false,
   },
 ];

@@ -3,17 +3,19 @@
 import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Loader2Icon, Trash2 } from "lucide-react";
+import { Loader2Icon, Trash2 } from "lucide-react";
 
-export interface Product {
+export type Product = {
   id: string;
-  amount: number;
-  status: string;
-  email: string;
+  sku: string;
+  productName: string;
+  ncm: string;
+  priceToday: number;
+  priceIn2026: number;
+  priceIn2027: number;
   isDeleting?: boolean;
-}
+};
 
 interface ProductTableMeta {
   onDelete: (id: string) => void;
@@ -22,39 +24,58 @@ interface ProductTableMeta {
 
 export const productsTableColumns: ColumnDef<Product>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "sku",
+    header: "SKU",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="uppercase truncate text-eltext-ellipsis">
+        {row.getValue("sku")}
+      </div>
     ),
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    accessorKey: "productName",
+    header: "NOME",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-ellipsis">
+        {row.getValue("productName")}
+      </div>
+    ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      return (
-        <div className="text-right font-medium">
-          {currencyFormatter(amount)}
-        </div>
-      );
-    },
+    accessorKey: "ncm",
+    header: "NCM",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-eltext-ellipsis">
+        {row.getValue("ncm")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "priceToday",
+    header: "HOJE (R$)",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-ellipsis">
+        {row.getValue("priceToday")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "priceIn2026",
+    header: "2026 (R$)",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-ellipsis">
+        {row.getValue("priceIn2026")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "priceIn2027",
+    header: "2027 (R$)",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-ellipsis">
+        {row.getValue("priceIn2027")}
+      </div>
+    ),
   },
   {
     id: "actions",
