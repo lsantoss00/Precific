@@ -86,7 +86,9 @@ export const productsTableColumns: ColumnDef<Product>[] = [
 
       return (
         <Row className="justify-end space-x-2">
-          <Button onClick={() => meta?.onPrice(product.id)}>Precificar</Button>
+          <Button variant="secondary" onClick={() => meta?.onPrice(product.id)}>
+            Precificar
+          </Button>
           <Button
             variant="destructive"
             size="icon"

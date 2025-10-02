@@ -8,22 +8,20 @@ const ProductsHeaderSection = () => {
   const mockPending = false;
 
   return (
-    <Column className="space-y-5 w-full max-w-5xl">
+    <Column className="space-y-3 w-full">
       <Column>
-        <h2 className="text-3xl text-white font-bold">Produtos</h2>
-        <h3 className="text-lg text-white font-light">
-          Gerencie seus produtos e PRECIFIC!
-        </h3>
+        <h2 className="text-3xl text-black font-bold">Produtos</h2>
       </Column>
-      <Row className="justify-between">
+      <Row className="justify-between items-center">
         <Input
-          className="w-full max-w-90"
+          className="w-full max-w-120"
           placeholder="Buscar por SKU, Nome ou NCM"
         />
         <Row className="space-x-2">
           <Button
             className="hover:cursor-pointer w-fit"
             type="submit"
+            variant="secondary"
             disabled={mockPending}
           >
             <Show when={mockPending}>
