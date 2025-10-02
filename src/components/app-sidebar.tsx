@@ -34,9 +34,6 @@ import Show from "./core/show";
 
 export function AppSidebar() {
   const { user } = useAuth();
-
-  if (!user) return null;
-
   const route = useRouter();
 
   const { mutate: doLogout, isPending: pendingLogout } = useMutation({
@@ -50,6 +47,8 @@ export function AppSidebar() {
       });
     },
   });
+
+  if (!user) return null;
 
   return (
     <Sidebar collapsible="icon">
