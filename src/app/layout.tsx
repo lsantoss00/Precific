@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppHeader } from "../components/app-header";
 import { AppSidebar } from "../components/app-sidebar";
+import { SidebarTrigger } from "../components/core";
 import { Toaster } from "../components/core/sonner";
 import Providers from "../providers";
 import "./globals.css";
@@ -30,7 +31,8 @@ export default function RootLayout({
         <Providers>
           <AppHeader />
           <AppSidebar />
-          <main className="min-h-screen py-34 px-20 mx-auto w-full flex">
+          <SidebarTrigger className="z-50 text-[#66289B]" />
+          <main className="min-h-screen py-34 pl-12 pr-20 mx-auto w-full flex">
             {children}
           </main>
           <Toaster />
