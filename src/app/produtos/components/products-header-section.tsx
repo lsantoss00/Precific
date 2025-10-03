@@ -1,8 +1,9 @@
 import { Button, Input } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { Download, Loader2Icon, Plus } from "lucide-react";
+import { Download, Loader2Icon, Plus, Upload } from "lucide-react";
 
 const ProductsHeaderSection = () => {
   const mockPending = false;
@@ -12,9 +13,9 @@ const ProductsHeaderSection = () => {
       <Column>
         <h2 className="text-3xl text-black font-bold">Produtos</h2>
       </Column>
-      <Row className="justify-between items-center">
+      <Flex className="flex-col lg:flex-row max-lg:space-y-4 justify-between lg:items-center w-full">
         <Input
-          className="w-full max-w-120"
+          className="w-full lg:max-w-80 xl:max-w-120"
           placeholder="Buscar por SKU, Nome ou NCM"
         />
         <Row className="space-x-2">
@@ -28,7 +29,7 @@ const ProductsHeaderSection = () => {
               <Loader2Icon className="animate-spin" />
             </Show>
             <Plus className="text-white" />
-            Novo Produto
+            <span>Novo Produto</span>
           </Button>
           <Button
             className="hover:cursor-pointer w-fit"
@@ -39,7 +40,7 @@ const ProductsHeaderSection = () => {
               <Loader2Icon className="animate-spin" />
             </Show>
             <Download className="text-white" />
-            Exportar CSV
+            <span className="hidden sm:flex"> Exportar CSV</span>
           </Button>
           <Button
             className="hover:cursor-pointer w-fit"
@@ -49,11 +50,11 @@ const ProductsHeaderSection = () => {
             <Show when={mockPending}>
               <Loader2Icon className="animate-spin" />
             </Show>
-            <Download className="text-white" />
-            Importar CSV
+            <Upload className="text-white" />
+            <span className="hidden sm:flex">Importar CSV</span>
           </Button>
         </Row>
-      </Row>
+      </Flex>
     </Column>
   );
 };
