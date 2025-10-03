@@ -1,17 +1,15 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { logout } from "../app/entrar/services";
+import { usePathname } from "next/navigation";
 import { useAuth } from "../hooks/use-auth";
 import {
   Separator,
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -23,21 +21,8 @@ import {
 
 export function AppSidebar() {
   const { user } = useAuth();
-  const route = useRouter();
-  const pathname = usePathname();
   const { state } = useSidebar();
-
-  const { mutate: doLogout, isPending: pendingLogout } = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      route.push("/entrar");
-    },
-    onError: (error) => {
-      toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
-      });
-    },
-  });
+  const pathname = usePathname();
 
   const isCollapsed = state === "collapsed";
 
@@ -136,6 +121,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="items-center mb-2">
+        <span className="text-[#66289B] text-xs font-medium">Versão MVP</span>
+      </SidebarFooter>
     </Sidebar>
   );
 }
