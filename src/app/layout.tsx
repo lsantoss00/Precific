@@ -31,6 +31,7 @@ export default function RootLayout({
         <Providers>
           <AppHeader />
           <AppSidebar />
+          {/* TO-DO: trigger criando scroll na pagina */}
           <SidebarTrigger />
           <main className="min-h-screen w-full flex">{children}</main>
           <Toaster />

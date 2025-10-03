@@ -10,9 +10,7 @@ const ProductsHeaderSection = () => {
 
   return (
     <Column className="space-y-3 w-full">
-      <Column>
-        <h2 className="text-3xl text-black font-bold">Produtos</h2>
-      </Column>
+      <h2 className="text-3xl text-black font-bold">Produtos</h2>
       <Flex className="flex-col lg:flex-row max-lg:space-y-4 justify-between lg:items-center w-full">
         <Input
           className="w-full lg:max-w-80 xl:max-w-120"
