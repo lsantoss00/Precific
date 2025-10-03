@@ -30,7 +30,7 @@ const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = "16rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
-const SIDEBAR_WIDTH_ICON = "4.6rem";
+const SIDEBAR_WIDTH_ICON = "6rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
 type SidebarContextProps = {
@@ -475,7 +475,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 h-12 rounded-md transition-colors pl-4 hover:bg-[#66289B]/70 hover:text-white data-[active=true]:bg-[#66289B] data-[active=true]:text-white data-[active=true]:font-medium data-[active=true]:hover:bg-[#66289B] data-[active=true]:hover:text-white data-[state=open]:hover:bg-[#66289B]/70 data-[state=open]:hover:text-white [&[data-active=true]>svg]:text-white [&:hover>svg]:text-white"
+  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-[#66289B] text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 h-12 rounded-md transition-colors pl-4 hover:bg-[#66289B]/70 hover:text-white data-[active=true]:bg-[#66289B] data-[active=true]:text-white data-[active=true]:font-medium data-[active=true]:hover:bg-[#66289B] data-[active=true]:hover:text-white data-[state=open]:hover:bg-[#66289B]/70 data-[state=open]:hover:text-white [&[data-active=true]>svg]:text-white [&:hover>svg]:text-white group-data-[collapsible=icon]:!size-10 group-data-[collapsible=icon]:!p-3 group-data-[collapsible=icon]:justify-center"
 );
 
 function SidebarMenuButton({

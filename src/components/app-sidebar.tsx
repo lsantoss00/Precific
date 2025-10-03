@@ -14,16 +14,18 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "./core";
 
 export function AppSidebar() {
   const { user } = useAuth();
   const route = useRouter();
   const pathname = usePathname();
+  const { state } = useSidebar();
 
   const { mutate: doLogout, isPending: pendingLogout } = useMutation({
     mutationFn: logout,
@@ -37,31 +39,60 @@ export function AppSidebar() {
     },
   });
 
+  const isCollapsed = state === "collapsed";
+
   if (!user) return null;
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent className="p-2">
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            <Image
-              src="/precific-logo.png"
-              alt="precific-logo"
-              width={220}
-              height={40}
-            />
-          </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-10">
-            <SidebarMenu>
+      <SidebarContent className="flex">
+        <SidebarGroup className="flex items-center">
+          <SidebarHeader className="mt-2">
+            {isCollapsed ? (
+              <Image
+                src="/precific-short-logo.png"
+                alt="precific-logo"
+                width={60}
+                height={60}
+                quality={100}
+              />
+            ) : (
+              <Image
+                src="/precific-logo.png"
+                alt="precific-logo"
+                width={220}
+                height={40}
+                quality={100}
+              />
+            )}
+          </SidebarHeader>
+          <SidebarGroupContent className="mt-5">
+            <SidebarMenu className={`${isCollapsed && "items-center"}`}>
               {mainItems.map((item) => {
                 const isActive = pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={isActive}>
-                      <Link href={item.url}>
-                        <item.icon className="!w-5 !h-5" />
-                        <span className="font-medium">{item.title}</span>
-                      </Link>
+                    <SidebarMenuButton
+                      asChild={!item.disabled}
+                      isActive={isActive}
+                      disabled={item.disabled}
+                      className="flex"
+                    >
+                      {item.disabled ? (
+                        <>
+                          <item.icon className="!w-5 !h-5" />
+                          {!isCollapsed && (
+                            <span className="font-medium">{item.title}</span>
+                          )}
+                        </>
+                      ) : (
+                        <Link href={item.url}>
+                          <item.icon className="!w-5 !h-5" />
+                          {!isCollapsed && (
+                            <span className="font-medium">{item.title}</span>
+                          )}
+                        </Link>
+                      )}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -72,16 +103,31 @@ export function AppSidebar() {
         <Separator />
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className={`${isCollapsed && "items-center"}`}>
               {secondaryItems.map((item) => {
                 const isActive = pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={isActive}>
-                      <Link href={item.url}>
-                        <item.icon className="!w-5 !h-5" />
-                        <span className="font-medium">{item.title}</span>
-                      </Link>
+                    <SidebarMenuButton
+                      asChild={!item.disabled}
+                      isActive={isActive}
+                      disabled={item.disabled}
+                    >
+                      {item.disabled ? (
+                        <>
+                          <item.icon className="!w-5 !h-5" />
+                          {!isCollapsed && (
+                            <span className="font-medium">{item.title}</span>
+                          )}
+                        </>
+                      ) : (
+                        <Link href={item.url}>
+                          <item.icon className="!w-5 !h-5" />
+                          {!isCollapsed && (
+                            <span className="font-medium">{item.title}</span>
+                          )}
+                        </Link>
+                      )}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
