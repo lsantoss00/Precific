@@ -4,7 +4,7 @@ import ProductsTable from "./products-table";
 
 const Products = () => {
   return (
-    <Column className="w-full mx-auto space-y-4">
+    <Column className="w-full space-y-4">
       <ProductsHeaderSection />
       <ProductsTable />
     </Column>
