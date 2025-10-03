@@ -25,15 +25,21 @@ const AuthGuard = ({
 
     if (shouldRedirect) {
       router.push(redirectTo);
-      return;
     }
   }, [loading, isAuthenticated, requireAuth, redirectTo, router]);
 
-  if (loading) return <>{children}</>;
-
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#66289B]" />
+      </div>
+    );
+  }
   const hasAccess = requireAuth ? isAuthenticated : !isAuthenticated;
 
-  if (!hasAccess) return;
+  if (!hasAccess) {
+    return null;
+  }
 
   return <>{children}</>;
 };
