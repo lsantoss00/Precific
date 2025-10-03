@@ -32,9 +32,7 @@ export default function RootLayout({
           <AppHeader />
           <AppSidebar />
           <SidebarTrigger />
-          <main className="min-h-screen py-34 px-20 mx-auto w-full flex">
-            {children}
-          </main>
+          <main className="min-h-screen w-full flex">{children}</main>
           <Toaster />
         </Providers>
       </body>
