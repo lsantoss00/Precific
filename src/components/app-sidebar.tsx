@@ -54,7 +54,7 @@ export function AppSidebar() {
           <SidebarGroupContent className="mt-5">
             <SidebarMenu className={`${isCollapsed && "items-center"}`}>
               {mainItems.map((item) => {
-                const isActive = pathname === item.url;
+                const isActive = pathname.startsWith(item.url);
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
@@ -90,7 +90,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className={`${isCollapsed && "items-center"}`}>
               {secondaryItems.map((item) => {
-                const isActive = pathname === item.url;
+                const isActive = pathname.startsWith(item.url);
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
