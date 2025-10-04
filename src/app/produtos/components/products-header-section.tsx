@@ -1,11 +1,16 @@
+"use client";
+
 import { Button, Input } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { Download, Loader2Icon, Plus, Upload } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const ProductsHeaderSection = () => {
+  const router = useRouter();
+
   const mockPending = false;
 
   return (
@@ -21,6 +26,7 @@ const ProductsHeaderSection = () => {
             className="hover:cursor-pointer w-fit"
             type="submit"
             variant="secondary"
+            onClick={() => router.push("/produtos/novo")}
             disabled={mockPending}
           >
             <Show when={mockPending}>
