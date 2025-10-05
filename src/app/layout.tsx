@@ -4,6 +4,7 @@ import { AppHeader } from "../components/app-header";
 import { AppSidebar } from "../components/app-sidebar";
 import { SidebarTrigger } from "../components/core";
 import { Toaster } from "../components/core/sonner";
+import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           <main className="min-h-screen w-full flex">{children}</main>
           <Toaster />
         </Providers>
+        <WhatsAppHelpLink />
       </body>
     </html>
   );
