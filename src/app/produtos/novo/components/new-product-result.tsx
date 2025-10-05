@@ -5,7 +5,7 @@ import Row from "@/src/components/core/row";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const NewProductFormResult = () => {
+const NewProductResult = () => {
   const router = useRouter();
 
   return (
@@ -23,4 +23,4 @@ const NewProductFormResult = () => {
   );
 };
 
-export default NewProductFormResult;
+export default NewProductResult;
