@@ -12,6 +12,11 @@ const NewProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleFinishAddingProduct = () => {
+    // adicionar produto na tabela;
+    router.push("/produtos");
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -37,6 +42,12 @@ const NewProductResult = () => {
           }
         >
           <h3>Pré reforma tributária...</h3>
+          <Button
+            className="w-30 flex self-end mt-auto"
+            onClick={handleFinishAddingProduct}
+          >
+            Finalizar
+          </Button>
         </Show>
       </Card>
     </Row>
