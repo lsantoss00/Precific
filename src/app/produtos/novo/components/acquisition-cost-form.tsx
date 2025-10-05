@@ -32,7 +32,7 @@ const AcquisitionCostForm = () => {
         </Column>
       </form>
       <Column className="bg-gray-200 space-y-2 rounded-md p-4">
-        <p className="text-xl font-bold">R$ 0,00</p>
+        <p className="text-2xl font-bold">R$ 0,00</p>
         <span>Valor final de aquisição</span>
       </Column>
     </Card>
