@@ -12,7 +12,7 @@ const WhatsAppHelpLink = () => {
   const whatsAppMessage =
     "Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20o%20Precific!";
 
-  const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}s`;
+  const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}`;
 
   return (
     <Link
