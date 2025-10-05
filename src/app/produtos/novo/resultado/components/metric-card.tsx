@@ -3,7 +3,7 @@ import { currencyFormatter } from "@/src/helpers/currency-formatter";
 
 type VariantType = "primary" | "secondary" | "neutral" | "success" | "error";
 
-interface MetricCardProps {
+export interface MetricCardProps {
   title: string;
   value: string | number;
   variant?: VariantType;
@@ -11,11 +11,9 @@ interface MetricCardProps {
 
 const MetricCard = ({ title, value, variant = "neutral" }: MetricCardProps) => {
   return (
-    <Column
-      className={`space-y-2 rounded-md p-4 border-2 ${variantStyles[variant]}`}
-    >
+    <Column className={`space-y-2 rounded-md p-4 ${variantStyles[variant]}`}>
       <p className="text-2xl font-bold">{currencyFormatter(value)}</p>
-      <span className="text-sm opacity-80">{title}</span>
+      <span className="text-sm">{title}</span>
     </Column>
   );
 };
