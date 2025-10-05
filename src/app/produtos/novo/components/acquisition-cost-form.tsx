@@ -1,5 +1,6 @@
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import MetricCard from "../resultado/components/metric-card";
 
 const AcquisitionCostForm = () => {
   return (
@@ -31,10 +32,7 @@ const AcquisitionCostForm = () => {
           <Input id="outros" type="number" placeholder="0,00" />
         </Column>
       </form>
-      <Column className="bg-gray-200 space-y-2 rounded-md p-4">
-        <p className="text-2xl font-bold">R$ 0,00</p>
-        <span>Valor final de aquisição</span>
-      </Column>
+      <MetricCard title="Valor final de Aquisição" value={100} />
     </Card>
   );
 };
