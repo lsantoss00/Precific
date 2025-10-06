@@ -15,12 +15,16 @@ const ProductDetailsForm = () => {
           />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="test">Teste</Label>
-          <Input id="test" type="number" placeholder="0,00%" />
+          <Label htmlFor="sku">SKU</Label>
+          <Input id="sku" type="text" placeholder="0,00%" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="test2">Teste 2</Label>
-          <Input id="test2" type="number" placeholder="0,00%" />
+          <Label htmlFor="ncm">NCM</Label>
+          <Input id="ncm" type="text" placeholder="0,00%" />
+        </Column>
+        <Column className="space-y-2">
+          <Label htmlFor="obs">Observações</Label>
+          <Input id="obs" type="text" placeholder="0,00%" />
         </Column>
       </form>
     </Card>
