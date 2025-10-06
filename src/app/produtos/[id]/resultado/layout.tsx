@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Novo Produto | Precific",
+  title: "Resultado | Precific",
 };
 
-export default function NewProductLayout({
+export default function ProductFormResultLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
