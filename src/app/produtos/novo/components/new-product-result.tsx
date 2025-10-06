@@ -64,10 +64,12 @@ const NewProductResult = () => {
             <LoadingResultState onComplete={() => setIsLoading(false)} />
           }
         >
-          <div className="grid grid-cols-2 w-full h-full gap-10 mb-4">
+          <div className="grid grid-cols-2 w-full h-fit gap-10 mb-4">
             <Column className="space-y-4">
-              <h3>Pré Reforma Tributária 2025</h3>
-              <div className="grid grid-cols-2 w-full h-full gap-4">
+              <h3 className="text-lg">
+                Pré Reforma Tributária <strong>2025</strong>
+              </h3>
+              <div className="grid grid-cols-2 w-full h-fit gap-4">
                 {metrics2025.map((metric, index) => (
                   <MetricCard
                     key={`metric-2025-${index}`}
@@ -84,33 +86,35 @@ const NewProductResult = () => {
               />
             </Column>
             <Column className="space-y-4">
-              <h3>Pré Reforma Tributária 2026</h3>
-              <MetricCard
-                title="Preço de Venda Final"
-                value={3.5}
-                variant="neutral"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                {metrics2026.map((metric, index) => (
-                  <MetricCard
-                    key={`metric-2026-${index}`}
-                    title={metric.title}
-                    value={metric.value}
-                    variant={metric.variant}
-                  />
-                ))}
-              </div>
-              <span className="text-center">
-                Os valores de IBS/CBS em 2026, tornam-se{" "}
-                <strong>créditos</strong>
-              </span>
-              <Column className="justify-end h-full">
+              <h3 className="text-lg">
+                Pré Reforma Tributária <strong>2026</strong>
+              </h3>
+              <Column className="gap-4 h-full">
                 <MetricCard
-                  title="Valor Total da NF-e"
-                  value={2.5}
-                  variant="secondary"
+                  title="Preço de Venda Final"
+                  value={3.5}
+                  variant="neutral"
                 />
+                <div className="grid grid-cols-2 gap-4">
+                  {metrics2026.map((metric, index) => (
+                    <MetricCard
+                      key={`metric-2026-${index}`}
+                      title={metric.title}
+                      value={metric.value}
+                      variant={metric.variant}
+                    />
+                  ))}
+                </div>
+                <span className="text-center">
+                  Os valores de IBS/CBS em 2026, tornam-se{" "}
+                  <strong>créditos</strong>
+                </span>
               </Column>
+              <MetricCard
+                title="Valor Total da NF-e"
+                value={2.5}
+                variant="secondary"
+              />
             </Column>
           </div>
           <Button
