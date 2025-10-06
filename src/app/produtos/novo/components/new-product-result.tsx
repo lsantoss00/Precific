@@ -88,7 +88,7 @@ const NewProductResult = () => {
               <MetricCard
                 title="Preço de Venda Final"
                 value={3.5}
-                variant="primary"
+                variant="neutral"
               />
               <div className="grid grid-cols-2 gap-4">
                 {metrics2026.map((metric, index) => (
