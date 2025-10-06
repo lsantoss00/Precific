@@ -27,6 +27,13 @@ const NewProductResult = () => {
     { title: "Frete", value: 2.5 },
     { title: "Margem de Lucro", value: 60, variant: "success" as const },
   ];
+  const metrics2026: MetricCardProps[] = [
+    {
+      title: "IBS (0.1%)",
+      value: 250,
+    },
+    { title: "CBS (0.9%)", value: 150 },
+  ];
 
   const handleFinishAddingProduct = () => {
     // adicionar produto na tabela;
@@ -84,9 +91,26 @@ const NewProductResult = () => {
                 variant="primary"
               />
               <div className="grid grid-cols-2 gap-4">
-                <MetricCard title="Imposto CBS" value={1.5} />
-                <MetricCard title="Imposto IBS" value={2.0} />
+                {metrics2026.map((metric, index) => (
+                  <MetricCard
+                    key={`metric-2026-${index}`}
+                    title={metric.title}
+                    value={metric.value}
+                    variant={metric.variant}
+                  />
+                ))}
               </div>
+              <span className="text-center">
+                Os valores de IBS/CBS em 2026, tornam-se{" "}
+                <strong>créditos</strong>
+              </span>
+              <Column className="justify-end h-full">
+                <MetricCard
+                  title="Valor Total da NF-e"
+                  value={2.5}
+                  variant="secondary"
+                />
+              </Column>
             </Column>
           </div>
           <Button
