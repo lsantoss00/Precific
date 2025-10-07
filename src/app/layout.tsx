@@ -35,7 +35,7 @@ export default function RootLayout({
           {/* TO-DO: trigger criando scroll na pagina */}
           <SidebarTrigger />
           <main className="min-h-screen w-full flex">{children}</main>
-          <Toaster />
+          <Toaster position="top-center" />
         </Providers>
         <WhatsAppHelpLink />
       </body>
