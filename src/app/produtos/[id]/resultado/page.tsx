@@ -1,6 +1,6 @@
 import AuthGuard from "@/src/components/core/auth-guard";
 import Column from "@/src/components/core/column";
-import ProductResult from "../components/product-result";
+import ProductResult from "../../components/product-result";
 
 export default function ProductFormResultPage() {
   return (

@@ -1,6 +1,6 @@
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
-import MetricCard from "../resultado/components/metric-card";
+import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
   return (

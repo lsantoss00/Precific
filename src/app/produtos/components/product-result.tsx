@@ -7,10 +7,8 @@ import Show from "@/src/components/core/show";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import LoadingResultState from "../resultado/components/loading-result-state";
-import MetricCard, {
-  MetricCardProps,
-} from "../resultado/components/metric-card";
+import LoadingResultState from "./loading-result-state";
+import MetricCard, { MetricCardProps } from "./metric-card";
 
 const ProductResult = () => {
   const router = useRouter();
