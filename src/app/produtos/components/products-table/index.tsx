@@ -31,7 +31,7 @@ const ProductsTable = () => {
     []
   );
   const [page, setPage] = React.useState(1);
-  const pageSize = 1;
+  const pageSize = 10;
 
   const { data, isPending: pendingProducts } = useQuery({
     queryFn: () => getProducts({ page, pageSize }),
