@@ -11,25 +11,26 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import TablePagination from "@/src/components/table-pagination";
-import { useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import * as React from "react";
+import { toast } from "sonner";
+import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
+import { ProductType } from "../../types/product-type";
 import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const router = useRouter();
+
   const [page, setPage] = React.useState(1);
   const pageSize = 10;
 
@@ -40,19 +41,41 @@ const ProductsTable = () => {
 
   const productsList = data?.data || [];
 
+  const { mutate: del, isPending: pendingDeleteProduct } = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: async () => {
+      await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      toast.success(`Produto deletado com sucesso!`, {
+        className: "!bg-green-600/80 !text-white",
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        className: "!bg-red-600/80 !text-white",
+      });
+    },
+  });
+
+  const handleDeleteProduct = (productId: ProductType["id"]) => {
+    del({ productId });
+  };
+
+  const handlePriceProduct = (productId: ProductType["id"]) => {
+    router.push(`/produtos/${productId}`);
+  };
+
   const table = useReactTable({
     data: productsList,
     columns: productsTableColumns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     manualPagination: true,
     pageCount: data?.totalPages ?? 0,
-    state: {
-      sorting,
-      columnFilters,
+    meta: {
+      onDeleteProduct: handleDeleteProduct,
+      pendingDeleteProduct: pendingDeleteProduct,
+      onPriceProduct: handlePriceProduct,
     },
   });
 

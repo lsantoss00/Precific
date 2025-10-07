@@ -9,8 +9,9 @@ import { Loader2Icon, Trash2 } from "lucide-react";
 import { ProductType } from "../../types/product-type";
 
 interface ProductTableMeta {
-  onDelete: (id: string) => void;
-  onPrice: (id: string) => void;
+  onDeleteProduct: (id: string) => void;
+  pendingDeleteProduct: boolean;
+  onPriceProduct: (id: string) => void;
 }
 
 export const productsTableColumns: ColumnDef<Partial<ProductType>>[] = [
@@ -79,18 +80,18 @@ export const productsTableColumns: ColumnDef<Partial<ProductType>>[] = [
         <Row className="justify-end space-x-2">
           <Button
             variant="secondary"
-            onClick={() => meta?.onPrice(product.id!)}
+            onClick={() => meta?.onPriceProduct(product.id!)}
           >
             Precificar
           </Button>
           <Button
             variant="destructive"
             size="icon"
-            onClick={() => meta?.onDelete(product.id!)}
-            // disabled={product.isDeleting}
+            onClick={() => meta?.onDeleteProduct(product.id!)}
+            disabled={meta?.pendingDeleteProduct}
           >
             <Show
-              // when={!product.isDeleting}
+              when={!meta?.pendingDeleteProduct}
               fallback={<Loader2Icon className="animate-spin" />}
             >
               <Trash2 />
@@ -101,5 +102,3 @@ export const productsTableColumns: ColumnDef<Partial<ProductType>>[] = [
     },
   },
 ];
-
-export type { ProductTableMeta };
