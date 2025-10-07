@@ -3,12 +3,12 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import TablePagination from "@/src/components/table-pagination";
 import { useQuery } from "@tanstack/react-query";
@@ -31,7 +31,7 @@ const ProductsTable = () => {
     []
   );
   const [page, setPage] = React.useState(1);
-  const pageSize = 10;
+  const pageSize = 1;
 
   const { data, isPending: pendingProducts } = useQuery({
     queryFn: () => getProducts({ page, pageSize }),
@@ -57,10 +57,10 @@ const ProductsTable = () => {
   });
 
   return (
-    <Column className="bg-white h-fit shadow-sm rounded-md">
+    <Column className="bg-white h-full shadow-sm rounded-md flex flex-col">
       <div className="flex-1 overflow-auto min-h-0">
         <Table className="w-full">
-          <TableHeader>
+          <TableHeader className="sticky top-0 bg-white z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:!bg-transparent">
                 {headerGroup.headers.map((header) => {
@@ -124,27 +124,20 @@ const ProductsTable = () => {
               </Show>
             </Show>
           </TableBody>
-          <TableFooter>
-            <TableRow className="hover:!bg-transparent">
-              <TableCell
-                colSpan={productsTableColumns.length}
-                className="!w-full"
-              >
-                <div className="flex items-center justify-between w-full">
-                  <span className="text-sm">
-                    Página {page} de {data?.totalPages || 0} -{" "}
-                    {data?.count || 0} produtos
-                  </span>
-                  <TablePagination
-                    currentPage={page}
-                    totalPages={data?.totalPages || 0}
-                    onPageChange={setPage}
-                  />
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
+      </div>
+      <div className="border-t bg-white">
+        <Row className="items-center justify-between w-full p-4">
+          <span className="text-sm">
+            Página {page} de {data?.totalPages || 0} - Total de{" "}
+            {data?.count || 0} produtos
+          </span>
+          <TablePagination
+            currentPage={page}
+            totalPages={data?.totalPages || 0}
+            onPageChange={setPage}
+          />
+        </Row>
       </div>
     </Column>
   );
