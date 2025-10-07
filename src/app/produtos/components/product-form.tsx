@@ -2,18 +2,31 @@
 
 import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getProductById } from "../services/get-product-by-id";
+import { ProductType } from "../types/product-type";
 import AcquisitionCostForm from "./acquisition-cost-form";
 import PrecificationForm from "./precification-form";
 import ProductDetailsForm from "./product-details-form";
 
+type FormModeType = "create" | "edit";
 interface ProductFormProps {
-  product?: any;
+  mode: FormModeType;
+  productId?: ProductType["id"];
 }
 
-const ProductForm = ({ product }: ProductFormProps) => {
+const ProductForm = ({ productId }: ProductFormProps) => {
   const router = useRouter();
+
+  const { data: product, isPending: pendingProduct } = useQuery({
+    queryFn: () => getProductById({ productId: productId! }),
+    queryKey: ["product", productId],
+    enabled: !!productId,
+  });
+
+  console.log("product", product);
 
   return (
     <Row className="w-full h-full space-x-2">
