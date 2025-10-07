@@ -8,11 +8,11 @@ import AcquisitionCostForm from "./acquisition-cost-form";
 import PrecificationForm from "./precification-form";
 import ProductDetailsForm from "./product-details-form";
 
-interface NewProductFormProps {
-  productId?: string;
+interface ProductFormProps {
+  product?: any;
 }
 
-const NewProductForm = ({ productId }: NewProductFormProps) => {
+const ProductForm = ({ product }: ProductFormProps) => {
   const router = useRouter();
 
   return (
@@ -32,4 +32,4 @@ const NewProductForm = ({ productId }: NewProductFormProps) => {
   );
 };
 
-export default NewProductForm;
+export default ProductForm;

@@ -12,7 +12,7 @@ import MetricCard, {
   MetricCardProps,
 } from "../resultado/components/metric-card";
 
-const NewProductResult = () => {
+const ProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -129,4 +129,4 @@ const NewProductResult = () => {
   );
 };
 
-export default NewProductResult;
+export default ProductResult;
