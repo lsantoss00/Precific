@@ -6,24 +6,14 @@ import Show from "@/src/components/core/show";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
-
-export type Product = {
-  id: string;
-  sku: string;
-  productName: string;
-  ncm: string;
-  priceToday: number;
-  priceIn2026: number;
-  priceIn2027: number;
-  isDeleting?: boolean;
-};
+import { ProductType } from "../../types/product-type";
 
 interface ProductTableMeta {
   onDelete: (id: string) => void;
   onPrice: (id: string) => void;
 }
 
-export const productsTableColumns: ColumnDef<Product>[] = [
+export const productsTableColumns: ColumnDef<Partial<ProductType>>[] = [
   {
     accessorKey: "sku",
     header: "SKU",
@@ -87,17 +77,20 @@ export const productsTableColumns: ColumnDef<Product>[] = [
 
       return (
         <Row className="justify-end space-x-2">
-          <Button variant="secondary" onClick={() => meta?.onPrice(product.id)}>
+          <Button
+            variant="secondary"
+            onClick={() => meta?.onPrice(product.id!)}
+          >
             Precificar
           </Button>
           <Button
             variant="destructive"
             size="icon"
-            onClick={() => meta?.onDelete(product.id)}
-            disabled={product.isDeleting}
+            onClick={() => meta?.onDelete(product.id!)}
+            // disabled={product.isDeleting}
           >
             <Show
-              when={!product.isDeleting}
+              // when={!product.isDeleting}
               fallback={<Loader2Icon className="animate-spin" />}
             >
               <Trash2 />

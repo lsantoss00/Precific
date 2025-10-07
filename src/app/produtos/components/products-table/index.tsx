@@ -23,6 +23,7 @@ import {
 } from "@tanstack/react-table";
 import * as React from "react";
 import { getProducts } from "../../services/get-products";
+import { ProductType } from "../../types/product-type";
 import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
@@ -36,7 +37,10 @@ const ProductsTable = () => {
     queryKey: ["products"],
   });
 
-  const productsList = React.useMemo(() => products || [], [products]);
+  const productsList = React.useMemo<ProductType[]>(
+    () => products || [],
+    [products]
+  );
 
   const table = useReactTable({
     data: productsList,

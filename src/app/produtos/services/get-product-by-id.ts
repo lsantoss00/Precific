@@ -1,7 +1,13 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
 import { ProductType } from "../types/product-type";
 
-export async function getProducts(): Promise<ProductType[]> {
+interface GetProductByIdProps {
+  productId: string;
+}
+
+export async function getProductById({
+  productId,
+}: GetProductByIdProps): Promise<ProductType> {
   const {
     data: { session },
   } = await supabaseClient.auth.getSession();
@@ -11,7 +17,8 @@ export async function getProducts(): Promise<ProductType[]> {
   const { data, error } = await supabaseClient
     .from("products")
     .select("*")
-    .order("created_at", { ascending: false });
+    .eq("id", productId)
+    .single();
 
   if (error) throw error;
 
