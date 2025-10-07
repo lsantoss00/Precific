@@ -3,6 +3,7 @@
 import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
 
@@ -33,11 +34,11 @@ export const productsTableColumns: ColumnDef<Product>[] = [
     ),
   },
   {
-    accessorKey: "productName",
+    accessorKey: "name",
     header: "NOME",
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
-        {row.getValue("productName")}
+        {row.getValue("name")}
       </div>
     ),
   },
@@ -51,29 +52,29 @@ export const productsTableColumns: ColumnDef<Product>[] = [
     ),
   },
   {
-    accessorKey: "priceToday",
+    accessorKey: "price_today",
     header: "HOJE (R$)",
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
-        {row.getValue("priceToday")}
+        {currencyFormatter(row.getValue("price_today"))}
       </div>
     ),
   },
   {
-    accessorKey: "priceIn2026",
+    accessorKey: "price_in_2026",
     header: "2026 (R$)",
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
-        {row.getValue("priceIn2026")}
+        {currencyFormatter(row.getValue("price_in_2026"))}
       </div>
     ),
   },
   {
-    accessorKey: "priceIn2027",
+    accessorKey: "price_in_2027",
     header: "2027 (R$)",
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
-        {row.getValue("priceIn2027")}
+        {currencyFormatter(row.getValue("price_in_2027"))}
       </div>
     ),
   },
