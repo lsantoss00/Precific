@@ -24,7 +24,6 @@ const ProductsHeaderSection = () => {
         <Row className="space-x-2">
           <Button
             className="hover:cursor-pointer w-fit"
-            type="submit"
             variant="secondary"
             onClick={() => router.push("/produtos/novo")}
             disabled={mockPending}

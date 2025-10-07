@@ -8,7 +8,11 @@ import AcquisitionCostForm from "./acquisition-cost-form";
 import PrecificationForm from "./precification-form";
 import ProductDetailsForm from "./product-details-form";
 
-const NewProductForm = () => {
+interface NewProductFormProps {
+  productId?: string;
+}
+
+const NewProductForm = ({ productId }: NewProductFormProps) => {
   const router = useRouter();
 
   return (
