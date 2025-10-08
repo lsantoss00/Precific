@@ -1,16 +1,14 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
 import {
   PaginatedResponseType,
-  PaginationParamsType,
+  PaginationType,
 } from "@/src/types/pagination-type";
 import { ProductResponseType } from "../types/product-type";
 
 export async function getProducts({
   page = 1,
   pageSize = 10,
-}: PaginationParamsType = {}): Promise<
-  PaginatedResponseType<ProductResponseType>
-> {
+}: PaginationType = {}): Promise<PaginatedResponseType<ProductResponseType>> {
   const {
     data: { session },
   } = await supabaseClient.auth.getSession();
