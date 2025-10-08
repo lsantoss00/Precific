@@ -21,17 +21,17 @@ export type ProductType = {
   price_in_2027?: number;
 };
 
+export type ProductFormDataType = Omit<
+  ProductType,
+  "price_today" | "price_in_2026" | "price_in_2027"
+>;
+
 export type ProductResponseType = ProductType & {
   id: string;
   user_id: string;
   created_at: string;
   updated_at: string;
 };
-
-export type ProductFormDataType = Omit<
-  ProductType,
-  "price_today" | "price_in_2026" | "price_in_2027"
->;
 
 export type ProductRequestType = Partial<ProductType> & {
   id: string;

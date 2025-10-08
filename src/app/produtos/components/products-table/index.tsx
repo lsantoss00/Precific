@@ -25,7 +25,7 @@ import * as React from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
-import { ProductType } from "../../types/product-type";
+import { ProductResponseType } from "../../types/product-type";
 import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
@@ -56,11 +56,11 @@ const ProductsTable = () => {
     },
   });
 
-  const handleDeleteProduct = (productId: ProductType["id"]) => {
+  const handleDeleteProduct = (productId: ProductResponseType["id"]) => {
     del({ productId });
   };
 
-  const handlePriceProduct = (productId: ProductType["id"]) => {
+  const handlePriceProduct = (productId: ProductResponseType["id"]) => {
     router.push(`/produtos/${productId}`);
   };
 
