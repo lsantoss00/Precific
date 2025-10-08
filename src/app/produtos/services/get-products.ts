@@ -5,10 +5,15 @@ import {
 } from "@/src/types/pagination-type";
 import { ProductResponseType } from "../types/product-type";
 
+interface GetProductsProps extends PaginationType {
+  search?: string;
+}
+
 export async function getProducts({
   page = 1,
   pageSize = 10,
-}: PaginationType = {}): Promise<PaginatedResponseType<ProductResponseType>> {
+  search = "",
+}: GetProductsProps): Promise<PaginatedResponseType<ProductResponseType>> {
   const {
     data: { session },
   } = await supabaseClient.auth.getSession();
@@ -18,12 +23,20 @@ export async function getProducts({
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
-  const { data, error, count } = await supabaseClient
+  let query = supabaseClient
     .from("products")
     .select("*", { count: "exact" })
-    .order("created_at", { ascending: false })
-    .range(from, to);
+    .order("created_at", { ascending: false });
 
+  if (search && search.trim()) {
+    const searchTerm = search.trim();
+
+    query = query.or(
+      `sku.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%,ncm.ilike.%${searchTerm}%`
+    );
+  }
+
+  const { data, error, count } = await query.range(from, to);
   if (error) throw error;
 
   const totalCount = count || 0;

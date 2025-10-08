@@ -6,12 +6,34 @@ import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { Download, Loader2Icon, Plus, Upload } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ProductsHeaderSection = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("filtro") || ""
+  );
 
   const mockPending = false;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (searchTerm) {
+        params.set("filtro", searchTerm);
+        params.set("pagina", "1");
+      } else {
+        params.delete("filtro");
+      }
+
+      router.push(`?${params.toString()}`, { scroll: false });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   return (
     <Column className="space-y-3 w-full">
@@ -20,6 +42,8 @@ const ProductsHeaderSection = () => {
         <Input
           className="w-full lg:max-w-80 xl:max-w-120"
           placeholder="Buscar por SKU, Nome ou NCM"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
         />
         <Row className="space-x-2">
           <Button

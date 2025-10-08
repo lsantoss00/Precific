@@ -20,8 +20,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
-import * as React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
@@ -30,13 +29,15 @@ import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [page, setPage] = React.useState(1);
+  const page = Number(searchParams.get("pagina")) || 1;
+  const search = searchParams.get("filtro") || "";
   const pageSize = 10;
 
   const { data, isPending: pendingProducts } = useQuery({
-    queryFn: () => getProducts({ page, pageSize }),
-    queryKey: ["products", page, pageSize],
+    queryFn: () => getProducts({ page, pageSize, search }),
+    queryKey: ["products", page, pageSize, search],
   });
 
   const productsList = data?.data || [];
@@ -62,6 +63,12 @@ const ProductsTable = () => {
 
   const handlePriceProduct = (productId: ProductResponseType["id"]) => {
     router.push(`/produtos/${productId}`);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("pagina", newPage.toString());
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const table = useReactTable({
@@ -158,7 +165,7 @@ const ProductsTable = () => {
           <TablePagination
             currentPage={page}
             totalPages={data?.totalPages || 0}
-            onPageChange={setPage}
+            onPageChange={handlePageChange}
           />
         </Row>
       </div>
