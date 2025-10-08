@@ -1,13 +1,13 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
-import { ProductType } from "../types/product-type";
+import { ProductResponseType } from "../types/product-type";
 
 interface GetProductByIdProps {
-  productId: ProductType["id"];
+  productId: ProductResponseType["id"];
 }
 
 export async function getProductById({
   productId,
-}: GetProductByIdProps): Promise<ProductType> {
+}: GetProductByIdProps): Promise<ProductResponseType> {
   const {
     data: { session },
   } = await supabaseClient.auth.getSession();
