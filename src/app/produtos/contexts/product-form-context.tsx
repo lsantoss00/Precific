@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useContext } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { ProductFormDataType } from "../app/produtos/types/product-type";
+import { ProductFormDataType } from "../types/product-type";
 
 interface ProductFormContextValue {
   form: UseFormReturn<ProductFormDataType>;

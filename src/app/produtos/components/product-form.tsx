@@ -1,8 +1,8 @@
 "use client";
 
+import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
-import { useProductForm } from "@/src/contexts/product-form-context";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";

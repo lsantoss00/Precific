@@ -1,8 +1,8 @@
 "use client";
 
+import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
-import { useProductForm } from "@/src/contexts/product-form-context";
 
 const PrecificationForm = () => {
   const { form } = useProductForm();

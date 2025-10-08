@@ -1,4 +1,4 @@
-import { ProductFormProvider } from "@/src/contexts/product-form-context";
+import { ProductFormProvider } from "@/src/app/produtos/contexts/product-form-context";
 import type { Metadata } from "next";
 import { use } from "react";
 
