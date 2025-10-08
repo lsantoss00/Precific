@@ -1,3 +1,5 @@
+"use client";
+
 import AuthGuard from "@/src/components/core/auth-guard";
 import Column from "@/src/components/core/column";
 import ProductResult from "../../components/product-result";

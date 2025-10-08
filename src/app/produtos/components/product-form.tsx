@@ -2,31 +2,71 @@
 
 import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
+import { useProductForm } from "@/src/contexts/product-form-context";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { getProductById } from "../services/get-product-by-id";
-import { ProductType } from "../types/product-type";
+import { ProductResponseType } from "../types/product-type";
 import AcquisitionCostForm from "./acquisition-cost-form";
 import PrecificationForm from "./precification-form";
 import ProductDetailsForm from "./product-details-form";
 
-type FormModeType = "create" | "edit";
 interface ProductFormProps {
-  mode: FormModeType;
-  productId?: ProductType["id"];
+  productId?: ProductResponseType["id"];
 }
 
 const ProductForm = ({ productId }: ProductFormProps) => {
   const router = useRouter();
+  const { form, isEditMode } = useProductForm();
 
   const { data: product, isPending: pendingProduct } = useQuery({
     queryFn: () => getProductById({ productId: productId! }),
     queryKey: ["product", productId],
-    enabled: !!productId,
+    enabled: !!productId && isEditMode,
   });
 
+  console.log("productId", productId);
   console.log("product", product);
+
+  useEffect(() => {
+    if (product && isEditMode) {
+      form.reset({
+        name: product.name,
+        sku: product.sku,
+        ncm: product.ncm,
+        observations: product.observations,
+        unit_price: product.unit_price,
+        icms: product.icms,
+        pis_cofins: product.pis_cofins,
+        icms_st: product.icms_st,
+        ipi: product.ipi,
+        others: product.others,
+        fixed_costs: product.fixed_costs,
+        sales_icms: product.sales_icms,
+        sales_pis_cofins: product.sales_pis_cofins,
+        shipping: product.shipping,
+        other_costs: product.other_costs,
+        profit: product.profit,
+      });
+    }
+  }, [product, form, isEditMode]);
+
+  const handleNext = () => {
+    form.handleSubmit(
+      () => {
+        const resultPath =
+          isEditMode && productId
+            ? `/produtos/${productId}/resultado`
+            : `/produtos/novo/resultado`;
+        router.push(resultPath);
+      },
+      (errors) => {
+        console.error("Erros de validação:", errors);
+      }
+    )();
+  };
 
   return (
     <Row className="w-full h-full space-x-2">
@@ -37,7 +77,8 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <PrecificationForm />
       <Button
         className="h-full w-20"
-        onClick={() => router.push("/produtos/novo/resultado")}
+        onClick={handleNext}
+        disabled={isEditMode && pendingProduct}
       >
         <ChevronRight className="!w-12 !h-12" />
       </Button>

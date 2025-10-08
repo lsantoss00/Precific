@@ -1,41 +1,83 @@
+"use client";
+
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { useProductForm } from "@/src/contexts/product-form-context";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
+  const { form } = useProductForm();
+  const { register } = form;
+
   return (
     <Card className="h-full w-full p-6 rounded-md flex space-y-6">
       <h3>Custo de Aquisição</h3>
       <form className="grid grid-cols-2 gap-4">
         <Column className="space-y-2">
-          <Label htmlFor="unitPrice" required>
+          <Label htmlFor="unit_price" required>
             Preço Unitário NF-e (R$)
           </Label>
-          <Input id="unitPrice" type="number" placeholder="R$ 0,00" />
+          <Input
+            id="unit_price"
+            type="number"
+            placeholder="R$ 0,00"
+            {...register("unit_price", {
+              required: "Campo obrigatório",
+            })}
+          />
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="icms" required>
             ICMS (%)
           </Label>
-          <Input id="icms" type="number" placeholder="0,00" />
+          <Input
+            id="icms"
+            type="number"
+            placeholder="0,00%"
+            {...register("icms", {
+              required: "Campo obrigatório",
+            })}
+          />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="pisCofins" required>
+          <Label htmlFor="pis_cofins" required>
             PIS/COFINS (%)
           </Label>
-          <Input id="pisCofins" type="number" placeholder="0,00" />
+          <Input
+            id="pis_cofins"
+            type="number"
+            placeholder="0,00%"
+            {...register("pis_cofins", {
+              required: "Campo obrigatório",
+            })}
+          />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="icmsSt">ICMS ST (%)</Label>
-          <Input id="icmsSt" type="number" placeholder="0,00" />
+          <Label htmlFor="icms_st">ICMS ST (%)</Label>
+          <Input
+            id="icms_st"
+            type="number"
+            placeholder="0,00%"
+            {...register("icms_st")}
+          />
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="ipi">IPI (%)</Label>
-          <Input id="ipi" type="number" placeholder="0,00" />
+          <Input
+            id="ipi"
+            type="number"
+            placeholder="0,00%"
+            {...register("ipi")}
+          />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="outros">Outros (%)</Label>
-          <Input id="outros" type="number" placeholder="0,00" />
+          <Label htmlFor="others">Outros (%)</Label>
+          <Input
+            id="others"
+            type="number"
+            placeholder="0,00%"
+            {...register("others")}
+          />
         </Column>
       </form>
       <MetricCard title="Valor final de Aquisição" value={100} />

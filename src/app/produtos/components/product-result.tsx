@@ -4,38 +4,58 @@ import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import { useProductForm } from "@/src/contexts/product-form-context";
+import { useAuth } from "@/src/hooks/use-auth";
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
+import { useMutation } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { postProduct } from "../services/post-product";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
 const ProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
+  const { form, isEditMode, productId } = useProductForm();
 
-  const metrics2025: MetricCardProps[] = [
-    {
-      title: "Valor final de aquisição",
-      value: 250,
+  const formData = form.watch();
+
+  const { mutate: post, isPending: pendingPostProduct } = useMutation({
+    mutationFn: postProduct,
+    onSuccess: async () => {
+      await queryClient?.invalidateQueries({ queryKey: ["products"] });
+
+      toast.success("Produto adicionado com sucesso!", {
+        className: "!bg-green-600/80 !text-white",
+      });
+
+      router.push("/produtos");
     },
-    { title: "Outros Custos", value: 150 },
-    { title: "Custos Fixos", value: 2.5 },
-    { title: "ICMS + PIS/COFINS", value: 2.5 },
-    { title: "Frete", value: 2.5 },
-    { title: "Margem de Lucro", value: 60, variant: "success" as const },
-  ];
-  const metrics2026: MetricCardProps[] = [
-    {
-      title: "IBS (0.1%)",
-      value: 250,
+    onError: (error) => {
+      toast.error(error.message, {
+        className: "!bg-red-600/80 !text-white",
+      });
     },
-    { title: "CBS (0.9%)", value: 150 },
-  ];
+  });
 
   const handleFinishAddingProduct = () => {
-    // adicionar produto na tabela;
-    router.push("/produtos");
+    const payload = {
+      id: isEditMode ? productId : undefined,
+      user_id: user?.id || "",
+      ...formData,
+    };
+
+    post({ product: payload });
+  };
+
+  const handleGoBack = () => {
+    const path =
+      isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
+    router.push(path);
   };
 
   useEffect(() => {
@@ -50,8 +70,8 @@ const ProductResult = () => {
     <Row className="w-full h-full space-x-2">
       <Button
         className="h-full w-20"
-        onClick={() => router.push("/produtos/novo")}
-        disabled={isLoading}
+        onClick={handleGoBack}
+        disabled={isLoading || pendingPostProduct}
       >
         <ChevronLeft className="!w-12 !h-12" />
       </Button>
@@ -118,8 +138,9 @@ const ProductResult = () => {
           <Button
             className="w-30 flex self-end mt-auto"
             onClick={handleFinishAddingProduct}
+            disabled={pendingPostProduct}
           >
-            Finalizar
+            {pendingPostProduct ? "Salvando..." : "Finalizar"}
           </Button>
         </Show>
       </Card>
@@ -128,3 +149,22 @@ const ProductResult = () => {
 };
 
 export default ProductResult;
+
+const metrics2025: MetricCardProps[] = [
+  {
+    title: "Valor final de aquisição",
+    value: 250,
+  },
+  { title: "Outros Custos", value: 150 },
+  { title: "Custos Fixos", value: 2.5 },
+  { title: "ICMS + PIS/COFINS", value: 2.5 },
+  { title: "Frete", value: 2.5 },
+  { title: "Margem de Lucro", value: 60, variant: "success" as const },
+];
+const metrics2026: MetricCardProps[] = [
+  {
+    title: "IBS (0.1%)",
+    value: 250,
+  },
+  { title: "CBS (0.9%)", value: 150 },
+];
