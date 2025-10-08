@@ -6,7 +6,10 @@ import Column from "@/src/components/core/column";
 
 const ProductDetailsForm = () => {
   const { form } = useProductForm();
-  const { register } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   return (
     <Card className="h-full w-full p-6 rounded-md flex space-y-6">
@@ -20,6 +23,7 @@ const ProductDetailsForm = () => {
             id="name"
             type="text"
             placeholder="Digite o nome do produto"
+            error={errors.name?.message}
             {...register("name", { required: "Nome é obrigatório" })}
           />
         </Column>

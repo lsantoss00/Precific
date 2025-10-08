@@ -8,7 +8,10 @@ import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
   const { form } = useProductForm();
-  const { register } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   const data = form.watch();
 
@@ -36,6 +39,7 @@ const AcquisitionCostForm = () => {
             {...register("unit_price", {
               required: "Campo obrigatório",
             })}
+            error={errors.unit_price?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -49,6 +53,7 @@ const AcquisitionCostForm = () => {
             {...register("icms", {
               required: "Campo obrigatório",
             })}
+            error={errors.icms?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -62,6 +67,7 @@ const AcquisitionCostForm = () => {
             {...register("pis_cofins", {
               required: "Campo obrigatório",
             })}
+            error={errors.pis_cofins?.message}
           />
         </Column>
         <Column className="space-y-2">

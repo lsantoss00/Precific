@@ -31,7 +31,9 @@ export const ProductFormProvider = ({
   isEditMode = false,
   productId,
 }: ProductFormProviderProps) => {
-  const form = useForm<ProductFormDataType>();
+  const form = useForm<ProductFormDataType>({
+    mode: "onChange",
+  });
 
   return (
     <ProductFormContext.Provider value={{ form, isEditMode, productId }}>

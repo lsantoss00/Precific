@@ -6,7 +6,10 @@ import Column from "@/src/components/core/column";
 
 const PricingForm = () => {
   const { form } = useProductForm();
-  const { register } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   return (
     <Card className="h-full w-full p-6 rounded-md flex space-y-6">
@@ -32,6 +35,7 @@ const PricingForm = () => {
             {...register("sales_icms", {
               required: "Campo obrigatório",
             })}
+            error={errors.sales_icms?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -45,6 +49,7 @@ const PricingForm = () => {
             {...register("sales_pis_cofins", {
               required: "Campo obrigatório",
             })}
+            error={errors.sales_pis_cofins?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -73,7 +78,10 @@ const PricingForm = () => {
             id="profit"
             type="number"
             placeholder="0,00%"
-            {...register("profit")}
+            {...register("profit", {
+              required: "Campo obrigatório",
+            })}
+            error={errors.profit?.message}
           />
         </Column>
       </form>
