@@ -1,8 +1,8 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
-import { ProductRequestType } from "../types/product-type";
+import { ProductType } from "../types/product-type";
 
 interface PostProductProps {
-  product: ProductRequestType;
+  product: ProductType;
 }
 
 export async function postProduct({ product }: PostProductProps) {
