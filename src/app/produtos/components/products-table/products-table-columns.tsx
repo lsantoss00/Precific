@@ -6,7 +6,7 @@ import Show from "@/src/components/core/show";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
-import { ProductType } from "../../types/product-type";
+import { ProductResponseType } from "../../types/product-type";
 
 interface ProductTableMeta {
   onDeleteProduct: (id: string) => void;
@@ -14,7 +14,7 @@ interface ProductTableMeta {
   onPriceProduct: (id: string) => void;
 }
 
-export const productsTableColumns: ColumnDef<Partial<ProductType>>[] = [
+export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "sku",
     header: "SKU",
