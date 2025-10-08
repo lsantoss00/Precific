@@ -21,14 +21,11 @@ const ProductForm = ({ productId }: ProductFormProps) => {
   const router = useRouter();
   const { form, isEditMode } = useProductForm();
 
-  const { data: product, isPending: pendingProduct } = useQuery({
+  const { data: product } = useQuery({
     queryFn: () => getProductById({ productId: productId! }),
     queryKey: ["product", productId],
     enabled: !!productId && isEditMode,
   });
-
-  console.log("productId", productId);
-  console.log("product", product);
 
   useEffect(() => {
     if (product && isEditMode) {
@@ -68,6 +65,8 @@ const ProductForm = ({ productId }: ProductFormProps) => {
     )();
   };
 
+  const isFormValid = form.formState.isValid;
+
   return (
     <Row className="w-full h-full space-x-2">
       <ProductDetailsForm />
@@ -78,7 +77,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <Button
         className="h-full w-20"
         onClick={handleNext}
-        disabled={isEditMode && pendingProduct}
+        disabled={!isFormValid}
       >
         <ChevronRight className="!w-12 !h-12" />
       </Button>

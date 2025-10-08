@@ -5,34 +5,31 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { useProductForm } from "@/src/contexts/product-form-context";
-import { useAuth } from "@/src/hooks/use-auth";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
+import { updateProduct } from "../services/update-product";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
 const ProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
   const { form, isEditMode, productId } = useProductForm();
 
-  const formData = form.watch();
+  const data = form.watch();
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
-
       toast.success("Produto adicionado com sucesso!", {
         className: "!bg-green-600/80 !text-white",
       });
-
       router.push("/produtos");
     },
     onError: (error) => {
@@ -42,15 +39,36 @@ const ProductResult = () => {
     },
   });
 
-  const handleFinishAddingProduct = () => {
-    const payload = {
-      id: isEditMode ? productId : undefined,
-      user_id: user?.id || "",
-      ...formData,
-    };
+  const { mutate: update, isPending: pendingUpdateProduct } = useMutation({
+    mutationFn: updateProduct,
+    onSuccess: async () => {
+      await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Produto atualizado com sucesso!", {
+        className: "!bg-green-600/80 !text-white",
+      });
+      router.push("/produtos");
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        className: "!bg-red-600/80 !text-white",
+      });
+    },
+  });
 
-    post({ product: payload });
+  const handleFinishForm = () => {
+    if (isEditMode && productId) {
+      const updateProductPayload = {
+        id: productId,
+        ...data,
+      };
+
+      return update({ product: updateProductPayload });
+    }
+
+    post({ product: data });
   };
+
+  const pending = pendingPostProduct || pendingUpdateProduct;
 
   const handleGoBack = () => {
     const path =
@@ -137,10 +155,13 @@ const ProductResult = () => {
           </div>
           <Button
             className="w-30 flex self-end mt-auto"
-            onClick={handleFinishAddingProduct}
-            disabled={pendingPostProduct}
+            onClick={handleFinishForm}
+            disabled={pending}
           >
-            {pendingPostProduct ? "Salvando..." : "Finalizar"}
+            <Show when={pending}>
+              <Loader2Icon className="animate-spin" />
+            </Show>
+            Finalizar
           </Button>
         </Show>
       </Card>
