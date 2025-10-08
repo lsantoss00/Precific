@@ -1,8 +1,8 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
-import { ProductType } from "../types/product-type";
+import { ProductResponseType } from "../types/product-type";
 
 interface DeleteProductProps {
-  productId: ProductType["id"];
+  productId: ProductResponseType["id"];
 }
 
 export async function deleteProduct({ productId }: DeleteProductProps) {
