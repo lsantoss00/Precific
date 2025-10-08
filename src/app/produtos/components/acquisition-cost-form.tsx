@@ -3,11 +3,23 @@
 import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
   const { form } = useProductForm();
   const { register } = form;
+
+  const data = form.watch();
+
+  const acquisitionCostValue = acquisitionCostCalc({
+    icms: data.icms ?? 0,
+    icms_st: data.icms_st ?? 0,
+    ipi: data.ipi ?? 0,
+    others: data.others ?? 0,
+    pis_cofins: data?.pis_cofins ?? 0,
+    unit_price: data?.unit_price ?? 0,
+  });
 
   return (
     <Card className="h-full w-full p-6 rounded-md flex space-y-6">
@@ -80,7 +92,10 @@ const AcquisitionCostForm = () => {
           />
         </Column>
       </form>
-      <MetricCard title="Valor final de Aquisição" value={100} />
+      <MetricCard
+        title="Valor final de Aquisição"
+        value={acquisitionCostValue}
+      />
     </Card>
   );
 };
