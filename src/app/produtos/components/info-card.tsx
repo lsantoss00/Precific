@@ -12,7 +12,7 @@ const InfoCard = ({ title, value, icon }: InfoCardProps) => {
     <Card className="p-6 flex flex-row justify-between items-center w-full h-28 rounded-md shadow-xs">
       <Column className="justify-between">
         <h3>{title}</h3>
-        <p className="text-3xl">{value}</p>
+        <p className="text-3xl font-medium">{value}</p>
       </Column>
       <Column>{icon}</Column>
     </Card>
