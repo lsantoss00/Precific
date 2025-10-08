@@ -55,8 +55,8 @@ const RecoveryPasswordForm = () => {
       className="space-y-4 my-10 flex flex-col justify-between"
     >
       <Column className="space-y-2">
-        <Label htmlFor="email" className="">
-          E-mail<span className="text-red-500">*</span>
+        <Label htmlFor="email" required>
+          E-mail
         </Label>
         <Controller
           name="email"
