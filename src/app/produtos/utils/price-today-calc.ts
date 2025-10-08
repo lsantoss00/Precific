@@ -1,5 +1,5 @@
 interface PriceTodayCalcProps {
-  finalAcquisitionValue: number;
+  acquisitionCost: number;
   fixedCosts: number;
   shipping: number;
   othersCost: number;
@@ -9,7 +9,7 @@ interface PriceTodayCalcProps {
 }
 
 export function priceTodayCalc({
-  finalAcquisitionValue,
+  acquisitionCost,
   fixedCosts,
   shipping,
   othersCost,
@@ -18,8 +18,8 @@ export function priceTodayCalc({
   salesPisCofins,
 }: PriceTodayCalcProps): number {
   const value =
-    finalAcquisitionValue +
-    finalAcquisitionValue * (fixedCosts + shipping + othersCost + profit);
+    acquisitionCost +
+    acquisitionCost * (fixedCosts + shipping + othersCost + profit);
 
   const priceToday = value / (1 - salesIcms - salesPisCofins * (1 - salesIcms));
 

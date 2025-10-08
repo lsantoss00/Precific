@@ -12,7 +12,7 @@ const AcquisitionCostForm = () => {
 
   const data = form.watch();
 
-  const acquisitionCostValue = acquisitionCostCalc({
+  const acquisitionCost = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
@@ -92,10 +92,7 @@ const AcquisitionCostForm = () => {
           />
         </Column>
       </form>
-      <MetricCard
-        title="Valor final de Aquisição"
-        value={acquisitionCostValue}
-      />
+      <MetricCard title="Valor final de Aquisição" value={acquisitionCost} />
     </Card>
   );
 };

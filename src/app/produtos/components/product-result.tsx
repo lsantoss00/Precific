@@ -13,6 +13,9 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
+import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
+import { priceTodayCalc } from "../utils/price-today-calc";
+import { pricingCalc } from "../utils/pricing-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
@@ -20,8 +23,6 @@ const ProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { form, isEditMode, productId } = useProductForm();
-
-  const data = form.watch();
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,
@@ -55,6 +56,58 @@ const ProductResult = () => {
     },
   });
 
+  const data = form.watch();
+  const pending = pendingPostProduct || pendingUpdateProduct;
+
+  const acquisitionCost = acquisitionCostCalc({
+    unitPrice: data?.unit_price ?? 0,
+    icms: data.icms ?? 0,
+    pisCofins: data?.pis_cofins ?? 0,
+    icmsSt: data.icms_st ?? 0,
+    ipi: data.ipi ?? 0,
+    others: data.others ?? 0,
+  });
+
+  const priceToday = priceTodayCalc({
+    acquisitionCost,
+    fixedCosts: data?.fixed_costs ?? 0,
+    othersCost: data?.other_costs ?? 0,
+    profit: data?.profit ?? 0,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    shipping: data?.shipping ?? 0,
+  });
+
+  const pricing2026 = pricingCalc({
+    ibsRate: 0.1,
+    cbsRate: 0.9,
+    priceToday,
+  });
+
+  const metrics2025: MetricCardProps[] = [
+    {
+      title: "Valor final de aquisição",
+      value: acquisitionCost,
+    },
+    { title: "Outros Custos", value: data?.other_costs ?? 0 },
+    { title: "Custos Fixos", value: data?.fixed_costs ?? 0 },
+    { title: "ICMS + PIS/COFINS", value: data?.icms + data?.pis_cofins },
+    { title: "Frete", value: data?.shipping ?? 0 },
+    {
+      title: "Margem de Lucro",
+      value: data?.profit,
+      variant: "success" as const,
+    },
+  ];
+
+  const metrics2026: MetricCardProps[] = [
+    {
+      title: "IBS (0.1%)",
+      value: 0,
+    },
+    { title: "CBS (0.9%)", value: 0 },
+  ];
+
   const handleFinishForm = () => {
     if (isEditMode && productId) {
       const updateProductPayload = {
@@ -67,8 +120,6 @@ const ProductResult = () => {
 
     post({ product: data });
   };
-
-  const pending = pendingPostProduct || pendingUpdateProduct;
 
   const handleGoBack = () => {
     const path =
@@ -117,7 +168,7 @@ const ProductResult = () => {
               </div>
               <MetricCard
                 title="Preço de Venda Final"
-                value={2.5}
+                value={priceToday}
                 variant="secondary"
               />
             </Column>
@@ -148,7 +199,7 @@ const ProductResult = () => {
               </Column>
               <MetricCard
                 title="Valor Total da NF-e"
-                value={2.5}
+                value={pricing2026}
                 variant="secondary"
               />
             </Column>
@@ -170,22 +221,3 @@ const ProductResult = () => {
 };
 
 export default ProductResult;
-
-const metrics2025: MetricCardProps[] = [
-  {
-    title: "Valor final de aquisição",
-    value: 250,
-  },
-  { title: "Outros Custos", value: 150 },
-  { title: "Custos Fixos", value: 2.5 },
-  { title: "ICMS + PIS/COFINS", value: 2.5 },
-  { title: "Frete", value: 2.5 },
-  { title: "Margem de Lucro", value: 60, variant: "success" as const },
-];
-const metrics2026: MetricCardProps[] = [
-  {
-    title: "IBS (0.1%)",
-    value: 250,
-  },
-  { title: "CBS (0.9%)", value: 150 },
-];
