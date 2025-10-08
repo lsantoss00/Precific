@@ -1,16 +1,12 @@
 "use client";
 
 import AuthGuard from "@/src/components/core/auth-guard";
-import Column from "@/src/components/core/column";
-import ProductResult from "../../components/product-result";
+import ProductFormResultPageContent from "../../components/product-form-result-page-content";
 
 export default function ProductFormResultPage() {
   return (
     <AuthGuard requireAuth>
-      <Column className="w-full h-full pt-28 pb-10 xl:pl-12 xl:pr-20 space-y-3">
-        <h2 className="text-3xl text-black font-bold">Resultado</h2>
-        <ProductResult />
-      </Column>
+      <ProductFormResultPageContent />
     </AuthGuard>
   );
 }
