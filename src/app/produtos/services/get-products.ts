@@ -3,12 +3,14 @@ import {
   PaginatedResponseType,
   PaginationParamsType,
 } from "@/src/types/pagination-type";
-import { ProductType } from "../types/product-type";
+import { ProductResponseType } from "../types/product-type";
 
 export async function getProducts({
   page = 1,
   pageSize = 10,
-}: PaginationParamsType = {}): Promise<PaginatedResponseType<ProductType>> {
+}: PaginationParamsType = {}): Promise<
+  PaginatedResponseType<ProductResponseType>
+> {
   const {
     data: { session },
   } = await supabaseClient.auth.getSession();
