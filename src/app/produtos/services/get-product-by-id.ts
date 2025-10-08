@@ -1,8 +1,8 @@
 import { supabaseClient } from "@/src/libs/supabase/client";
-import { ProductResponseType } from "../types/product-type";
+import { ProductRequestType, ProductResponseType } from "../types/product-type";
 
 interface GetProductByIdProps {
-  productId: ProductResponseType["id"];
+  productId: ProductRequestType["id"];
 }
 
 export async function getProductById({
