@@ -3,7 +3,7 @@
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../hooks/use-auth";
 import {
   Separator,
@@ -23,6 +23,7 @@ export function AppSidebar() {
   const { user } = useAuth();
   const { state } = useSidebar();
   const pathname = usePathname();
+  const router = useRouter();
 
   const isCollapsed = state === "collapsed";
 
@@ -40,6 +41,8 @@ export function AppSidebar() {
                 width={60}
                 height={60}
                 quality={100}
+                className="hover:cursor-pointer"
+                onClick={() => router.push("/")}
               />
             ) : (
               <Image
@@ -48,6 +51,8 @@ export function AppSidebar() {
                 width={220}
                 height={40}
                 quality={100}
+                className="hover:cursor-pointer"
+                onClick={() => router.push("/")}
               />
             )}
           </SidebarHeader>
