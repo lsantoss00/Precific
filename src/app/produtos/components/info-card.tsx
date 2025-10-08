@@ -3,7 +3,7 @@ import Column from "@/src/components/core/column";
 
 interface InfoCardProps {
   title: string;
-  value: string;
+  value: string | number;
   icon: React.ReactNode;
 }
 

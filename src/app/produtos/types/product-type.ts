@@ -36,3 +36,10 @@ export type ProductResponseType = ProductType & {
 export type ProductRequestType = Partial<ProductType> & {
   id: string;
 };
+
+export type ProductSummariesResponseType = {
+  registered_products: number;
+  precified_products: number;
+  active_products: number;
+  inactive_products: number;
+};
