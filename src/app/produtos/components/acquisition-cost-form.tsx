@@ -8,15 +8,21 @@ const AcquisitionCostForm = () => {
       <h3>Custo de Aquisição</h3>
       <form className="grid grid-cols-2 gap-4">
         <Column className="space-y-2">
-          <Label htmlFor="unitPrice">Preço Unitário NF-e (R$)</Label>
+          <Label htmlFor="unitPrice" required>
+            Preço Unitário NF-e (R$)
+          </Label>
           <Input id="unitPrice" type="number" placeholder="R$ 0,00" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="icms">ICMS (%)</Label>
+          <Label htmlFor="icms" required>
+            ICMS (%)
+          </Label>
           <Input id="icms" type="number" placeholder="0,00" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="pisCofins">PIS/COFINS (%)</Label>
+          <Label htmlFor="pisCofins" required>
+            PIS/COFINS (%)
+          </Label>
           <Input id="pisCofins" type="number" placeholder="0,00" />
         </Column>
         <Column className="space-y-2">

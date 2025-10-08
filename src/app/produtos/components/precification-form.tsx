@@ -11,12 +11,16 @@ const PrecificationForm = () => {
           <Input id="fixedCosts" type="number" placeholder="0,00%" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="icms">ICMS Venda (%)</Label>
+          <Label htmlFor="icms" required>
+            ICMS Venda (%)
+          </Label>
           <Input id="icms" type="number" placeholder="0,00%" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="pisCofins">PIS/COFINS Venda (%)</Label>
-          <Input id="pisCofins" type="number" placeholder="0,00%" />
+          <Label htmlFor="pisCofinsSell" required>
+            PIS/COFINS Venda (%)
+          </Label>
+          <Input id="pisCofinsSell" type="number" placeholder="0,00%" />
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="freight">Frete (%)</Label>
@@ -27,7 +31,9 @@ const PrecificationForm = () => {
           <Input id="otherCosts" type="number" placeholder="0,00%" />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="profitMargin">Margem de Lucro (%)</Label>
+          <Label htmlFor="profitMargin" required>
+            Margem de Lucro (%)
+          </Label>
           <Input id="profitMargin" type="number" placeholder="0,00%" />
         </Column>
       </form>

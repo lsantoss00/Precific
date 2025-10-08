@@ -7,7 +7,9 @@ const ProductDetailsForm = () => {
       <h3>Detalhes do Produto</h3>
       <form className="flex flex-col space-y-4">
         <Column className="space-y-2">
-          <Label htmlFor="productName">Nome do Produto</Label>
+          <Label htmlFor="productName" required>
+            Nome do Produto
+          </Label>
           <Input
             id="productName"
             type="text"
