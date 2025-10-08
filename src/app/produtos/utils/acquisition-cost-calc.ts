@@ -1,22 +1,21 @@
 interface AcquisitionCostCalcProps {
-  unit_price: number;
+  unitPrice: number;
   icms: number;
-  pis_cofins: number;
-  icms_st: number;
+  pisCofins: number;
+  icmsSt: number;
   ipi: number;
   others: number;
 }
 
 export function acquisitionCostCalc({
-  unit_price,
+  unitPrice,
   icms,
-  pis_cofins,
-  icms_st,
+  pisCofins,
+  icmsSt,
   ipi,
   others,
 }: AcquisitionCostCalcProps): number {
-  const acquistionCost =
-    unit_price - icms - pis_cofins + icms_st + ipi + others;
+  const acquistionCost = unitPrice - icms - pisCofins + icmsSt + ipi + others;
 
   return acquistionCost;
 }
