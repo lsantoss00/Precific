@@ -4,7 +4,7 @@ import { useProductForm } from "@/src/app/produtos/contexts/product-form-context
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 
-const PrecificationForm = () => {
+const PricingForm = () => {
   const { form } = useProductForm();
   const { register } = form;
 
@@ -81,4 +81,4 @@ const PrecificationForm = () => {
   );
 };
 
-export default PrecificationForm;
+export default PricingForm;

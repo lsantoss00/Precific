@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { getProductById } from "../services/get-product-by-id";
 import { ProductResponseType } from "../types/product-type";
 import AcquisitionCostForm from "./acquisition-cost-form";
-import PrecificationForm from "./precification-form";
+import PricingForm from "./pricing-form";
 import ProductDetailsForm from "./product-details-form";
 
 interface ProductFormProps {
@@ -73,7 +73,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" />
       <AcquisitionCostForm />
       <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" />
-      <PrecificationForm />
+      <PricingForm />
       <Button
         className="h-full w-20"
         onClick={handleNext}
