@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${inter.className} antialiased bg-[url('/app-background-image.svg')] bg-cover bg-center bg-no-repeat bg-fixed`}
+        className={`${inter.className} antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed`}
       >
         <Providers>
           <AppHeader />
