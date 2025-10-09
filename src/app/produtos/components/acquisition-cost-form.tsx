@@ -38,6 +38,10 @@ const AcquisitionCostForm = () => {
             placeholder="R$ 0,00"
             {...register("unit_price", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.unit_price?.message}
@@ -53,6 +57,10 @@ const AcquisitionCostForm = () => {
             placeholder="0,00%"
             {...register("icms", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.icms?.message}
@@ -68,6 +76,10 @@ const AcquisitionCostForm = () => {
             placeholder="0,00%"
             {...register("pis_cofins", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.pis_cofins?.message}
@@ -79,7 +91,13 @@ const AcquisitionCostForm = () => {
             id="icms_st"
             type="number"
             placeholder="0,00%"
-            {...register("icms_st", { valueAsNumber: true })}
+            {...register("icms_st", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
         <Column className="space-y-2">
@@ -88,7 +106,13 @@ const AcquisitionCostForm = () => {
             id="ipi"
             type="number"
             placeholder="0,00%"
-            {...register("ipi", { valueAsNumber: true })}
+            {...register("ipi", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
         <Column className="space-y-2">
@@ -97,7 +121,13 @@ const AcquisitionCostForm = () => {
             id="others"
             type="number"
             placeholder="0,00%"
-            {...register("others", { valueAsNumber: true })}
+            {...register("others", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
       </form>

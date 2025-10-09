@@ -21,7 +21,13 @@ const PricingForm = () => {
             id="fixed_costs"
             type="number"
             placeholder="0,00%"
-            {...register("fixed_costs", { valueAsNumber: true })}
+            {...register("fixed_costs", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
         <Column className="space-y-2">
@@ -34,6 +40,10 @@ const PricingForm = () => {
             placeholder="0,00%"
             {...register("sales_icms", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.sales_icms?.message}
@@ -49,6 +59,10 @@ const PricingForm = () => {
             placeholder="0,00%"
             {...register("sales_pis_cofins", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.sales_pis_cofins?.message}
@@ -60,7 +74,13 @@ const PricingForm = () => {
             id="shipping"
             type="number"
             placeholder="0,00%"
-            {...register("shipping", { valueAsNumber: true })}
+            {...register("shipping", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
         <Column className="space-y-2">
@@ -69,7 +89,13 @@ const PricingForm = () => {
             id="other_costs"
             type="number"
             placeholder="0,00%"
-            {...register("other_costs", { valueAsNumber: true })}
+            {...register("other_costs", {
+              valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
+            })}
           />
         </Column>
         <Column className="space-y-2">
@@ -82,6 +108,10 @@ const PricingForm = () => {
             placeholder="0,00%"
             {...register("profit", {
               valueAsNumber: true,
+              setValueAs: (value) =>
+                value === "" || value === null || isNaN(value)
+                  ? 0
+                  : Number(value),
               required: "Campo obrigatório",
             })}
             error={errors.profit?.message}
