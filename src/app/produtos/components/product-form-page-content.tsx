@@ -1,13 +1,9 @@
 "use client";
 
-import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
-import Show from "@/src/components/core/show";
-import { ScrollText } from "lucide-react";
 import { useProductForm } from "../contexts/product-form-context";
 import ProductForm from "./product-form";
-import ProductsDialog from "./products-dialog";
 
 const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
@@ -18,7 +14,7 @@ const ProductFormPageContent = () => {
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}
         </h2>
-        <Show when={isEditMode}>
+        {/* <Show when={isEditMode}>
           <ProductsDialog
             trigger={
               <Button className="cursor-pointer">
@@ -26,7 +22,7 @@ const ProductFormPageContent = () => {
               </Button>
             }
           />
-        </Show>
+        </Show> */}
       </Row>
       <ProductForm productId={productId} />
     </Column>
