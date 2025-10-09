@@ -2,7 +2,7 @@ import Link from "next/link";
 import WhatsAppIcon from "../../public/whatsapp-logo.svg";
 
 const WhatsAppHelpLink = () => {
-  const whatsAppNumber = "5511991668762";
+  const whatsAppNumber = "+552122929071";
 
   // %20 = space
   // %C3%A1 = á
