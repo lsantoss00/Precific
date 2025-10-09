@@ -4,15 +4,12 @@ import { NextResponse } from "next/server";
 
 const publicRoutes = ["/entrar", "/redefinir-senha", "/criar-nova-senha"];
 
-const privateRoutes = ["/", "/produtos"];
+function isPublicRoute(pathname: string): boolean {
+  return publicRoutes.some((route) => pathname === route);
+}
 
 function isPrivateRoute(pathname: string): boolean {
-  return privateRoutes.some((route) => {
-    if (pathname === route || pathname.startsWith(route + "/")) {
-      return true;
-    }
-    return false;
-  });
+  return pathname.startsWith("/produtos");
 }
 
 export async function middleware(req: NextRequest) {
@@ -24,6 +21,14 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
 
   const { pathname } = req.nextUrl;
+
+  if (pathname === "/" && !session) {
+    return NextResponse.redirect(new URL("/entrar", req.url));
+  }
+
+  if (pathname === "/" && session) {
+    return NextResponse.redirect(new URL("/produtos", req.url));
+  }
 
   if (isPrivateRoute(pathname) && !session) {
     const redirectUrl = new URL("/entrar", req.url);
