@@ -1,5 +1,3 @@
-import Decimal from "decimal.js";
-
 interface PriceTodayCalcProps {
   acquisitionCost: number;
   fixedCosts: number;
@@ -19,24 +17,17 @@ export function priceTodayCalc({
   salesIcms,
   salesPisCofins,
 }: PriceTodayCalcProps): number {
-  const acq = new Decimal(acquisitionCost);
-  const percentSum = new Decimal(fixedCosts)
-    .plus(shipping)
-    .plus(othersCost)
-    .plus(profit)
-    .dividedBy(100);
+  const percentSum = (fixedCosts + shipping + othersCost + profit) / 100;
 
-  const value = acq.plus(acq.times(percentSum));
+  const value = acquisitionCost + acquisitionCost * percentSum;
 
-  const denominator = new Decimal(1)
-    .minus(new Decimal(salesIcms).dividedBy(100))
-    .minus(
-      new Decimal(salesPisCofins)
-        .dividedBy(100)
-        .times(new Decimal(1).minus(new Decimal(salesIcms).dividedBy(100)))
-    );
+  const salesIcmsPercent = salesIcms / 100;
+  const salesPisCofinsPercent = salesPisCofins / 100;
 
-  const priceToday = value.dividedBy(denominator);
+  const denominator =
+    1 - salesIcmsPercent - salesPisCofinsPercent * (1 - salesIcmsPercent);
 
-  return priceToday.toDecimalPlaces(2).toNumber();
+  const priceToday = value / denominator;
+
+  return Number(priceToday.toFixed(2));
 }
