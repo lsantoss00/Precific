@@ -24,8 +24,7 @@ export function priceTodayCalc({
   const salesIcmsPercent = salesIcms / 100;
   const salesPisCofinsPercent = salesPisCofins / 100;
 
-  const denominator =
-    1 - salesIcmsPercent - salesPisCofinsPercent * (1 - salesIcmsPercent);
+  const denominator = 1 - salesIcmsPercent - salesPisCofinsPercent; // GABRIELA MANDOU TIRAR: * (1 - salesIcmsPercent)
 
   const priceToday = value / denominator;
 
