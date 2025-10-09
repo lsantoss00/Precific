@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/src/hooks/use-auth";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -17,13 +17,14 @@ const AuthGuard = ({
 }: AuthGuardProps) => {
   const router = useRouter();
   const { isAuthenticated, loading } = useAuth();
-  const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
 
-  useEffect(() => {
+  const isRecoveryFlow = useMemo(() => {
+    if (typeof window === "undefined") return false;
     const hash = window.location.hash;
-    if (hash.includes("type=recovery")) {
-      setIsRecoveryFlow(true);
-    }
+
+    console.log("@@@@", hash);
+    console.log("@@@@", hash.includes("type=recovery"));
+    return hash.includes("type=recovery");
   }, []);
 
   useEffect(() => {
@@ -32,7 +33,6 @@ const AuthGuard = ({
     if (isRecoveryFlow) return;
 
     const shouldRedirect = requireAuth ? !isAuthenticated : isAuthenticated;
-
     if (shouldRedirect) {
       router.push(redirectTo);
     }
@@ -58,10 +58,7 @@ const AuthGuard = ({
   }
 
   const hasAccess = requireAuth ? isAuthenticated : !isAuthenticated;
-
-  if (!hasAccess) {
-    return null;
-  }
+  if (!hasAccess) return null;
 
   return <>{children}</>;
 };
