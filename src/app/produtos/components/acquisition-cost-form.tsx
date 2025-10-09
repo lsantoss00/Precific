@@ -37,6 +37,7 @@ const AcquisitionCostForm = () => {
             type="number"
             placeholder="R$ 0,00"
             {...register("unit_price", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.unit_price?.message}
@@ -51,6 +52,7 @@ const AcquisitionCostForm = () => {
             type="number"
             placeholder="0,00%"
             {...register("icms", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.icms?.message}
@@ -65,6 +67,7 @@ const AcquisitionCostForm = () => {
             type="number"
             placeholder="0,00%"
             {...register("pis_cofins", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.pis_cofins?.message}
@@ -76,7 +79,7 @@ const AcquisitionCostForm = () => {
             id="icms_st"
             type="number"
             placeholder="0,00%"
-            {...register("icms_st")}
+            {...register("icms_st", { valueAsNumber: true })}
           />
         </Column>
         <Column className="space-y-2">
@@ -85,7 +88,7 @@ const AcquisitionCostForm = () => {
             id="ipi"
             type="number"
             placeholder="0,00%"
-            {...register("ipi")}
+            {...register("ipi", { valueAsNumber: true })}
           />
         </Column>
         <Column className="space-y-2">
@@ -94,7 +97,7 @@ const AcquisitionCostForm = () => {
             id="others"
             type="number"
             placeholder="0,00%"
-            {...register("others")}
+            {...register("others", { valueAsNumber: true })}
           />
         </Column>
       </form>

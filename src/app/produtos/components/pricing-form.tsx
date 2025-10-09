@@ -21,7 +21,7 @@ const PricingForm = () => {
             id="fixed_costs"
             type="number"
             placeholder="0,00%"
-            {...register("fixed_costs")}
+            {...register("fixed_costs", { valueAsNumber: true })}
           />
         </Column>
         <Column className="space-y-2">
@@ -33,6 +33,7 @@ const PricingForm = () => {
             type="number"
             placeholder="0,00%"
             {...register("sales_icms", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.sales_icms?.message}
@@ -47,6 +48,7 @@ const PricingForm = () => {
             type="number"
             placeholder="0,00%"
             {...register("sales_pis_cofins", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.sales_pis_cofins?.message}
@@ -58,7 +60,7 @@ const PricingForm = () => {
             id="shipping"
             type="number"
             placeholder="0,00%"
-            {...register("shipping")}
+            {...register("shipping", { valueAsNumber: true })}
           />
         </Column>
         <Column className="space-y-2">
@@ -67,7 +69,7 @@ const PricingForm = () => {
             id="other_costs"
             type="number"
             placeholder="0,00%"
-            {...register("other_costs")}
+            {...register("other_costs", { valueAsNumber: true })}
           />
         </Column>
         <Column className="space-y-2">
@@ -79,6 +81,7 @@ const PricingForm = () => {
             type="number"
             placeholder="0,00%"
             {...register("profit", {
+              valueAsNumber: true,
               required: "Campo obrigatório",
             })}
             error={errors.profit?.message}
