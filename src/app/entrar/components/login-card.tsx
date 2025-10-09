@@ -6,7 +6,7 @@ import LoginForm from "./login-form";
 
 const LoginCard = () => {
   return (
-    <Card className="rounded-2xl p-6 shadow-sm w-full max-w-125 max-h-125 flex justify-center bg-white/60">
+    <Card className="rounded-2xl p-6 shadow-sm w-full max-w-125 max-h-125 flex justify-center bg-white">
       <Image
         src="/precific-logo.png"
         alt="precific-logo"

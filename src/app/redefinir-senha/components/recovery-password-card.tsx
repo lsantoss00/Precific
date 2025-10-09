@@ -6,7 +6,7 @@ import RecoveryPasswordForm from "./recovery-password-form";
 
 const RecoveryPasswordCard = () => {
   return (
-    <Card className="rounded-2xl p-6 border shadow-sm max-w-125 w-full max-h-125 flex justify-center bg-white/60">
+    <Card className="rounded-2xl p-6 border shadow-sm max-w-125 w-full max-h-125 flex justify-center bg-white">
       <Image
         src="/precific-logo.png"
         alt="precific-logo"
