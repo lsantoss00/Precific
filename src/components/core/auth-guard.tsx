@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/src/hooks/use-auth";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -11,21 +11,21 @@ interface AuthGuardProps {
   allowRecovery?: boolean;
 }
 
-const AuthGuard = ({
+const AuthGuardContent = ({
   children,
   requireAuth = true,
   redirectTo = "/entrar",
   allowRecovery = false,
 }: AuthGuardProps) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = allowRecovery ? useSearchParams() : null;
   const { isAuthenticated, loading } = useAuth();
   const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
 
   useEffect(() => {
     if (loading) return;
 
-    if (allowRecovery) {
+    if (allowRecovery && searchParams) {
       const type = searchParams.get("type");
       const token = searchParams.get("token");
 
@@ -69,6 +69,24 @@ const AuthGuard = ({
   }
 
   return <>{children}</>;
+};
+
+const AuthGuard = (props: AuthGuardProps) => {
+  if (props.allowRecovery) {
+    return (
+      <Suspense
+        fallback={
+          <div className="w-full h-screen flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#66289B]" />
+          </div>
+        }
+      >
+        <AuthGuardContent {...props} />
+      </Suspense>
+    );
+  }
+
+  return <AuthGuardContent {...props} />;
 };
 
 export default AuthGuard;
