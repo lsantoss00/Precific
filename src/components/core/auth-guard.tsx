@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/src/hooks/use-auth";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 interface AuthGuardProps {
@@ -16,7 +16,6 @@ const AuthGuard = ({
   redirectTo = "/entrar",
 }: AuthGuardProps) => {
   const router = useRouter();
-  const pathname = usePathname();
   const { isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
@@ -37,10 +36,6 @@ const AuthGuard = ({
     );
   }
   const hasAccess = requireAuth ? isAuthenticated : !isAuthenticated;
-
-  if (pathname?.includes("/type=recovery") && pathname?.includes("token")) {
-    router.push("/criar-nova-senha");
-  }
 
   if (!hasAccess) {
     return null;
