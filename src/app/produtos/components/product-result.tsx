@@ -119,20 +119,6 @@ const ProductResult = () => {
     .toNumber();
 
   const metrics2025: MetricCardProps[] = [
-    // remover
-    {
-      title: "Resultado do AcquisitionCost",
-      value: acquisitionCost,
-    },
-    {
-      title: "Resultado do PriceToday",
-      value: priceToday,
-    },
-    {
-      title: "Resultado do Pricing2026",
-      value: 10,
-    },
-    //
     {
       title: "Valor final de aquisição",
       value: acquisitionCost,
