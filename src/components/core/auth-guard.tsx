@@ -21,19 +21,24 @@ const AuthGuardContent = ({
   const searchParams = allowRecovery ? useSearchParams() : null;
   const { isAuthenticated, loading } = useAuth();
   const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
+  const [hasCheckedRecovery, setHasCheckedRecovery] = useState(false);
 
   useEffect(() => {
-    if (loading) return;
-
     if (allowRecovery && searchParams) {
       const type = searchParams.get("type");
       const token = searchParams.get("token");
 
       if (type === "recovery" && token) {
         setIsRecoveryFlow(true);
-        return;
       }
     }
+    setHasCheckedRecovery(true);
+  }, [allowRecovery, searchParams]);
+
+  useEffect(() => {
+    if (loading || !hasCheckedRecovery) return;
+
+    if (isRecoveryFlow) return;
 
     const shouldRedirect = requireAuth ? !isAuthenticated : isAuthenticated;
 
@@ -46,11 +51,11 @@ const AuthGuardContent = ({
     requireAuth,
     redirectTo,
     router,
-    allowRecovery,
-    searchParams,
+    isRecoveryFlow,
+    hasCheckedRecovery,
   ]);
 
-  if (loading) {
+  if (loading || (allowRecovery && !hasCheckedRecovery)) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#66289B]" />
