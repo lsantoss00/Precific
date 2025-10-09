@@ -116,7 +116,7 @@ const ProductsTable = () => {
                 <TableRow>
                   <TableCell
                     colSpan={productsTableColumns.length}
-                    className="h-24 w-full text-center flex flex-col items-center justify-center space-y-2"
+                    className="h-24 text-center"
                   >
                     Carregando...
                   </TableCell>
