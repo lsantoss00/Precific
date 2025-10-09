@@ -70,6 +70,15 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
   },
   {
+    accessorKey: "status",
+    header: "STATUS",
+    cell: ({ row }) => (
+      <div className="uppercase truncate text-ellipsis">
+        {row.getValue("status")}
+      </div>
+    ),
+  },
+  {
     id: "actions",
     enableHiding: false,
     cell: ({ row, table }) => {
