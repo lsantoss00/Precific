@@ -21,28 +21,40 @@ const AuthGuardContent = ({
   const searchParams = allowRecovery ? useSearchParams() : null;
   const { isAuthenticated, loading } = useAuth();
   const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
-  const [hasCheckedRecovery, setHasCheckedRecovery] = useState(false);
 
   useEffect(() => {
-    if (allowRecovery && searchParams) {
-      const type = searchParams.get("type");
-      const token = searchParams.get("token");
+    if (!allowRecovery) return;
 
-      if (type === "recovery" && token) {
-        setIsRecoveryFlow(true);
-      }
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+
+    const type =
+      searchParams?.get("type") ||
+      urlParams.get("type") ||
+      hashParams.get("type");
+    const token =
+      searchParams?.get("token") ||
+      urlParams.get("token") ||
+      hashParams.get("access_token");
+
+    if (type === "recovery" && token) {
+      console.log("✅ Recovery flow detectado!");
+      setIsRecoveryFlow(true);
     }
-    setHasCheckedRecovery(true);
   }, [allowRecovery, searchParams]);
 
   useEffect(() => {
-    if (loading || !hasCheckedRecovery) return;
+    if (loading) return;
 
-    if (isRecoveryFlow) return;
+    if (isRecoveryFlow) {
+      console.log("⏸️ Bloqueando redirect - é recovery flow");
+      return;
+    }
 
     const shouldRedirect = requireAuth ? !isAuthenticated : isAuthenticated;
 
     if (shouldRedirect) {
+      console.log("🔄 Redirecionando para:", redirectTo);
       router.push(redirectTo);
     }
   }, [
@@ -52,10 +64,9 @@ const AuthGuardContent = ({
     redirectTo,
     router,
     isRecoveryFlow,
-    hasCheckedRecovery,
   ]);
 
-  if (loading || (allowRecovery && !hasCheckedRecovery)) {
+  if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#66289B]" />
