@@ -22,8 +22,6 @@ const AuthGuard = ({
     if (typeof window === "undefined") return false;
     const hash = window.location.hash;
 
-    console.log("@@@@", hash);
-    console.log("@@@@", hash.includes("type=recovery"));
     return hash.includes("type=recovery");
   }, []);
 
