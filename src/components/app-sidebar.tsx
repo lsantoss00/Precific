@@ -134,9 +134,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="items-center mb-2">
-        <span className="text-[#66289B] text-xs font-medium">
-          Versão MVP - authtest
-        </span>
+        <span className="text-[#66289B] text-xs font-medium">Versão MVP</span>
       </SidebarFooter>
     </Sidebar>
   );
