@@ -4,7 +4,6 @@ import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useMemo } from "react";
 import { useAuth } from "../hooks/use-auth";
 import {
   Separator,
@@ -28,13 +27,7 @@ export function AppSidebar() {
 
   const isCollapsed = state === "collapsed";
 
-  const isRecoveryFlow = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    const hash = window.location.hash;
-    return hash.includes("type=recovery");
-  }, []);
-
-  if (!user || isRecoveryFlow) return null;
+  if (!user) return null;
 
   return (
     <Sidebar collapsible="icon">
