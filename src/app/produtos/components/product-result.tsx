@@ -7,6 +7,7 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
+import Decimal from "decimal.js";
 import { ChevronLeft, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,7 +16,6 @@ import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
-import { pricingCalc } from "../utils/pricing-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
@@ -78,24 +78,90 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
   });
 
-  const pricing2026 = pricingCalc({
-    ibsRate: 0.1,
-    cbsRate: 0.9,
-    priceToday,
-  });
+  // const pricing2026 = pricing2026Calc({
+  //   ibsRate: 0.1,
+  //   cbsRate: 0.9,
+  //   priceToday,
+  //   acquisitionCost,
+  // });
+
+  console.log("@@@@data", data);
+
+  const acqCost = new Decimal(acquisitionCost);
+  const pToday = new Decimal(priceToday);
+
+  // const otherCostsValue = acqCost
+  //   .times(new Decimal(data?.other_costs ?? 0).dividedBy(100))
+  //   .toDecimalPlaces(2)
+  //   .toNumber();
+
+  // const fixedCostsValue = acqCost
+  //   .times(new Decimal(data?.fixed_costs ?? 0).dividedBy(100))
+  //   .toDecimalPlaces(2)
+  //   .toNumber();
+
+  // const icmsPisCofinsValue = pToday
+  //   .times(new Decimal(data?.sales_icms ?? 0).dividedBy(100))
+  //   .plus(pToday.times(new Decimal(data?.sales_pis_cofins ?? 0).dividedBy(100)))
+  //   .toDecimalPlaces(2)
+  //   .toNumber();
+
+  // const shippingValue = acqCost
+  //   .times(new Decimal(data?.shipping ?? 0).dividedBy(100))
+  //   .toDecimalPlaces(2)
+  //   .toNumber();
+
+  console.log("data", data.other_costs);
+
+  const profitMargin = acqCost
+    .times(new Decimal(data?.profit ?? 0).dividedBy(100))
+    .toDecimalPlaces(2)
+    .toNumber();
 
   const metrics2025: MetricCardProps[] = [
+    // remover
+    {
+      title: "Resultado do AcquisitionCost",
+      value: acquisitionCost,
+    },
+    {
+      title: "Resultado do PriceToday",
+      value: priceToday,
+    },
+    {
+      title: "Resultado do Pricing2026",
+      value: 10,
+    },
+    //
     {
       title: "Valor final de aquisição",
       value: acquisitionCost,
     },
-    { title: "Outros Custos", value: data?.other_costs ?? 0 },
-    { title: "Custos Fixos", value: data?.fixed_costs ?? 0 },
-    { title: "ICMS + PIS/COFINS", value: data?.icms + data?.pis_cofins },
-    { title: "Frete", value: data?.shipping ?? 0 },
+    {
+      title: "Outros Custos",
+      value: acquisitionCost * (data?.other_costs! / 100),
+    },
+    {
+      title: "Custos Fixos",
+      value: acquisitionCost * (data?.fixed_costs! / 100),
+    },
+    {
+      title: "ICMS + PIS/COFINS",
+      value: (() => {
+        const icmsValue = priceToday * (data?.sales_icms / 100);
+        const baseForPisCofins = priceToday - icmsValue;
+        const pisCofinsValue =
+          baseForPisCofins * (data?.sales_pis_cofins / 100);
+        return icmsValue + pisCofinsValue;
+      })(),
+    },
+    {
+      title: "Frete",
+      value: acquisitionCost * (data?.shipping! / 100),
+    },
     {
       title: "Margem de Lucro",
-      value: data?.profit,
+      value: profitMargin,
       variant: "success" as const,
     },
   ];
@@ -130,7 +196,7 @@ const ProductResult = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -179,7 +245,7 @@ const ProductResult = () => {
               <Column className="gap-4 h-full">
                 <MetricCard
                   title="Preço de Venda Final"
-                  value={3.5}
+                  value={0}
                   variant="neutral"
                 />
                 <div className="grid grid-cols-2 gap-4">
@@ -199,7 +265,7 @@ const ProductResult = () => {
               </Column>
               <MetricCard
                 title="Valor Total da NF-e"
-                value={pricing2026}
+                value={0}
                 variant="secondary"
               />
             </Column>
