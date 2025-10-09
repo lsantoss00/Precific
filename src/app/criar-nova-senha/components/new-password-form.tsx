@@ -14,7 +14,7 @@ import { createNewPassword } from "../services/create-new-password";
 
 const NewPasswordFormSchema = z
   .object({
-    password: z.string().min(1, "O campo senha é obrigatório"),
+    password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
     confirmPassword: z
       .string()
       .min(1, "O campo confirmar senha é obrigatório."),
@@ -23,6 +23,7 @@ const NewPasswordFormSchema = z
     message: "As senhas não coincidem",
     path: ["confirmPassword"],
   });
+
 type NewPasswordFormSchemaType = z.infer<typeof NewPasswordFormSchema>;
 
 const NewPasswordForm = () => {
@@ -35,6 +36,7 @@ const NewPasswordForm = () => {
     formState: { isValid },
   } = useForm<NewPasswordFormSchemaType>({
     resolver: zodResolver(NewPasswordFormSchema),
+    mode: "onChange",
     defaultValues: {
       password: "",
       confirmPassword: "",
@@ -44,7 +46,12 @@ const NewPasswordForm = () => {
   const { mutate: doCreateNewPassword, isPending: pendingCreateNewPassword } =
     useMutation({
       mutationFn: createNewPassword,
-      onSuccess: () => router.push("/"),
+      onSuccess: () => {
+        toast.success("Senha atualizada com sucesso!", {
+          className: "!bg-green-600/80 !text-white",
+        });
+        router.push("/login");
+      },
       onError: (error) => {
         toast.error(error.message, {
           className: "!bg-red-600/80 !text-white",
@@ -63,13 +70,13 @@ const NewPasswordForm = () => {
 
   return (
     <form
-      id="login-form"
+      id="new-password-form"
       onSubmit={handleSubmit(handleCreateNewPassword)}
       className="space-y-4 my-10 flex flex-col justify-between"
     >
       <Column className="space-y-2">
-        <Label htmlFor="email" required>
-          E-mail
+        <Label htmlFor="password" required>
+          Nova Senha
         </Label>
         <Controller
           name="password"
@@ -78,8 +85,9 @@ const NewPasswordForm = () => {
             <Column>
               <Input
                 id="password"
-                placeholder="seuemail@exemplo.com"
-                autoComplete="password"
+                type="password"
+                placeholder="••••••••"
+                autoComplete="new-password"
                 value={value}
                 onChange={onChange}
                 className={`${error && "border-red-600"}`}
@@ -103,10 +111,10 @@ const NewPasswordForm = () => {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Column>
               <Input
-                id="password"
-                type="confirmPassword"
+                id="confirmPassword"
+                type="password"
                 placeholder="••••••••"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 value={value}
                 onChange={onChange}
                 className={`${error && "border-red-600"}`}
