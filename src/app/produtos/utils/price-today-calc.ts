@@ -28,5 +28,7 @@ export function priceTodayCalc({
 
   const priceToday = value / denominator;
 
-  return Number(priceToday.toFixed(2));
+  const result = priceToday.toFixed(2);
+
+  return Number(result);
 }

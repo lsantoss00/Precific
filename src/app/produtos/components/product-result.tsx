@@ -7,7 +7,6 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
-import Decimal from "decimal.js";
 import { ChevronLeft, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,7 +14,9 @@ import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
+import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
+import { profitMarginCalc } from "../utils/profit-margin-calc";
 import { taxCalc } from "../utils/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
@@ -58,6 +59,7 @@ const ProductResult = () => {
   });
 
   const data = form.watch();
+
   const pending = pendingPostProduct || pendingUpdateProduct;
 
   const acquisitionCost = acquisitionCostCalc({
@@ -79,43 +81,30 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
   });
 
-  // const pricing2026 = pricing2026Calc({
-  //   ibsRate: 0.1,
-  //   cbsRate: 0.9,
-  //   priceToday,
-  //   acquisitionCost,
-  // });
+  const profitMargin = profitMarginCalc({
+    acquisitionCost,
+    profit: data?.profit ?? 0,
+  });
 
-  console.log("@@@@data", data);
+  const ibs = ibsCbsCalc({
+    priceToday,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    percentage: 0.01,
+  });
 
-  const acqCost = new Decimal(acquisitionCost);
-  const pToday = new Decimal(priceToday);
+  const cbs = ibsCbsCalc({
+    priceToday,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    percentage: 0.09,
+  });
 
-  // const otherCostsValue = acqCost
-  //   .times(new Decimal(data?.other_costs ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
-
-  // const fixedCostsValue = acqCost
-  //   .times(new Decimal(data?.fixed_costs ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
-
-  // const icmsPisCofinsValue = pToday
-  //   .times(new Decimal(data?.sales_icms ?? 0).dividedBy(100))
-  //   .plus(pToday.times(new Decimal(data?.sales_pis_cofins ?? 0).dividedBy(100)))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
-
-  // const shippingValue = acqCost
-  //   .times(new Decimal(data?.shipping ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
-
-  const profitMargin = acqCost
-    .times(new Decimal(data?.profit ?? 0).dividedBy(100))
-    .toDecimalPlaces(2)
-    .toNumber();
+  const taxes = taxCalc({
+    priceToday,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+  });
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -124,22 +113,19 @@ const ProductResult = () => {
     },
     {
       title: "Outros Custos",
-      value: acquisitionCost * (data?.other_costs! / 100),
+      value: acquisitionCost * (data?.other_costs ?? 0 / 100),
     },
     {
       title: "Custos Fixos",
-      value: acquisitionCost * (data?.fixed_costs! / 100),
+      value: acquisitionCost * (data?.fixed_costs ?? 0 / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: taxCalc(priceToday, {
-        sales_icms: data?.sales_icms ?? 0,
-        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
-      }),
+      value: taxes,
     },
     {
       title: "Frete",
-      value: acquisitionCost * (data?.shipping! / 100),
+      value: acquisitionCost * (data?.shipping ?? 0 / 100),
     },
     {
       title: "Margem de Lucro",
@@ -147,22 +133,6 @@ const ProductResult = () => {
       variant: "success" as const,
     },
   ];
-
-  const ibs =
-    (priceToday -
-      taxCalc(priceToday, {
-        sales_icms: data?.sales_icms ?? 0,
-        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
-      })) *
-    0.01;
-
-  const cbs =
-    (priceToday -
-      taxCalc(priceToday, {
-        sales_icms: data?.sales_icms ?? 0,
-        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
-      })) *
-    0.09;
 
   const metrics2026: MetricCardProps[] = [
     {

@@ -29,5 +29,7 @@ export function acquisitionCostCalc({
     ipiValue +
     othersValue;
 
-  return Number(acquisitionCost.toFixed(2));
+  const result = acquisitionCost.toFixed(2);
+
+  return Number(result);
 }

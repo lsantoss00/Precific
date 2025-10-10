@@ -10,7 +10,7 @@ export function pricing2026Calc({
   cbsRate,
 }: Pricing2026CalcProps): number {
   const value = ibsRate / cbsRate;
-  const total = priceToday + (value * ibsRate + value * cbsRate);
+  const result = priceToday + (value * ibsRate + value * cbsRate);
 
-  return total;
+  return Number(result);
 }

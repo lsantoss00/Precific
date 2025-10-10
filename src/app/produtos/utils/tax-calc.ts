@@ -1,12 +1,19 @@
 type TaxCalcProps = {
-  sales_icms: number;
-  sales_pis_cofins: number;
+  priceToday: number;
+  salesIcms: number;
+  salesPisCofins: number;
 };
 
-export function taxCalc(priceToday: number, data: TaxCalcProps) {
-  const icmsValue = priceToday * (data.sales_icms / 100);
+export function taxCalc({
+  priceToday,
+  salesIcms,
+  salesPisCofins,
+}: TaxCalcProps): number {
+  const icmsValue = priceToday * (salesIcms / 100);
   const baseForPisCofins = priceToday - icmsValue;
-  const pisCofinsValue = baseForPisCofins * (data.sales_pis_cofins / 100);
+  const pisCofinsValue = baseForPisCofins * (salesPisCofins / 100);
 
-  return icmsValue + pisCofinsValue;
+  const result = icmsValue + pisCofinsValue;
+
+  return result;
 }
