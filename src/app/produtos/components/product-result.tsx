@@ -31,7 +31,7 @@ const ProductResult = () => {
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       toast.success("Produto adicionado com sucesso!", {
-        className: "!bg-green-600!text-white",
+        className: "!bg-green-600 !text-white",
       });
       router.push("/produtos");
     },
