@@ -1,8 +1,8 @@
-type TaxCalcProps = {
+interface TaxCalcProps {
   priceToday: number;
   salesIcms: number;
   salesPisCofins: number;
-};
+}
 
 export function taxCalc({
   priceToday,
