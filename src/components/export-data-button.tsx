@@ -14,6 +14,7 @@ interface ExportDataButtonProps {
 }
 
 const ExportDataButton = ({ search }: ExportDataButtonProps) => {
+  // TO-DO: Mover isso pra fora, pra ser um componente independente
   const { data, isLoading, refetch } = useQuery({
     queryFn: () => getProductsForExport({ search }),
     queryKey: ["products-export", search],
