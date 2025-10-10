@@ -6,16 +6,17 @@ import Papa from "papaparse";
 import { useRef } from "react";
 import { toast } from "sonner";
 import { importProducts } from "../app/produtos/services/post-products-by-import";
+import { queryClient } from "../libs/tanstack-query/query-client";
 import { Button } from "./core";
 
 interface CSVRow {
-  SKU: string;
-  Nome: string;
-  NCM: string;
-  Preço: string;
-  "Preço em 2026": string;
-  "Preço em 2027": string;
-  Status: string;
+  sku: string;
+  nome: string;
+  ncm: string;
+  preço?: string;
+  "preço em 2026"?: string;
+  "preço em 2027"?: string;
+  status?: string;
 }
 
 interface ImportDataButtonProps {
@@ -29,21 +30,28 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
   const importMutation = useMutation({
     mutationFn: async (csvData: CSVRow[]) => {
       const productsToImport = csvData.map((row) => ({
-        sku: row.SKU === "-" || !row.SKU ? "-" : row.SKU,
-        name: row.Nome === "-" || !row.Nome ? "-" : row.Nome,
-        ncm: row.NCM === "-" || !row.NCM ? "-" : row.NCM,
-        price_today: parseCurrency(row["Preço"]),
-        price_in_2026: parseCurrency(row["Preço em 2026"]),
-        price_in_2027: parseCurrency(row["Preço em 2027"]),
-        status: row.Status === "Inativo" ? "INACTIVE" : "ACTIVE",
+        sku: row.sku === "-" || !row.sku ? "-" : row.sku,
+        name: row.nome === "-" || !row.nome ? "-" : row.nome,
+        ncm: row.ncm === "-" || !row.ncm ? "-" : row.ncm,
+        price_today: row.preço ? parseCurrency(row.preço) : 0,
+        price_in_2026: row["preço em 2026"]
+          ? parseCurrency(row["preço em 2026"])
+          : 0,
+        price_in_2027: row["preço em 2027"]
+          ? parseCurrency(row["preço em 2027"])
+          : 0,
+        status: "ACTIVE",
       }));
 
       return await importProducts(productsToImport);
     },
-    onSuccess: (data) => {
-      toast.success(`${data.count || 0} produtos importados com sucesso!`, {
+    onSuccess: async () => {
+      toast.success(`Produtos importados com sucesso!`, {
         className: "!bg-green-600 !text-white",
       });
+
+      await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
 
       if (fileInputRef.current) fileInputRef.current.value = "";
       onImportSuccess?.();

@@ -17,13 +17,9 @@ export async function importProducts(products: ProductImportData[]) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabaseClient
-    .from("products")
-    .upsert(products, {
-      onConflict: "sku",
-      ignoreDuplicates: false,
-    })
-    .select();
+  const { data, error } = await supabaseClient.rpc("import_products_json", {
+    rows: products,
+  });
 
   if (error) throw error;
 
