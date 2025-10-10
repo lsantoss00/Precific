@@ -46,6 +46,9 @@ const ProductsTable = () => {
       mutationFn: updateProductStatus,
       onSuccess: async () => {
         await queryClient?.invalidateQueries({ queryKey: ["products"] });
+        await queryClient?.invalidateQueries({
+          queryKey: ["product-summaries"],
+        });
         toast.success(`Status atualizado com sucesso!`, {
           className: "!bg-green-600 !text-white",
         });

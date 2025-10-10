@@ -60,7 +60,7 @@ const ProductsHeaderSection = () => {
             <Plus className="text-white" />
             <span>Novo Produto</span>
           </Button>
-          <ExportDataButton />
+          <ExportDataButton search={searchTerm} />
           <ImportDataButton />
         </Row>
       </Flex>

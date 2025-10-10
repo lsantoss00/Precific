@@ -73,8 +73,11 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
 
     if (!selectedFile) return;
 
-    if (!selectedFile.name.endsWith(".csv")) {
-      toast.error("Por favor, selecione um arquivo CSV");
+    if (
+      !selectedFile.name.endsWith(".csv") &&
+      !selectedFile.name.endsWith(".xlsx")
+    ) {
+      toast.error("Por favor, selecione um arquivo CSV ou XLSX");
       if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
@@ -87,23 +90,34 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
     Papa.parse(selectedFile, {
       header: true,
       transformHeader: (header) => header.toLowerCase().trim(),
-      delimiter: ",",
       skipEmptyLines: true,
+      quoteChar: '"',
+      escapeChar: '"',
+      delimitersToGuess: [",", "\t", "|", ";"],
+      transform: (value) => value.trim(),
       complete: (results) => {
+        const errorRows = new Set(results.errors.map((error) => error.row));
+        const validData = results.data.filter(
+          (_, index) => !errorRows.has(index)
+        );
+
         if (results.errors.length > 0) {
-          toast.error("Erro ao processar o arquivo CSV");
+          toast.warning(
+            `${results.errors.length} linha(s) com problema foram ignoradas. ${validData.length} linha(s) válidas serão importadas.`,
+            {
+              className: "!bg-yellow-600 !text-white",
+              duration: 5000,
+            }
+          );
+        }
+
+        if (!validData || validData.length === 0) {
+          toast.error("Nenhum dado válido encontrado no arquivo");
           if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
 
-        if (!results.data || results.data.length === 0) {
-          toast.error("O arquivo CSV está vazio");
-          if (fileInputRef.current) fileInputRef.current.value = "";
-          return;
-        }
-
-        const firstRow = results.data[0] as any;
-        // TO-DO: Validar requiredColumns
+        const firstRow = validData[0] as any;
         const requiredColumns = ["sku", "nome"];
         const missingColumns = requiredColumns.filter(
           (col) => !(col in firstRow)
@@ -115,7 +129,7 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
           return;
         }
 
-        importMutation.mutate(results.data as CSVRow[]);
+        importMutation.mutate(validData as CSVRow[]);
       },
       error: () => {
         toast.error("Erro ao ler o arquivo CSV");
@@ -129,7 +143,7 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
       <input
         ref={fileInputRef}
         type="file"
-        accept=".csv"
+        accept=".csv, .xlsx"
         onChange={handleFileSelect}
         className="hidden"
         id="csv-upload"
@@ -143,7 +157,7 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
         <label htmlFor="csv-upload">
           {importMutation.isPending && <Loader2 className="animate-spin" />}
           <Upload className="text-white" />
-          <span className="hidden sm:flex">Exportar CSV</span>
+          <span className="hidden sm:flex">Importar CSV</span>
         </label>
       </Button>
     </>
