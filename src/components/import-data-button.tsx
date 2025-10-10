@@ -81,11 +81,8 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
 
     if (!selectedFile) return;
 
-    if (
-      !selectedFile.name.endsWith(".csv") &&
-      !selectedFile.name.endsWith(".xlsx")
-    ) {
-      toast.error("Por favor, selecione um arquivo CSV ou XLSX", {
+    if (!selectedFile.name.endsWith(".csv")) {
+      toast.error("Por favor, selecione um arquivo CSV", {
         className: "!bg-red-600 !text-white",
       });
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -157,7 +154,7 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
       <input
         ref={fileInputRef}
         type="file"
-        accept=".csv, .xlsx"
+        accept=".csv"
         onChange={handleFileSelect}
         className="hidden"
         id="csv-upload"
