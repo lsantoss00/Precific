@@ -25,10 +25,17 @@ const AuthGuard = ({
     return hash.includes("type=recovery");
   }, []);
 
+  const isInviteFlow = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const hash = window.location.hash;
+
+    return hash.includes("type=invite");
+  }, []);
+
   useEffect(() => {
     if (loading) return;
 
-    if (isRecoveryFlow) return;
+    if (isRecoveryFlow || isInviteFlow) return;
 
     const shouldRedirect = requireAuth ? !isAuthenticated : isAuthenticated;
     if (shouldRedirect) {
@@ -41,6 +48,7 @@ const AuthGuard = ({
     redirectTo,
     router,
     isRecoveryFlow,
+    isInviteFlow,
   ]);
 
   if (loading) {
@@ -51,7 +59,7 @@ const AuthGuard = ({
     );
   }
 
-  if (isRecoveryFlow) {
+  if (isRecoveryFlow || isInviteFlow) {
     return <>{children}</>;
   }
 
