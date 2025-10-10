@@ -46,6 +46,7 @@ const ProductsTable = () => {
     mutationFn: deleteProduct,
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
       toast.success(`Produto deletado com sucesso!`, {
         className: "!bg-green-600/80 !text-white",
       });
