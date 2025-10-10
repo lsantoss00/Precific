@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/src/components/core";
+import { Button, Switch } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
@@ -12,6 +12,8 @@ interface ProductTableMeta {
   onDeleteProduct: (id: string) => void;
   pendingDeleteProduct: boolean;
   onPriceProduct: (id: string) => void;
+  onUpdateProductStatus: (id: string, status: string) => void;
+  pendingUpdateProductStatus: boolean;
 }
 
 export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
@@ -72,11 +74,28 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "status",
     header: "STATUS",
-    cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
-        {row.getValue("status")}
-      </div>
-    ),
+    cell: ({ row, table }) => {
+      const meta = table.options.meta as ProductTableMeta;
+      const product = row.original;
+      const isActive =
+        row.getValue("status") === "ACTIVE" ||
+        row.getValue("status") === "active";
+
+      return (
+        <div className="flex items-center">
+          <Switch
+            checked={isActive}
+            onCheckedChange={(checked) => {
+              meta?.onUpdateProductStatus?.(
+                product.id!,
+                checked ? "ACTIVE" : "INACTIVE"
+              );
+            }}
+            disabled={meta?.pendingUpdateProductStatus}
+          />
+        </div>
+      );
+    },
   },
   {
     id: "actions",

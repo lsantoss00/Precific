@@ -24,6 +24,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
+import { updateProductStatus } from "../../services/update-product-status";
 import { ProductResponseType } from "../../types/product-type";
 import { productsTableColumns } from "./products-table-columns";
 
@@ -39,6 +40,22 @@ const ProductsTable = () => {
     queryFn: () => getProducts({ page, pageSize, search }),
     queryKey: ["products", page, pageSize, search],
   });
+
+  const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
+    useMutation({
+      mutationFn: updateProductStatus,
+      onSuccess: async () => {
+        await queryClient?.invalidateQueries({ queryKey: ["products"] });
+        toast.success(`Status atualizado com sucesso!`, {
+          className: "!bg-green-600/80 !text-white",
+        });
+      },
+      onError: (error) => {
+        toast.error(error.message, {
+          className: "!bg-red-600/80 !text-white",
+        });
+      },
+    });
 
   const productsList = data?.data || [];
 
@@ -57,6 +74,10 @@ const ProductsTable = () => {
       });
     },
   });
+
+  const handleUpdateProductStatus = (productId: string, status: string) => {
+    updateStatus({ productId, status });
+  };
 
   const handleDeleteProduct = (productId: ProductResponseType["id"]) => {
     del({ productId });
@@ -84,6 +105,8 @@ const ProductsTable = () => {
       onDeleteProduct: handleDeleteProduct,
       pendingDeleteProduct: pendingDeleteProduct,
       onPriceProduct: handlePriceProduct,
+      onUpdateProductStatus: handleUpdateProductStatus,
+      pendingUpdateProductStatus: pendingUpdateProductStatus,
     },
   });
 
