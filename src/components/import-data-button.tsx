@@ -77,14 +77,15 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
       !selectedFile.name.endsWith(".csv") &&
       !selectedFile.name.endsWith(".xlsx")
     ) {
-      toast.error("Por favor, selecione um arquivo CSV ou XLSX");
+      toast.error("Por favor, selecione um arquivo CSV ou XLSX", {
+        className: "!bg-red-600 !text-white",
+      });
       if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
 
     toast.info("Processando arquivo... Isso pode demorar um pouco.", {
-      className: "!bg-yellow-600 !text-white",
-      id: "import-toast",
+      className: "!bg-blue-600 !text-white",
     });
 
     Papa.parse(selectedFile, {
@@ -106,13 +107,14 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
             `${results.errors.length} linha(s) com problema foram ignoradas. ${validData.length} linha(s) válidas serão importadas.`,
             {
               className: "!bg-yellow-600 !text-white",
-              duration: 5000,
             }
           );
         }
 
         if (!validData || validData.length === 0) {
-          toast.error("Nenhum dado válido encontrado no arquivo");
+          toast.error("Nenhum dado válido encontrado no arquivo", {
+            className: "!bg-red-600 !text-white",
+          });
           if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
@@ -124,7 +126,9 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
         );
 
         if (missingColumns.length > 0) {
-          toast.error(`Colunas faltando no CSV: ${missingColumns.join(", ")}`);
+          toast.error(`Colunas faltando no CSV: ${missingColumns.join(", ")}`, {
+            className: "!bg-red-600 !text-white",
+          });
           if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
@@ -132,7 +136,9 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
         importMutation.mutate(validData as CSVRow[]);
       },
       error: () => {
-        toast.error("Erro ao ler o arquivo CSV");
+        toast.error("Erro ao ler o arquivo CSV", {
+          className: "!bg-red-600 !text-white",
+        });
         if (fileInputRef.current) fileInputRef.current.value = "";
       },
     });
