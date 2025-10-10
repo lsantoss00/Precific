@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
+import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
@@ -148,8 +149,9 @@ const ProductResult = () => {
   ];
 
   const handleFinishForm = () => {
-    const productPayload = {
+    const productPayload: ProductType = {
       ...data,
+      status: "ACTIVE",
       price_today: priceToday,
       price_in_2026: priceIn2026,
     };
