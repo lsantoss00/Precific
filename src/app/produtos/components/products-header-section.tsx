@@ -5,7 +5,8 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { Download, Loader2Icon, Plus, Upload } from "lucide-react";
+import ExportDataButton from "@/src/components/export-data-button";
+import { Loader2Icon, Plus, Upload } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -58,17 +59,7 @@ const ProductsHeaderSection = () => {
             <Plus className="text-white" />
             <span>Novo Produto</span>
           </Button>
-          <Button
-            className="hover:cursor-pointer w-fit"
-            type="submit"
-            disabled={mockPending}
-          >
-            <Show when={mockPending}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            <Download className="text-white" />
-            <span className="hidden sm:flex"> Exportar CSV</span>
-          </Button>
+          <ExportDataButton />
           <Button
             className="hover:cursor-pointer w-fit"
             type="submit"

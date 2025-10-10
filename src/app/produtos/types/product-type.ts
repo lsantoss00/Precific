@@ -15,6 +15,7 @@ export type ProductType = {
   shipping?: number;
   other_costs?: number;
   profit: number;
+  status: "ACTIVE" | "INACTIVE";
   // TO-DO: os campos abaixo deve ser obrigatório depois
   price_today?: number;
   price_in_2026?: number;
@@ -43,3 +44,14 @@ export type ProductSummariesResponseType = {
   active_products: number;
   inactive_products: number;
 };
+
+export type ProductExportType = Pick<
+  ProductResponseType,
+  | "sku"
+  | "name"
+  | "ncm"
+  | "price_today"
+  | "price_in_2026"
+  | "price_in_2027"
+  | "status"
+>;
