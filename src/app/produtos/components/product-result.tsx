@@ -16,6 +16,7 @@ import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
+import { taxCalc } from "../utils/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
@@ -111,8 +112,6 @@ const ProductResult = () => {
   //   .toDecimalPlaces(2)
   //   .toNumber();
 
-  console.log("data", data.other_costs);
-
   const profitMargin = acqCost
     .times(new Decimal(data?.profit ?? 0).dividedBy(100))
     .toDecimalPlaces(2)
@@ -121,7 +120,7 @@ const ProductResult = () => {
   const metrics2025: MetricCardProps[] = [
     {
       title: "Valor final de aquisição",
-      value: acquisitionCost,
+      value: acquisitionCost || 0,
     },
     {
       title: "Outros Custos",
@@ -133,13 +132,10 @@ const ProductResult = () => {
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: (() => {
-        const icmsValue = priceToday * (data?.sales_icms / 100);
-        const baseForPisCofins = priceToday - icmsValue;
-        const pisCofinsValue =
-          baseForPisCofins * (data?.sales_pis_cofins / 100);
-        return icmsValue + pisCofinsValue;
-      })(),
+      value: taxCalc(priceToday, {
+        sales_icms: data?.sales_icms ?? 0,
+        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
+      }),
     },
     {
       title: "Frete",
@@ -152,12 +148,31 @@ const ProductResult = () => {
     },
   ];
 
+  const ibs =
+    (priceToday -
+      taxCalc(priceToday, {
+        sales_icms: data?.sales_icms ?? 0,
+        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
+      })) *
+    0.01;
+
+  const cbs =
+    (priceToday -
+      taxCalc(priceToday, {
+        sales_icms: data?.sales_icms ?? 0,
+        sales_pis_cofins: data?.sales_pis_cofins ?? 0,
+      })) *
+    0.09;
+
   const metrics2026: MetricCardProps[] = [
     {
       title: "IBS (0.1%)",
-      value: 0,
+      value: ibs,
     },
-    { title: "CBS (0.9%)", value: 0 },
+    {
+      title: "CBS (0.9%)",
+      value: cbs,
+    },
   ];
 
   const handleFinishForm = () => {
@@ -206,7 +221,7 @@ const ProductResult = () => {
           <div className="grid grid-cols-2 w-full h-fit gap-10 mb-4">
             <Column className="space-y-4">
               <h3 className="text-lg">
-                Pré Reforma Tributária <strong>2025</strong>
+                Pré-Reforma Tributária <strong>2025</strong>
               </h3>
               <div className="grid grid-cols-2 w-full h-fit gap-4">
                 {metrics2025.map((metric, index) => (
@@ -226,12 +241,12 @@ const ProductResult = () => {
             </Column>
             <Column className="space-y-4">
               <h3 className="text-lg">
-                Pré Reforma Tributária <strong>2026</strong>
+                Transição Reforma Tributária <strong>2026</strong>
               </h3>
               <Column className="gap-4 h-full">
                 <MetricCard
                   title="Preço de Venda Final"
-                  value={0}
+                  value={priceToday}
                   variant="neutral"
                 />
                 <div className="grid grid-cols-2 gap-4">
@@ -251,7 +266,7 @@ const ProductResult = () => {
               </Column>
               <MetricCard
                 title="Valor Total da NF-e"
-                value={0}
+                value={priceToday + ibs + cbs}
                 variant="secondary"
               />
             </Column>

@@ -131,7 +131,10 @@ const AcquisitionCostForm = () => {
           />
         </Column>
       </form>
-      <MetricCard title="Valor final de Aquisição" value={acquisitionCost} />
+      <MetricCard
+        title="Valor final de Aquisição"
+        value={acquisitionCost || 0}
+      />
     </Card>
   );
 };
