@@ -29,7 +29,7 @@ const Menu = () => {
     },
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600 !text-white",
       });
     },
   });

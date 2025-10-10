@@ -48,13 +48,13 @@ const NewPasswordForm = () => {
       mutationFn: createNewPassword,
       onSuccess: () => {
         toast.success("Senha atualizada com sucesso!", {
-          className: "!bg-green-600/80 !text-white",
+          className: "!bg-green-600 !text-white",
         });
         router.push("/entrar");
       },
       onError: (error) => {
         toast.error(error.message, {
-          className: "!bg-red-600/80 !text-white",
+          className: "!bg-red-600 !text-white",
         });
       },
     });

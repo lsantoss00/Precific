@@ -47,12 +47,12 @@ const ProductsTable = () => {
       onSuccess: async () => {
         await queryClient?.invalidateQueries({ queryKey: ["products"] });
         toast.success(`Status atualizado com sucesso!`, {
-          className: "!bg-green-600/80 !text-white",
+          className: "!bg-green-600 !text-white",
         });
       },
       onError: (error) => {
         toast.error(error.message, {
-          className: "!bg-red-600/80 !text-white",
+          className: "!bg-red-600 !text-white",
         });
       },
     });
@@ -65,12 +65,12 @@ const ProductsTable = () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
       toast.success(`Produto deletado com sucesso!`, {
-        className: "!bg-green-600/80 !text-white",
+        className: "!bg-green-600 !text-white",
       });
     },
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600 !text-white",
       });
     },
   });
