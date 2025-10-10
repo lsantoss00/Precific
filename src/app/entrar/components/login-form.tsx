@@ -134,9 +134,9 @@ const LoginForm = () => {
           className="flex self-center w-fit"
           passHref
         >
-          <Button type="button" variant="link" className="">
+          {/* <Button type="button" variant="link" className="">
             Esqueci minha senha
-          </Button>
+          </Button> */}
         </Link>
       </Column>
     </form>
