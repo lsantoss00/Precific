@@ -50,7 +50,7 @@ const NewPasswordForm = () => {
         toast.success("Senha atualizada com sucesso!", {
           className: "!bg-green-600/80 !text-white",
         });
-        router.push("/login");
+        router.push("/entrar");
       },
       onError: (error) => {
         toast.error(error.message, {
