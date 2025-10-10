@@ -6,7 +6,8 @@ import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import ExportDataButton from "@/src/components/export-data-button";
-import { Loader2Icon, Plus, Upload } from "lucide-react";
+import ImportDataButton from "@/src/components/import-data-button";
+import { Loader2Icon, Plus } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -60,17 +61,7 @@ const ProductsHeaderSection = () => {
             <span>Novo Produto</span>
           </Button>
           <ExportDataButton />
-          <Button
-            className="hover:cursor-pointer w-fit"
-            type="submit"
-            disabled={mockPending}
-          >
-            <Show when={mockPending}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            <Upload className="text-white" />
-            <span className="hidden sm:flex">Importar CSV</span>
-          </Button>
+          <ImportDataButton />
         </Row>
       </Flex>
     </Column>
