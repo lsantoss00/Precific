@@ -21,6 +21,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
@@ -44,11 +45,26 @@ const ProductsTable = () => {
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
     useMutation({
       mutationFn: updateProductStatus,
-      onSuccess: async () => {
-        await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      onSuccess: async (_, variables) => {
+        queryClient?.setQueryData(
+          ["products", page, pageSize, search],
+          (oldData: any) => {
+            if (!oldData) return oldData;
+
+            return {
+              ...oldData,
+              data: oldData.data.map((product: ProductResponseType) =>
+                product.id === variables.productId
+                  ? { ...product, status: variables.status }
+                  : product
+              ),
+            };
+          }
+        );
         await queryClient?.invalidateQueries({
           queryKey: ["product-summaries"],
         });
+
         toast.success(`Status atualizado com sucesso!`, {
           className: "!bg-green-600 !text-white",
         });
@@ -78,23 +94,53 @@ const ProductsTable = () => {
     },
   });
 
-  const handleUpdateProductStatus = (productId: string, status: string) => {
-    updateStatus({ productId, status });
-  };
+  // MUDANÇA 2: Usar useCallback para garantir referência estável
+  const handleUpdateProductStatus = useCallback(
+    (productId: string, status: string) => {
+      console.log("Atualizando produto:", productId, "para status:", status); // Debug
+      updateStatus({ productId, status });
+    },
+    [updateStatus]
+  );
 
-  const handleDeleteProduct = (productId: ProductResponseType["id"]) => {
-    del({ productId });
-  };
+  const handleDeleteProduct = useCallback(
+    (productId: ProductResponseType["id"]) => {
+      console.log("Deletando produto:", productId); // Debug
+      del({ productId });
+    },
+    [del]
+  );
 
-  const handlePriceProduct = (productId: ProductResponseType["id"]) => {
-    router.push(`/produtos/${productId}`);
-  };
+  const handlePriceProduct = useCallback(
+    (productId: ProductResponseType["id"]) => {
+      router.push(`/produtos/${productId}`);
+    },
+    [router]
+  );
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("pagina", newPage.toString());
     router.push(`?${params.toString()}`, { scroll: false });
   };
+
+  // MUDANÇA 3: Memoizar a configuração da tabela
+  const tableMeta = useMemo(
+    () => ({
+      onDeleteProduct: handleDeleteProduct,
+      pendingDeleteProduct: pendingDeleteProduct,
+      onPriceProduct: handlePriceProduct,
+      onUpdateProductStatus: handleUpdateProductStatus,
+      pendingUpdateProductStatus: pendingUpdateProductStatus,
+    }),
+    [
+      handleDeleteProduct,
+      pendingDeleteProduct,
+      handlePriceProduct,
+      handleUpdateProductStatus,
+      pendingUpdateProductStatus,
+    ]
+  );
 
   const table = useReactTable({
     data: productsList,
@@ -104,13 +150,7 @@ const ProductsTable = () => {
     getFilteredRowModel: getFilteredRowModel(),
     manualPagination: true,
     pageCount: data?.totalPages ?? 0,
-    meta: {
-      onDeleteProduct: handleDeleteProduct,
-      pendingDeleteProduct: pendingDeleteProduct,
-      onPriceProduct: handlePriceProduct,
-      onUpdateProductStatus: handleUpdateProductStatus,
-      pendingUpdateProductStatus: pendingUpdateProductStatus,
-    },
+    meta: tableMeta,
   });
 
   return (
@@ -139,7 +179,6 @@ const ProductsTable = () => {
             <Show
               when={!pendingProducts}
               fallback={
-                // TO-DO: Ajuster layout desse pending
                 <TableRow>
                   <TableCell
                     colSpan={productsTableColumns.length}
