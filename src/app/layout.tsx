@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { AppHeader } from "../components/app-header";
 import { AppSidebar } from "../components/app-sidebar";
 import { SidebarTrigger } from "../components/core";
@@ -8,10 +8,10 @@ import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
 import "./globals.css";
 
-// TO-DO: change to Poppins
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${inter.className} antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed`}
+        className={`${poppins.className} antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed`}
       >
         <Providers>
           <AppHeader />
