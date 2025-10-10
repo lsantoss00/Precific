@@ -16,9 +16,8 @@ export type ProductType = {
   other_costs?: number;
   profit: number;
   status: "ACTIVE" | "INACTIVE";
-  // TO-DO: os campos abaixo deve ser obrigatório depois
-  price_today?: number;
-  price_in_2026?: number;
+  price_today: number;
+  price_in_2026: number;
   price_in_2027?: number;
 };
 

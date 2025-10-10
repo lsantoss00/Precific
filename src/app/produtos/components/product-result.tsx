@@ -106,6 +106,8 @@ const ProductResult = () => {
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
+  const priceIn2026 = priceToday + ibs + cbs;
+
   const metrics2025: MetricCardProps[] = [
     {
       title: "Valor final de aquisição",
@@ -146,16 +148,22 @@ const ProductResult = () => {
   ];
 
   const handleFinishForm = () => {
-    if (isEditMode && productId) {
-      const updateProductPayload = {
-        id: productId,
-        ...data,
-      };
+    const productPayload = {
+      ...data,
+      price_today: priceToday,
+      price_in_2026: priceIn2026,
+    };
 
-      return update({ product: updateProductPayload });
+    if (isEditMode && productId) {
+      return update({
+        product: {
+          id: productId,
+          ...productPayload,
+        },
+      });
     }
 
-    post({ product: data });
+    return post({ product: productPayload });
   };
 
   const handleGoBack = () => {
@@ -167,7 +175,7 @@ const ProductResult = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -236,7 +244,7 @@ const ProductResult = () => {
               </Column>
               <MetricCard
                 title="Valor Total da NF-e"
-                value={priceToday + ibs + cbs}
+                value={priceIn2026}
                 variant="secondary"
               />
             </Column>
