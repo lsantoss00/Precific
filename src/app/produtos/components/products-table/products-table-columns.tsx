@@ -90,6 +90,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
+      // TO-DO: ARRUMAR ESSA DUPLICAÇÃO DESNECESSÁRIA
       const isActive =
         row.getValue("status") === "ACTIVE" ||
         row.getValue("status") === "active";
@@ -104,7 +105,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
                 checked ? "ACTIVE" : "INACTIVE"
               );
             }}
-            disabled={meta?.pendingUpdateProductStatus}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           />
         </div>
       );
@@ -122,6 +125,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           <Button
             variant="secondary"
             onClick={() => meta?.onPriceProduct(product.id!)}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           >
             Precificar
           </Button>
@@ -129,7 +135,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
             variant="destructive"
             size="icon"
             onClick={() => meta?.onDeleteProduct(product.id!)}
-            disabled={meta?.pendingDeleteProduct}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           >
             <Show
               when={!meta?.pendingDeleteProduct}

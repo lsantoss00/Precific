@@ -26,6 +26,7 @@ import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
 import { updateProductStatus } from "../../services/update-product-status";
 import { ProductResponseType } from "../../types/product-type";
+import ProductsTableSkeleton from "../skeletons/products-table-skeleton";
 import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
@@ -129,41 +130,32 @@ const ProductsTable = () => {
   });
 
   return (
-    <Column className="bg-white h-full shadow-sm rounded-md flex flex-col">
-      <div className="flex-1 overflow-auto min-h-0">
-        <Table className="w-full">
-          <TableHeader className="sticky top-0 bg-white z-10">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="hover:!bg-transparent">
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} className="text-gray-400">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            <Show
-              when={!pendingProducts}
-              fallback={
-                <TableRow>
-                  <TableCell
-                    colSpan={productsTableColumns.length}
-                    className="h-24 text-center"
-                  >
-                    Carregando...
-                  </TableCell>
+    <Show when={!pendingProducts} fallback={<ProductsTableSkeleton />}>
+      <Column className="bg-white h-full shadow-sm rounded-md flex flex-col">
+        <div className="flex-1 overflow-auto min-h-0">
+          <Table className="w-full">
+            <TableHeader className="sticky top-0 bg-white z-10">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow
+                  key={headerGroup.id}
+                  className="hover:!bg-transparent"
+                >
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id} className="text-gray-400">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    );
+                  })}
                 </TableRow>
-              }
-            >
+              ))}
+            </TableHeader>
+            <TableBody>
               <Show
                 when={table.getRowModel().rows?.length}
                 fallback={
@@ -193,24 +185,24 @@ const ProductsTable = () => {
                   </TableRow>
                 ))}
               </Show>
-            </Show>
-          </TableBody>
-        </Table>
-      </div>
-      <div className="border-t bg-white">
-        <Row className="items-center justify-between w-full p-4">
-          <span className="text-sm">
-            Página {page} de {data?.totalPages || 0} - Total de{" "}
-            {data?.count || 0} produtos
-          </span>
-          <TablePagination
-            currentPage={page}
-            totalPages={data?.totalPages || 0}
-            onPageChange={handlePageChange}
-          />
-        </Row>
-      </div>
-    </Column>
+            </TableBody>
+          </Table>
+        </div>
+        <div className="border-t bg-white">
+          <Row className="items-center justify-between w-full p-4">
+            <span className="text-sm">
+              Página {page} de {data?.totalPages || 0} - Total de{" "}
+              {data?.count || 0} produtos
+            </span>
+            <TablePagination
+              currentPage={page}
+              totalPages={data?.totalPages || 0}
+              onPageChange={handlePageChange}
+            />
+          </Row>
+        </div>
+      </Column>
+    </Show>
   );
 };
 
