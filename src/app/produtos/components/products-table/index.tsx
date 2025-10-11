@@ -21,7 +21,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
@@ -94,53 +93,23 @@ const ProductsTable = () => {
     },
   });
 
-  // MUDANÇA 2: Usar useCallback para garantir referência estável
-  const handleUpdateProductStatus = useCallback(
-    (productId: string, status: string) => {
-      console.log("Atualizando produto:", productId, "para status:", status); // Debug
-      updateStatus({ productId, status });
-    },
-    [updateStatus]
-  );
+  const handleUpdateProductStatus = (productId: string, status: string) => {
+    updateStatus({ productId, status });
+  };
 
-  const handleDeleteProduct = useCallback(
-    (productId: ProductResponseType["id"]) => {
-      console.log("Deletando produto:", productId); // Debug
-      del({ productId });
-    },
-    [del]
-  );
+  const handleDeleteProduct = (productId: ProductResponseType["id"]) => {
+    del({ productId });
+  };
 
-  const handlePriceProduct = useCallback(
-    (productId: ProductResponseType["id"]) => {
-      router.push(`/produtos/${productId}`);
-    },
-    [router]
-  );
+  const handlePriceProduct = (productId: ProductResponseType["id"]) => {
+    router.push(`/produtos/${productId}`);
+  };
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("pagina", newPage.toString());
     router.push(`?${params.toString()}`, { scroll: false });
   };
-
-  // MUDANÇA 3: Memoizar a configuração da tabela
-  const tableMeta = useMemo(
-    () => ({
-      onDeleteProduct: handleDeleteProduct,
-      pendingDeleteProduct: pendingDeleteProduct,
-      onPriceProduct: handlePriceProduct,
-      onUpdateProductStatus: handleUpdateProductStatus,
-      pendingUpdateProductStatus: pendingUpdateProductStatus,
-    }),
-    [
-      handleDeleteProduct,
-      pendingDeleteProduct,
-      handlePriceProduct,
-      handleUpdateProductStatus,
-      pendingUpdateProductStatus,
-    ]
-  );
 
   const table = useReactTable({
     data: productsList,
@@ -150,7 +119,13 @@ const ProductsTable = () => {
     getFilteredRowModel: getFilteredRowModel(),
     manualPagination: true,
     pageCount: data?.totalPages ?? 0,
-    meta: tableMeta,
+    meta: {
+      onDeleteProduct: handleDeleteProduct,
+      pendingDeleteProduct: pendingDeleteProduct,
+      onPriceProduct: handlePriceProduct,
+      onUpdateProductStatus: handleUpdateProductStatus,
+      pendingUpdateProductStatus: pendingUpdateProductStatus,
+    },
   });
 
   return (
