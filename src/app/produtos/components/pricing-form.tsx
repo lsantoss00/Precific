@@ -21,13 +21,18 @@ const PricingForm = () => {
             id="fixed_costs"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("fixed_costs", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.fixed_costs?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -38,6 +43,8 @@ const PricingForm = () => {
             id="sales_icms"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("sales_icms", {
               valueAsNumber: true,
               setValueAs: (value) =>
@@ -45,6 +52,8 @@ const PricingForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
             error={errors.sales_icms?.message}
           />
@@ -57,6 +66,8 @@ const PricingForm = () => {
             id="sales_pis_cofins"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("sales_pis_cofins", {
               valueAsNumber: true,
               setValueAs: (value) =>
@@ -64,6 +75,8 @@ const PricingForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
             error={errors.sales_pis_cofins?.message}
           />
@@ -74,13 +87,18 @@ const PricingForm = () => {
             id="shipping"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("shipping", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.shipping?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -89,13 +107,18 @@ const PricingForm = () => {
             id="other_costs"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("other_costs", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.other_costs?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -113,6 +136,7 @@ const PricingForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
             })}
             error={errors.profit?.message}
           />

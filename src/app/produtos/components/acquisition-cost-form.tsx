@@ -43,6 +43,7 @@ const AcquisitionCostForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
             })}
             error={errors.unit_price?.message}
           />
@@ -55,6 +56,8 @@ const AcquisitionCostForm = () => {
             id="icms"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("icms", {
               valueAsNumber: true,
               setValueAs: (value) =>
@@ -62,6 +65,8 @@ const AcquisitionCostForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
             error={errors.icms?.message}
           />
@@ -74,6 +79,8 @@ const AcquisitionCostForm = () => {
             id="pis_cofins"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("pis_cofins", {
               valueAsNumber: true,
               setValueAs: (value) =>
@@ -81,6 +88,8 @@ const AcquisitionCostForm = () => {
                   ? 0
                   : Number(value),
               required: "Campo obrigatório",
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
             error={errors.pis_cofins?.message}
           />
@@ -91,13 +100,18 @@ const AcquisitionCostForm = () => {
             id="icms_st"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("icms_st", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.icms_st?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -106,13 +120,18 @@ const AcquisitionCostForm = () => {
             id="ipi"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("ipi", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.ipi?.message}
           />
         </Column>
         <Column className="space-y-2">
@@ -121,13 +140,18 @@ const AcquisitionCostForm = () => {
             id="others"
             type="number"
             placeholder="0,00%"
+            min="0"
+            max="100"
             {...register("others", {
               valueAsNumber: true,
               setValueAs: (value) =>
                 value === "" || value === null || isNaN(value)
                   ? 0
                   : Number(value),
+              min: { value: 0, message: "Valor mínimo é 0" },
+              max: { value: 100, message: "Valor máximo é 100" },
             })}
+            error={errors.others?.message}
           />
         </Column>
       </form>
