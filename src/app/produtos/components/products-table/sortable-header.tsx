@@ -1,13 +1,12 @@
 import { Button } from "@/src/components/core";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
-const SortableHeader = ({
-  column,
-  children,
-}: {
+interface SortableHeaderProps {
   column: any;
   children: React.ReactNode;
-}) => {
+}
+
+const SortableHeader = ({ column, children }: SortableHeaderProps) => {
   return (
     <Button
       variant="ghost"
