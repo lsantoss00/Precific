@@ -8,7 +8,7 @@ import {
 } from "@/src/components/core/table";
 import CurrencyFormatter from "@/src/helpers/currency-formatter";
 import DateFormatter from "@/src/helpers/date-formatter";
-import { ProductHistoryType } from "../../types/product-type";
+import { ProductHistoryType } from "../types/product-type";
 
 interface ProductPriceHistoryTableProps {
   productPriceHistory: ProductHistoryType[];
