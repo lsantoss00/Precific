@@ -7,7 +7,7 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
-import { ChevronLeft, CircleCheck, Loader2Icon } from "lucide-react";
+import { Check, ChevronLeft, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -252,11 +252,11 @@ const ProductResult = () => {
             </Column>
           </div>
           <Button
-            className="w-40 h-12 flex self-end mt-auto"
+            className="w-40 h-12 flex self-end mt-auto items-center"
             onClick={handleFinishForm}
             disabled={pending}
           >
-            <Show when={pending} fallback={<CircleCheck />}>
+            <Show when={pending} fallback={<Check />}>
               <Loader2Icon className="animate-spin" />
             </Show>
             Finalizar

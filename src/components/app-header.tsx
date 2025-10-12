@@ -11,7 +11,7 @@ export function AppHeader() {
 
   return (
     <header className="w-full bg-[#fafafa] h-20 text-white p-6 fixed top-0 left-0 z-10 border-b flex justify-center">
-      <Row className="w-full h-full !max-w-6xl justify-end items-center">
+      <Row className="w-full h-full !max-w-7xl 2xl:!max-w-[1500px] justify-end items-center">
         <Menu />
       </Row>
     </header>

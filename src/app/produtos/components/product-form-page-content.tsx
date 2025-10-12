@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
-import Row from "@/src/components/core/row";
+import Flex from "@/src/components/core/flex";
 import Show from "@/src/components/core/show";
 import { ScrollText } from "lucide-react";
 import { useProductForm } from "../contexts/product-form-context";
@@ -13,8 +13,8 @@ const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
 
   return (
-    <Column className="w-full h-full pt-28 pb-10 px-6 xl:px-0 space-y-3 max-w-6xl">
-      <Row className="gap-2 justify-between">
+    <Column className="w-full h-full pt-28 pb-10 px-6 xl:px-0 space-y-3 max-w-7xl 2xl:!max-w-[1500px]">
+      <Flex className="flex-col md:flex-row gap-2 justify-between">
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}
         </h2>
@@ -29,7 +29,7 @@ const ProductFormPageContent = () => {
             }
           />
         </Show>
-      </Row>
+      </Flex>
       <ProductForm productId={productId} />
     </Column>
   );
