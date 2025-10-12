@@ -2,9 +2,10 @@
 
 import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Button } from "@/src/components/core";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getProductById } from "../services/get-product-by-id";
@@ -68,20 +69,28 @@ const ProductForm = ({ productId }: ProductFormProps) => {
   const isFormValid = form.formState.isValid;
 
   return (
-    <Row className="w-full h-full space-x-2">
+    <Flex className="flex flex-col lg:flex-row w-full h-full gap-1 md:gap-2 2xl:gap-4">
       <ProductDetailsForm />
-      <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" />
+      {/* <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" /> */}
       <AcquisitionCostForm />
-      <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" />
+      {/* <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" /> */}
       <PricingForm />
-      <Button
-        className="h-full w-20"
-        onClick={handleNext}
-        disabled={!isFormValid}
-      >
-        <ChevronRight className="!w-12 !h-12" />
-      </Button>
-    </Row>
+      <Row className="gap-2">
+        {/* TO-DO: Alterar cor deste botão 'Voltar'  */}
+        <Button className="w-1/2 h-10 lg:h-full lg:w-20 lg:hidden">
+          <ChevronLeft className="lg:!w-12 lg:!h-12" />
+          <span>Voltar</span>
+        </Button>
+        <Button
+          className="w-1/2 h-10 lg:h-full lg:w-20"
+          onClick={handleNext}
+          disabled={!isFormValid}
+        >
+          <span className="lg:hidden">Calcular</span>
+          <ChevronRight className="lg:!w-12 lg:!h-12" />
+        </Button>
+      </Row>
+    </Flex>
   );
 };
 

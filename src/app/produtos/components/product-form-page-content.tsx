@@ -13,7 +13,7 @@ const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
 
   return (
-    <Column className="w-full h-full pt-28 pb-10 xl:pl-12 xl:pr-20 space-y-3">
+    <Column className="w-full h-full pt-28 pb-10 px-6 xl:px-0 space-y-3 max-w-6xl">
       <Row className="gap-2 justify-between">
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}

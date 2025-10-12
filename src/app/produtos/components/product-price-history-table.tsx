@@ -21,7 +21,7 @@ const ProductPriceHistoryTable = ({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Preço Unitário</TableHead>
+          <TableHead>Preço em 2025</TableHead>
           <TableHead>Preço em 2026</TableHead>
           <TableHead className="text-right">Data de alteração</TableHead>
         </TableRow>
