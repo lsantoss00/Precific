@@ -15,7 +15,7 @@ const FormFieldTooltip = ({ message }: FormFieldsTooltipProps) => {
       <TooltipTrigger asChild>
         <Button
           type="button"
-          className="bg-transparent shadow-none text-primary hover:bg-transparent !p-0 h-fit"
+          className="bg-transparent shadow-none text-primary hover:bg-transparent !p-0 h-fit cursor-default"
           onClick={() => setOpenTooltip(!openTooltip)}
           onMouseEnter={() => setOpenTooltip(true)}
           onMouseLeave={() => setOpenTooltip(false)}
