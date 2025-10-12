@@ -131,7 +131,7 @@ const ProductsTable = () => {
 
   return (
     <Show when={!pendingProducts} fallback={<ProductsTableSkeleton />}>
-      <Column className="bg-white h-full shadow-sm rounded-md flex flex-col">
+      <Column className="bg-white h-full w-full shadow-sm rounded-md flex flex-col">
         <div className="flex-1 overflow-auto min-h-0">
           <Table className="w-full">
             <TableHeader className="sticky top-0 bg-white z-10">

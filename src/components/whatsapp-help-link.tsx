@@ -16,7 +16,7 @@ const WhatsAppHelpLink = () => {
 
   return (
     <Link
-      className="fixed bottom-3 right-3 flex items-center justify-center opacity-80 hover:opacity-100"
+      className="fixed bottom-3 right-3 flex items-center justify-center opacity-80 hover:opacity-100 z-20"
       href={whatsAppLink}
       target="_blank"
     >

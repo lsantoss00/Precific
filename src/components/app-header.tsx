@@ -10,8 +10,8 @@ export function AppHeader() {
   if (!user) return null;
 
   return (
-    <header className="w-full bg-[#fafafa] h-20 text-white py-4 fixed top-0 left-0 z-10 border-b">
-      <Row className="mx-20 justify-end items-center h-full">
+    <header className="w-full bg-[#fafafa] h-20 text-white p-6 fixed top-0 left-0 z-10 border-b flex justify-center">
+      <Row className="w-full h-full !max-w-7xl justify-end items-center">
         <Menu />
       </Row>
     </header>

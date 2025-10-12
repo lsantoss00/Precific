@@ -10,11 +10,11 @@ interface InfoCardProps {
 const InfoCard = ({ title, value, icon }: InfoCardProps) => {
   return (
     <Card className="p-6 flex flex-row justify-between items-center w-full h-28 rounded-md shadow-xs">
-      <Column className="justify-between">
-        <h3>{title}</h3>
-        <p className="text-3xl font-medium">{value}</p>
+      <Column>
+        <p className="text-3xl font-semibold">{value}</p>
+        <span className="text-sm max-w-[100px] 2xl:max-w-none">{title}</span>
       </Column>
-      <Column>{icon}</Column>
+      {icon}
     </Card>
   );
 };

@@ -40,14 +40,14 @@ const ProductsHeaderSection = () => {
   return (
     <Column className="space-y-3 w-full">
       <h2 className="text-3xl text-black font-bold">Produtos</h2>
-      <Flex className="flex-col lg:flex-row max-lg:space-y-4 justify-between lg:items-center w-full">
+      <Flex className="flex-col lg:flex-row justify-between lg:items-center w-full gap-4">
         <Input
-          className="w-full lg:max-w-80 xl:max-w-120"
+          className="w-full lg:max-w-120"
           placeholder="Buscar por SKU, Nome ou NCM"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <Row className="space-x-2">
+        <Row className="space-x-2 w-fit lg:justify-end">
           <Button
             className="hover:cursor-pointer w-fit"
             variant="secondary"
