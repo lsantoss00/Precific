@@ -16,6 +16,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
   useSidebar,
 } from "./core";
 
@@ -32,7 +33,8 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent className="flex">
-        <SidebarGroup className="flex items-center">
+        <SidebarGroup className="flex items-center relative">
+          <SidebarTrigger className="absolute right-0 top-0" />
           <SidebarHeader className="mt-2">
             {isCollapsed ? (
               <Image

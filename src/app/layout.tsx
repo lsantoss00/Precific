@@ -31,8 +31,7 @@ export default function RootLayout({
           <AppHeader />
           {/* <AppSidebar /> */}
           {/* TO-DO: trigger criando scroll na pagina */}
-          {/* <SidebarTrigger /> */}
-          <main className="min-h-screen min-w-full flex justify-center">
+          <main className="min-h-screen w-full flex justify-center">
             {children}
           </main>
           <Toaster position="top-center" />
