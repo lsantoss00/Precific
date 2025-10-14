@@ -116,12 +116,12 @@ const ProductResult = () => {
   }).cbs;
 
   const taxes = taxCalc({
-    priceToday,
+    priceToday: priceToday.value,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const priceIn2026 = priceToday + ibs + cbs;
+  const priceIn2026 = priceToday.result + ibs + cbs;
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -166,7 +166,7 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...data,
       status: "ACTIVE",
-      price_today: priceToday,
+      price_today: priceToday.result,
       price_in_2026: priceIn2026,
     };
 
@@ -230,7 +230,7 @@ const ProductResult = () => {
             </div>
             <MetricCard
               title="Preço de Venda Final"
-              value={priceToday}
+              value={priceToday.result}
               variant="secondary"
             />
           </Column>
@@ -265,7 +265,7 @@ const ProductResult = () => {
             </Column>
             <MetricCard
               title="Valor de Venda Final"
-              value={priceToday}
+              value={priceToday.result}
               variant="secondary"
             />
           </Column>

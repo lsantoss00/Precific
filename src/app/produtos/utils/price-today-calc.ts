@@ -16,7 +16,7 @@ export function priceTodayCalc({
   profit,
   salesIcms,
   salesPisCofins,
-}: PriceTodayCalcProps): number {
+}: PriceTodayCalcProps) {
   const percentSum = (fixedCosts + shipping + othersCost + profit) / 100;
 
   const value = acquisitionCost + acquisitionCost * percentSum;
@@ -30,5 +30,8 @@ export function priceTodayCalc({
 
   const result = priceToday.toFixed(2);
 
-  return Number(result);
+  return {
+    result: Number(result),
+    value: Number(value),
+  };
 }
