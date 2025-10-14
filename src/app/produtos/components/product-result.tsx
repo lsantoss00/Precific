@@ -264,7 +264,7 @@ const ProductResult = () => {
               </div>
             </Column>
             <MetricCard
-              title="Valor de Venda Final"
+              title="Preço de Venda Final"
               value={priceToday.result}
               variant="secondary"
             />
