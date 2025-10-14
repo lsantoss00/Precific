@@ -3,6 +3,8 @@
 import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Row from "@/src/components/core/row";
+import FormFieldTooltip from "@/src/components/form-field-tooltip";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import MetricCard from "./metric-card";
 
@@ -32,103 +34,145 @@ const AcquisitionCostForm = () => {
           <Label htmlFor="unit_price" required>
             Preço Unitário NF-e (R$)
           </Label>
-          <Input
-            id="unit_price"
-            type="number"
-            placeholder="R$ 0,00"
-            {...register("unit_price", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-              required: "Campo obrigatório",
-            })}
-            error={errors.unit_price?.message}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="unit_price"
+              type="number"
+              placeholder="R$ 0,00"
+              {...register("unit_price", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                required: "Campo obrigatório",
+                min: { value: 0, message: "Valor mínimo é 0" },
+              })}
+              error={errors.unit_price?.message}
+            />
+            <FormFieldTooltip message="Preço Unitário" />
+          </Row>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="icms" required>
             ICMS (%)
           </Label>
-          <Input
-            id="icms"
-            type="number"
-            placeholder="0,00%"
-            {...register("icms", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-              required: "Campo obrigatório",
-            })}
-            error={errors.icms?.message}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="icms"
+              type="number"
+              placeholder="0,00%"
+              min="0"
+              max="100"
+              {...register("icms", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                required: "Campo obrigatório",
+                min: { value: 0, message: "Valor mínimo é 0" },
+                max: { value: 100, message: "Valor máximo é 100" },
+              })}
+              error={errors.icms?.message}
+            />
+            <FormFieldTooltip message="ICMS" />
+          </Row>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="pis_cofins" required>
             PIS/COFINS (%)
           </Label>
-          <Input
-            id="pis_cofins"
-            type="number"
-            placeholder="0,00%"
-            {...register("pis_cofins", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-              required: "Campo obrigatório",
-            })}
-            error={errors.pis_cofins?.message}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="pis_cofins"
+              type="number"
+              placeholder="0,00%"
+              min="0"
+              max="100"
+              {...register("pis_cofins", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                required: "Campo obrigatório",
+                min: { value: 0, message: "Valor mínimo é 0" },
+                max: { value: 100, message: "Valor máximo é 100" },
+              })}
+              error={errors.pis_cofins?.message}
+            />
+            <FormFieldTooltip message="PIS/COFINS" />
+          </Row>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="icms_st">ICMS ST (%)</Label>
-          <Input
-            id="icms_st"
-            type="number"
-            placeholder="0,00%"
-            {...register("icms_st", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-            })}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="icms_st"
+              type="number"
+              placeholder="0,00%"
+              min="0"
+              max="100"
+              {...register("icms_st", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                min: { value: 0, message: "Valor mínimo é 0" },
+                max: { value: 100, message: "Valor máximo é 100" },
+              })}
+              error={errors.icms_st?.message}
+            />
+            <FormFieldTooltip message="ICMS ST" />
+          </Row>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="ipi">IPI (%)</Label>
-          <Input
-            id="ipi"
-            type="number"
-            placeholder="0,00%"
-            {...register("ipi", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-            })}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="ipi"
+              type="number"
+              placeholder="0,00%"
+              min="0"
+              max="100"
+              {...register("ipi", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                min: { value: 0, message: "Valor mínimo é 0" },
+                max: { value: 100, message: "Valor máximo é 100" },
+              })}
+              error={errors.ipi?.message}
+            />
+            <FormFieldTooltip message="IPI" />
+          </Row>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="others">Outros (%)</Label>
-          <Input
-            id="others"
-            type="number"
-            placeholder="0,00%"
-            {...register("others", {
-              valueAsNumber: true,
-              setValueAs: (value) =>
-                value === "" || value === null || isNaN(value)
-                  ? 0
-                  : Number(value),
-            })}
-          />
+          <Row className="items-center gap-2">
+            <Input
+              id="others"
+              type="number"
+              placeholder="0,00%"
+              min="0"
+              max="100"
+              {...register("others", {
+                valueAsNumber: true,
+                setValueAs: (value) =>
+                  value === "" || value === null || isNaN(value)
+                    ? 0
+                    : Number(value),
+                min: { value: 0, message: "Valor mínimo é 0" },
+                max: { value: 100, message: "Valor máximo é 100" },
+              })}
+              error={errors.others?.message}
+            />
+            <FormFieldTooltip message="Outros" />
+          </Row>
         </Column>
       </form>
       <MetricCard

@@ -6,6 +6,7 @@ import Show from "@/src/components/core/show";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
+import SortableHeader from "../../../../components/core/sortable-header";
 import { ProductResponseType } from "../../types/product-type";
 
 interface ProductTableMeta {
@@ -19,16 +20,20 @@ interface ProductTableMeta {
 export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "sku",
-    header: "SKU",
+    header: ({ column }) => (
+      <SortableHeader column={column}>SKU</SortableHeader>
+    ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-eltext-ellipsis">
+      <div className="uppercase truncate text-ellipsis">
         {row.getValue("sku")}
       </div>
     ),
   },
   {
     accessorKey: "name",
-    header: "NOME",
+    header: ({ column }) => (
+      <SortableHeader column={column}>NOME</SortableHeader>
+    ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
         {row.getValue("name")}
@@ -37,16 +42,20 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   },
   {
     accessorKey: "ncm",
-    header: "NCM",
+    header: ({ column }) => (
+      <SortableHeader column={column}>NCM</SortableHeader>
+    ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-eltext-ellipsis">
+      <div className="uppercase truncate text-ellipsis">
         {row.getValue("ncm")}
       </div>
     ),
   },
   {
     accessorKey: "price_today",
-    header: "HOJE (R$)",
+    header: ({ column }) => (
+      <SortableHeader column={column}>HOJE (R$)</SortableHeader>
+    ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
         {currencyFormatter(row.getValue("price_today"))}
@@ -55,7 +64,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   },
   {
     accessorKey: "price_in_2026",
-    header: "2026 (R$)",
+    header: ({ column }) => (
+      <SortableHeader column={column}>2026 (R$)</SortableHeader>
+    ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
         {currencyFormatter(row.getValue("price_in_2026"))}
@@ -64,7 +75,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   },
   {
     accessorKey: "price_in_2027",
-    header: "2027 (R$)",
+    header: ({ column }) => (
+      <SortableHeader column={column}>2027 (R$)</SortableHeader>
+    ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis">
         {currencyFormatter(row.getValue("price_in_2027"))}
@@ -77,6 +90,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
+      // TO-DO: ARRUMAR ESSA DUPLICAÇÃO DESNECESSÁRIA
       const isActive =
         row.getValue("status") === "ACTIVE" ||
         row.getValue("status") === "active";
@@ -91,7 +105,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
                 checked ? "ACTIVE" : "INACTIVE"
               );
             }}
-            disabled={meta?.pendingUpdateProductStatus}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           />
         </div>
       );
@@ -109,6 +125,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           <Button
             variant="secondary"
             onClick={() => meta?.onPriceProduct(product.id!)}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           >
             Precificar
           </Button>
@@ -116,7 +135,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
             variant="destructive"
             size="icon"
             onClick={() => meta?.onDeleteProduct(product.id!)}
-            disabled={meta?.pendingDeleteProduct}
+            disabled={
+              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+            }
           >
             <Show
               when={!meta?.pendingDeleteProduct}

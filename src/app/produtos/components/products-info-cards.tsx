@@ -1,13 +1,15 @@
 "use client";
 
 import Row from "@/src/components/core/row";
+import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle, Package, Tag, XCircle } from "lucide-react";
 import { getProductSummaries } from "../services/get-summary-products";
 import InfoCard from "./info-card";
+import InfoCardSkeleton from "./skeletons/info-card-skeleton";
 
 const ProductInfoCards = () => {
-  const { data: summary, isPending } = useQuery({
+  const { data: summary, isPending: pendingProductSummaries } = useQuery({
     queryFn: getProductSummaries,
     queryKey: ["product-summaries"],
     refetchInterval: 60000,
@@ -40,16 +42,25 @@ const ProductInfoCards = () => {
     },
   ];
 
+  const pendingProductSummariesState = Array.from({ length: 4 }).map(
+    (_, index) => <InfoCardSkeleton key={index} />
+  );
+
   return (
     <Row className="w-full gap-4">
-      {infoCards.map((card) => (
-        <InfoCard
-          key={card.id}
-          title={card.title}
-          value={card.value}
-          icon={card.icon}
-        />
-      ))}
+      <Show
+        when={!pendingProductSummaries}
+        fallback={pendingProductSummariesState}
+      >
+        {infoCards.map((card) => (
+          <InfoCard
+            key={card.id}
+            title={card.title}
+            value={card.value}
+            icon={card.icon}
+          />
+        ))}
+      </Show>
     </Row>
   );
 };

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { importProducts } from "../app/produtos/services/post-products-by-import";
 import { queryClient } from "../libs/tanstack-query/query-client";
 import { Button } from "./core";
+import Show from "./core/show";
 
 interface CSVRow {
   sku: string;
@@ -166,8 +167,12 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
         disabled={importMutation.isPending}
       >
         <label htmlFor="csv-upload">
-          {importMutation.isPending && <Loader2 className="animate-spin" />}
-          <Upload className="text-white" />
+          <Show
+            when={importMutation.isPending}
+            fallback={<Upload className="text-white" />}
+          >
+            <Loader2 className="animate-spin" />
+          </Show>
           <span className="hidden sm:flex">Importar CSV</span>
         </label>
       </Button>

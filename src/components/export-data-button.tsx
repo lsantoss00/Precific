@@ -65,10 +65,10 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
       disabled={isLoading || !data}
       onClick={handleExport}
     >
-      <Show when={isLoading}>
+      <Show when={isLoading} fallback={<Download className="text-white" />}>
         <Loader2Icon className="animate-spin" />
       </Show>
-      <Download className="text-white" />
+
       <span className="hidden sm:flex">Exportar CSV</span>
     </Button>
   );

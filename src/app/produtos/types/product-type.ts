@@ -54,3 +54,11 @@ export type ProductExportType = Pick<
   | "price_in_2027"
   | "status"
 >;
+
+// TO-DO: Atualizar esse type aqui
+export type ProductHistoryType = {
+  id: string;
+  price_today: number;
+  price_in_2026: number;
+  changed_at: string;
+};
