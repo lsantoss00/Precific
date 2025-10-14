@@ -116,11 +116,11 @@ const ProductResult = () => {
     },
     {
       title: "Outros Custos",
-      value: acquisitionCost * (data?.other_costs ?? 0 / 100),
+      value: acquisitionCost * ((data?.other_costs ?? 0) / 100),
     },
     {
       title: "Custos Fixos",
-      value: acquisitionCost * (data?.fixed_costs ?? 0 / 100),
+      value: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
@@ -128,7 +128,7 @@ const ProductResult = () => {
     },
     {
       title: "Frete",
-      value: acquisitionCost * (data?.shipping ?? 0 / 100),
+      value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "Margem de Lucro",
