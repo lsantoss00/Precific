@@ -14,9 +14,9 @@ export function acquisitionCostCalc({
   icmsSt,
   ipi,
   others,
-}: AcquisitionCostCalcProps): number {
+}: AcquisitionCostCalcProps) {
   const icmsValue = unitPrice * (icms / 100);
-  const pisCofinsValue = unitPrice * (pisCofins / 100);
+  const pisCofinsValue = (unitPrice - icmsValue) * (pisCofins / 100);
   const icmsStValue = unitPrice * (icmsSt / 100);
   const ipiValue = unitPrice * (ipi / 100);
   const othersValue = unitPrice * (others / 100);
@@ -29,7 +29,11 @@ export function acquisitionCostCalc({
     ipiValue +
     othersValue;
 
-  const result = acquisitionCost.toFixed(2);
+  const result = acquisitionCost;
 
-  return Number(result);
+  return {
+    icmsValue: Number(icmsValue),
+    pisCofinsValue: Number(pisCofinsValue),
+    result: Number(result),
+  };
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import Column from "./column";
 import Show from "./show";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,7 +10,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 function Input({ className, type, error, ...props }: InputProps) {
   return (
-    <>
+    <Column className="gap-2 w-full">
       <input
         type={type}
         data-slot="input"
@@ -25,7 +26,7 @@ function Input({ className, type, error, ...props }: InputProps) {
       <Show when={error}>
         <span className="text-xs text-red-500 -mt-1">{error}</span>
       </Show>
-    </>
+    </Column>
   );
 }
 

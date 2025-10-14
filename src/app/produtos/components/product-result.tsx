@@ -63,7 +63,11 @@ const ProductResult = () => {
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
-  const acquisitionCost = acquisitionCostCalc({
+  const {
+    result: acquisitionCost,
+    icmsValue,
+    pisCofinsValue,
+  } = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
@@ -88,18 +92,16 @@ const ProductResult = () => {
   });
 
   const ibs = ibsCbsCalc({
-    priceToday,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-    percentage: 0.01,
-  });
+    acquisitionCost: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).ibs;
 
   const cbs = ibsCbsCalc({
-    priceToday,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-    percentage: 0.09,
-  });
+    acquisitionCost: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).cbs;
 
   const taxes = taxCalc({
     priceToday,
