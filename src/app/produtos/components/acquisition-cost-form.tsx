@@ -177,7 +177,7 @@ const AcquisitionCostForm = () => {
       </form>
       <MetricCard
         title="Valor final de Aquisição"
-        value={acquisitionCost || 0}
+        value={acquisitionCost.result || 0}
       />
     </Card>
   );

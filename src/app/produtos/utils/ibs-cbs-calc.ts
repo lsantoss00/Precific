@@ -1,15 +1,11 @@
 interface IbsCbsCalcProps {
-  acquisitionCost: number;
+  unitPrice: number;
   pisCofins: number;
   icms: number;
 }
 
-export function ibsCbsCalc({
-  acquisitionCost,
-  pisCofins,
-  icms,
-}: IbsCbsCalcProps) {
-  const baseIbsCbsCalc = acquisitionCost - pisCofins - icms;
+export function ibsCbsCalc({ unitPrice, pisCofins, icms }: IbsCbsCalcProps) {
+  const baseIbsCbsCalc = unitPrice - pisCofins - icms;
 
   const ibsResult = baseIbsCbsCalc * 0.001;
 
@@ -18,5 +14,6 @@ export function ibsCbsCalc({
   return {
     ibs: Number(ibsResult),
     cbs: Number(cbsResult),
+    baseIbsdCbsCalc: Number(baseIbsCbsCalc),
   };
 }

@@ -4,10 +4,14 @@ import { Button } from "./core";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./core/tooltip";
 
 interface FormFieldsTooltipProps {
-  message: string;
+  message: string | any;
+  icon?: React.ReactNode;
 }
 
-const FormFieldTooltip = ({ message }: FormFieldsTooltipProps) => {
+const FormFieldTooltip = ({
+  message,
+  icon = <CircleQuestionMark size={24} />,
+}: FormFieldsTooltipProps) => {
   const [openTooltip, setOpenTooltip] = useState<boolean>(false);
 
   return (
@@ -27,11 +31,11 @@ const FormFieldTooltip = ({ message }: FormFieldsTooltipProps) => {
             event.key === "Enter" && setOpenTooltip(!openTooltip);
           }}
         >
-          <CircleQuestionMark size={24} />
+          {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent>
-        <p>{message}</p>
+      <TooltipContent className="max-w-sm">
+        <p className="text-base">{message}</p>
       </TooltipContent>
     </Tooltip>
   );
