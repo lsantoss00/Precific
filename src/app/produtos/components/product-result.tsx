@@ -205,68 +205,70 @@ const ProductResult = () => {
       >
         <ChevronLeft className="!w-12 !h-12" />
       </Button>
-      <Card className="h-full w-full p-6 rounded-md">
-        <Show
-          when={!isLoading}
-          fallback={
+      <Show
+        when={!isLoading}
+        fallback={
+          <Card className="h-full w-full p-6 rounded-md">
             <LoadingResultState onComplete={() => setIsLoading(false)} />
-          }
-        >
-          <div className="grid grid-cols-2 w-full h-fit gap-10 mb-4">
-            <Column className="space-y-4">
+          </Card>
+        }
+      >
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 w-full">
+            <h3 className="text-lg">
+              Pré-Reforma Tributária <strong>2025</strong>
+            </h3>
+            <div className="grid grid-cols-2 w-full h-fit gap-4">
+              {metrics2025.map((metric, index) => (
+                <MetricCard
+                  key={`metric-2025-${index}`}
+                  title={metric.title}
+                  value={metric.value}
+                  variant={metric.variant}
+                />
+              ))}
+            </div>
+            <MetricCard
+              title="Preço de Venda Final"
+              value={priceToday}
+              variant="secondary"
+            />
+          </Column>
+        </Card>
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 h-full">
+            <Row className="gap-2 items-center">
               <h3 className="text-lg">
-                Pré-Reforma Tributária <strong>2025</strong>
+                Transição Reforma Tributária <strong>2026</strong>
               </h3>
-              <div className="grid grid-cols-2 w-full h-fit gap-4">
-                {metrics2025.map((metric, index) => (
+              <FormFieldTooltip
+                icon={<CircleAlert className="text-[#66289B]  !w-6 !h-6" />}
+                message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
+              />
+            </Row>
+            <Column className="gap-4">
+              <MetricCard
+                title="Base de Cálculo IBS/CBS"
+                value={baseIbsdCbsCalc}
+                variant="neutral"
+              />
+              <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                {metrics2026.map((metric, index) => (
                   <MetricCard
-                    key={`metric-2025-${index}`}
+                    key={`metric-2026-${index}`}
                     title={metric.title}
                     value={metric.value}
                     variant={metric.variant}
                   />
                 ))}
               </div>
-              <MetricCard
-                title="Preço de Venda Final"
-                value={priceToday}
-                variant="secondary"
-              />
             </Column>
-            <Column className="space-y-4">
-              <Row className="gap-2 items-center">
-                <h3 className="text-lg">
-                  Transição Reforma Tributária <strong>2026</strong>
-                </h3>
-                <FormFieldTooltip
-                  icon={<CircleAlert className="text-[#66289B]  !w-6 !h-6" />}
-                  message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
-                />
-              </Row>
-              <Column className="gap-4 h-full">
-                <MetricCard
-                  title="Base de Cálculo IBS/CBS"
-                  value={baseIbsdCbsCalc}
-                  variant="neutral"
-                />
-                <div className="grid grid-cols-2 gap-4">
-                  {metrics2026.map((metric, index) => (
-                    <MetricCard
-                      key={`metric-2026-${index}`}
-                      title={metric.title}
-                      value={metric.value}
-                      variant={metric.variant}
-                    />
-                  ))}
-                </div>
-              </Column>
-              <MetricCard
-                title="Valor de Venda Final"
-                value={priceToday}
-                variant="secondary"
-              />
-            </Column>
-          </div>
+            <MetricCard
+              title="Valor de Venda Final"
+              value={priceToday}
+              variant="secondary"
+            />
+          </Column>
           <Button
             className="w-40 h-12 flex self-end mt-auto"
             onClick={handleFinishForm}
@@ -277,8 +279,8 @@ const ProductResult = () => {
             </Show>
             Finalizar
           </Button>
-        </Show>
-      </Card>
+        </Card>
+      </Show>
     </Row>
   );
 };
