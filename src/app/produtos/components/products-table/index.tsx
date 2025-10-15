@@ -179,10 +179,10 @@ const ProductsTable = () => {
               <Show
                 when={table.getRowModel().rows?.length}
                 fallback={
-                  <TableRow>
+                  <TableRow className="hover:!bg-transparent">
                     <TableCell
                       colSpan={productsTableColumns.length}
-                      className="h-24 text-center"
+                      className="h-24 text-center text-gray-500"
                     >
                       Sem resultados.
                     </TableCell>
