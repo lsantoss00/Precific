@@ -163,7 +163,7 @@ const ImportDataButton = ({ onImportSuccess }: ImportDataButtonProps) => {
       />
       <Button
         asChild
-        className="hover:cursor-pointer w-fit"
+        className="hover:cursor-pointer flex-1 md:flex-none md:w-fit h-12"
         disabled={importMutation.isPending}
       >
         <label htmlFor="csv-upload">

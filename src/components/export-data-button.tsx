@@ -60,7 +60,7 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
   };
   return (
     <Button
-      className="hover:cursor-pointer w-fit"
+      className="hover:cursor-pointer flex-1 md:flex-none md:w-fit h-12"
       type="button"
       disabled={isLoading || !data}
       onClick={handleExport}
