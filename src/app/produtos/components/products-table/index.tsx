@@ -36,7 +36,7 @@ const ProductsTable = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const search = searchParams.get("filtro") || "";
-  const pageSize = 20;
+  const pageSize = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
