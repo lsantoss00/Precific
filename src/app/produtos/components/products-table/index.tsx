@@ -36,7 +36,7 @@ const ProductsTable = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const search = searchParams.get("filtro") || "";
-  const pageSize = 10;
+  const pageSize = 20;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
@@ -195,7 +195,7 @@ const ProductsTable = () => {
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell key={cell.id} className="px-4">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
