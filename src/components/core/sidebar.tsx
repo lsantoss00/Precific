@@ -258,6 +258,7 @@ function Sidebar({
 function SidebarTrigger({
   className,
   onClick,
+  children,
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar();
@@ -272,17 +273,21 @@ function SidebarTrigger({
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon"
-      className={cn("size-7 z-20", className)}
+      size={children ? "default" : "icon"}
+      className={cn("z-20", className)}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
       }}
       {...props}
     >
-      <ChevronLeft
-        className={`z-10 text-[#66289B] ${isCollapsed && "rotate-180"}`}
-      />
+      {children ? (
+        children
+      ) : (
+        <ChevronLeft
+          className={`z-10 text-[#66289B] ${isCollapsed && "rotate-180"}`}
+        />
+      )}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

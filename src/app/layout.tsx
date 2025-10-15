@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { AppHeader } from "../components/app-header";
+import { AppSidebar } from "../components/app-sidebar";
+import { SidebarTrigger } from "../components/core";
 import { Toaster } from "../components/core/sonner";
 import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
@@ -29,8 +31,8 @@ export default function RootLayout({
       >
         <Providers>
           <AppHeader />
-          {/* <AppSidebar /> */}
-          {/* TO-DO: trigger criando scroll na pagina */}
+          <AppSidebar />
+          <SidebarTrigger className="max-md:hidden" />
           <main className="min-h-screen w-full flex justify-center">
             {children}
           </main>
