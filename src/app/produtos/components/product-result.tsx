@@ -17,6 +17,7 @@ import { updateProduct } from "../services/update-product";
 import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
+import { netProfitCalc } from "../utils/net-profit-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
 import { profitMarginCalc } from "../utils/profit-margin-calc";
 import { taxCalc } from "../utils/tax-calc";
@@ -111,9 +112,16 @@ const ProductResult = () => {
   }).cbs;
 
   const taxes = taxCalc({
-    priceToday: priceToday.value,
+    priceToday: priceToday.result,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
+  });
+
+  const netProfit = netProfitCalc({
+    profit: profitMargin,
+    fixedCosts: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
+    shipping: acquisitionCost * ((data?.shipping ?? 0) / 100),
+    otherCosts: acquisitionCost * ((data?.other_costs ?? 0) / 100),
   });
 
   const priceIn2026 = priceToday.result;
@@ -124,11 +132,11 @@ const ProductResult = () => {
       value: acquisitionCost || 0,
     },
     {
-      title: "Outros Custos",
+      title: "Outros custos",
       value: acquisitionCost * ((data?.other_costs ?? 0) / 100),
     },
     {
-      title: "Custos Fixos",
+      title: "Custos fixos",
       value: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
     },
     {
@@ -140,8 +148,8 @@ const ProductResult = () => {
       value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
     {
-      title: "Margem de Lucro",
-      value: profitMargin,
+      title: "Lucro líquido",
+      value: netProfit,
       variant: "success" as const,
     },
   ];
@@ -224,7 +232,7 @@ const ProductResult = () => {
               ))}
             </div>
             <MetricCard
-              title="Preço de Venda Final"
+              title="Preço de venda final"
               value={priceToday.result}
               variant="secondary"
             />
@@ -243,7 +251,7 @@ const ProductResult = () => {
             </Row>
             <Column className="gap-4">
               <MetricCard
-                title="Base de Cálculo IBS/CBS"
+                title="Base de cálculo IBS/CBS"
                 value={baseIbsdCbsCalc}
                 variant="neutral"
               />
@@ -259,7 +267,7 @@ const ProductResult = () => {
               </div>
             </Column>
             <MetricCard
-              title="Preço de Venda Final"
+              title="Preço de venda final"
               value={priceToday.result}
               variant="secondary"
             />

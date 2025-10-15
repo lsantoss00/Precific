@@ -26,7 +26,7 @@ export async function getProducts({
   let query = supabaseClient
     .from("products")
     .select("*", { count: "exact" })
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false });
 
   if (search && search.trim()) {
     const searchTerm = search.trim();
