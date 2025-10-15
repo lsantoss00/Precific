@@ -47,9 +47,9 @@ const ProductsHeaderSection = () => {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <Row className="space-x-2 w-fit lg:justify-end">
+        <Row className="space-x-2 w-full lg:w-fit lg:justify-end">
           <Button
-            className="hover:cursor-pointer w-fit"
+            className="hover:cursor-pointer w-fit h-12"
             variant="secondary"
             onClick={() => router.push("/produtos/novo")}
             disabled={mockPending}
