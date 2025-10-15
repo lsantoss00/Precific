@@ -116,7 +116,7 @@ const ProductResult = () => {
   }).cbs;
 
   const taxes = taxCalc({
-    priceToday: priceToday.value,
+    priceToday: priceToday.result,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
