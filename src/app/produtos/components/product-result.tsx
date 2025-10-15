@@ -200,9 +200,9 @@ const ProductResult = () => {
   }, []);
 
   return (
-    <Row className="w-full h-full space-x-2">
+    <div className="flex flex-col lg:flex-row w-full h-full gap-2">
       <Button
-        className="h-full w-20"
+        className="hidden lg:flex h-full w-20"
         onClick={handleGoBack}
         disabled={isLoading || pendingPostProduct}
       >
@@ -221,7 +221,7 @@ const ProductResult = () => {
             <h3 className="text-lg">
               Pré-Reforma Tributária <strong>2025</strong>
             </h3>
-            <div className="grid grid-cols-2 w-full h-fit gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
               {metrics2025.map((metric, index) => (
                 <MetricCard
                   key={`metric-2025-${index}`}
@@ -255,7 +255,7 @@ const ProductResult = () => {
                 value={baseIbsdCbsCalc}
                 variant="neutral"
               />
-              <div className="grid grid-cols-2 grid-rows-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
                 {metrics2026.map((metric, index) => (
                   <MetricCard
                     key={`metric-2026-${index}`}
@@ -273,7 +273,7 @@ const ProductResult = () => {
             />
           </Column>
           <Button
-            className="w-40 h-12 flex self-end mt-auto items-center"
+            className="hidden lg:flex md:w-40 h-12 self-end"
             onClick={handleFinishForm}
             disabled={pending}
           >
@@ -283,8 +283,28 @@ const ProductResult = () => {
             Finalizar
           </Button>
         </Card>
+        <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
+          <Button
+            className="lg:hidden h-full"
+            onClick={handleGoBack}
+            variant={"outline"}
+            disabled={isLoading || pendingPostProduct}
+          >
+            <ChevronLeft className="!w-6 !h-6" />
+          </Button>
+          <Button
+            className="flex-1 md:flex-none md:w-40 h-12 flex items-center"
+            onClick={handleFinishForm}
+            disabled={pending}
+          >
+            <Show when={pending} fallback={<Check />}>
+              <Loader2Icon className="animate-spin" />
+            </Show>
+            Finalizar
+          </Button>
+        </Row>
       </Show>
-    </Row>
+    </div>
   );
 };
 

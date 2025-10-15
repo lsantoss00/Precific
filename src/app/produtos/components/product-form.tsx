@@ -5,7 +5,7 @@ import { Button } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Calculator, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getProductById } from "../services/get-product-by-id";
@@ -75,19 +75,22 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <AcquisitionCostForm />
       {/* <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" /> */}
       <PricingForm />
-      <Row className="gap-2">
-        {/* TO-DO: Alterar cor deste botão 'Voltar'  */}
-        <Button className="w-1/2 h-10 lg:h-full lg:w-20 lg:hidden">
-          <ChevronLeft className="lg:!w-12 lg:!h-12" />
-          <span>Voltar</span>
+      <Row className="max-lg:mt-2 gap-2 md:w-fit md:self-end h-full">
+        <Button
+          className="lg:hidden h-full"
+          onClick={() => router.push("/produtos")}
+          variant={"outline"}
+        >
+          <ChevronLeft className="!w-6 !h-6" />
         </Button>
         <Button
-          className="w-1/2 h-10 lg:h-full lg:w-20"
+          className="flex-1 md:flex-none md:w-40 h-12 lg:!h-full lg:w-20 flex items-center"
           onClick={handleNext}
           disabled={!isFormValid}
         >
+          <Calculator className="lg:hidden" />
+          <ChevronRight className="max-lg:hidden !w-12 !h-12" />
           <span className="lg:hidden">Calcular</span>
-          <ChevronRight className="lg:!w-12 lg:!h-12" />
         </Button>
       </Row>
     </Flex>
