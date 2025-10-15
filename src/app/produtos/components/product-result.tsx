@@ -121,7 +121,7 @@ const ProductResult = () => {
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const priceIn2026 = priceToday.result + ibs + cbs;
+  const priceIn2026 = priceToday.result;
 
   const metrics2025: MetricCardProps[] = [
     {
