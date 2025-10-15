@@ -5,9 +5,10 @@ import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import FormFieldTooltip from "@/src/components/form-field-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
-import { Check, ChevronLeft, Loader2Icon } from "lucide-react";
+import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -63,7 +64,11 @@ const ProductResult = () => {
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
-  const acquisitionCost = acquisitionCostCalc({
+  const {
+    result: acquisitionCost,
+    icmsValue,
+    pisCofinsValue,
+  } = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
@@ -87,27 +92,31 @@ const ProductResult = () => {
     profit: data?.profit ?? 0,
   });
 
+  const baseIbsdCbsCalc = ibsCbsCalc({
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).baseIbsdCbsCalc;
+
   const ibs = ibsCbsCalc({
-    priceToday,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-    percentage: 0.01,
-  });
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).ibs;
 
   const cbs = ibsCbsCalc({
-    priceToday,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-    percentage: 0.09,
-  });
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).cbs;
 
   const taxes = taxCalc({
-    priceToday,
+    priceToday: priceToday.value,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const priceIn2026 = priceToday + ibs + cbs;
+  const priceIn2026 = priceToday.result;
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -116,11 +125,11 @@ const ProductResult = () => {
     },
     {
       title: "Outros Custos",
-      value: acquisitionCost * (data?.other_costs ?? 0 / 100),
+      value: acquisitionCost * ((data?.other_costs ?? 0) / 100),
     },
     {
       title: "Custos Fixos",
-      value: acquisitionCost * (data?.fixed_costs ?? 0 / 100),
+      value: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
@@ -128,7 +137,7 @@ const ProductResult = () => {
     },
     {
       title: "Frete",
-      value: acquisitionCost * (data?.shipping ?? 0 / 100),
+      value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "Margem de Lucro",
@@ -152,7 +161,7 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...data,
       status: "ACTIVE",
-      price_today: priceToday,
+      price_today: priceToday.result,
       price_in_2026: priceIn2026,
     };
 
@@ -191,66 +200,70 @@ const ProductResult = () => {
       >
         <ChevronLeft className="!w-12 !h-12" />
       </Button>
-      <Card className="h-full w-full p-6 rounded-md">
-        <Show
-          when={!isLoading}
-          fallback={
+      <Show
+        when={!isLoading}
+        fallback={
+          <Card className="h-full w-full p-6 rounded-md">
             <LoadingResultState onComplete={() => setIsLoading(false)} />
-          }
-        >
-          <div className="grid grid-cols-2 w-full h-fit gap-10 mb-4">
-            <Column className="space-y-4">
+          </Card>
+        }
+      >
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 w-full">
+            <h3 className="text-lg">
+              Pré-Reforma Tributária <strong>2025</strong>
+            </h3>
+            <div className="grid grid-cols-2 w-full h-fit gap-4">
+              {metrics2025.map((metric, index) => (
+                <MetricCard
+                  key={`metric-2025-${index}`}
+                  title={metric.title}
+                  value={metric.value}
+                  variant={metric.variant}
+                />
+              ))}
+            </div>
+            <MetricCard
+              title="Preço de Venda Final"
+              value={priceToday.result}
+              variant="secondary"
+            />
+          </Column>
+        </Card>
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 h-full">
+            <Row className="gap-2 items-center">
               <h3 className="text-lg">
-                Pré-Reforma Tributária <strong>2025</strong>
+                Transição Reforma Tributária <strong>2026</strong>
               </h3>
-              <div className="grid grid-cols-2 w-full h-fit gap-4">
-                {metrics2025.map((metric, index) => (
+              <FormFieldTooltip
+                icon={<CircleAlert className="text-[#66289B] !w-6 !h-6" />}
+                message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
+              />
+            </Row>
+            <Column className="gap-4">
+              <MetricCard
+                title="Base de Cálculo IBS/CBS"
+                value={baseIbsdCbsCalc}
+                variant="neutral"
+              />
+              <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                {metrics2026.map((metric, index) => (
                   <MetricCard
-                    key={`metric-2025-${index}`}
+                    key={`metric-2026-${index}`}
                     title={metric.title}
                     value={metric.value}
                     variant={metric.variant}
                   />
                 ))}
               </div>
-              <MetricCard
-                title="Preço de Venda Final"
-                value={priceToday}
-                variant="secondary"
-              />
             </Column>
-            <Column className="space-y-4">
-              <h3 className="text-lg">
-                Transição Reforma Tributária <strong>2026</strong>
-              </h3>
-              <Column className="gap-4 h-full">
-                <MetricCard
-                  title="Preço de Venda Final"
-                  value={priceToday}
-                  variant="neutral"
-                />
-                <div className="grid grid-cols-2 gap-4">
-                  {metrics2026.map((metric, index) => (
-                    <MetricCard
-                      key={`metric-2026-${index}`}
-                      title={metric.title}
-                      value={metric.value}
-                      variant={metric.variant}
-                    />
-                  ))}
-                </div>
-                <span className="text-center">
-                  Os valores de IBS/CBS em 2026, tornam-se{" "}
-                  <strong>créditos</strong>
-                </span>
-              </Column>
-              <MetricCard
-                title="Valor Total da NF-e"
-                value={priceIn2026}
-                variant="secondary"
-              />
-            </Column>
-          </div>
+            <MetricCard
+              title="Preço de Venda Final"
+              value={priceToday.result}
+              variant="secondary"
+            />
+          </Column>
           <Button
             className="w-40 h-12 flex self-end mt-auto items-center"
             onClick={handleFinishForm}
@@ -261,8 +274,8 @@ const ProductResult = () => {
             </Show>
             Finalizar
           </Button>
-        </Show>
-      </Card>
+        </Card>
+      </Show>
     </Row>
   );
 };

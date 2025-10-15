@@ -10,7 +10,6 @@ import {
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import TablePagination from "@/src/components/table-pagination";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
@@ -20,7 +19,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
@@ -32,39 +33,59 @@ import { productsTableColumns } from "./products-table-columns";
 const ProductsTable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const page = Number(searchParams.get("pagina")) || 1;
   const search = searchParams.get("filtro") || "";
-  const pageSize = 10;
+  const pageSize = 20;
 
-  const { data, isPending: pendingProducts } = useQuery({
-    queryFn: () => getProducts({ page, pageSize, search }),
-    queryKey: ["products", page, pageSize, search],
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setAllProducts([]);
+    setTotalCount(0);
+  }, [search]);
+
+  const { data, isPending, isFetching } = useQuery({
+    queryFn: () => getProducts({ page: currentPage, pageSize, search }),
+    queryKey: ["products", currentPage, pageSize, search],
   });
+
+  const hasMore = data?.totalPages ? currentPage < data.totalPages : false;
+
+  useEffect(() => {
+    if (data?.data) {
+      setAllProducts((prev) => {
+        if (currentPage === 1) {
+          return data.data;
+        }
+        return [...prev, ...data.data];
+      });
+    }
+    if (data?.count !== undefined) {
+      setTotalCount(data.count);
+    }
+  }, [data, currentPage]);
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
     useMutation({
       mutationFn: updateProductStatus,
       onSuccess: async (_, variables) => {
-        queryClient?.setQueryData(
-          ["products", page, pageSize, search],
-          (oldData: any) => {
-            if (!oldData) return oldData;
-
-            return {
-              ...oldData,
-              data: oldData.data.map((product: ProductResponseType) =>
-                product.id === variables.productId
-                  ? { ...product, status: variables.status }
-                  : product
-              ),
-            };
-          }
+        setAllProducts((prev) =>
+          prev.map((product) =>
+            product.id === variables.productId
+              ? {
+                  ...product,
+                  status: variables.status as "ACTIVE" | "INACTIVE",
+                }
+              : product
+          )
         );
         await queryClient?.invalidateQueries({
           queryKey: ["product-summaries"],
         });
-
         toast.success(`Status atualizado com sucesso!`, {
           className: "!bg-green-600 !text-white",
         });
@@ -76,12 +97,13 @@ const ProductsTable = () => {
       },
     });
 
-  const productsList = data?.data || [];
-
   const { mutate: del, isPending: pendingDeleteProduct } = useMutation({
     mutationFn: deleteProduct,
-    onSuccess: async () => {
-      await queryClient?.invalidateQueries({ queryKey: ["products"] });
+    onSuccess: async (_, variables) => {
+      setAllProducts((prev) =>
+        prev.filter((product) => product.id !== variables.productId)
+      );
+      setTotalCount((prev) => prev - 1);
       await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
       toast.success(`Produto deletado com sucesso!`, {
         className: "!bg-green-600 !text-white",
@@ -94,64 +116,62 @@ const ProductsTable = () => {
     },
   });
 
-  const handleUpdateProductStatus = (productId: string, status: string) => {
-    updateStatus({ productId, status });
-  };
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    const scrollPercentage = (scrollTop + clientHeight) / scrollHeight;
 
-  const handleDeleteProduct = (productId: ProductResponseType["id"]) => {
-    del({ productId });
-  };
-
-  const handlePriceProduct = (productId: ProductResponseType["id"]) => {
-    router.push(`/produtos/${productId}`);
-  };
-
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("pagina", newPage.toString());
-    router.push(`?${params.toString()}`, { scroll: false });
+    if (scrollPercentage > 0.8 && hasMore && !isFetching) {
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   const table = useReactTable({
-    data: productsList,
+    data: allProducts,
     columns: productsTableColumns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    manualPagination: true,
-    pageCount: data?.totalPages ?? 0,
     meta: {
-      onDeleteProduct: handleDeleteProduct,
+      onDeleteProduct: (productId: string) => del({ productId }),
       pendingDeleteProduct: pendingDeleteProduct,
-      onPriceProduct: handlePriceProduct,
-      onUpdateProductStatus: handleUpdateProductStatus,
+      onPriceProduct: (productId: string) =>
+        router.push(`/produtos/${productId}`),
+      onUpdateProductStatus: (productId: string, status: string) =>
+        updateStatus({ productId, status }),
       pendingUpdateProductStatus: pendingUpdateProductStatus,
     },
   });
 
+  const showSkeleton = isPending && currentPage === 1;
+
   return (
-    <Show when={!pendingProducts} fallback={<ProductsTableSkeleton />}>
-      <Column className="bg-white h-full w-full shadow-sm rounded-md flex flex-col">
-        <div className="flex-1 overflow-auto min-h-0">
+    <Show when={!showSkeleton} fallback={<ProductsTableSkeleton />}>
+      <Column
+        className="bg-white shadow-sm rounded-md flex flex-col"
+        style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
+      >
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto overflow-x-auto"
+          onScroll={handleScroll}
+        >
           <Table className="w-full">
-            <TableHeader className="sticky top-0 bg-white z-10">
+            <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
                   key={headerGroup.id}
                   className="hover:!bg-transparent"
                 >
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id} className="text-gray-400">
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    );
-                  })}
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id} className="text-gray-400">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  ))}
                 </TableRow>
               ))}
             </TableHeader>
@@ -159,10 +179,10 @@ const ProductsTable = () => {
               <Show
                 when={table.getRowModel().rows?.length}
                 fallback={
-                  <TableRow>
+                  <TableRow className="hover:!bg-transparent">
                     <TableCell
                       colSpan={productsTableColumns.length}
-                      className="h-24 text-center"
+                      className="h-24 text-center text-gray-500"
                     >
                       Sem resultados.
                     </TableCell>
@@ -175,7 +195,7 @@ const ProductsTable = () => {
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell key={cell.id} className="px-4">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -187,18 +207,28 @@ const ProductsTable = () => {
               </Show>
             </TableBody>
           </Table>
+          <Show when={isFetching && currentPage > 1}>
+            <Row className="justify-center py-6">
+              <Row className="flex items-center gap-2">
+                <Loader2 className="text-[#66289B] animate-spin" />
+                <span className="text-sm text-gray-600">
+                  Carregando mais produtos...
+                </span>
+              </Row>
+            </Row>
+          </Show>
+          <Show when={!hasMore && allProducts.length > 0 && !isFetching}>
+            <div className="flex justify-center py-6 text-sm text-gray-500">
+              Não há mais produtos para carregar
+            </div>
+          </Show>
         </div>
-        <div className="border-t bg-white">
-          <Row className="items-center justify-between w-full p-4">
-            <span className="text-sm">
-              Página {page} de {data?.totalPages || 0} - Total de{" "}
-              {data?.count || 0} produtos
+        <div className="border-t bg-gray-50 flex-shrink-0">
+          <Row className="items-center justify-between w-full px-4 py-3">
+            <span className="text-sm text-gray-600">
+              Mostrando <strong>{allProducts.length}</strong> de{" "}
+              <strong>{totalCount}</strong> produtos
             </span>
-            <TablePagination
-              currentPage={page}
-              totalPages={data?.totalPages || 0}
-              onPageChange={handlePageChange}
-            />
           </Row>
         </div>
       </Column>

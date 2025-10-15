@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/core/table";
-import CurrencyFormatter from "@/src/helpers/currency-formatter";
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import DateFormatter from "@/src/helpers/date-formatter";
 import { ProductHistoryType } from "../types/product-type";
 
@@ -30,11 +30,9 @@ const ProductPriceHistoryTable = ({
         {productPriceHistory.map((product) => (
           <TableRow key={product.id}>
             <TableCell className="font-medium">
-              <CurrencyFormatter>{product.price_today}</CurrencyFormatter>
+              {currencyFormatter(product.price_today)}
             </TableCell>
-            <TableCell>
-              <CurrencyFormatter>{product.price_in_2026}</CurrencyFormatter>
-            </TableCell>
+            <TableCell> {currencyFormatter(product.price_in_2026)}</TableCell>
             <TableCell className="text-right">
               <DateFormatter>{product.changed_at}</DateFormatter>
             </TableCell>

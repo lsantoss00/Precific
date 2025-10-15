@@ -1,21 +1,19 @@
-import { taxCalc } from "./tax-calc";
-
 interface IbsCbsCalcProps {
-  priceToday: number;
-  salesIcms: number;
-  salesPisCofins: number;
-  percentage: 0.01 | 0.09;
+  unitPrice: number;
+  pisCofins: number;
+  icms: number;
 }
 
-export function ibsCbsCalc({
-  priceToday,
-  salesIcms,
-  salesPisCofins,
-  percentage,
-}: IbsCbsCalcProps): number {
-  const result =
-    (priceToday - taxCalc({ priceToday, salesIcms, salesPisCofins })) *
-    percentage;
+export function ibsCbsCalc({ unitPrice, pisCofins, icms }: IbsCbsCalcProps) {
+  const baseIbsCbsCalc = unitPrice - pisCofins - icms;
 
-  return Number(result);
+  const ibsResult = baseIbsCbsCalc * 0.001;
+
+  const cbsResult = baseIbsCbsCalc * 0.009;
+
+  return {
+    ibs: Number(ibsResult),
+    cbs: Number(cbsResult),
+    baseIbsdCbsCalc: Number(baseIbsCbsCalc),
+  };
 }
