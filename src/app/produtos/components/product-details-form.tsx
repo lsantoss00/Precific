@@ -3,6 +3,7 @@
 import { useProductForm } from "@/src/app/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Show from "@/src/components/core/show";
 
 const ProductDetailsForm = () => {
   const { form } = useProductForm();
@@ -26,15 +27,28 @@ const ProductDetailsForm = () => {
             error={errors.name?.message}
             {...register("name", { required: "Nome é obrigatório" })}
           />
+          <Show when={errors.name?.message}>
+            <span className="text-xs text-red-500 -mt-1">
+              {errors.name?.message}
+            </span>
+          </Show>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="sku">SKU</Label>
+          <Label htmlFor="sku" required>
+            SKU
+          </Label>
           <Input
             id="sku"
             type="text"
             placeholder="Digite o SKU do produto"
-            {...register("sku")}
+            error={errors.sku?.message}
+            {...register("sku", { required: "SKU é obrigatório" })}
           />
+          <Show when={errors.sku?.message}>
+            <span className="text-xs text-red-500 -mt-1">
+              {errors.sku?.message}
+            </span>
+          </Show>
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="ncm">NCM</Label>
