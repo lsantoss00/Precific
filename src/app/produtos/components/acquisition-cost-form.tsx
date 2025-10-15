@@ -30,7 +30,7 @@ const AcquisitionCostForm = () => {
   return (
     <Card className="h-full w-full p-6 rounded-md flex space-y-6">
       <h3>Custo de Aquisição</h3>
-      <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+      <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-4">
         <Column className="space-y-2">
           <Label htmlFor="unit_price" required>
             Preço Unitário NF-e (R$)
