@@ -42,6 +42,12 @@ const ProductsTable = () => {
   const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
   const [totalCount, setTotalCount] = useState(0);
 
+  useEffect(() => {
+    setCurrentPage(1);
+    setAllProducts([]);
+    setTotalCount(0);
+  }, [search]);
+
   const { data, isPending, isFetching } = useQuery({
     queryFn: () => getProducts({ page: currentPage, pageSize, search }),
     queryKey: ["products", currentPage, pageSize, search],
@@ -51,19 +57,17 @@ const ProductsTable = () => {
 
   useEffect(() => {
     if (data?.data) {
-      setAllProducts((prev) =>
-        currentPage === 1 ? data.data : [...prev, ...data.data]
-      );
+      setAllProducts((prev) => {
+        if (currentPage === 1) {
+          return data.data;
+        }
+        return [...prev, ...data.data];
+      });
     }
     if (data?.count !== undefined) {
       setTotalCount(data.count);
     }
   }, [data, currentPage]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-    setAllProducts([]);
-  }, [search]);
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
     useMutation({
@@ -99,6 +103,7 @@ const ProductsTable = () => {
       setAllProducts((prev) =>
         prev.filter((product) => product.id !== variables.productId)
       );
+      setTotalCount((prev) => prev - 1);
       await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
       toast.success(`Produto deletado com sucesso!`, {
         className: "!bg-green-600 !text-white",
@@ -137,11 +142,10 @@ const ProductsTable = () => {
     },
   });
 
+  const showSkeleton = isPending && currentPage === 1;
+
   return (
-    <Show
-      when={!isPending || currentPage > 1}
-      fallback={<ProductsTableSkeleton />}
-    >
+    <Show when={!showSkeleton} fallback={<ProductsTableSkeleton />}>
       <Column
         className="bg-white shadow-sm rounded-md flex flex-col"
         style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
