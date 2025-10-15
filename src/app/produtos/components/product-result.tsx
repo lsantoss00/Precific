@@ -128,7 +128,7 @@ const ProductResult = () => {
 
   const metrics2025: MetricCardProps[] = [
     {
-      title: "Valor final de aquisição",
+      title: "Valor de aquisição",
       value: acquisitionCost || 0,
     },
     {
@@ -201,13 +201,15 @@ const ProductResult = () => {
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-full gap-2">
-      <Button
-        className="hidden lg:flex h-full w-20"
-        onClick={handleGoBack}
-        disabled={isLoading || pendingPostProduct}
-      >
-        <ChevronLeft className="!w-12 !h-12" />
-      </Button>
+      <Show when={!isLoading}>
+        <Button
+          className="hidden lg:flex h-full w-20"
+          onClick={handleGoBack}
+          disabled={isLoading || pendingPostProduct}
+        >
+          <ChevronLeft className="!w-12 !h-12" />
+        </Button>
+      </Show>
       <Show
         when={!isLoading}
         fallback={

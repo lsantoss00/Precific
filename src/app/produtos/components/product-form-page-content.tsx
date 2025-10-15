@@ -22,7 +22,7 @@ const ProductFormPageContent = () => {
           <ProductPriceHistoryDialog
             productId={productId!}
             trigger={
-              <Button className="cursor-pointer" variant="secondary">
+              <Button className="cursor-pointe  r" variant="secondary">
                 <ScrollText className="!w-5 !h-5" />
                 <span>Histórico de Preço</span>
               </Button>
