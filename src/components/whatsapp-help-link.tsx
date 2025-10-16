@@ -22,7 +22,7 @@ const WhatsAppHelpLink = () => {
   const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}`;
 
   return (
-    <Row className="fixed bottom-3 right-3 flex items-center gap-3">
+    <Row className="fixed bottom-3 right-3 flex items-center gap-3 z-50">
       <Card
         className={`px-4 py-2 transition-opacity duration-300 whitespace-nowrap pointer-events-none ${
           isHovered ? "opacity-100" : "opacity-0"

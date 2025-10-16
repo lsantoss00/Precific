@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { AppHeader } from "../components/app-header";
 import { AppSidebar } from "../components/app-sidebar";
-import { SidebarTrigger } from "../components/core";
+import { SidebarInset } from "../components/core/sidebar";
 import { Toaster } from "../components/core/sonner";
 import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
@@ -26,16 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${poppins.className} antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed`}
-      >
+      <body className={`${poppins.className} antialiased`}>
         <Providers>
-          <AppHeader />
           <AppSidebar />
-          <SidebarTrigger className="max-md:hidden" />
-          <main className="min-h-screen w-full flex justify-center">
-            {children}
-          </main>
+          <SidebarInset className="bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed">
+            <AppHeader />
+            <main className="flex-1 overflow-auto w-full flex justify-center">
+              {children}
+            </main>
+          </SidebarInset>
           <Toaster position="top-center" />
         </Providers>
         <WhatsAppHelpLink />

@@ -7,8 +7,7 @@ import ProductsTable from "./components/products-table";
 export default function ProductsPage() {
   return (
     <AuthGuard requireAuth>
-      {/* // TO-DO: Isso ta criando um scroll na tela em dispositivos mobile */}
-      <Column className="w-full !max-w-7xl 2xl:!max-w-[1500px] h-full pt-28 pb-10 px-6 xl:px-0 space-y-4">
+      <Column className="w-full !max-w-7xl xl:!max-w-6xl 2xl:!max-w-[1500px] py-10 px-6 xl:!px-0 space-y-4">
         <ProductsHeaderSection />
         <ProductInfoCards />
         <ProductsTable />
