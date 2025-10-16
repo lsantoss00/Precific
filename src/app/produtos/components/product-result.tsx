@@ -200,7 +200,7 @@ const ProductResult = () => {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-full gap-2">
+    <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
       <Show when={!isLoading}>
         <Button
           className="hidden lg:flex h-full w-20"
@@ -285,7 +285,7 @@ const ProductResult = () => {
             Finalizar
           </Button>
         </Card>
-        <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
+        <Row className="max-lg:mt-2 mb-8 lg:hidden gap-2 md:w-fit md:self-end">
           <Button
             className="lg:hidden h-full"
             onClick={handleGoBack}
