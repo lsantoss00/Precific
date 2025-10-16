@@ -285,7 +285,7 @@ const ProductResult = () => {
             Finalizar
           </Button>
         </Card>
-        <Row className="max-lg:mt-2 mb-8 lg:hidden gap-2 md:w-fit md:self-end">
+        <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
           <Button
             className="lg:hidden h-full"
             onClick={handleGoBack}

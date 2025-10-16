@@ -69,13 +69,11 @@ const ProductForm = ({ productId }: ProductFormProps) => {
   const isFormValid = form.formState.isValid;
 
   return (
-    <Flex className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-1 md:gap-2 2xl:gap-4">
+    <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4 ">
       <ProductDetailsForm />
-      {/* <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" /> */}
       <AcquisitionCostForm />
-      {/* <div className="w-20 h-1 bg-[#66289B] rounded-full self-center" /> */}
       <PricingForm />
-      <Row className="max-lg:mt-2 max-lg:mb-10 gap-2 md:w-fit md:self-end h-full">
+      <Row className="max-lg:mt-2 gap-2 md:w-fit md:self-end h-full">
         <Button
           className="lg:hidden h-full"
           onClick={() => router.push("/produtos")}
