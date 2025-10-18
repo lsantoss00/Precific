@@ -18,7 +18,7 @@ export function AppHeader() {
           <Image
             src="/precific-short-logo.png"
             alt="precific-logo"
-            width={60}
+            width={48}
             height={60}
             quality={100}
             className="hover:cursor-pointer !select-none"
