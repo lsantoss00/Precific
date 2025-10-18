@@ -33,7 +33,7 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent className="flex">
         <SidebarGroup className="flex items-center">
-          <SidebarHeader className="my-2 !p-0">
+          <SidebarHeader className="!p-0 h-16 items-center justify-center">
             <SidebarTrigger className="w-full h-full !p-0">
               {isCollapsed ? (
                 <Image
