@@ -9,7 +9,7 @@ import Providers from "../providers";
 import "./globals.css";
 
 const poppins = Poppins({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
 });
