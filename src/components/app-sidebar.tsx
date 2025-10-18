@@ -127,7 +127,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="items-center mb-2">
-        <span className="text-[#66289B] text-xs font-medium">Versão MVP</span>
+        <span className="text-gray-500 text-xs font-medium">v0.1.0</span>
       </SidebarFooter>
     </Sidebar>
   );
