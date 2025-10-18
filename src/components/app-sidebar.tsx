@@ -33,8 +33,8 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent className="flex">
         <SidebarGroup className="flex items-center">
-          <SidebarHeader className="mt-2">
-            <SidebarTrigger className="w-full h-full p-0">
+          <SidebarHeader className="my-2 !p-0">
+            <SidebarTrigger className="w-full h-full !p-0">
               {isCollapsed ? (
                 <Image
                   src="/precific-short-logo.png"
@@ -48,7 +48,7 @@ export function AppSidebar() {
                 <Image
                   src="/precific-logo.png"
                   alt="precific-logo"
-                  width={220}
+                  width={200}
                   height={40}
                   quality={100}
                   className="hover:cursor-pointer"
