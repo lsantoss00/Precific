@@ -31,7 +31,9 @@ export default function RootLayout({
           <AppSidebar />
           <SidebarInset className="flex flex-col min-h-screen bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat">
             <AppHeader />
-            <main className="flex-1 w-full">{children}</main>
+            <main className="flex-1 w-full flex items-center justify-center">
+              {children}
+            </main>
           </SidebarInset>
           <Toaster position="top-center" />
         </Providers>

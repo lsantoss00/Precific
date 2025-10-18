@@ -7,7 +7,7 @@ import ProductsTable from "./components/products-table";
 export default function ProductsPage() {
   return (
     <AuthGuard requireAuth>
-      <Column className="w-full !max-w-7xl xl:!max-w-6xl 2xl:!max-w-[1500px] py-10 px-6 2xl:px-0 space-y-4 mx-auto">
+      <Column className="w-full !max-w-7xl xl:!max-w-6xl 2xl:!max-w-[1500px] py-10 px-6 xl:px-0 space-y-4">
         <ProductsHeaderSection />
         <ProductInfoCards />
         <ProductsTable />
