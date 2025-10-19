@@ -10,7 +10,7 @@ import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
@@ -190,14 +190,6 @@ const ProductResult = () => {
       isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
     router.push(path);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">

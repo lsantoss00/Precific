@@ -1,9 +1,8 @@
 "use client";
-
 import { Progress } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { Brain, Calculator, CheckCircle2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface LoadingResultStateProps {
   onComplete: () => void;
@@ -12,30 +11,45 @@ interface LoadingResultStateProps {
 const LoadingResultState = ({ onComplete }: LoadingResultStateProps) => {
   const [currentStep, setCurrentStep] = useState(0);
 
+  const randomSteps = useMemo(() => {
+    const totalDuration = Math.random() * (7000 - 3000) + 3000;
+    const stepCount = loadingSteps.length;
+
+    const randomWeights = Array.from({ length: stepCount }, () =>
+      Math.random()
+    );
+    const totalWeight = randomWeights.reduce((sum, weight) => sum + weight, 0);
+
+    return loadingSteps.map((step, index) => ({
+      ...step,
+      duration: (randomWeights[index] / totalWeight) * totalDuration,
+    }));
+  }, []);
+
   const CurrentIcon =
-    currentStep < loadingSteps.length
-      ? loadingSteps[currentStep].icon
+    currentStep < randomSteps.length
+      ? randomSteps[currentStep].icon
       : CheckCircle2;
 
   const currentMessage =
-    currentStep < loadingSteps.length
-      ? loadingSteps[currentStep].message
+    currentStep < randomSteps.length
+      ? randomSteps[currentStep].message
       : "Concluído!";
 
-  const progress = ((currentStep + 1) / loadingSteps.length) * 100;
+  const progress = ((currentStep + 1) / randomSteps.length) * 100;
 
   useEffect(() => {
-    if (currentStep >= loadingSteps.length) {
+    if (currentStep >= randomSteps.length) {
       onComplete();
       return;
     }
 
     const timer = setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
-    }, loadingSteps[currentStep].duration);
+    }, randomSteps[currentStep].duration);
 
     return () => clearTimeout(timer);
-  }, [currentStep, onComplete]);
+  }, [currentStep, onComplete, randomSteps]);
 
   return (
     <Column className="items-center justify-center max-w-md w-full h-full self-center space-y-8">
@@ -50,28 +64,20 @@ const LoadingResultState = ({ onComplete }: LoadingResultStateProps) => {
 
 export default LoadingResultState;
 
-const loadingSteps: Array<{
-  id: number;
-  message: string;
-  icon: any;
-  duration: number;
-}> = [
+const loadingSteps = [
   {
     id: 1,
     message: "IA está analisando o produto...",
     icon: Brain,
-    duration: 2000,
   },
   {
     id: 2,
     message: "IA está calculando resultados...",
     icon: Calculator,
-    duration: 2000,
   },
   {
     id: 3,
     message: "Finalizando análise...",
     icon: CheckCircle2,
-    duration: 1000,
   },
 ];
