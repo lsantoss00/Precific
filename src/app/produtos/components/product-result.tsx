@@ -275,7 +275,7 @@ const ProductResult = () => {
             />
           </Column>
           <Button
-            className="hidden lg:flex md:w-40 h-12 self-end"
+            className="hidden lg:flex md:w-40 h-12 self-end mt-4"
             onClick={handleFinishForm}
             disabled={pending}
           >
