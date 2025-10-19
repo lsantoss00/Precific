@@ -73,7 +73,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <ProductDetailsForm />
       <AcquisitionCostForm />
       <PricingForm />
-      <Row className="max-lg:mt-2 gap-2 md:w-fit md:self-end h-full">
+      <Row className="gap-2 md:w-fit md:self-end  lg:self-auto">
         <Button
           className="lg:hidden h-full"
           onClick={() => router.push("/produtos")}
