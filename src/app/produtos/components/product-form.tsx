@@ -69,7 +69,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
   const isFormValid = form.formState.isValid;
 
   return (
-    <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4 ">
+    <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4">
       <ProductDetailsForm />
       <AcquisitionCostForm />
       <PricingForm />

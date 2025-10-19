@@ -29,9 +29,9 @@ export default function RootLayout({
       <body className={`${poppins.className} antialiased`}>
         <Providers>
           <AppSidebar />
-          <SidebarInset className="flex flex-col min-h-screen bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat">
+          <SidebarInset className="flex flex-col min-h-screen h-full bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat">
             <AppHeader />
-            <main className="flex-1 w-full flex items-center justify-center">
+            <main className="flex flex-1 w-full min-h-full justify-center">
               {children}
             </main>
           </SidebarInset>
