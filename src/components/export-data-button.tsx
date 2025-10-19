@@ -5,7 +5,7 @@ import { Download, Loader2Icon } from "lucide-react";
 import Papa from "papaparse";
 import { toast } from "sonner";
 import { getProductsForExport } from "../app/produtos/services/get-products-for-export";
-import { currencyFormatter } from "../helpers/currency-formatter";
+import currencyFormatter from "../helpers/currency-formatter";
 import { Button } from "./core";
 import Show from "./core/show";
 

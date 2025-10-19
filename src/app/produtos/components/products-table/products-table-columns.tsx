@@ -3,7 +3,7 @@
 import { Button, Switch } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { currencyFormatter } from "@/src/helpers/currency-formatter";
+import currencyFormatter from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
 import SortableHeader from "../../../../components/core/sortable-header";
