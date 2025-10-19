@@ -1,6 +1,7 @@
 "use client";
 
 import Show from "@/src/components/core/show";
+import pluralize from "@/src/helpers/pluralize";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle, Package, Tag, XCircle } from "lucide-react";
 import { getProductSummaries } from "../services/get-summary-products";
@@ -11,13 +12,16 @@ const ProductInfoCards = () => {
   const { data: summary, isPending: pendingProductSummaries } = useQuery({
     queryFn: getProductSummaries,
     queryKey: ["product-summaries"],
-    refetchInterval: 60000,
   });
 
   const infoCards = [
     {
       id: 1,
-      title: "Produtos Cadastrados",
+      title: pluralize(
+        summary?.registered_products || 0,
+        "Produto Cadastrado",
+        "Produtos Cadastrados"
+      ),
       value: summary?.registered_products || 0,
       icon: (
         <Package className="w-16 h-16 p-4 text-[#66219B] bg-[#66218B]/20 rounded-full" />
@@ -25,7 +29,11 @@ const ProductInfoCards = () => {
     },
     {
       id: 2,
-      title: "Produtos Precificados",
+      title: pluralize(
+        summary?.precified_products || 0,
+        "Produto Precificado",
+        "Produtos Precificados"
+      ),
       value: summary?.precified_products || 0,
       icon: (
         <Tag className="w-16 h-16 p-4 text-[#E9BA67] bg-[#E9BA67]/20 rounded-full" />
@@ -33,7 +41,11 @@ const ProductInfoCards = () => {
     },
     {
       id: 3,
-      title: "Produtos Ativos",
+      title: pluralize(
+        summary?.active_products || 0,
+        "Produto Ativo",
+        "Produtos Ativos"
+      ),
       value: summary?.active_products || 0,
       icon: (
         <CheckCircle className="w-16 h-16 p-4 text-green-600 bg-green-100 rounded-full" />
@@ -41,7 +53,11 @@ const ProductInfoCards = () => {
     },
     {
       id: 4,
-      title: "Produtos Inativos",
+      title: pluralize(
+        summary?.inactive_products || 0,
+        "Produto Inativo",
+        "Produtos Inativos"
+      ),
       value: summary?.inactive_products || 0,
       icon: (
         <XCircle className="w-16 h-16 p-4 text-red-600 bg-red-100 rounded-full" />

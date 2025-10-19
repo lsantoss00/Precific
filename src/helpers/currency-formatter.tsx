@@ -1,4 +1,4 @@
-export const currencyFormatter = (value: number | string | undefined) => {
+const currencyFormatter = (value: number | string | undefined) => {
   let numberValue: number;
 
   if (value === null || value === undefined || value === "") {
@@ -24,3 +24,5 @@ export const currencyFormatter = (value: number | string | undefined) => {
     maximumFractionDigits: 2,
   }).format(numberValue);
 };
+
+export default currencyFormatter;
