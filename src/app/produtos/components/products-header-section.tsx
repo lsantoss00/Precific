@@ -26,7 +26,6 @@ const ProductsHeaderSection = () => {
 
       if (searchTerm) {
         params.set("filtro", searchTerm);
-        params.set("pagina", "1");
       } else {
         params.delete("filtro");
       }
