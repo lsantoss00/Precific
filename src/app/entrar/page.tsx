@@ -5,7 +5,7 @@ import LoginCard from "./components/login-card";
 export default function LoginPage() {
   return (
     <AuthGuard requireAuth={false} redirectTo="/">
-      <Column className="w-full h-full items-center justify-center">
+      <Column className="w-full items-center justify-center">
         <LoginCard />
       </Column>
     </AuthGuard>
