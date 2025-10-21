@@ -3,7 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { CircleUser, Loader2Icon, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { logout } from "../app/entrar/services";
+import { logout } from "../app/(public)/entrar/services";
 import { useAuth } from "../hooks/use-auth";
 
 import { toast } from "sonner";

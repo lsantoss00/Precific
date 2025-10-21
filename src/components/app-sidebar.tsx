@@ -4,7 +4,6 @@ import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "../hooks/use-auth";
 import {
   Separator,
   Sidebar,
@@ -21,13 +20,10 @@ import {
 } from "./core";
 
 export function AppSidebar() {
-  const { user } = useAuth();
   const { state } = useSidebar();
   const pathname = usePathname();
 
   const isCollapsed = state === "collapsed";
-
-  if (!user) return null;
 
   return (
     <Sidebar collapsible="icon">
