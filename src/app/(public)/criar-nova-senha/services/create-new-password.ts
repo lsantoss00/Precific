@@ -13,5 +13,14 @@ export async function createNewPassword({ password }: CreateNewPasswordProps) {
     password,
   });
 
-  if (error) return error.message;
+  if (error) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+
+  return {
+    success: true,
+  };
 }
