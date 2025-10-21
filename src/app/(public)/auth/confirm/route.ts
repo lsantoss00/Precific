@@ -22,5 +22,13 @@ export async function GET(request: NextRequest) {
     if (!error) {
       return NextResponse.redirect(redirectTo);
     }
+
+    // Se deu erro no verifyOtp, redireciona para página de erro
+    console.error("Erro ao verificar OTP:", error);
   }
+
+  // Se não tem token_hash/type OU se verifyOtp falhou
+  const errorUrl = request.nextUrl.clone();
+  errorUrl.pathname = "/auth/error";
+  return NextResponse.redirect(errorUrl);
 }
