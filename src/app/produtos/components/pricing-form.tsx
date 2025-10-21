@@ -176,7 +176,7 @@ const PricingForm = () => {
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="profit" required>
-            Margem de Lucro (%)
+            Markup (%)
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
