@@ -3,8 +3,7 @@
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "../hooks/use-auth";
+import { usePathname } from "next/navigation";
 import {
   Separator,
   Sidebar,
@@ -16,45 +15,42 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
   useSidebar,
 } from "./core";
 
 export function AppSidebar() {
-  const { user } = useAuth();
   const { state } = useSidebar();
   const pathname = usePathname();
-  const router = useRouter();
 
   const isCollapsed = state === "collapsed";
-
-  if (!user) return null;
 
   return (
     <Sidebar collapsible="icon">
       <SidebarContent className="flex">
         <SidebarGroup className="flex items-center">
-          <SidebarHeader className="mt-2">
-            {isCollapsed ? (
-              <Image
-                src="/precific-short-logo.png"
-                alt="precific-logo"
-                width={60}
-                height={60}
-                quality={100}
-                className="hover:cursor-pointer"
-                onClick={() => router.push("/")}
-              />
-            ) : (
-              <Image
-                src="/precific-logo.png"
-                alt="precific-logo"
-                width={220}
-                height={40}
-                quality={100}
-                className="hover:cursor-pointer"
-                onClick={() => router.push("/")}
-              />
-            )}
+          <SidebarHeader className="!p-0 h-16 items-center justify-center">
+            <SidebarTrigger className="w-full h-full !p-0">
+              {isCollapsed ? (
+                <Image
+                  src="/precific-short-logo.png"
+                  alt="precific-logo"
+                  width={60}
+                  height={60}
+                  quality={100}
+                  className="hover:cursor-pointer"
+                />
+              ) : (
+                <Image
+                  src="/precific-logo.png"
+                  alt="precific-logo"
+                  width={200}
+                  height={40}
+                  quality={100}
+                  className="hover:cursor-pointer"
+                />
+              )}
+            </SidebarTrigger>
           </SidebarHeader>
           <SidebarGroupContent className="mt-5">
             <SidebarMenu className={`${isCollapsed && "items-center"}`}>
@@ -127,7 +123,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="items-center mb-2">
-        <span className="text-[#66289B] text-xs font-medium">Versão MVP</span>
+        <span className="text-gray-500 text-xs font-medium">v0.1.0</span>
       </SidebarFooter>
     </Sidebar>
   );

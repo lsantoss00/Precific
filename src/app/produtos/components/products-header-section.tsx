@@ -5,7 +5,9 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { Download, Loader2Icon, Plus, Upload } from "lucide-react";
+import ExportDataButton from "@/src/components/export-data-button";
+import ImportDataButton from "@/src/components/import-data-button";
+import { Loader2Icon, Plus } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -24,7 +26,6 @@ const ProductsHeaderSection = () => {
 
       if (searchTerm) {
         params.set("filtro", searchTerm);
-        params.set("pagina", "1");
       } else {
         params.delete("filtro");
       }
@@ -38,16 +39,16 @@ const ProductsHeaderSection = () => {
   return (
     <Column className="space-y-3 w-full">
       <h2 className="text-3xl text-black font-bold">Produtos</h2>
-      <Flex className="flex-col lg:flex-row max-lg:space-y-4 justify-between lg:items-center w-full">
+      <Flex className="flex-col lg:flex-row justify-between lg:items-center w-full gap-4">
         <Input
-          className="w-full lg:max-w-80 xl:max-w-120"
+          className="w-full lg:max-w-120"
           placeholder="Buscar por SKU, Nome ou NCM"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <Row className="space-x-2">
+        <Row className="space-x-2 w-full lg:w-fit lg:justify-end">
           <Button
-            className="hover:cursor-pointer w-fit"
+            className="hover:cursor-pointer w-fit h-12"
             variant="secondary"
             onClick={() => router.push("/produtos/novo")}
             disabled={mockPending}
@@ -58,28 +59,8 @@ const ProductsHeaderSection = () => {
             <Plus className="text-white" />
             <span>Novo Produto</span>
           </Button>
-          <Button
-            className="hover:cursor-pointer w-fit"
-            type="submit"
-            disabled={mockPending}
-          >
-            <Show when={mockPending}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            <Download className="text-white" />
-            <span className="hidden sm:flex"> Exportar CSV</span>
-          </Button>
-          <Button
-            className="hover:cursor-pointer w-fit"
-            type="submit"
-            disabled={mockPending}
-          >
-            <Show when={mockPending}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            <Upload className="text-white" />
-            <span className="hidden sm:flex">Importar CSV</span>
-          </Button>
+          <ExportDataButton search={searchTerm} />
+          <ImportDataButton />
         </Row>
       </Flex>
     </Column>

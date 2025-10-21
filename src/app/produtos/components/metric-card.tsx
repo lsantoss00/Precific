@@ -1,5 +1,5 @@
 import Column from "@/src/components/core/column";
-import { currencyFormatter } from "@/src/helpers/currency-formatter";
+import currencyFormatter from "@/src/helpers/currency-formatter";
 
 type VariantType = "primary" | "secondary" | "neutral" | "success" | "error";
 

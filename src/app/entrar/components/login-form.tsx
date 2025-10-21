@@ -36,7 +36,7 @@ const LoginForm = () => {
     onSuccess: () => router.push("/"),
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600 !text-white",
       });
     },
   });
@@ -134,9 +134,9 @@ const LoginForm = () => {
           className="flex self-center w-fit"
           passHref
         >
-          <Button type="button" variant="link" className="">
+          {/* <Button type="button" variant="link" className="">
             Esqueci minha senha
-          </Button>
+          </Button> */}
         </Link>
       </Column>
     </form>

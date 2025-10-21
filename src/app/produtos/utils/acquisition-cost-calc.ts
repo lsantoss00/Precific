@@ -1,5 +1,3 @@
-import Decimal from "decimal.js";
-
 interface AcquisitionCostCalcProps {
   unitPrice: number;
   icms: number;
@@ -16,21 +14,26 @@ export function acquisitionCostCalc({
   icmsSt,
   ipi,
   others,
-}: AcquisitionCostCalcProps): number {
-  const unit = new Decimal(unitPrice);
+}: AcquisitionCostCalcProps) {
+  const icmsValue = unitPrice * (icms / 100);
+  const pisCofinsValue = (unitPrice - icmsValue) * (pisCofins / 100);
+  const icmsStValue = unitPrice * (icmsSt / 100);
+  const ipiValue = unitPrice * (ipi / 100);
+  const othersValue = unitPrice * (others / 100);
 
-  const icmsValue = unit.times(new Decimal(icms).dividedBy(100));
-  const pisCofinsValue = unit.times(new Decimal(pisCofins).dividedBy(100));
-  const icmsStValue = unit.times(new Decimal(icmsSt).dividedBy(100));
-  const ipiValue = unit.times(new Decimal(ipi).dividedBy(100));
-  const othersValue = unit.times(new Decimal(others).dividedBy(100));
+  const acquisitionCost =
+    unitPrice -
+    icmsValue -
+    pisCofinsValue +
+    icmsStValue +
+    ipiValue +
+    othersValue;
 
-  const acquisitionCost = unit
-    .minus(icmsValue)
-    .minus(pisCofinsValue)
-    .plus(icmsStValue)
-    .plus(ipiValue)
-    .plus(othersValue);
+  const result = acquisitionCost;
 
-  return acquisitionCost.toDecimalPlaces(2).toNumber();
+  return {
+    icmsValue: Number(icmsValue),
+    pisCofinsValue: Number(pisCofinsValue),
+    result: Number(result),
+  };
 }

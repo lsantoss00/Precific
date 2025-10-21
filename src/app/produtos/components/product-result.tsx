@@ -5,17 +5,22 @@ import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import FormFieldTooltip from "@/src/components/form-field-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
-import Decimal from "decimal.js";
-import { ChevronLeft, Loader2Icon } from "lucide-react";
+import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
+import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
+import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
+import { netProfitCalc } from "../utils/net-profit-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
+import { profitMarginCalc } from "../utils/profit-margin-calc";
+import { taxCalc } from "../utils/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
@@ -29,13 +34,13 @@ const ProductResult = () => {
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       toast.success("Produto adicionado com sucesso!", {
-        className: "!bg-green-600/80 !text-white",
+        className: "!bg-green-600 !text-white",
       });
       router.push("/produtos");
     },
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600!text-white",
       });
     },
   });
@@ -45,21 +50,26 @@ const ProductResult = () => {
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       toast.success("Produto atualizado com sucesso!", {
-        className: "!bg-green-600/80 !text-white",
+        className: "!bg-green-600 !text-white",
       });
       router.push("/produtos");
     },
     onError: (error) => {
       toast.error(error.message, {
-        className: "!bg-red-600/80 !text-white",
+        className: "!bg-red-600 !text-white",
       });
     },
   });
 
   const data = form.watch();
+
   const pending = pendingPostProduct || pendingUpdateProduct;
 
-  const acquisitionCost = acquisitionCostCalc({
+  const {
+    result: acquisitionCost,
+    icmsValue,
+    pisCofinsValue,
+  } = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
@@ -78,76 +88,68 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
   });
 
-  // const pricing2026 = pricing2026Calc({
-  //   ibsRate: 0.1,
-  //   cbsRate: 0.9,
-  //   priceToday,
-  //   acquisitionCost,
-  // });
+  const profitMargin = profitMarginCalc({
+    acquisitionCost,
+    profit: data?.profit ?? 0,
+  });
 
-  console.log("@@@@data", data);
+  const baseIbsdCbsCalc = ibsCbsCalc({
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).baseIbsdCbsCalc;
 
-  const acqCost = new Decimal(acquisitionCost);
-  const pToday = new Decimal(priceToday);
+  const ibs = ibsCbsCalc({
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).ibs;
 
-  // const otherCostsValue = acqCost
-  //   .times(new Decimal(data?.other_costs ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
+  const cbs = ibsCbsCalc({
+    unitPrice: data?.unit_price ?? 0,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+  }).cbs;
 
-  // const fixedCostsValue = acqCost
-  //   .times(new Decimal(data?.fixed_costs ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
+  const taxes = taxCalc({
+    priceToday: priceToday.result,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+  });
 
-  // const icmsPisCofinsValue = pToday
-  //   .times(new Decimal(data?.sales_icms ?? 0).dividedBy(100))
-  //   .plus(pToday.times(new Decimal(data?.sales_pis_cofins ?? 0).dividedBy(100)))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
+  const netProfit = netProfitCalc({
+    profit: profitMargin,
+    fixedCosts: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
+    shipping: acquisitionCost * ((data?.shipping ?? 0) / 100),
+    otherCosts: acquisitionCost * ((data?.other_costs ?? 0) / 100),
+  });
 
-  // const shippingValue = acqCost
-  //   .times(new Decimal(data?.shipping ?? 0).dividedBy(100))
-  //   .toDecimalPlaces(2)
-  //   .toNumber();
-
-  console.log("data", data.other_costs);
-
-  const profitMargin = acqCost
-    .times(new Decimal(data?.profit ?? 0).dividedBy(100))
-    .toDecimalPlaces(2)
-    .toNumber();
+  const priceIn2026 = priceToday.result;
 
   const metrics2025: MetricCardProps[] = [
     {
-      title: "Valor final de aquisição",
-      value: acquisitionCost,
+      title: "Valor de aquisição",
+      value: acquisitionCost || 0,
     },
     {
-      title: "Outros Custos",
-      value: acquisitionCost * (data?.other_costs! / 100),
+      title: "Outros custos",
+      value: acquisitionCost * ((data?.other_costs ?? 0) / 100),
     },
     {
-      title: "Custos Fixos",
-      value: acquisitionCost * (data?.fixed_costs! / 100),
+      title: "Custos fixos",
+      value: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: (() => {
-        const icmsValue = priceToday * (data?.sales_icms / 100);
-        const baseForPisCofins = priceToday - icmsValue;
-        const pisCofinsValue =
-          baseForPisCofins * (data?.sales_pis_cofins / 100);
-        return icmsValue + pisCofinsValue;
-      })(),
+      value: taxes,
     },
     {
       title: "Frete",
-      value: acquisitionCost * (data?.shipping! / 100),
+      value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
     {
-      title: "Margem de Lucro",
-      value: profitMargin,
+      title: "Lucro líquido",
+      value: netProfit,
       variant: "success" as const,
     },
   ];
@@ -155,22 +157,32 @@ const ProductResult = () => {
   const metrics2026: MetricCardProps[] = [
     {
       title: "IBS (0.1%)",
-      value: 0,
+      value: ibs,
     },
-    { title: "CBS (0.9%)", value: 0 },
+    {
+      title: "CBS (0.9%)",
+      value: cbs,
+    },
   ];
 
   const handleFinishForm = () => {
-    if (isEditMode && productId) {
-      const updateProductPayload = {
-        id: productId,
-        ...data,
-      };
+    const productPayload: ProductType = {
+      ...data,
+      status: "ACTIVE",
+      price_today: priceToday.result,
+      price_in_2026: priceIn2026,
+    };
 
-      return update({ product: updateProductPayload });
+    if (isEditMode && productId) {
+      return update({
+        product: {
+          id: productId,
+          ...productPayload,
+        },
+      });
     }
 
-    post({ product: data });
+    return post({ product: productPayload });
   };
 
   const handleGoBack = () => {
@@ -179,96 +191,114 @@ const ProductResult = () => {
     router.push(path);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <Row className="w-full h-full space-x-2">
-      <Button
-        className="h-full w-20"
-        onClick={handleGoBack}
-        disabled={isLoading || pendingPostProduct}
-      >
-        <ChevronLeft className="!w-12 !h-12" />
-      </Button>
-      <Card className="h-full w-full p-6 rounded-md">
-        <Show
-          when={!isLoading}
-          fallback={
-            <LoadingResultState onComplete={() => setIsLoading(false)} />
-          }
+    <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
+      <Show when={!isLoading}>
+        <Button
+          className="hidden lg:flex h-full w-20"
+          onClick={handleGoBack}
+          disabled={isLoading || pendingPostProduct}
         >
-          <div className="grid grid-cols-2 w-full h-fit gap-10 mb-4">
-            <Column className="space-y-4">
+          <ChevronLeft className="!w-12 !h-12" />
+        </Button>
+      </Show>
+      <Show
+        when={!isLoading}
+        fallback={
+          <Card className="h-full w-full p-6 rounded-md">
+            <LoadingResultState onComplete={() => setIsLoading(false)} />
+          </Card>
+        }
+      >
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 w-full">
+            <h3 className="text-lg">
+              Pré-Reforma Tributária <strong>2025</strong>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
+              {metrics2025.map((metric, index) => (
+                <MetricCard
+                  key={`metric-2025-${index}`}
+                  title={metric.title}
+                  value={metric.value}
+                  variant={metric.variant}
+                />
+              ))}
+            </div>
+            <MetricCard
+              title="Preço de venda final"
+              value={priceToday.result}
+              variant="secondary"
+            />
+          </Column>
+        </Card>
+        <Card className="h-full w-full p-6 rounded-md">
+          <Column className="space-y-4 h-full">
+            <Row className="gap-2 items-center">
               <h3 className="text-lg">
-                Pré Reforma Tributária <strong>2025</strong>
+                Transição Reforma Tributária <strong>2026</strong>
               </h3>
-              <div className="grid grid-cols-2 w-full h-fit gap-4">
-                {metrics2025.map((metric, index) => (
+              <FormFieldTooltip
+                icon={<CircleAlert className="text-[#66289B] !w-6 !h-6" />}
+                message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
+              />
+            </Row>
+            <Column className="gap-4">
+              <MetricCard
+                title="Base de cálculo IBS/CBS"
+                value={baseIbsdCbsCalc}
+                variant="neutral"
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
+                {metrics2026.map((metric, index) => (
                   <MetricCard
-                    key={`metric-2025-${index}`}
+                    key={`metric-2026-${index}`}
                     title={metric.title}
                     value={metric.value}
                     variant={metric.variant}
                   />
                 ))}
               </div>
-              <MetricCard
-                title="Preço de Venda Final"
-                value={priceToday}
-                variant="secondary"
-              />
             </Column>
-            <Column className="space-y-4">
-              <h3 className="text-lg">
-                Pré Reforma Tributária <strong>2026</strong>
-              </h3>
-              <Column className="gap-4 h-full">
-                <MetricCard
-                  title="Preço de Venda Final"
-                  value={0}
-                  variant="neutral"
-                />
-                <div className="grid grid-cols-2 gap-4">
-                  {metrics2026.map((metric, index) => (
-                    <MetricCard
-                      key={`metric-2026-${index}`}
-                      title={metric.title}
-                      value={metric.value}
-                      variant={metric.variant}
-                    />
-                  ))}
-                </div>
-                <span className="text-center">
-                  Os valores de IBS/CBS em 2026, tornam-se{" "}
-                  <strong>créditos</strong>
-                </span>
-              </Column>
-              <MetricCard
-                title="Valor Total da NF-e"
-                value={0}
-                variant="secondary"
-              />
-            </Column>
-          </div>
+            <MetricCard
+              title="Preço de venda final"
+              value={priceToday.result}
+              variant="secondary"
+            />
+          </Column>
           <Button
-            className="w-30 flex self-end mt-auto"
+            className="hidden lg:flex md:w-40 h-12 self-end mt-4"
             onClick={handleFinishForm}
             disabled={pending}
           >
-            <Show when={pending}>
+            <Show when={pending} fallback={<Check />}>
               <Loader2Icon className="animate-spin" />
             </Show>
             Finalizar
           </Button>
-        </Show>
-      </Card>
-    </Row>
+        </Card>
+        <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
+          <Button
+            className="lg:hidden h-full"
+            onClick={handleGoBack}
+            variant={"outline"}
+            disabled={isLoading || pendingPostProduct}
+          >
+            <ChevronLeft className="!w-6 !h-6" />
+          </Button>
+          <Button
+            className="flex-1 md:flex-none md:w-40 h-12 flex items-center"
+            onClick={handleFinishForm}
+            disabled={pending}
+          >
+            <Show when={pending} fallback={<Check />}>
+              <Loader2Icon className="animate-spin" />
+            </Show>
+            Finalizar
+          </Button>
+        </Row>
+      </Show>
+    </div>
   );
 };
 
