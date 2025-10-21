@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 
 interface ProductImportData {
   sku: string | null;
@@ -11,13 +11,15 @@ interface ProductImportData {
 }
 
 export async function importProducts(products: ProductImportData[]) {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabaseClient.rpc("import_products_json", {
+  const { data, error } = await supabase.rpc("import_products_json", {
     rows: products,
   });
 

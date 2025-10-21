@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 import { ProductRequestType } from "../types/product-type";
 
 interface UpdateProductProps {
@@ -6,13 +6,15 @@ interface UpdateProductProps {
 }
 
 export async function updateProduct({ product }: UpdateProductProps) {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabaseClient
+  const { data, error } = await supabase
     .from("products")
     .update(product)
     .eq("id", product?.id)

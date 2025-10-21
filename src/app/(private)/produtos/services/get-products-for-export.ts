@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 import { ProductExportType } from "../types/product-type";
 
 interface GetProductsForExport {
@@ -8,13 +8,15 @@ interface GetProductsForExport {
 export async function getProductsForExport({
   search,
 }: GetProductsForExport): Promise<ProductExportType[]> {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  let query = supabaseClient
+  let query = supabase
     .from("products")
     .select("sku, name, ncm, price_today, price_in_2026, price_in_2027, status")
     .order("created_at", { ascending: false });

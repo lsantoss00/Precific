@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 import { ProductType } from "../types/product-type";
 
 interface PostProductProps {
@@ -6,16 +6,15 @@ interface PostProductProps {
 }
 
 export async function postProduct({ product }: PostProductProps) {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { error } = await supabaseClient
-    .from("products")
-    .insert(product)
-    .select();
+  const { error } = await supabase.from("products").insert(product).select();
 
   if (error) throw error;
 

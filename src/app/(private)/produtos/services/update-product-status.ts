@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 
 interface UpdateProductStatusProps {
   productId: string;
@@ -9,13 +9,15 @@ export async function updateProductStatus({
   productId,
   status,
 }: UpdateProductStatusProps) {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabaseClient
+  const { data, error } = await supabase
     .from("products")
     .update({ status })
     .eq("id", productId)

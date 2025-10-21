@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 import {
   PaginatedResponseType,
   PaginationType,
@@ -14,16 +14,18 @@ export async function getProducts({
   pageSize = 10,
   search = "",
 }: GetProductsProps): Promise<PaginatedResponseType<ProductResponseType>> {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
-  let query = supabaseClient
+  let query = supabase
     .from("products")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });

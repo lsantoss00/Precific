@@ -13,7 +13,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Precific",
-  description: "Precificação de produtos",
+  description: "Precificação de Produtos",
 };
 
 export default function RootLayout({

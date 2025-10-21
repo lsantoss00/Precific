@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/src/libs/supabase/server";
+import { createServer } from "@/src/libs/supabase/server";
 
 interface LoginProps {
   email: string;
@@ -8,7 +8,7 @@ interface LoginProps {
 }
 
 export async function login({ email, password }: LoginProps) {
-  const supabase = await createClient();
+  const supabase = await createServer();
 
   const { error } = await supabase.auth.signInWithPassword({
     email,

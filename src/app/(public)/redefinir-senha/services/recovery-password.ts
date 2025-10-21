@@ -1,13 +1,13 @@
 "use server";
 
-import { createClient } from "@/src/libs/supabase/server";
+import { createServer } from "@/src/libs/supabase/server";
 
 interface RecoveryPasswordProps {
   email: string;
 }
 
 export async function recoveryPassword({ email }: RecoveryPasswordProps) {
-  const supabase = await createClient();
+  const supabase = await createServer();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email);
 

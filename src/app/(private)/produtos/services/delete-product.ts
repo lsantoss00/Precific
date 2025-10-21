@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/libs/supabase/client";
+import { createClient } from "@/src/libs/supabase/client";
 import { ProductRequestType } from "../types/product-type";
 
 interface DeleteProductProps {
@@ -6,13 +6,15 @@ interface DeleteProductProps {
 }
 
 export async function deleteProduct({ productId }: DeleteProductProps) {
+  const supabase = createClient();
+
   const {
     data: { session },
-  } = await supabaseClient.auth.getSession();
+  } = await supabase.auth.getSession();
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { error } = await supabaseClient
+  const { error } = await supabase
     .from("products")
     .delete()
     .eq("id", productId)

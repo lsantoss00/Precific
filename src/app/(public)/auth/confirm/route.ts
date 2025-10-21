@@ -1,4 +1,4 @@
-import { createClient } from "@/src/libs/supabase/server";
+import { createServer } from "@/src/libs/supabase/server";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   redirectTo.search = "";
 
   if (token_hash && type) {
-    const supabase = await createClient();
+    const supabase = await createServer();
 
     const { error } = await supabase.auth.verifyOtp({
       type,
