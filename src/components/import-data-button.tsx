@@ -5,7 +5,7 @@ import { Loader2, Upload } from "lucide-react";
 import Papa from "papaparse";
 import { useRef } from "react";
 import { toast } from "sonner";
-import { importProducts } from "../app/produtos/services/post-products-by-import";
+import { importProducts } from "../app/(private)/produtos/services/post-products-by-import";
 import { queryClient } from "../libs/tanstack-query/query-client";
 import { Button } from "./core";
 import Show from "./core/show";

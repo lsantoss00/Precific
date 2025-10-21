@@ -9,7 +9,6 @@ import { Input } from "@/src/components/core/input";
 import { Separator } from "@/src/components/core/separator";
 
 import { Skeleton } from "@/src/components/core/skeleton";
-import { useAuth } from "@/src/hooks/use-auth";
 import { useIsMobile } from "@/src/hooks/use-mobile";
 import { cn } from "../../libs/shadcn-ui/utils";
 import { Button } from "./button";
@@ -262,11 +261,11 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar();
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const isCollapsed = state === "collapsed";
 
-  if (!user) return null;
+  // if (!user) return null;
 
   return (
     <Button
