@@ -11,8 +11,6 @@ const PUBLIC_ROUTES = [
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  console.log("Middleware - pathname:", pathname); // ← adicione isso
-
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -53,9 +51,6 @@ export async function updateSession(request: NextRequest) {
     url.pathname = "/entrar";
     return NextResponse.redirect(url);
   }
-
-  console.log("Middleware - isPublicRoute:", isPublicRoute); // ← e isso
-  console.log("Middleware - user:", user ? "existe" : "não existe"); // ← e isso
 
   if (
     user &&
