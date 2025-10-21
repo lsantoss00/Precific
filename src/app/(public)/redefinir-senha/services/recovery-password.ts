@@ -11,5 +11,5 @@ export async function recoveryPassword({ email }: RecoveryPasswordProps) {
 
   const { error } = await supabase.auth.resetPasswordForEmail(email);
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
 }

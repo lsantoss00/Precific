@@ -15,7 +15,5 @@ export async function login({ email, password }: LoginProps) {
     password,
   });
 
-  if (error) {
-    throw error;
-  }
+  if (error) throw new Error(error.message);
 }
