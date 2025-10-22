@@ -73,7 +73,7 @@ const PricingForm = () => {
                 error={errors.sales_icms?.message}
               />
               <FormFieldTooltip
-                message="ICMS Informe a alíquota de ICMS que será aplicada na venda deste produto. 
+                message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
                                         A alíquota pode variar conforme o estado de destino e o regime tributário da sua empresa."
               />
             </Row>
