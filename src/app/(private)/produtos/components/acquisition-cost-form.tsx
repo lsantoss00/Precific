@@ -122,7 +122,7 @@ const AcquisitionCostForm = () => {
                 error={errors.pis_cofins?.message}
               />
               <FormFieldTooltip
-                message="PIS/Informe a alíquota de PIS/COFINS da compra. 
+                message="Informe a alíquota de PIS/COFINS da compra. 
                                         Relevante para empresas do regime Lucro Real que podem se creditar deste imposto para abater no cálculo da venda"
               />
             </Row>

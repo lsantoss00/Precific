@@ -109,7 +109,7 @@ const PricingForm = () => {
                 error={errors.sales_pis_cofins?.message}
               />
               <FormFieldTooltip
-                message="PIS/COFINS Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
+                message="Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
                                           O valor varia conforme o regime tributário da sua empresa."
               />
             </Row>
