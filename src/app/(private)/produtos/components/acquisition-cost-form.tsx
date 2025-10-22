@@ -52,7 +52,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.unit_price?.message}
               />
-              <FormFieldTooltip message="Preço Unitário" />
+              <FormFieldTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
             </Row>
             <Show when={errors.unit_price?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -85,7 +85,10 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.icms?.message}
               />
-              <FormFieldTooltip message="ICMS" />
+              <FormFieldTooltip
+                message="Insira a alíquota de ICMS (Imposto sobre Circulação de Mercadorias e Serviços) que veio na nota fiscal de compra. 
+                                        Se sua empresa tiver direito, este valor será usado como crédito."
+              />
             </Row>
             <Show when={errors.icms?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -118,7 +121,10 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.pis_cofins?.message}
               />
-              <FormFieldTooltip message="PIS/COFINS" />
+              <FormFieldTooltip
+                message="PIS/Informe a alíquota de PIS/COFINS da compra. 
+                                        Relevante para empresas do regime Lucro Real que podem se creditar deste imposto para abater no cálculo da venda"
+              />
             </Row>
             <Show when={errors.pis_cofins?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -148,7 +154,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.icms_st?.message}
               />
-              <FormFieldTooltip message="ICMS ST" />
+              <FormFieldTooltip message="Informe a alíquota ou valor do ICMS por Substituição Tributária (ST) pago na entrada." />
             </Row>
             <Show when={errors.icms_st?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -178,7 +184,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.ipi?.message}
               />
-              <FormFieldTooltip message="IPI" />
+              <FormFieldTooltip message="Digite a alíquota do IPI (Imposto sobre Produtos Industrializados) destacada na nota de compra." />
             </Row>
             <Show when={errors.ipi?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -208,7 +214,10 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.others?.message}
               />
-              <FormFieldTooltip message="Outros" />
+              <FormFieldTooltip
+                message="Adicione outras despesas que incidiram diretamente na compra, como frete de compra (FOB), 
+                                        seguros ou taxas, em percentual sobre o preço unitário."
+              />
             </Row>
             <Show when={errors.others?.message}>
               <span className="text-xs text-red-500 -mt-1">

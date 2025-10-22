@@ -39,7 +39,7 @@ const PricingForm = () => {
                 })}
                 error={errors.fixed_costs?.message}
               />
-              <FormFieldTooltip message="Custos Fixos" />
+              <FormFieldTooltip message="Custos Insira o percentual dos custos fixos da sua empresa (ex: aluguel, salários, internet) que deve ser atribuído a este produto." />
             </Row>
             <Show when={errors.fixed_costs?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -72,7 +72,10 @@ const PricingForm = () => {
                 })}
                 error={errors.sales_icms?.message}
               />
-              <FormFieldTooltip message="ICMS Venda" />
+              <FormFieldTooltip
+                message="ICMS Informe a alíquota de ICMS que será aplicada na venda deste produto. 
+                                        A alíquota pode variar conforme o estado de destino e o regime tributário da sua empresa."
+              />
             </Row>
             <Show when={errors.sales_icms?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -105,7 +108,10 @@ const PricingForm = () => {
                 })}
                 error={errors.sales_pis_cofins?.message}
               />
-              <FormFieldTooltip message="PIS/COFINS Venda" />
+              <FormFieldTooltip
+                message="PIS/COFINS Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
+                                          O valor varia conforme o regime tributário da sua empresa."
+              />
             </Row>
             <Show when={errors.sales_pis_cofins?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -135,7 +141,7 @@ const PricingForm = () => {
                 })}
                 error={errors.shipping?.message}
               />
-              <FormFieldTooltip message="Frete" />
+              <FormFieldTooltip message="Informe o custo percentual do frete para enviar o produto ao cliente final, caso este custo seja responsabilidade da sua empresa." />
             </Row>
             <Show when={errors.shipping?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -165,7 +171,7 @@ const PricingForm = () => {
                 })}
                 error={errors.other_costs?.message}
               />
-              <FormFieldTooltip message="Outros Custos" />
+              <FormFieldTooltip message="Adicione outros custos variáveis ligados à venda, como taxas de marketplace ou custos com embalagem." />
             </Row>
             <Show when={errors.other_costs?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -195,7 +201,7 @@ const PricingForm = () => {
                 })}
                 error={errors.profit?.message}
               />
-              <FormFieldTooltip message="Margem de Lucro" />
+              <FormFieldTooltip message="Defina sua margem de lucro desejada." />
             </Row>
             <Show when={errors.profit?.message}>
               <span className="text-xs text-red-500 -mt-1">
