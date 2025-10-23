@@ -10,6 +10,7 @@ const PUBLIC_ROUTES = [
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const hasErrorParam = request.nextUrl.searchParams.has("error");
 
   let supabaseResponse = NextResponse.next({
     request,
@@ -51,16 +52,21 @@ export async function updateSession(request: NextRequest) {
     url.pathname = "/entrar";
     return NextResponse.redirect(url);
   }
-
   if (
     user &&
     (pathname === "/entrar" ||
       pathname === "/redefinir-senha" ||
       pathname === "/")
   ) {
+    if (pathname === "/redefinir-senha" && hasErrorParam) {
+      return supabaseResponse;
+    }
+
     const url = request.nextUrl.clone();
     url.pathname = "/produtos";
+    url.search = "";
     return NextResponse.redirect(url);
   }
+
   return supabaseResponse;
 }

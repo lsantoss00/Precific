@@ -2,6 +2,7 @@
 
 import { Card } from "@/src/components/core";
 import Image from "next/image";
+import { Suspense } from "react";
 import RecoveryPasswordForm from "./recovery-password-form";
 
 const RecoveryPasswordCard = () => {
@@ -14,7 +15,9 @@ const RecoveryPasswordCard = () => {
         height={100}
         className="flex self-center"
       />
-      <RecoveryPasswordForm />
+      <Suspense>
+        <RecoveryPasswordForm />
+      </Suspense>
     </Card>
   );
 };

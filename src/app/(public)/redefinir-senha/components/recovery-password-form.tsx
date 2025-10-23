@@ -3,14 +3,17 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import { createClient } from "@/src/libs/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { recoveryPassword } from "../services";
+import { recoveryPassword } from "../services/recovery-password";
 
 const RecoveryPasswordSchema = z.object({
   email: z.string().min(1, "O campo email é obrigatório."),
@@ -19,6 +22,8 @@ const RecoveryPasswordSchema = z.object({
 type RecoveryPasswordSchemaType = z.infer<typeof RecoveryPasswordSchema>;
 
 const RecoveryPasswordForm = () => {
+  const searchParams = useSearchParams();
+
   const { handleSubmit, control, watch } = useForm<RecoveryPasswordSchemaType>({
     resolver: zodResolver(RecoveryPasswordSchema),
     defaultValues: {
@@ -29,13 +34,15 @@ const RecoveryPasswordForm = () => {
   const { mutate: doRecoveryPassword, isPending: pendingDoRecoveryPassword } =
     useMutation({
       mutationFn: recoveryPassword,
-      onSuccess: () =>
+      onSuccess: (result) => {
+        if (result.error) {
+          toast.error(result.error, {
+            className: "!bg-red-600 !text-white",
+          });
+          return;
+        }
         toast.success("E-mail enviado com sucesso!", {
           className: "!bg-green-600 !text-white",
-        }),
-      onError: (error) => {
-        toast.error(error.message, {
-          className: "!bg-red-600 !text-white",
         });
       },
     });
@@ -47,6 +54,21 @@ const RecoveryPasswordForm = () => {
   const { email } = watch();
 
   const formInputFieldIsBlank = [email].some((value) => value === "");
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error === "invalid_token") {
+      toast.error(
+        "Link de recuperação inválido ou expirado. Aguarde alguns instantes e solicite um novo.",
+        {
+          className: "!bg-red-600 !text-white",
+        }
+      );
+
+      const supabase = createClient();
+      supabase.auth.signOut();
+    }
+  }, [searchParams]);
 
   return (
     <form

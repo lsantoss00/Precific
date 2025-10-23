@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { login } from "../services";
+import { login } from "../services/login";
 
 const LoginFormSchema = z.object({
   email: z.string().min(1, "O campo email é obrigatório."),
@@ -33,14 +33,15 @@ const LoginForm = () => {
 
   const { mutate: doLogin, isPending: pendingLogin } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if (result.error) {
+        toast.error(result.error, {
+          className: "!bg-red-600 !text-white",
+        });
+        return;
+      }
       router.push("/produtos");
       router.refresh();
-    },
-    onError: (error) => {
-      toast.error(error.message, {
-        className: "!bg-red-600 !text-white",
-      });
     },
   });
 

@@ -46,16 +46,17 @@ const NewPasswordForm = () => {
   const { mutate: doCreateNewPassword, isPending: pendingCreateNewPassword } =
     useMutation({
       mutationFn: createNewPassword,
-      onSuccess: () => {
+      onSuccess: (result) => {
+        if (result.error) {
+          toast.error(result.error, {
+            className: "!bg-red-600 !text-white",
+          });
+          return;
+        }
         toast.success("Senha atualizada com sucesso!", {
           className: "!bg-green-600 !text-white",
         });
         router.push("/entrar");
-      },
-      onError: (error) => {
-        toast.error(error.message, {
-          className: "!bg-red-600 !text-white",
-        });
       },
     });
 
