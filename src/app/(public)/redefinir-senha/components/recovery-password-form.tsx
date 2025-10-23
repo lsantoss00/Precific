@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -22,7 +22,6 @@ type RecoveryPasswordSchemaType = z.infer<typeof RecoveryPasswordSchema>;
 
 const RecoveryPasswordForm = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { handleSubmit, control, watch } = useForm<RecoveryPasswordSchemaType>({
     resolver: zodResolver(RecoveryPasswordSchema),
@@ -63,10 +62,8 @@ const RecoveryPasswordForm = () => {
         }
       );
       const params = new URLSearchParams(searchParams.toString());
-      params.delete("error");
-      router.replace(`?${params.toString()}`);
     }
-  }, [searchParams, router]);
+  }, [searchParams]);
 
   return (
     <form
