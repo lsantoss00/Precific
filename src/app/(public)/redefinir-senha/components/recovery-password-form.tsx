@@ -3,6 +3,7 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import { createClient } from "@/src/libs/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
@@ -61,6 +62,9 @@ const RecoveryPasswordForm = () => {
           className: "!bg-red-600 !text-white",
         }
       );
+
+      const supabase = createClient();
+      supabase.auth.signOut();
     }
   }, [searchParams]);
 
