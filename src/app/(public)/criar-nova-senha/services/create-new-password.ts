@@ -9,7 +9,17 @@ interface CreateNewPasswordProps {
 export async function createNewPassword({ password }: CreateNewPasswordProps) {
   const supabase = await createServer();
 
-  await supabase.auth.updateUser({
-    password,
-  });
+  try {
+    const { error } = await supabase.auth.updateUser({
+      password,
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, error: null };
+  } catch (err) {
+    return { success: false, error: "Erro inesperado. Tente novamente." };
+  }
 }

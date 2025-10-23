@@ -12,9 +12,9 @@ export async function login({
   email,
   password,
 }: LoginProps): Promise<ServiceResponseType> {
-  try {
-    const supabase = await createServer();
+  const supabase = await createServer();
 
+  try {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
