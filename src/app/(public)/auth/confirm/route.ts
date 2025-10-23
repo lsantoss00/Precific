@@ -7,24 +7,19 @@ export async function GET(request: NextRequest) {
   const token_hash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") ?? "/";
-  const redirectTo = request.nextUrl.clone();
-  redirectTo.pathname = next;
-  redirectTo.search = "";
+
+  const baseURL = process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin;
+  const redirectTo = new URL(next, baseURL);
 
   if (token_hash && type) {
     const supabase = await createServer();
-
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
-
+    const { error } = await supabase.auth.verifyOtp({ type, token_hash });
     if (!error) {
       return NextResponse.redirect(redirectTo);
     }
   }
 
-  const errorUrl = request.nextUrl.clone();
-  errorUrl.pathname = "/auth/error";
-  return NextResponse.redirect(errorUrl);
+  const resetUrl = new URL("/redefinir-senha", baseURL);
+  resetUrl.searchParams.set("error", "invalid_token");
+  return NextResponse.redirect(resetUrl);
 }

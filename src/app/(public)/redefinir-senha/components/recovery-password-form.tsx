@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -22,6 +22,7 @@ type RecoveryPasswordSchemaType = z.infer<typeof RecoveryPasswordSchema>;
 
 const RecoveryPasswordForm = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const { handleSubmit, control, watch } = useForm<RecoveryPasswordSchemaType>({
     resolver: zodResolver(RecoveryPasswordSchema),
@@ -54,13 +55,15 @@ const RecoveryPasswordForm = () => {
 
   useEffect(() => {
     const error = searchParams.get("error");
-
     if (error === "invalid_token") {
       toast.error(
-        "Link inválido ou expirado. Por favor, solicite um novo link de redefinição de senha."
+        "Link de recuperação inválido ou expirado. Solicite um novo."
       );
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("error");
+      router.replace(`?${params.toString()}`);
     }
-  }, [searchParams]);
+  }, [searchParams, router]);
 
   return (
     <form
