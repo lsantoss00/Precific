@@ -61,7 +61,6 @@ const RecoveryPasswordForm = () => {
           className: "!bg-red-600 !text-white",
         }
       );
-      const params = new URLSearchParams(searchParams.toString());
     }
   }, [searchParams]);
 
