@@ -34,8 +34,8 @@ const FormFieldTooltip = ({
           {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="max-w-sm">
-        <p className="text-base">{message}</p>
+      <TooltipContent className="max-w-xs">
+        <p className="text-relaxed">{message}</p>
       </TooltipContent>
     </Tooltip>
   );
