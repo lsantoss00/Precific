@@ -33,12 +33,18 @@ const LoginForm = () => {
 
   const { mutate: doLogin, isPending: pendingLogin } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if (result.error) {
+        toast.error(result.error, {
+          className: "!bg-red-600 !text-white",
+        });
+        return;
+      }
       router.push("/produtos");
       router.refresh();
     },
-    onError: (error) => {
-      toast.error(error.message, {
+    onError: () => {
+      toast.error("Erro ao conectar com o servidor", {
         className: "!bg-red-600 !text-white",
       });
     },

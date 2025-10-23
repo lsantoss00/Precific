@@ -10,8 +10,19 @@ interface LoginProps {
 export async function login({ email, password }: LoginProps) {
   const supabase = await createServer();
 
-  await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+
+  if (error) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+
+  return {
+    success: true,
+  };
 }
