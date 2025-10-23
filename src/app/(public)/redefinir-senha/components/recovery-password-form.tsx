@@ -57,7 +57,7 @@ const RecoveryPasswordForm = () => {
     const error = searchParams.get("error");
     if (error === "invalid_token") {
       toast.error(
-        "Link de recuperação inválido ou expirado. Solicite um novo.",
+        "Link de recuperação inválido ou expirado. Aguarde alguns instantes e solicite um novo.",
         {
           className: "!bg-red-600 !text-white",
         }
