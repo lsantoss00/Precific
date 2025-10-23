@@ -8,12 +8,16 @@ export function taxCalc({
   priceToday,
   salesIcms,
   salesPisCofins,
-}: TaxCalcProps): number {
+}: TaxCalcProps) {
   const icmsValue = priceToday * (salesIcms / 100);
   const baseForPisCofins = priceToday - icmsValue;
   const pisCofinsValue = baseForPisCofins * (salesPisCofins / 100);
 
   const result = icmsValue + pisCofinsValue;
 
-  return result;
+  return {
+    result: Number(result),
+    icmsValue: Number(icmsValue),
+    pisCofinsValue: Number(pisCofinsValue),
+  };
 }

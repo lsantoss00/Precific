@@ -17,9 +17,8 @@ import { updateProduct } from "../services/update-product";
 import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
-import { netProfitCalc } from "../utils/net-profit-calc";
+import { liquidProfitCalc } from "../utils/liquid-profit-calc";
 import { priceTodayCalc } from "../utils/price-today-calc";
-import { profitMarginCalc } from "../utils/profit-margin-calc";
 import { taxCalc } from "../utils/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
@@ -67,8 +66,8 @@ const ProductResult = () => {
 
   const {
     result: acquisitionCost,
-    icmsValue,
-    pisCofinsValue,
+    icmsValue: acIcmsValue,
+    pisCofinsValue: acPisCofinsValue,
   } = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
@@ -88,27 +87,12 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
   });
 
-  const profitMargin = profitMarginCalc({
-    acquisitionCost,
-    profit: data?.profit ?? 0,
-  });
-
-  const baseIbsdCbsCalc = ibsCbsCalc({
-    unitPrice: data?.unit_price ?? 0,
-    icms: icmsValue,
-    pisCofins: pisCofinsValue,
-  }).baseIbsdCbsCalc;
-
   const ibs = ibsCbsCalc({
-    unitPrice: data?.unit_price ?? 0,
-    icms: icmsValue,
-    pisCofins: pisCofinsValue,
+    base1: priceToday?.base1,
   }).ibs;
 
   const cbs = ibsCbsCalc({
-    unitPrice: data?.unit_price ?? 0,
-    icms: icmsValue,
-    pisCofins: pisCofinsValue,
+    base1: priceToday?.base1,
   }).cbs;
 
   const taxes = taxCalc({
@@ -117,11 +101,30 @@ const ProductResult = () => {
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const netProfit = netProfitCalc({
-    profit: profitMargin,
+  const icmsValue1 = taxCalc({
+    priceToday: priceToday.result,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+  })?.icmsValue;
+
+  const pisCofinsValue2 = taxCalc({
+    priceToday: priceToday.result,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+  })?.pisCofinsValue;
+
+  const liquidProfit1 = liquidProfitCalc({
     fixedCosts: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
+    icms: acIcmsValue,
+    othersCost: acquisitionCost * ((data?.other_costs ?? 0) / 100),
+    pisCofins: acPisCofinsValue,
     shipping: acquisitionCost * ((data?.shipping ?? 0) / 100),
-    otherCosts: acquisitionCost * ((data?.other_costs ?? 0) / 100),
+    salesIcms: icmsValue1 ?? 0,
+    salesPisCofins: pisCofinsValue2 ?? 0,
+    priceToday: priceToday?.result,
+    taxRegime: "realProfit",
+    unitPrice: data?.unit_price ?? 0,
+    irpjCsllPercent: 34,
   });
 
   const priceIn2026 = priceToday.result;
@@ -141,7 +144,7 @@ const ProductResult = () => {
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: taxes,
+      value: taxes?.result,
     },
     {
       title: "Frete",
@@ -149,7 +152,7 @@ const ProductResult = () => {
     },
     {
       title: "Lucro líquido",
-      value: netProfit,
+      value: liquidProfit1,
       variant: "success" as const,
     },
   ];
@@ -246,7 +249,7 @@ const ProductResult = () => {
             <Column className="gap-4">
               <MetricCard
                 title="Base de cálculo IBS/CBS"
-                value={baseIbsdCbsCalc}
+                value={priceToday?.base1}
                 variant="neutral"
               />
               <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
