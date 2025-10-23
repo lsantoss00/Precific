@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { login } from "../services";
+import { login } from "../services/login";
 
 const LoginFormSchema = z.object({
   email: z.string().min(1, "O campo email é obrigatório."),

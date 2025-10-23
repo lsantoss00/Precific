@@ -3,10 +3,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { CircleUser, Loader2Icon, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { logout } from "../app/(public)/entrar/services";
 import { useAuth } from "../hooks/use-auth";
 
 import { toast } from "sonner";
+import { logout } from "../app/(public)/entrar/services/logout";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,17 +20,18 @@ import Show from "./core/show";
 
 const Menu = () => {
   const { user } = useAuth();
-  const route = useRouter();
+  const router = useRouter();
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
-    onSuccess: () => {
-      route.push("/entrar");
-    },
-    onError: (error) => {
-      toast.error(error.message, {
-        className: "!bg-red-600 !text-white",
-      });
+    onSuccess: (result) => {
+      if (result.error) {
+        toast.error(result.error, {
+          className: "!bg-red-600 !text-white",
+        });
+        return;
+      }
+      router.push("/entrar");
     },
   });
 

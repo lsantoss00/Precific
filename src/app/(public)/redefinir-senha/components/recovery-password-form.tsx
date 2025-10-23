@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { recoveryPassword } from "../services";
+import { recoveryPassword } from "../services/recovery-password";
 
 const RecoveryPasswordSchema = z.object({
   email: z.string().min(1, "O campo email é obrigatório."),
@@ -34,13 +34,15 @@ const RecoveryPasswordForm = () => {
   const { mutate: doRecoveryPassword, isPending: pendingDoRecoveryPassword } =
     useMutation({
       mutationFn: recoveryPassword,
-      onSuccess: () =>
+      onSuccess: (result) => {
+        if (result.error) {
+          toast.error(result.error, {
+            className: "!bg-red-600 !text-white",
+          });
+          return;
+        }
         toast.success("E-mail enviado com sucesso!", {
           className: "!bg-green-600 !text-white",
-        }),
-      onError: (error) => {
-        toast.error(error.message, {
-          className: "!bg-red-600 !text-white",
         });
       },
     });
