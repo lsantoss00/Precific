@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
   }
 
   const errorUrl = request.nextUrl.clone();
-  errorUrl.pathname = "/auth/error";
+  errorUrl.pathname = "/redefinir-senha";
+  errorUrl.searchParams.set("error", "invalid_token");
   return NextResponse.redirect(errorUrl);
 }
