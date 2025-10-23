@@ -6,17 +6,10 @@ interface CreateNewPasswordProps {
   password: string;
 }
 
-type ServiceResponse = { success: true } | { success: false; message: string };
-
-export async function createNewPassword({
-  password,
-}: CreateNewPasswordProps): Promise<ServiceResponse> {
+export async function createNewPassword({ password }: CreateNewPasswordProps) {
   const supabase = await createServer();
-  const { error } = await supabase.auth.updateUser({ password });
 
-  if (error) {
-    return { success: false, message: error.message };
-  }
-
-  return { success: true };
+  await supabase.auth.updateUser({
+    password,
+  });
 }

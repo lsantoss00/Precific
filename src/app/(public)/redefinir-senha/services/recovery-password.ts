@@ -9,11 +9,5 @@ interface RecoveryPasswordProps {
 export async function recoveryPassword({ email }: RecoveryPasswordProps) {
   const supabase = await createServer();
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return { success: true };
+  await supabase.auth.resetPasswordForEmail(email);
 }
