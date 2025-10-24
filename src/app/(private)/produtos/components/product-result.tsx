@@ -15,11 +15,12 @@ import { toast } from "sonner";
 import { postProduct } from "../services/post-product";
 import { updateProduct } from "../services/update-product";
 import { ProductType } from "../types/product-type";
-import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
-import { ibsCbsCalc } from "../utils/ibs-cbs-calc";
-import { liquidProfitCalc } from "../utils/liquid-profit-calc";
-import { priceTodayCalc } from "../utils/price-today-calc";
-import { taxCalc } from "../utils/tax-calc";
+import { acquisitionCostCalc } from "../utils/calcs/acquisition-cost-calc";
+import { ibsCbsCalc } from "../utils/calcs/ibs-cbs-calc";
+import { liquidProfitCalc } from "../utils/calcs/liquid-profit-calc";
+import { percentageValueCalc } from "../utils/calcs/percentage-value-calc";
+import { priceTodayCalc } from "../utils/calcs/price-today-calc";
+import { taxCalc } from "../utils/calcs/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
@@ -64,11 +65,7 @@ const ProductResult = () => {
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
-  const {
-    result: acquisitionCost,
-    icmsValue: acIcmsValue,
-    pisCofinsValue: acPisCofinsValue,
-  } = acquisitionCostCalc({
+  const acquisitionCost = acquisitionCostCalc({
     unitPrice: data?.unit_price ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
@@ -77,57 +74,81 @@ const ProductResult = () => {
     others: data.others ?? 0,
   });
 
+  const percentSum =
+    ((data.fixed_costs ?? 0) + (data.shipping ?? 0) + (data.other_costs ?? 0)) /
+    100;
+  const markupBase = acquisitionCost + acquisitionCost * percentSum;
+  const firstBase = markupBase + markupBase * ((data?.profit ?? 0) / 100);
+
   const priceToday = priceTodayCalc({
-    acquisitionCost,
-    fixedCosts: data?.fixed_costs ?? 0,
-    othersCost: data?.other_costs ?? 0,
-    profit: data?.profit ?? 0,
+    firstBase,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
-    shipping: data?.shipping ?? 0,
   });
 
   const ibs = ibsCbsCalc({
-    base1: priceToday?.base1,
+    base1: firstBase,
   }).ibs;
 
   const cbs = ibsCbsCalc({
-    base1: priceToday?.base1,
+    base1: firstBase,
   }).cbs;
 
   const taxes = taxCalc({
-    priceToday: priceToday.result,
+    priceToday: priceToday,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const icmsValue1 = taxCalc({
-    priceToday: priceToday.result,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-  })?.icmsValue;
+  const salesIcmsValue = percentageValueCalc({
+    base: priceToday,
+    percentage: data?.sales_icms,
+  });
 
-  const pisCofinsValue2 = taxCalc({
-    priceToday: priceToday.result,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-  })?.pisCofinsValue;
+  const salesPisCofinsValue = percentageValueCalc({
+    base: priceToday - salesIcmsValue,
+    percentage: data?.sales_pis_cofins,
+  });
 
-  const liquidProfit1 = liquidProfitCalc({
-    fixedCosts: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
-    icms: acIcmsValue,
-    othersCost: acquisitionCost * ((data?.other_costs ?? 0) / 100),
-    pisCofins: acPisCofinsValue,
-    shipping: acquisitionCost * ((data?.shipping ?? 0) / 100),
-    salesIcms: icmsValue1 ?? 0,
-    salesPisCofins: pisCofinsValue2 ?? 0,
-    priceToday: priceToday?.result,
-    taxRegime: "realProfit",
-    unitPrice: data?.unit_price ?? 0,
+  const fixedCosts = percentageValueCalc({
+    base: acquisitionCost,
+    percentage: data?.fixed_costs ?? 0,
+  });
+
+  const othersCosts = percentageValueCalc({
+    base: acquisitionCost,
+    percentage: data?.other_costs ?? 0,
+  });
+
+  const shipping = percentageValueCalc({
+    base: acquisitionCost,
+    percentage: data?.shipping ?? 0,
+  });
+
+  const icmsValue = percentageValueCalc({
+    base: data?.unit_price ?? 0,
+    percentage: data?.icms ?? 0,
+  });
+
+  const pisCofinsValue = percentageValueCalc({
+    base: data?.unit_price ?? 0,
+    percentage: data?.pis_cofins ?? 0,
+  });
+
+  const liquidProfit = liquidProfitCalc({
+    priceToday: priceToday,
+    unitPrice: data?.unit_price,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+    fixedCosts: fixedCosts,
+    salesIcms: salesIcmsValue,
+    salesPisCofins: salesPisCofinsValue,
+    shipping: shipping,
+    othersCosts: othersCosts,
     irpjCsllPercent: 34,
   });
 
-  const priceIn2026 = priceToday.result;
+  const priceIn2026 = priceToday;
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -144,7 +165,7 @@ const ProductResult = () => {
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: taxes?.result,
+      value: taxes,
     },
     {
       title: "Frete",
@@ -152,7 +173,7 @@ const ProductResult = () => {
     },
     {
       title: "Lucro líquido",
-      value: liquidProfit1,
+      value: liquidProfit,
       variant: "success" as const,
     },
   ];
@@ -172,7 +193,7 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...data,
       status: "ACTIVE",
-      price_today: priceToday.result,
+      price_today: priceToday,
       price_in_2026: priceIn2026,
     };
 
@@ -230,7 +251,7 @@ const ProductResult = () => {
             </div>
             <MetricCard
               title="Preço de venda final"
-              value={priceToday.result}
+              value={priceToday}
               variant="secondary"
             />
           </Column>
@@ -249,7 +270,7 @@ const ProductResult = () => {
             <Column className="gap-4">
               <MetricCard
                 title="Base de cálculo IBS/CBS"
-                value={priceToday?.base1}
+                value={firstBase}
                 variant="neutral"
               />
               <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
@@ -265,7 +286,7 @@ const ProductResult = () => {
             </Column>
             <MetricCard
               title="Preço de venda final"
-              value={priceToday.result}
+              value={priceToday}
               variant="secondary"
             />
           </Column>

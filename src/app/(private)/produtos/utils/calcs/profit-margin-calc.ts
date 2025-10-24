@@ -9,5 +9,5 @@ export function profitMarginCalc({
 }: ProfitMarginCalc): number {
   const result = liquidProfit / priceToday;
 
-  return Number(result);
+  return result;
 }

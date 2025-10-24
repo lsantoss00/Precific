@@ -12,5 +12,5 @@ export function pricing2026Calc({
   const value = ibsRate / cbsRate;
   const result = priceToday + (value * ibsRate + value * cbsRate);
 
-  return Number(result);
+  return result;
 }

@@ -6,7 +6,7 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import FormFieldTooltip from "@/src/components/form-field-tooltip";
-import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
+import { acquisitionCostCalc } from "../utils/calcs/acquisition-cost-calc";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
@@ -227,10 +227,7 @@ const AcquisitionCostForm = () => {
           </Column>
         </Column>
       </form>
-      <MetricCard
-        title="Valor de Aquisição"
-        value={acquisitionCost.result || 0}
-      />
+      <MetricCard title="Valor de Aquisição" value={acquisitionCost || 0} />
     </Card>
   );
 };
