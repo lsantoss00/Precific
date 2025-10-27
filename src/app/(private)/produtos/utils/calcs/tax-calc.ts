@@ -25,7 +25,5 @@ export function taxCalc({
 
   const result = salesIcmsValue + salesPisCofinsValue;
 
-  console.log("result", result);
-
   return result;
 }

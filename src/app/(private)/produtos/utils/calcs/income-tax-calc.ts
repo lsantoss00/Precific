@@ -25,7 +25,5 @@ export function incomeTaxCalc({
 
   const result = icmsValue + pisCofinsValue;
 
-  console.log("result", result);
-
   return result;
 }

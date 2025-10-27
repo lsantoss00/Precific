@@ -32,11 +32,12 @@ export function liquidProfitCalc({
     salesPisCofins -
     shipping -
     othersCosts;
+
   const irpjCsll = bcIrpjCsll * (irpjCsllPercent / 100);
 
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
-  const pisCofinsRec = salesPisCofins - pisCofins; // TO-DO: Arrumar pisCofins value que está recebendo o valor errado.
+  const pisCofinsRec = salesPisCofins - pisCofins;
 
   const result =
     priceToday -

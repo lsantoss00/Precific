@@ -130,8 +130,9 @@ const ProductResult = () => {
     percentage: data?.icms ?? 0,
   });
 
+  const pisCofinsBase = data?.unit_price - icmsValue;
   const pisCofinsValue = percentageValueCalc({
-    base: data?.unit_price ?? 0,
+    base: pisCofinsBase,
     percentage: data?.pis_cofins ?? 0,
   });
 
