@@ -11,6 +11,8 @@ const PUBLIC_ROUTES = [
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const hasErrorParam = request.nextUrl.searchParams.has("error");
+  const isRecoveryFlow =
+    request.nextUrl.searchParams.get("type") === "recovery";
 
   let supabaseResponse = NextResponse.next({
     request,
@@ -47,11 +49,19 @@ export async function updateSession(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  if (user && isRecoveryFlow && pathname !== "/criar-nova-senha") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/criar-nova-senha";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
+
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/entrar";
     return NextResponse.redirect(url);
   }
+
   if (
     user &&
     (pathname === "/entrar" ||
