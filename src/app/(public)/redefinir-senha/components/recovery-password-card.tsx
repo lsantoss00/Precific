@@ -1,16 +1,18 @@
 "use client";
 
-import { logout } from "@/src/app/(public)/entrar/services/logout";
 import { Card } from "@/src/components/core";
+import { createClient } from "@/src/libs/supabase/client";
 import Image from "next/image";
 import { Suspense, useEffect } from "react";
 import RecoveryPasswordForm from "./recovery-password-form";
 
 const RecoveryPasswordCard = () => {
   useEffect(() => {
-    (async () => {
-      await logout();
-    })();
+    const doLogout = async () => {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    };
+    doLogout();
   }, []);
 
   return (
