@@ -47,7 +47,6 @@ export async function updateSession(request: NextRequest) {
   if (isRecoveryFlow) {
     supabaseResponse.cookies.set("recovery_mode", "true", {
       sameSite: "lax",
-      maxAge: 900,
       path: "/",
     });
   }
