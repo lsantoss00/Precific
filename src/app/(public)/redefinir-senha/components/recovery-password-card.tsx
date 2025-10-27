@@ -9,8 +9,8 @@ const RecoveryPasswordCard = () => {
   return (
     <Card className="rounded-2xl p-6 border shadow-sm max-w-125 w-full max-h-125 flex justify-center bg-white">
       <Image
-        src="/precific-logo.png"
-        alt="precific-logo"
+        src="/precific-logo-image.webp"
+        alt="precific-logo-image"
         width={300}
         height={100}
         className="flex self-center"

@@ -33,8 +33,8 @@ export function AppSidebar() {
             <SidebarTrigger className="w-full h-full !p-0">
               {isCollapsed ? (
                 <Image
-                  src="/precific-short-logo.png"
-                  alt="precific-logo"
+                  src="/precific-short-logo-image.webp"
+                  alt="precific-logo-image"
                   width={60}
                   height={60}
                   quality={100}
@@ -42,8 +42,8 @@ export function AppSidebar() {
                 />
               ) : (
                 <Image
-                  src="/precific-logo.png"
-                  alt="precific-logo"
+                  src="/precific-logo-image.webp"
+                  alt="precific-logo-image"
                   width={200}
                   height={40}
                   quality={100}

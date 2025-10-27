@@ -11,8 +11,8 @@ export function AppHeader() {
       <Row className="w-full h-full max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] justify-between xl:justify-end items-center mx-auto">
         <SidebarTrigger className="!p-0 xl:!hidden">
           <Image
-            src="/precific-short-logo.png"
-            alt="precific-logo"
+            src="/precific-short-logo-image.webp"
+            alt="precific-logo-image"
             width={48}
             height={60}
             quality={100}
