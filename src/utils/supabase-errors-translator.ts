@@ -18,11 +18,7 @@ const errorMessagesTranslation: Record<string, string> = {
 
   // PASSWORD
   "Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789, !@#$%^&*()_+-=[]{};':\"|<>?,./`~.":
-    "Senha deve conter ao menos um caractere de cada tipo: letras minúsculas, letras maiúsculas, números e símbolos permitidos [!@#$%^&*()_+-=[]{};':\"|<>?,./`~].",
-  weak_password:
-    "Senha muito fraca. Siga a política: mínimo de 1 minúscula, 1 maiúscula, 1 número e 1 símbolo permitido.",
-  password_too_weak:
-    "Senha muito fraca. Siga a política: mínimo de 1 minúscula, 1 maiúscula, 1 número e 1 símbolo permitido.",
+    "A senha deve conter ao menos um caractere de cada tipo: letras minúsculas, letras maiúsculas, números e símbolos.",
 
   // OTP / MAGIC LINK
   otp_expired: "Código expirado. Solicite um novo código.",
