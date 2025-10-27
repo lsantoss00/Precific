@@ -8,7 +8,7 @@ interface FormFieldsTooltipProps {
   icon?: React.ReactNode;
 }
 
-const FormFieldTooltip = ({
+const CustomTooltip = ({
   message,
   icon = <CircleQuestionMark size={24} />,
 }: FormFieldsTooltipProps) => {
@@ -20,7 +20,7 @@ const FormFieldTooltip = ({
         <Button
           type="button"
           tabIndex={-1}
-          className="bg-transparent shadow-none text-primary hover:bg-transparent !p-0 h-fit cursor-default"
+          className="bg-transparent shadow-none text-primary hover:bg-transparent !p-1 h-fit !w-fit cursor-default"
           onClick={() => setOpenTooltip(!openTooltip)}
           onMouseEnter={() => setOpenTooltip(true)}
           onMouseLeave={() => setOpenTooltip(false)}
@@ -34,11 +34,11 @@ const FormFieldTooltip = ({
           {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="max-w-xs">
-        <p className="text-relaxed">{message}</p>
+      <TooltipContent className="bg-black max-w-[220px] md:max-w-[420px] p-2 mx-2">
+        <p className="text-base text-white">{message}</p>
       </TooltipContent>
     </Tooltip>
   );
 };
 
-export default FormFieldTooltip;
+export default CustomTooltip;

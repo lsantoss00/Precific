@@ -5,7 +5,7 @@ import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import FormFieldTooltip from "@/src/components/form-field-tooltip";
+import CustomTooltip from "@/src/components/form-field-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
@@ -241,7 +241,7 @@ const ProductResult = () => {
               <h3 className="text-lg">
                 Transição Reforma Tributária <strong>2026</strong>
               </h3>
-              <FormFieldTooltip
+              <CustomTooltip
                 icon={<CircleAlert className="text-[#66289B] !w-6 !h-6" />}
                 message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
               />

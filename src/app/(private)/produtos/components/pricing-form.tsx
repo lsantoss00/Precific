@@ -5,7 +5,7 @@ import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import FormFieldTooltip from "@/src/components/form-field-tooltip";
+import CustomTooltip from "@/src/components/form-field-tooltip";
 
 const PricingForm = () => {
   const { form } = useProductForm();
@@ -39,7 +39,7 @@ const PricingForm = () => {
                 })}
                 error={errors.fixed_costs?.message}
               />
-              <FormFieldTooltip message="Custos Insira o percentual dos custos fixos da sua empresa (ex: aluguel, salários, internet) que deve ser atribuído a este produto." />
+              <CustomTooltip message="Custos Insira o percentual dos custos fixos da sua empresa (ex: aluguel, salários, internet) que deve ser atribuído a este produto." />
             </Row>
             <Show when={errors.fixed_costs?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -72,7 +72,7 @@ const PricingForm = () => {
                 })}
                 error={errors.sales_icms?.message}
               />
-              <FormFieldTooltip
+              <CustomTooltip
                 message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
                                         A alíquota pode variar conforme o estado de destino e o regime tributário da sua empresa."
               />
@@ -108,7 +108,7 @@ const PricingForm = () => {
                 })}
                 error={errors.sales_pis_cofins?.message}
               />
-              <FormFieldTooltip
+              <CustomTooltip
                 message="Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
                                           O valor varia conforme o regime tributário da sua empresa."
               />
@@ -141,7 +141,7 @@ const PricingForm = () => {
                 })}
                 error={errors.shipping?.message}
               />
-              <FormFieldTooltip message="Informe o custo percentual do frete para enviar o produto ao cliente final, caso este custo seja responsabilidade da sua empresa." />
+              <CustomTooltip message="Informe o custo percentual do frete para enviar o produto ao cliente final, caso este custo seja responsabilidade da sua empresa." />
             </Row>
             <Show when={errors.shipping?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -171,7 +171,7 @@ const PricingForm = () => {
                 })}
                 error={errors.other_costs?.message}
               />
-              <FormFieldTooltip message="Adicione outros custos variáveis ligados à venda, como taxas de marketplace ou custos com embalagem." />
+              <CustomTooltip message="Adicione outros custos variáveis ligados à venda, como taxas de marketplace ou custos com embalagem." />
             </Row>
             <Show when={errors.other_costs?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -201,7 +201,7 @@ const PricingForm = () => {
                 })}
                 error={errors.profit?.message}
               />
-              <FormFieldTooltip message="Defina sua margem de lucro desejada." />
+              <CustomTooltip message="Defina sua margem de lucro desejada." />
             </Row>
             <Show when={errors.profit?.message}>
               <span className="text-xs text-red-500 -mt-1">
