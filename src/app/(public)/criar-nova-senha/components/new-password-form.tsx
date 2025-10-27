@@ -3,6 +3,8 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import { createClient } from "@/src/libs/supabase/client";
+import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
@@ -46,9 +48,9 @@ const NewPasswordForm = () => {
   const { mutate: doCreateNewPassword, isPending: pendingCreateNewPassword } =
     useMutation({
       mutationFn: createNewPassword,
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         if (result.error) {
-          toast.error(result.error, {
+          toast.error(supabaseErrorsTranslator(result.error), {
             className: "!bg-red-600 !text-white",
           });
           return;
@@ -56,6 +58,12 @@ const NewPasswordForm = () => {
         toast.success("Senha atualizada com sucesso!", {
           className: "!bg-green-600 !text-white",
         });
+
+        document.cookie =
+          "recovery_mode=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        const supabase = createClient();
+
+        await supabase.auth.signOut();
         router.push("/entrar");
       },
     });

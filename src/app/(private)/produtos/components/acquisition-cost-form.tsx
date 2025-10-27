@@ -1,12 +1,12 @@
 "use client";
 
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { acquisitionCostCalc } from "@/src/app/(private)/produtos/utils/calcs/acquisition-cost-calc";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import FormFieldTooltip from "@/src/components/form-field-tooltip";
-import { acquisitionCostCalc } from "../utils/calcs/acquisition-cost-calc";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
@@ -42,9 +42,8 @@ const AcquisitionCostForm = () => {
                 type="number"
                 placeholder="R$ 0,00"
                 {...register("unit_price", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -52,7 +51,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.unit_price?.message}
               />
-              <FormFieldTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
+              <CustomTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
             </Row>
             <Show when={errors.unit_price?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -74,9 +73,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("icms", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -85,7 +83,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.icms?.message}
               />
-              <FormFieldTooltip
+              <CustomTooltip
                 message="Insira a alíquota de ICMS (Imposto sobre Circulação de Mercadorias e Serviços) que veio na nota fiscal de compra. 
                                         Se sua empresa tiver direito, este valor será usado como crédito."
               />
@@ -110,9 +108,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("pis_cofins", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -121,7 +118,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.pis_cofins?.message}
               />
-              <FormFieldTooltip
+              <CustomTooltip
                 message="Informe a alíquota de PIS/COFINS da compra. 
                                         Relevante para empresas do regime Lucro Real que podem se creditar deste imposto para abater no cálculo da venda"
               />
@@ -144,9 +141,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("icms_st", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -154,7 +150,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.icms_st?.message}
               />
-              <FormFieldTooltip message="Informe a alíquota ou valor do ICMS por Substituição Tributária (ST) pago na entrada." />
+              <CustomTooltip message="Informe a alíquota ou valor do ICMS por Substituição Tributária (ST) pago na entrada." />
             </Row>
             <Show when={errors.icms_st?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -174,9 +170,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("ipi", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -184,7 +179,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.ipi?.message}
               />
-              <FormFieldTooltip message="Digite a alíquota do IPI (Imposto sobre Produtos Industrializados) destacada na nota de compra." />
+              <CustomTooltip message="Digite a alíquota do IPI (Imposto sobre Produtos Industrializados) destacada na nota de compra." />
             </Row>
             <Show when={errors.ipi?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -204,9 +199,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("others", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -214,7 +208,7 @@ const AcquisitionCostForm = () => {
                 })}
                 error={errors.others?.message}
               />
-              <FormFieldTooltip
+              <CustomTooltip
                 message="Adicione outras despesas que incidiram diretamente na compra, como frete de compra (FOB), 
                                         seguros ou taxas, em percentual sobre o preço unitário."
               />

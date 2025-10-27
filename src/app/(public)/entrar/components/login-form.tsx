@@ -3,6 +3,7 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
@@ -35,7 +36,7 @@ const LoginForm = () => {
     mutationFn: login,
     onSuccess: (result) => {
       if (result.error) {
-        toast.error(result.error, {
+        toast.error(supabaseErrorsTranslator(result.error), {
           className: "!bg-red-600 !text-white",
         });
         return;
