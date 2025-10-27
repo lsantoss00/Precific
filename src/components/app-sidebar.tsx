@@ -134,7 +134,7 @@ const mainItems = [
     title: "Dashboard",
     url: "/dashboard",
     icon: LayoutDashboard,
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Produtos",
@@ -149,12 +149,12 @@ const secondaryItems = [
     title: "Configurações",
     url: "/configuracoes",
     icon: Settings,
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Suporte",
     url: "/suporte",
     icon: Info,
-    disabled: true,
+    disabled: false,
   },
 ];
