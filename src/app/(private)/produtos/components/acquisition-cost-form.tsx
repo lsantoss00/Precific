@@ -42,9 +42,8 @@ const AcquisitionCostForm = () => {
                 type="number"
                 placeholder="R$ 0,00"
                 {...register("unit_price", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -74,9 +73,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("icms", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -110,9 +108,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("pis_cofins", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -144,9 +141,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("icms_st", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -174,9 +170,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("ipi", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -204,9 +199,8 @@ const AcquisitionCostForm = () => {
                 min="0"
                 max="100"
                 {...register("others", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },

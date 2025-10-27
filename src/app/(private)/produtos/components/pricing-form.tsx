@@ -29,9 +29,8 @@ const PricingForm = () => {
                 min="0"
                 max="100"
                 {...register("fixed_costs", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -61,9 +60,8 @@ const PricingForm = () => {
                 min="0"
                 max="100"
                 {...register("sales_icms", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -97,9 +95,8 @@ const PricingForm = () => {
                 min="0"
                 max="100"
                 {...register("sales_pis_cofins", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
@@ -131,9 +128,8 @@ const PricingForm = () => {
                 min="0"
                 max="100"
                 {...register("shipping", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -161,9 +157,8 @@ const PricingForm = () => {
                 min="0"
                 max="100"
                 {...register("other_costs", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -191,9 +186,8 @@ const PricingForm = () => {
                 type="number"
                 placeholder="0,00%"
                 {...register("profit", {
-                  valueAsNumber: true,
                   setValueAs: (value) =>
-                    value === "" || value === null || isNaN(value)
+                    value === "" || value === null || isNaN(Number(value))
                       ? 0
                       : Number(value),
                   required: "Campo obrigatório",
