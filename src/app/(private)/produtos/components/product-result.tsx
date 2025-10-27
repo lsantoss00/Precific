@@ -1,6 +1,7 @@
 "use client";
 
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
@@ -17,7 +18,6 @@ import { updateProduct } from "../services/update-product";
 import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/calcs/acquisition-cost-calc";
 import { ibsCbsCalc } from "../utils/calcs/ibs-cbs-calc";
-import { liquidProfitCalc } from "../utils/calcs/liquid-profit-calc";
 import { percentageValueCalc } from "../utils/calcs/percentage-value-calc";
 import { priceTodayCalc } from "../utils/calcs/price-today-calc";
 import { taxCalc } from "../utils/calcs/tax-calc";
@@ -136,7 +136,7 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  const liquidProfit = liquidProfitCalc({
+  const realProfit = realProfitCalc({
     priceToday: priceToday,
     unitPrice: data?.unit_price,
     icms: icmsValue,
@@ -174,7 +174,7 @@ const ProductResult = () => {
     },
     {
       title: "Lucro líquido",
-      value: liquidProfit,
+      value: realProfit,
       variant: "success" as const,
     },
   ];

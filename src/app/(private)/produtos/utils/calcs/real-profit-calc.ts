@@ -1,4 +1,6 @@
-interface LiquidProfitCalcProps {
+import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/percentage-value-calc";
+
+interface RealProfitCalcProps {
   priceToday: number;
   unitPrice: number;
   icms: number;
@@ -9,10 +11,9 @@ interface LiquidProfitCalcProps {
   shipping: number;
   othersCosts: number;
   irpjCsllPercent: 24 | 34;
-  taxRegime?: "realProfit" | "presumedProfit" | "simpleNational";
 }
 
-export function liquidProfitCalc({
+export function realProfitCalc({
   priceToday,
   unitPrice,
   icms,
@@ -23,7 +24,7 @@ export function liquidProfitCalc({
   shipping,
   othersCosts,
   irpjCsllPercent,
-}: LiquidProfitCalcProps): number {
+}: RealProfitCalcProps): number {
   const bcIrpjCsll =
     priceToday -
     unitPrice -
@@ -33,7 +34,10 @@ export function liquidProfitCalc({
     shipping -
     othersCosts;
 
-  const irpjCsll = bcIrpjCsll * (irpjCsllPercent / 100);
+  const irpjCsll = percentageValueCalc({
+    base: bcIrpjCsll,
+    percentage: irpjCsllPercent,
+  });
 
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
