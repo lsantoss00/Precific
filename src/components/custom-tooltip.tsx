@@ -34,7 +34,7 @@ const CustomTooltip = ({
           {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="bg-black max-w-[220px] md:max-w-[420px] p-2 mx-2">
+      <TooltipContent className="bg-black max-w-[220px] md:max-w-[420px] p-2">
         <p className="text-base text-white">{message}</p>
       </TooltipContent>
     </Tooltip>

@@ -5,7 +5,7 @@ import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import CustomTooltip from "@/src/components/form-field-tooltip";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import { acquisitionCostCalc } from "../utils/acquisition-cost-calc";
 import MetricCard from "./metric-card";
 

@@ -5,7 +5,7 @@ import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import CustomTooltip from "@/src/components/form-field-tooltip";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
