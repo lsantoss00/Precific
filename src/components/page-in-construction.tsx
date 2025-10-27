@@ -15,11 +15,11 @@ const PageInConstruction = () => {
       />
       <Column className="gap-2">
         <span className="text-2xl md:text-4xl font-medium text-center">
-          Opa! Página em construção.
+          Ops... Página em construção!
         </span>
         <p className="text-xs md:text-sm text-center">
           A página que você está tentando acessar ainda está em construção...
-          novidades em breve!
+          novidades em breve :)
         </p>
       </Column>
     </Column>
