@@ -83,7 +83,7 @@ const NewPasswordForm = () => {
       <form
         id="new-password-form"
         onSubmit={handleSubmit(handleCreateNewPassword)}
-        className="space-y-4 my-10 flex flex-col justify-between"
+        className="space-y-4 flex flex-col justify-between"
       >
         <Column className="space-y-2">
           <Label htmlFor="password" required>

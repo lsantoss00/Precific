@@ -15,7 +15,7 @@ const FormCard = ({ children, hasLogo = false }: FormCardProps) => {
           alt="precific-logo-image"
           width={300}
           height={100}
-          className="flex self-center"
+          className="flex self-center mb-10"
         />
       )}
       {children}
