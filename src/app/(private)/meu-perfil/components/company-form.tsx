@@ -1,6 +1,7 @@
 import TaxRegimeSelectInput from "@/src/app/(private)/meu-perfil/components/tax-regime-select-input";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { MaskedInput } from "@/src/components/core/masked-input";
 import Show from "@/src/components/core/show";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -8,7 +9,10 @@ import z from "zod";
 
 const CompanyFormSchema = z.object({
   companyName: z.string().min(1, "O campo nome é obrigatório."),
-  cnpj: z.string().min(1, "O campo CNPJ é obrigatório."),
+  cnpj: z
+    .string()
+    .min(14, "O campo CNPJ é obrigatório.")
+    .length(14, "CNPJ inválido."),
   taxRegime: z.string().min(1, "O campo regime tributário é obrigatório."),
 });
 
@@ -92,12 +96,13 @@ const CompanyForm = () => {
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Column>
-              {/* TO-DO: Substituir por um mask input */}
-              <Input
+              <MaskedInput
                 id="cnpj"
+                mask="00.000.000/0000-00"
                 placeholder="00.000.000/0000-00"
                 value={value}
-                onChange={onChange}
+                onAccept={onChange}
+                unmask={true}
                 className={`${error && "border-red-600"}`}
               />
               <div className="h-2 -mt-1">
