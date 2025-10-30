@@ -1,12 +1,21 @@
 "use client";
 
 import { User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "../libs/supabase/client";
 
-export function useAuth() {
+interface AuthContextType {
+  user: User | null;
+  hasCompany: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  hasCompany: false,
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const supabase = createClient();
@@ -16,7 +25,6 @@ export function useAuth() {
         data: { user },
       } = await supabase.auth.getUser();
       setUser(user);
-      setLoading(false);
     };
 
     getUser();
@@ -25,7 +33,6 @@ export function useAuth() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      setLoading(false);
     });
 
     return () => {
@@ -33,5 +40,14 @@ export function useAuth() {
     };
   }, []);
 
-  return { user, loading };
+  // const hasCompany = !!user?.user_metadata?.company_id;
+  const hasCompany = false;
+
+  return (
+    <AuthContext.Provider value={{ user, hasCompany }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
+
+export const useAuth = () => useContext(AuthContext);

@@ -261,11 +261,8 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar();
-  // const { user } = useAuth();
 
   const isCollapsed = state === "collapsed";
-
-  // if (!user) return null;
 
   return (
     <Button

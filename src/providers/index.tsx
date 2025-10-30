@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/src/providers/auth-provider";
 import { SidebarProvider } from "../components/core";
 import { TanstackQueryProvider } from "./tanstack-query-provider";
 interface ProvidersProps {
@@ -7,7 +8,9 @@ interface ProvidersProps {
 const Providers = ({ children }: ProvidersProps) => {
   return (
     <TanstackQueryProvider>
-      <SidebarProvider>{children}</SidebarProvider>
+      <AuthProvider>
+        <SidebarProvider>{children}</SidebarProvider>
+      </AuthProvider>
     </TanstackQueryProvider>
   );
 };

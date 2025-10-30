@@ -3,9 +3,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { CircleUser, Loader2Icon, LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../hooks/use-auth";
 
-import { toast } from "sonner";
+import { useAuth } from "@/src/providers/auth-provider";
 import { logout } from "../app/(public)/entrar/services/logout";
 import {
   DropdownMenu,
@@ -20,19 +19,12 @@ import Show from "./core/show";
 
 const Menu = () => {
   const { user } = useAuth();
+
   const router = useRouter();
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
-    onSuccess: (result) => {
-      if (result.error) {
-        toast.error(result.error, {
-          className: "!bg-red-600 !text-white",
-        });
-        return;
-      }
-      router.push("/entrar");
-    },
+    onSuccess: () => router.push("/entrar"),
   });
 
   return (
