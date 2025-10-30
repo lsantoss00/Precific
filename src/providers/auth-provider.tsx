@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // const hasCompany = !!user?.user_metadata?.company_id;
-  const hasCompany = false;
+  const hasCompany = true;
 
   return (
     <AuthContext.Provider value={{ user, hasCompany }}>
