@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/src/components/core";
+import Column from "@/src/components/core/column";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -30,21 +31,23 @@ const CompanyFormDialog = () => {
 
   return (
     <Dialog open={true} onOpenChange={handleOpenChange} modal>
-      <DialogContent showCloseButton={false} className="w-full !max-w-xs">
-        <DialogHeader className="flex flex-row items-center justify-center">
+      <DialogContent showCloseButton={false} className="w-full !max-w-sm gap-6">
+        <DialogHeader className="flex flex-row items-center justify-start">
           <DialogTitle>Cadastro de empresa</DialogTitle>
           {/* TO-DO: Adicionar um tooltip para explicar o porquê o cadastro da empresa é obrigatório */}
         </DialogHeader>
-        <CompanyForm />
-        <Button
-          type="button"
-          variant="link"
-          className="text-red-500"
-          onClick={() => doLogout()}
-          disabled={pendingDoLogout}
-        >
-          Sair
-        </Button>
+        <Column>
+          <CompanyForm />
+          <Button
+            type="button"
+            variant="link"
+            className="text-red-500 w-fit self-center"
+            onClick={() => doLogout()}
+            disabled={pendingDoLogout}
+          >
+            Sair
+          </Button>
+        </Column>
       </DialogContent>
     </Dialog>
   );
