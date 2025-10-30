@@ -1,9 +1,9 @@
 "use client";
 
+import AuthFormCard from "@/src/components/auth-form-card";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
-import FormCard from "@/src/components/form-card";
 import { createClient } from "@/src/libs/supabase/client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -73,7 +73,7 @@ const RecoveryPasswordForm = () => {
   }, [searchParams]);
 
   return (
-    <FormCard hasLogo>
+    <AuthFormCard>
       <form
         id="login-form"
         onSubmit={handleSubmit(handleRecoveryPassword)}
@@ -125,7 +125,7 @@ const RecoveryPasswordForm = () => {
           </Link>
         </Column>
       </form>
-    </FormCard>
+    </AuthFormCard>
   );
 };
 

@@ -1,9 +1,9 @@
 "use client";
 
+import AuthFormCard from "@/src/components/auth-form-card";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
-import FormCard from "@/src/components/form-card";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -55,7 +55,7 @@ const LoginForm = () => {
   const formInputFieldIsBlank = [email, password].some((value) => value === "");
 
   return (
-    <FormCard hasLogo>
+    <AuthFormCard>
       <form
         id="login-form"
         onSubmit={handleSubmit(handleLogin)}
@@ -140,7 +140,7 @@ const LoginForm = () => {
           </Link>
         </Column>
       </form>
-    </FormCard>
+    </AuthFormCard>
   );
 };
 

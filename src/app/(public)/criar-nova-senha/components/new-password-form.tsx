@@ -1,9 +1,9 @@
 "use client";
 
+import AuthFormCard from "@/src/components/auth-form-card";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
-import FormCard from "@/src/components/form-card";
 import { createClient } from "@/src/libs/supabase/client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -79,7 +79,7 @@ const NewPasswordForm = () => {
   );
 
   return (
-    <FormCard hasLogo>
+    <AuthFormCard>
       <form
         id="new-password-form"
         onSubmit={handleSubmit(handleCreateNewPassword)}
@@ -158,7 +158,7 @@ const NewPasswordForm = () => {
           </Button>
         </Column>
       </form>
-    </FormCard>
+    </AuthFormCard>
   );
 };
 
