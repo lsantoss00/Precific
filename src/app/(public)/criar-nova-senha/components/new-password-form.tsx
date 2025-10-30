@@ -3,6 +3,7 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import FormCard from "@/src/components/form-card";
 import { createClient } from "@/src/libs/supabase/client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -78,80 +79,86 @@ const NewPasswordForm = () => {
   );
 
   return (
-    <form
-      id="new-password-form"
-      onSubmit={handleSubmit(handleCreateNewPassword)}
-      className="space-y-4 my-10 flex flex-col justify-between"
-    >
-      <Column className="space-y-2">
-        <Label htmlFor="password" required>
-          Nova Senha
-        </Label>
-        <Controller
-          name="password"
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Column>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                autoComplete="new-password"
-                value={value}
-                onChange={onChange}
-                className={`${error && "border-red-600"}`}
-              />
-              <div className="h-2 -mt-1">
-                <Show when={error}>
-                  <span className="text-xs text-red-600">{error?.message}</span>
-                </Show>
-              </div>
-            </Column>
-          )}
-        />
-      </Column>
-      <Column className="space-y-2">
-        <Label htmlFor="confirmPassword" required>
-          Confirmar Senha
-        </Label>
-        <Controller
-          name="confirmPassword"
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Column>
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder="••••••••"
-                autoComplete="new-password"
-                value={value}
-                onChange={onChange}
-                className={`${error && "border-red-600"}`}
-              />
-              <div className="h-2 -mt-1">
-                <Show when={error}>
-                  <span className="text-xs text-red-600">{error?.message}</span>
-                </Show>
-              </div>
-            </Column>
-          )}
-        />
-      </Column>
-      <Column className="mt-5">
-        <Button
-          className="hover:cursor-pointer w-full"
-          type="submit"
-          disabled={
-            pendingCreateNewPassword || formInputFieldIsBlank || !isValid
-          }
-        >
-          <Show when={pendingCreateNewPassword}>
-            <Loader2Icon className="animate-spin" />
-          </Show>
-          Criar Nova Senha
-        </Button>
-      </Column>
-    </form>
+    <FormCard hasLogo>
+      <form
+        id="new-password-form"
+        onSubmit={handleSubmit(handleCreateNewPassword)}
+        className="space-y-4 my-10 flex flex-col justify-between"
+      >
+        <Column className="space-y-2">
+          <Label htmlFor="password" required>
+            Nova Senha
+          </Label>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <Column>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  value={value}
+                  onChange={onChange}
+                  className={`${error && "border-red-600"}`}
+                />
+                <div className="h-2 -mt-1">
+                  <Show when={error}>
+                    <span className="text-xs text-red-600">
+                      {error?.message}
+                    </span>
+                  </Show>
+                </div>
+              </Column>
+            )}
+          />
+        </Column>
+        <Column className="space-y-2">
+          <Label htmlFor="confirmPassword" required>
+            Confirmar Senha
+          </Label>
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <Column>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  value={value}
+                  onChange={onChange}
+                  className={`${error && "border-red-600"}`}
+                />
+                <div className="h-2 -mt-1">
+                  <Show when={error}>
+                    <span className="text-xs text-red-600">
+                      {error?.message}
+                    </span>
+                  </Show>
+                </div>
+              </Column>
+            )}
+          />
+        </Column>
+        <Column className="mt-5">
+          <Button
+            className="hover:cursor-pointer w-full"
+            type="submit"
+            disabled={
+              pendingCreateNewPassword || formInputFieldIsBlank || !isValid
+            }
+          >
+            <Show when={pendingCreateNewPassword}>
+              <Loader2Icon className="animate-spin" />
+            </Show>
+            Criar Nova Senha
+          </Button>
+        </Column>
+      </form>
+    </FormCard>
   );
 };
 

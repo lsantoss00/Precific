@@ -3,6 +3,7 @@
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import FormCard from "@/src/components/form-card";
 import { createClient } from "@/src/libs/supabase/client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -72,55 +73,59 @@ const RecoveryPasswordForm = () => {
   }, [searchParams]);
 
   return (
-    <form
-      id="login-form"
-      onSubmit={handleSubmit(handleRecoveryPassword)}
-      className="space-y-4 my-10 flex flex-col justify-between"
-    >
-      <Column className="space-y-2">
-        <Label htmlFor="email" required>
-          E-mail
-        </Label>
-        <Controller
-          name="email"
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Column>
-              <Input
-                id="email"
-                placeholder="seuemail@exemplo.com"
-                autoComplete="email"
-                value={value}
-                onChange={onChange}
-                className={`${error && "border-red-600"}`}
-              />
-              <div className="h-2 -mt-1">
-                <Show when={error}>
-                  <span className="text-xs text-red-600">{error?.message}</span>
-                </Show>
-              </div>
-            </Column>
-          )}
-        />
-      </Column>
-      <Column className="mt-5">
-        <Button
-          className="hover:cursor-pointer w-full"
-          type="submit"
-          disabled={pendingDoRecoveryPassword || formInputFieldIsBlank}
-        >
-          <Show when={pendingDoRecoveryPassword}>
-            <Loader2Icon className="animate-spin" />
-          </Show>
-          Enviar instruções
-        </Button>
-        <Link href="/entrar" className="flex self-center w-fit" passHref>
-          <Button type="button" variant="link" className="">
-            Voltar ao Login
+    <FormCard hasLogo>
+      <form
+        id="login-form"
+        onSubmit={handleSubmit(handleRecoveryPassword)}
+        className="space-y-4 my-10 flex flex-col justify-between"
+      >
+        <Column className="space-y-2">
+          <Label htmlFor="email" required>
+            E-mail
+          </Label>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <Column>
+                <Input
+                  id="email"
+                  placeholder="seuemail@exemplo.com"
+                  autoComplete="email"
+                  value={value}
+                  onChange={onChange}
+                  className={`${error && "border-red-600"}`}
+                />
+                <div className="h-2 -mt-1">
+                  <Show when={error}>
+                    <span className="text-xs text-red-600">
+                      {error?.message}
+                    </span>
+                  </Show>
+                </div>
+              </Column>
+            )}
+          />
+        </Column>
+        <Column className="mt-5">
+          <Button
+            className="hover:cursor-pointer w-full"
+            type="submit"
+            disabled={pendingDoRecoveryPassword || formInputFieldIsBlank}
+          >
+            <Show when={pendingDoRecoveryPassword}>
+              <Loader2Icon className="animate-spin" />
+            </Show>
+            Enviar instruções
           </Button>
-        </Link>
-      </Column>
-    </form>
+          <Link href="/entrar" className="flex self-center w-fit" passHref>
+            <Button type="button" variant="link" className="">
+              Voltar ao Login
+            </Button>
+          </Link>
+        </Column>
+      </form>
+    </FormCard>
   );
 };
 
