@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { CircleUser, Loader2Icon, LogOut } from "lucide-react";
+import { CircleUser, Loader2Icon, LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/use-auth";
 
@@ -40,13 +40,22 @@ const Menu = () => {
       <DropdownMenuTrigger asChild className="cursor-pointer">
         <CircleUser className="text-[#66289B] w-10 h-10" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
+      <DropdownMenuContent className="w-56 p-1" align="end">
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-base">{user?.user_metadata?.display_name}</span>
           <span className="text-xs sm:text-sm text-gray-500">
             {user?.email}
           </span>
         </DropdownMenuLabel>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => router.push("/meu-perfil")}
+        >
+          Meu Perfil
+          <DropdownMenuShortcut>
+            <User />
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="!text-red-600  cursor-pointer"
