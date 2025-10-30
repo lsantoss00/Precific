@@ -24,7 +24,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${poppins.className} antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed`}
+        className={`${poppins.className} antialiased`}
+        style={{
+          backgroundImage: "url('/app-background-image.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+        }}
       >
         <Providers>
           {children}

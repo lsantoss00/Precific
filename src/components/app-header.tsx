@@ -15,7 +15,6 @@ export function AppHeader() {
             alt="precific-logo-image"
             width={48}
             height={60}
-            quality={100}
             className="hover:cursor-pointer !select-none"
           />
         </SidebarTrigger>

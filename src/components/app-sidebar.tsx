@@ -37,7 +37,7 @@ export function AppSidebar() {
                   alt="precific-logo-image"
                   width={60}
                   height={60}
-                  quality={100}
+                  priority
                   className="hover:cursor-pointer"
                 />
               ) : (
@@ -46,7 +46,7 @@ export function AppSidebar() {
                   alt="precific-logo-image"
                   width={200}
                   height={40}
-                  quality={100}
+                  priority
                   className="hover:cursor-pointer"
                 />
               )}

@@ -13,6 +13,7 @@ const AuthFormCard = ({ children }: AuthFormCardProps) => {
         alt="precific-logo-image"
         width={300}
         height={100}
+        priority
         className="flex self-center mb-10"
       />
       {children}
