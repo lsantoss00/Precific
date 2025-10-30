@@ -3,12 +3,15 @@
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { MaskedInput } from "@/src/components/core/masked-input";
 import Show from "@/src/components/core/show";
+import { Controller } from "react-hook-form";
 
 const ProductDetailsForm = () => {
   const { form } = useProductForm();
   const {
     register,
+    control,
     formState: { errors },
   } = form;
 
@@ -52,11 +55,19 @@ const ProductDetailsForm = () => {
         </Column>
         <Column className="space-y-2">
           <Label htmlFor="ncm">NCM</Label>
-          <Input
-            id="ncm"
-            type="text"
-            placeholder="0000.00.00"
-            {...register("ncm")}
+          <Controller
+            name="ncm"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <MaskedInput
+                id="ncm"
+                mask="0000.00.00"
+                placeholder="0000.00.00"
+                value={value || ""}
+                onAccept={onChange}
+                unmask={true}
+              />
+            )}
           />
         </Column>
         <Column className="space-y-2">
