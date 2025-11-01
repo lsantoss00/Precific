@@ -36,7 +36,7 @@ const ProductResult = () => {
       toast.success("Produto adicionado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
-      router.push("/produtos");
+      router.replace("/produtos");
     },
     onError: (error) => {
       toast.error(error.message, {
