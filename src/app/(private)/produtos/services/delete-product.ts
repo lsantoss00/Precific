@@ -17,8 +17,7 @@ export async function deleteProduct({ productId }: DeleteProductProps) {
   const { error } = await supabase
     .from("products")
     .delete()
-    .eq("id", productId)
-    .eq("user_id", session.user.id);
+    .eq("id", productId);
 
   if (error) throw error;
 

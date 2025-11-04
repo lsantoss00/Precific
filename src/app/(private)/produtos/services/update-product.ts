@@ -18,7 +18,6 @@ export async function updateProduct({ product }: UpdateProductProps) {
     .from("products")
     .update(product)
     .eq("id", product?.id)
-    .eq("user_id", session.user.id)
     .select()
     .single();
 

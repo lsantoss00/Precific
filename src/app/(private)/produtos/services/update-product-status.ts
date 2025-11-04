@@ -21,7 +21,6 @@ export async function updateProductStatus({
     .from("products")
     .update({ status })
     .eq("id", productId)
-    .eq("user_id", session.user.id)
     .select()
     .single();
 
