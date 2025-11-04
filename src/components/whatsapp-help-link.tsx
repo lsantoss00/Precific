@@ -31,13 +31,13 @@ const WhatsAppHelpLink = () => {
         <span className="text-sm font-medium">Precisa de ajuda?</span>
       </Card>
       <Link
-        className="opacity-80 hover:opacity-100 transition-opacity duration-300"
+        className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full"
         href={whatsAppLink}
         target="_blank"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <WhatsAppIcon />
+        <WhatsAppIcon className="text-white h-6 w-6" />
       </Link>
     </Row>
   );
