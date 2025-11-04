@@ -9,9 +9,14 @@ import {
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface TaxRegimeSelectInputProps {
+interface SelectInputProps {
+  options: {
+    value: string;
+    label: string;
+  }[];
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
   className?: string;
   triggerProps?: Omit<
     ComponentProps<typeof SelectTrigger>,
@@ -19,32 +24,28 @@ interface TaxRegimeSelectInputProps {
   >;
 }
 
-const TaxRegimeSelectInput = ({
+const SelectInput = ({
+  options,
   value,
   onChange,
+  placeholder,
   className,
   triggerProps,
-}: TaxRegimeSelectInputProps) => {
-  const taxRegimes = [
-    { value: "realProfit", label: "Lucro Real" },
-    { value: "presumedProfit", label: "Lucro Presumido" },
-    { value: "simpleNational", label: "Simples Nacional" },
-  ];
-
+}: SelectInputProps) => {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger
         {...triggerProps}
         className={twMerge("w-full text-base", className)}
       >
-        <SelectValue placeholder="Selecione o regime tributário" />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
       <SelectContent>
         <SelectGroup>
-          {taxRegimes.map((taxRegime) => (
-            <SelectItem key={taxRegime.value} value={taxRegime.value}>
-              {taxRegime.label}
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
             </SelectItem>
           ))}
         </SelectGroup>
@@ -53,4 +54,4 @@ const TaxRegimeSelectInput = ({
   );
 };
 
-export default TaxRegimeSelectInput;
+export default SelectInput;
