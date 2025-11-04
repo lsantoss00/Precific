@@ -28,7 +28,6 @@ import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
 import { updateProductStatus } from "../../services/update-product-status";
 import { ProductResponseType } from "../../types/product-type";
-import ProductsTableSkeleton from "../skeletons/products-table-skeleton";
 import { productsTableColumns } from "./products-table-columns";
 
 const ProductsTable = () => {
@@ -42,8 +41,10 @@ const ProductsTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [isFilterChanging, setIsFilterChanging] = useState(false);
 
   useEffect(() => {
+    setIsFilterChanging(true);
     setCurrentPage(1);
     setAllProducts([]);
     setTotalCount(0);
@@ -64,6 +65,7 @@ const ProductsTable = () => {
         }
         return [...prev, ...data.data];
       });
+      setIsFilterChanging(false);
     }
     if (data?.count !== undefined) {
       setTotalCount(data.count);
@@ -143,97 +145,102 @@ const ProductsTable = () => {
     },
   });
 
-  const showSkeleton = isPending && currentPage === 1;
+  const showLoading = (isPending && currentPage === 1) || isFilterChanging;
 
   return (
-    <Show when={!showSkeleton} fallback={<ProductsTableSkeleton />}>
-      <Column
-        className="bg-white shadow-sm rounded-md flex flex-col"
-        style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
+    <Column
+      className="bg-white shadow-sm rounded-md flex flex-col relative"
+      style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
+    >
+      <div
+        ref={scrollContainerRef}
+        className="flex-1 overflow-y-auto overflow-x-auto"
+        onScroll={handleScroll}
       >
-        <div
-          ref={scrollContainerRef}
-          className="flex-1 overflow-y-auto overflow-x-auto"
-          onScroll={handleScroll}
-        >
-          <Table className="w-full">
-            <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
-              {table.getHeaderGroups().map((headerGroup) => (
+        <Table className="w-full">
+          <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id} className="hover:!bg-transparent">
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="text-gray-400">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            <Show
+              when={table.getRowModel().rows?.length}
+              fallback={
+                <TableRow className="hover:!bg-transparent">
+                  <TableCell
+                    colSpan={productsTableColumns.length}
+                    className="h-24 text-center text-gray-500"
+                  >
+                    Sem resultados.
+                  </TableCell>
+                </TableRow>
+              }
+            >
+              {table.getRowModel().rows.map((row) => (
                 <TableRow
-                  key={headerGroup.id}
-                  className="hover:!bg-transparent"
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
                 >
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="text-gray-400">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="px-4">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))}
-            </TableHeader>
-            <TableBody>
-              <Show
-                when={table.getRowModel().rows?.length}
-                fallback={
-                  <TableRow className="hover:!bg-transparent">
-                    <TableCell
-                      colSpan={productsTableColumns.length}
-                      className="h-24 text-center text-gray-500"
-                    >
-                      Sem resultados.
-                    </TableCell>
-                  </TableRow>
-                }
-              >
-                {table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="px-4">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </Show>
-            </TableBody>
-          </Table>
-          <Show when={isFetching && currentPage > 1}>
-            <Row className="justify-center py-6">
-              <Row className="flex items-center gap-2">
-                <Loader2 className="text-[#66289B] animate-spin" />
-                <span className="text-sm text-gray-600">
-                  Carregando mais produtos...
-                </span>
-              </Row>
+            </Show>
+          </TableBody>
+        </Table>
+        <Show when={showLoading}>
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex items-center justify-center">
+            <Row className="flex items-center gap-3 bg-white px-6 py-4 rounded-lg shadow-lg">
+              <Loader2 className="text-[#66289B] animate-spin" size={24} />
+              <span className="text-base font-medium text-gray-700">
+                Filtrando produtos...
+              </span>
             </Row>
-          </Show>
-          <Show when={!hasMore && allProducts.length > 0 && !isFetching}>
-            <div className="flex justify-center py-6 text-sm text-gray-500">
-              Não há mais produtos para carregar
-            </div>
-          </Show>
-        </div>
-        <div className="border-t bg-gray-50 flex-shrink-0">
-          <Row className="items-center justify-between w-full px-4 py-3">
-            <span className="text-sm text-gray-600">
-              Mostrando <strong>{allProducts.length}</strong> de{" "}
-              <strong>{totalCount}</strong> produtos
-            </span>
+          </div>
+        </Show>
+        <Show when={isFetching && currentPage > 1}>
+          <Row className="justify-center py-6">
+            <Row className="flex items-center gap-2">
+              <Loader2 className="text-[#66289B] animate-spin" />
+              <span className="text-sm text-gray-600">
+                Carregando mais produtos...
+              </span>
+            </Row>
           </Row>
-        </div>
-      </Column>
-    </Show>
+        </Show>
+        <Show when={!hasMore && allProducts.length > 0 && !isFetching}>
+          <div className="flex justify-center py-6 text-sm text-gray-500">
+            Não há mais produtos para carregar
+          </div>
+        </Show>
+      </div>
+      <div className="border-t bg-gray-50 flex-shrink-0">
+        <Row className="items-center justify-between w-full px-4 py-3">
+          <span className="text-sm text-gray-600">
+            Mostrando <strong>{allProducts.length}</strong> de{" "}
+            <strong>{totalCount}</strong> produtos
+          </span>
+        </Row>
+      </div>
+    </Column>
   );
 };
 

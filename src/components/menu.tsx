@@ -1,10 +1,10 @@
 "use client";
 
+import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { CircleUser, Loader2Icon, LogOut, User } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-import { useAuth } from "@/src/providers/auth-provider";
 import { logout } from "../app/(public)/entrar/services/logout";
 import {
   DropdownMenu,
@@ -39,18 +39,17 @@ const Menu = () => {
             {user?.email}
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={() => router.push("/meu-perfil")}
-        >
-          Meu Perfil
-          <DropdownMenuShortcut>
-            <User />
-          </DropdownMenuShortcut>
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href="/meu-perfil">
+            Meu Perfil
+            <DropdownMenuShortcut>
+              <User />
+            </DropdownMenuShortcut>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="!text-red-600  cursor-pointer"
+          className="!text-red-600 cursor-pointer"
           onClick={() => doLogout()}
         >
           Sair

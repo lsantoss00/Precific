@@ -6,13 +6,13 @@ import Show from "@/src/components/core/show";
 import currencyFormatter from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Trash2 } from "lucide-react";
+import Link from "next/link";
 import SortableHeader from "../../../../../components/core/sortable-header";
 import { ProductResponseType } from "../../types/product-type";
 
 interface ProductTableMeta {
   onDeleteProduct: (id: string) => void;
   pendingDeleteProduct: boolean;
-  onPriceProduct: (id: string) => void;
   onUpdateProductStatus: (id: string, status: string) => void;
   pendingUpdateProductStatus: boolean;
 }
@@ -123,13 +123,13 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       return (
         <Row className="justify-end space-x-2">
           <Button
+            asChild
             variant="secondary"
-            onClick={() => meta?.onPriceProduct(product.id!)}
             disabled={
               meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
             }
           >
-            Precificar
+            <Link href={`/produtos/${product.id}`}>Precificar</Link>
           </Button>
           <Button
             variant="destructive"

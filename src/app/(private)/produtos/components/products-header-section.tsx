@@ -4,10 +4,10 @@ import { Button, Input } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
-import Show from "@/src/components/core/show";
 import ExportDataButton from "@/src/components/export-data-button";
 import ImportDataButton from "@/src/components/import-data-button";
-import { Loader2Icon, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,8 +17,6 @@ const ProductsHeaderSection = () => {
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get("filtro") || ""
   );
-
-  const mockPending = false;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,16 +46,14 @@ const ProductsHeaderSection = () => {
         />
         <Row className="space-x-2 w-full lg:w-fit lg:justify-end">
           <Button
+            asChild
             className="hover:cursor-pointer w-fit h-12"
             variant="secondary"
-            onClick={() => router.push("/produtos/novo")}
-            disabled={mockPending}
           >
-            <Show when={mockPending}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            <Plus className="text-white" />
-            <span>Novo Produto</span>
+            <Link href="/produtos/novo">
+              <Plus className="text-white" />
+              <span>Novo Produto</span>
+            </Link>
           </Button>
           <ExportDataButton search={searchTerm} />
           <ImportDataButton />
