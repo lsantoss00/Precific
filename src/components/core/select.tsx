@@ -45,7 +45,7 @@ function SelectTrigger({
       data-size={size}
       className={cn(
         "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex w-fit items-center justify-between gap-2 rounded-md border px-3 whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        "h-12 bg-white !text-sm",
+        "h-12 bg-white md:!text-sm",
         className
       )}
       {...props}
@@ -116,7 +116,7 @@ function SelectItem({
       data-slot="select-item"
       className={cn(
         "[&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm pr-8 pl-2 outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-        "h-12 bg-white text-sm hover:bg-[#66289B]/70 hover:text-white focus:bg-[#66289B]/70 focus:text-white",
+        "h-12 bg-white md:text-sm hover:bg-[#66289B]/70 hover:text-white focus:bg-[#66289B]/70 focus:text-white",
         "hover:[&_svg]:!text-white focus:[&_svg]:!text-white",
         className
       )}
