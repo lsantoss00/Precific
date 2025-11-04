@@ -9,12 +9,14 @@ type UserUploadProps = {
   initialPreview?: string | null;
   file?: File | null;
   onChange?: (file: File | null, preview: string | null) => void;
+  disabled?: boolean;
 };
 
 const UserImageUpload = ({
   file,
   initialPreview,
   onChange,
+  disabled,
 }: UserUploadProps) => {
   const [preview, setPreview] = useState<string | null>(initialPreview || null);
   const [_, setIsHovering] = useState(false);
@@ -25,10 +27,16 @@ const UserImageUpload = ({
   }, [initialPreview, file]);
 
   return (
-    <Card className="p-6 min-h-39 cursor-pointer w-full shadow-2xs hover:bg-gray-100 transition-colors duration-200 border-neutral-100 flex justify-center rounded-sm relative">
+    <Card
+      className={`p-6 md:h-33.5 w-full shadow-2xs transition-colors duration-200 border-neutral-100 flex justify-center rounded-sm relative ${
+        disabled
+          ? "opacity-50 cursor-not-allowed"
+          : "cursor-pointer hover:bg-gray-100"
+      }`}
+    >
       <div
         className="flex flex-col sm:flex-row lg:!flex-col xl:!flex-row max-sm:text-center lg:!text-center xl:!text-start justify-start items-center gap-4"
-        onClick={() => ref.current?.click()}
+        onClick={() => !disabled && ref.current?.click()}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
@@ -51,6 +59,7 @@ const UserImageUpload = ({
             className="hidden opacity-0"
             type="file"
             accept="image/*"
+            disabled={disabled}
             onChange={(e) => {
               const fileList = e.target.files || [];
               if (fileList.length > 0) {
@@ -73,7 +82,7 @@ const UserImageUpload = ({
             Selecione um arquivo com até 100mb
           </span>
         </div>
-        {preview && (
+        {preview && !disabled && (
           <button
             className="flex w-12 h-12 cursor-pointer absolute right-0 top-4"
             onClick={(e) => {
