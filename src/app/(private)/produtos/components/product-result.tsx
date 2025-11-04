@@ -2,6 +2,7 @@
 
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
+import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
@@ -85,6 +86,9 @@ const ProductResult = () => {
     firstBase,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
+    isSimpleNational: true,
+    range: "range-6",
+    sector: "business",
   });
 
   const ibs = ibsCbsCalc({
@@ -150,6 +154,34 @@ const ProductResult = () => {
     irpjCsllPercent: 34,
   });
 
+  // const presumedProfit = presumedProfitCalc({
+  //   priceToday: priceToday,
+  //   unitPrice: data?.unit_price,
+  //   icms: icmsValue,
+  //   pisCofins: pisCofinsValue,
+  //   fixedCosts: fixedCosts,
+  //   salesIcms: salesIcmsValue,
+  //   salesPisCofins: salesPisCofinsValue,
+  //   shipping: shipping,
+  //   othersCosts: othersCosts,
+  //   irpjPercent: 0.15,
+  //   csllPercent: 0.09,
+  // });
+
+  const simpleNational = simpleNationalCalc({
+    priceToday: priceToday,
+    unitPrice: data?.unit_price,
+    icms: icmsValue,
+    pisCofins: pisCofinsValue,
+    fixedCosts: fixedCosts,
+    salesIcms: salesIcmsValue,
+    salesPisCofins: salesPisCofinsValue,
+    shipping: shipping,
+    othersCosts: othersCosts,
+    range: "range-6",
+    sector: "business",
+  });
+
   const priceIn2026 = priceToday;
 
   const metrics2025: MetricCardProps[] = [
@@ -173,9 +205,10 @@ const ProductResult = () => {
       title: "Frete",
       value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
+    // TO-DO: MOSTRAR REALPROFIT OU PRESUMEDPROFIT OU SIMPLENATIONAL CONFORME ESCOLHIDO PELO USUARIO NO FORM DE COMPANY
     {
       title: "Lucro líquido",
-      value: realProfit,
+      value: simpleNational,
       variant: "success" as const,
     },
   ];
