@@ -1,3 +1,5 @@
+import TopLoadingBar from "@/src/components/top-loading-bar";
+import "@/src/styles/nprogress.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "../components/core/sonner";
@@ -34,6 +36,7 @@ export default function RootLayout({
         }}
       >
         <Providers>
+          <TopLoadingBar />
           {children}
           <Toaster position="top-center" />
         </Providers>
