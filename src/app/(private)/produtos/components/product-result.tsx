@@ -86,7 +86,7 @@ const ProductResult = () => {
     firstBase,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
-    isSimpleNational: true,
+    isSimpleNational: false,
     range: "range-6",
     sector: "business",
   });
