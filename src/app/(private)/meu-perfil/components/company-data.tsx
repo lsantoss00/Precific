@@ -17,7 +17,7 @@ const CompanyData = () => {
           <Input id="taxId" disabled />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="industrySector">Setor Industrial</Label>
+          <Label htmlFor="industrySector">Setor</Label>
           <Input id="industrySector" disabled />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">

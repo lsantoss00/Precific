@@ -13,7 +13,7 @@ const CompanyFormSchema = z.object({
     .string()
     .min(14, "O campo CNPJ é obrigatório.")
     .length(14, "CNPJ inválido."),
-  industrySector: z.string().min(1, "O campo setor industrial é obrigatório."),
+  industrySector: z.string().min(1, "O campo setor é obrigatório."),
   taxRegime: z.string().min(1, "O campo regime tributário é obrigatório."),
   state: z
     .string()
@@ -151,7 +151,7 @@ const CompanyForm = () => {
         </Column>
         <Column className="space-y-2 col-span-2">
           <Label htmlFor="industrySector" required>
-            Setor Industrial
+            Setor
           </Label>
           <Controller
             name="industrySector"
@@ -160,7 +160,7 @@ const CompanyForm = () => {
               <Column>
                 <Input
                   id="industrySector"
-                  placeholder="Informe o setor industrial"
+                  placeholder="Informe o setor"
                   value={value}
                   onChange={onChange}
                   className={`${error && "border-red-600"}`}
