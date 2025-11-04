@@ -10,6 +10,7 @@ import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -210,21 +211,20 @@ const ProductResult = () => {
     return post({ product: productPayload });
   };
 
-  const handleGoBack = () => {
-    const path =
-      isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
-    router.push(path);
-  };
+  const backPath =
+    isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
       <Show when={!isLoading}>
         <Button
+          asChild
           className="hidden lg:flex h-full w-20"
-          onClick={handleGoBack}
           disabled={isLoading || pendingPostProduct}
         >
-          <ChevronLeft className="!w-12 !h-12" />
+          <Link href={backPath}>
+            <ChevronLeft className="!w-12 !h-12" />
+          </Link>
         </Button>
       </Show>
       <Show
@@ -304,12 +304,14 @@ const ProductResult = () => {
         </Card>
         <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
           <Button
+            asChild
             className="lg:hidden h-full"
-            onClick={handleGoBack}
-            variant={"outline"}
+            variant="outline"
             disabled={isLoading || pendingPostProduct}
           >
-            <ChevronLeft className="!w-6 !h-6" />
+            <Link href={backPath}>
+              <ChevronLeft className="!w-6 !h-6" />
+            </Link>
           </Button>
           <Button
             className="flex-1 md:flex-none md:w-40 h-12 flex items-center"
