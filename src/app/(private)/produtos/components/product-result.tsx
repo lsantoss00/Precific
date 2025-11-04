@@ -208,7 +208,7 @@ const ProductResult = () => {
     // TO-DO: MOSTRAR REALPROFIT OU PRESUMEDPROFIT OU SIMPLENATIONAL CONFORME ESCOLHIDO PELO USUARIO NO FORM DE COMPANY
     {
       title: "Lucro líquido",
-      value: simpleNational,
+      value: realProfit,
       variant: "success" as const,
     },
   ];
