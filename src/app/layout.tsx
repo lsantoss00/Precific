@@ -1,7 +1,6 @@
-import TopLoadingBar from "@/src/components/top-loading-bar";
-import "@/src/styles/nprogress.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "../components/core/sonner";
 import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
@@ -36,7 +35,13 @@ export default function RootLayout({
         }}
       >
         <Providers>
-          <TopLoadingBar />
+          <NextTopLoader
+            color="#66289B"
+            height={4}
+            showSpinner={false}
+            speed={200}
+          />
+
           {children}
           <Toaster position="top-center" />
         </Providers>
