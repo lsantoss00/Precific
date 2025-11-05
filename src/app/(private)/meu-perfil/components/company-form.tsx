@@ -1,10 +1,13 @@
+import { postCompany } from "@/src/app/(private)/meu-perfil/services/post-company";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import SelectInput from "@/src/components/core/select-input";
 import Show from "@/src/components/core/show";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const CompanyFormSchema = z
@@ -14,13 +17,20 @@ const CompanyFormSchema = z
       .string()
       .min(14, "O campo CNPJ é obrigatório.")
       .length(14, "CNPJ inválido."),
-    sector: z.string().min(1, "O campo setor é obrigatório."),
-    taxRegime: z.string().min(1, "O campo regime tributário é obrigatório."),
-    revenueRange: z.string().optional(),
+    sector: z.enum(["business", "industry"], {
+      message: "O campo setor é obrigatório.",
+    }),
+    taxRegime: z.enum(["realProfit", "presumedProfit", "simpleNational"], {
+      message: "O campo regime tributário é obrigatório.",
+    }),
+    revenueRange: z
+      .enum(["range-1", "range-2", "range-3", "range-4", "range-5", "range-6"])
+      .optional(),
     state: z
       .string()
       .min(2, "O campo estado é obrigatório.")
-      .max(2, "Estado inválido."),
+      .max(2, "Estado inválido.")
+      .toUpperCase(),
     postalCode: z
       .string()
       .min(8, "O campo CEP é obrigatório.")
@@ -41,7 +51,6 @@ const CompanyFormSchema = z
       path: ["revenueRange"],
     }
   );
-
 type CompanyFormSchemaType = z.infer<typeof CompanyFormSchema>;
 
 const CompanyForm = () => {
@@ -50,9 +59,9 @@ const CompanyForm = () => {
     defaultValues: {
       companyName: "",
       cnpj: "",
-      sector: "",
-      taxRegime: "",
-      revenueRange: "",
+      sector: undefined,
+      taxRegime: undefined,
+      revenueRange: undefined,
       state: "",
       postalCode: "",
       streetAddress: "",
@@ -61,22 +70,22 @@ const CompanyForm = () => {
     },
   });
 
-  // const { mutate: doLogin, isPending: pendingLogin } = useMutation({
-  //   mutationFn: postCompany,
-  //   onSuccess: (result) => {
-  //     if (result.error) {
-  //       toast.error(supabaseErrorsTranslator(result.error), {
-  //         className: "!bg-red-600 !text-white",
-  //       });
-  //       return;
-  //     }
-  //     router.push("/produtos");
-  //     router.refresh();
-  //   },
-  // });
+  const { mutate: post, isPending: pendingPostCompany } = useMutation({
+    mutationFn: postCompany,
+    onSuccess: async () => {
+      toast.success("Produto adicionado com sucesso!", {
+        className: "!bg-green-600 !text-white",
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        className: "!bg-red-600 !text-white",
+      });
+    },
+  });
 
-  const handleSubmitCompany = (data: CompanyFormSchemaType) => {
-    console.log(data);
+  const handleSubmitCompany = (company: CompanyFormSchemaType) => {
+    post({ company });
   };
 
   const {
@@ -102,7 +111,6 @@ const CompanyForm = () => {
     streetNumber,
   ];
 
-  // Adiciona revenueRange aos campos obrigatórios apenas se taxRegime for simpleNational
   if (taxRegime === "simpleNational") {
     requiredFields.push(revenueRange || "");
   }
