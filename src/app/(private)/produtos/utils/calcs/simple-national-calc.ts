@@ -1,3 +1,7 @@
+import {
+  RevenueRangeType,
+  SectorType,
+} from "@/src/app/(private)/meu-perfil/types/company-type";
 import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/percentage-value-calc";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 
@@ -11,8 +15,8 @@ interface SimpleNationalCalcProps {
   salesPisCofins: number;
   shipping: number;
   othersCosts: number;
-  range: "range-1" | "range-2" | "range-3" | "range-4" | "range-5" | "range-6";
-  sector: "business" | "industry";
+  range: RevenueRangeType;
+  sector: SectorType;
 }
 
 export function simpleNationalCalc({
@@ -36,7 +40,7 @@ export function simpleNationalCalc({
   });
 
   const icmsRec =
-    range === "range-6" ? (salesIcms === 0 ? 0 : salesIcms - icms) : 0;
+    range === "range_6" ? (salesIcms === 0 ? 0 : salesIcms - icms) : 0;
 
   const result =
     priceToday -

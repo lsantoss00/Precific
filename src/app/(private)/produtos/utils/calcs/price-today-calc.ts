@@ -1,11 +1,15 @@
+import {
+  RevenueRangeType,
+  SectorType,
+} from "@/src/app/(private)/meu-perfil/types/company-type";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 
 interface PriceTodayCalcProps {
   firstBase: number;
   salesIcms: number;
   salesPisCofins: number;
-  range?: "range-1" | "range-2" | "range-3" | "range-4" | "range-5" | "range-6";
-  sector?: "business" | "industry";
+  range?: RevenueRangeType;
+  sector?: SectorType;
   isSimpleNational?: boolean;
 }
 
@@ -26,7 +30,7 @@ export function priceTodayCalc({
     });
 
     const rangeRate = range ? revenueRangeData[range] / 100 : 0;
-    const isHighestRange = range === "range-6";
+    const isHighestRange = range === "range_6";
 
     const denominator = 1 - (isHighestRange ? rangeRate + icmsRate : rangeRate);
 

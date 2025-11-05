@@ -87,7 +87,7 @@ const ProductResult = () => {
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
     isSimpleNational: false,
-    range: "range-6",
+    range: "range_6",
     sector: "business",
   });
 
@@ -178,7 +178,7 @@ const ProductResult = () => {
     salesPisCofins: salesPisCofinsValue,
     shipping: shipping,
     othersCosts: othersCosts,
-    range: "range-6",
+    range: "range_6",
     sector: "business",
   });
 

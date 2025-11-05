@@ -1,22 +1,27 @@
 export type SectorType = "business" | "industry";
-export type TaxRegimeType = "realProfit" | "presumedProfit" | "simpleNational";
+
+export type TaxRegimeType =
+  | "real_profit"
+  | "presumed_profit"
+  | "simple_national";
+
 export type RevenueRangeType =
-  | "range-1"
-  | "range-2"
-  | "range-3"
-  | "range-4"
-  | "range-5"
-  | "range-6";
+  | "range_1"
+  | "range_2"
+  | "range_3"
+  | "range_4"
+  | "range_5"
+  | "range_6";
 
 export interface CompanyType {
-  companyName: string;
-  cnpj: string;
-  sector: SectorType;
-  taxRegime: TaxRegimeType;
-  revenueRange?: RevenueRangeType;
+  company_name: string;
+  tax_id_cnpj: string;
+  industry_sector: SectorType;
+  tax_regime: TaxRegimeType;
+  revenue_range?: RevenueRangeType;
   state: string;
-  postalCode: string;
-  streetAddress: string;
-  streetNumber: string;
-  addressComplement?: string;
+  postal_code: string;
+  street_address: string;
+  street_number: string;
+  address_complement?: string;
 }
