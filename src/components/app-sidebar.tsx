@@ -30,15 +30,15 @@ export function AppSidebar() {
       <SidebarContent className="flex">
         <SidebarGroup className="flex items-center">
           <SidebarHeader className="!p-0 h-16 items-center justify-center">
-            <SidebarTrigger className="w-full h-full !p-0">
+            <SidebarTrigger className="w-full h-full">
               {isCollapsed ? (
                 <Image
                   src="/precific-short-logo-image.webp"
                   alt="precific-logo-image"
-                  width={60}
-                  height={60}
+                  width={48}
+                  height={48}
                   priority
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-pointer shrink-0"
                 />
               ) : (
                 <Image
@@ -47,7 +47,7 @@ export function AppSidebar() {
                   width={200}
                   height={40}
                   priority
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-pointer shrink-0"
                 />
               )}
             </SidebarTrigger>
