@@ -27,7 +27,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent className="flex">
+      <SidebarContent className="flex overflow-hidden">
         <SidebarGroup className="flex items-center">
           <SidebarHeader className="!p-0 h-16 items-center justify-center">
             <SidebarTrigger className="w-full h-full">
