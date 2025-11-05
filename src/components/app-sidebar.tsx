@@ -30,7 +30,7 @@ export function AppSidebar() {
       <SidebarContent className="flex overflow-hidden">
         <SidebarGroup className="flex items-center">
           <SidebarHeader className="!p-0 h-16 items-center justify-center">
-            <SidebarTrigger className="w-full h-full">
+            <SidebarTrigger className="w-full h-full hover:!bg-transparent">
               <Image
                 src="/precific-short-logo-image.webp"
                 alt="precific-logo-image"
