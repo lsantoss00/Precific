@@ -1,4 +1,4 @@
-import { postCompany } from "@/src/app/(private)/meu-perfil/services/post-company";
+import { postCompany } from "@/src/app/(private)/perfil/services/post-company";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";

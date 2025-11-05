@@ -40,8 +40,8 @@ const Menu = () => {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuItem asChild className="cursor-pointer">
-          <Link href="/meu-perfil">
-            Meu Perfil
+          <Link href="/perfil">
+            Perfil
             <DropdownMenuShortcut>
               <User />
             </DropdownMenuShortcut>

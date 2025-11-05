@@ -1,7 +1,7 @@
 import {
   RevenueRangeType,
   SectorType,
-} from "@/src/app/(private)/meu-perfil/types/company-type";
+} from "@/src/app/(private)/perfil/types/company-type";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 
 interface PriceTodayCalcProps {

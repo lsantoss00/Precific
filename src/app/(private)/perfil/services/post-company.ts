@@ -1,4 +1,4 @@
-import { CompanyType } from "@/src/app/(private)/meu-perfil/types/company-type";
+import { CompanyType } from "@/src/app/(private)/perfil/types/company-type";
 import { createClient } from "@/src/libs/supabase/client";
 
 interface PostCompanyProps {

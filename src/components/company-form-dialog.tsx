@@ -1,6 +1,6 @@
 "use client";
 
-import CompanyForm from "@/src/app/(private)/meu-perfil/components/company-form";
+import CompanyForm from "@/src/app/(private)/perfil/components/company-form";
 import { logout } from "@/src/app/(public)/entrar/services/logout";
 import {
   Button,

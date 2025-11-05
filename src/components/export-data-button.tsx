@@ -15,9 +15,10 @@ interface ExportDataButtonProps {
 
 const ExportDataButton = ({ search }: ExportDataButtonProps) => {
   // TO-DO: Mover isso pra fora, pra ser um componente independente
-  const { data, isLoading, refetch } = useQuery({
+  const { isFetching, refetch } = useQuery({
     queryFn: () => getProductsForExport({ search }),
     queryKey: ["products-export", search],
+    enabled: false,
   });
 
   const handleExport = async () => {
@@ -62,10 +63,10 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
     <Button
       className="hover:cursor-pointer flex-1 md:flex-none md:w-fit h-12"
       type="button"
-      disabled={isLoading || !data}
+      disabled={isFetching}
       onClick={handleExport}
     >
-      <Show when={isLoading} fallback={<Download className="text-white" />}>
+      <Show when={isFetching} fallback={<Download className="text-white" />}>
         <Loader2Icon className="animate-spin" />
       </Show>
 

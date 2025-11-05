@@ -1,6 +1,6 @@
 "use client";
 
-import UserImageUpload from "@/src/app/(private)/meu-perfil/components/user-image-upload";
+import UserImageUpload from "@/src/app/(private)/perfil/components/user-image-upload";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
