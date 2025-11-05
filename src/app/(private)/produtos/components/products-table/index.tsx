@@ -206,16 +206,6 @@ const ProductsTable = () => {
             </Show>
           </TableBody>
         </Table>
-        <Show when={showLoading}>
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex items-center justify-center">
-            <Row className="flex items-center gap-3 bg-white px-6 py-4 rounded-lg shadow-lg">
-              <Loader2 className="text-[#66289B] animate-spin" size={24} />
-              <span className="text-base font-medium text-gray-700">
-                Filtrando produtos...
-              </span>
-            </Row>
-          </div>
-        </Show>
         <Show when={isFetching && currentPage > 1}>
           <Row className="justify-center py-6">
             <Row className="flex items-center gap-2">

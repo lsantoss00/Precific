@@ -1,12 +1,10 @@
 "use client";
 
-import Show from "@/src/components/core/show";
 import pluralize from "@/src/helpers/pluralize";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle, Package, Tag, XCircle } from "lucide-react";
 import { getProductSummaries } from "../services/get-summary-products";
 import InfoCard from "./info-card";
-import InfoCardSkeleton from "./skeletons/info-card-skeleton";
 
 const ProductInfoCards = () => {
   const { data: summary, isPending: pendingProductSummaries } = useQuery({
@@ -65,25 +63,16 @@ const ProductInfoCards = () => {
     },
   ];
 
-  const pendingProductSummariesState = Array.from({ length: 4 }).map(
-    (_, index) => <InfoCardSkeleton key={index} />
-  );
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
-      <Show
-        when={!pendingProductSummaries}
-        fallback={pendingProductSummariesState}
-      >
-        {infoCards.map((card) => (
-          <InfoCard
-            key={card.id}
-            title={card.title}
-            value={card.value}
-            icon={card.icon}
-          />
-        ))}
-      </Show>
+      {infoCards.map((card) => (
+        <InfoCard
+          key={card.id}
+          title={card.title}
+          value={card.value}
+          icon={card.icon}
+        />
+      ))}
     </div>
   );
 };
