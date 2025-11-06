@@ -32,11 +32,11 @@ const UserData = () => {
           <Column className="space-y-2">
             <Label htmlFor="companyName">Nome</Label>
             {/* TO-DO: Trocar pelo nome do usuário */}
-            <Input id="name" value={profile?.username} disabled />
+            <Input id="name" value={profile?.username ?? ""} disabled />
           </Column>
           <Column className="space-y-2">
             <Label htmlFor="taxRegime">Email</Label>
-            <Input id="email" value={profile?.email} disabled />
+            <Input id="email" value={profile?.email ?? ""} disabled />
           </Column>
         </div>
       </div>
