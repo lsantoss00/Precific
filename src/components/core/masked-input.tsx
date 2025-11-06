@@ -6,7 +6,7 @@ import { IMaskInput } from "react-imask";
 interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   mask: string;
   value: string;
-  onAccept: (value: string) => void;
+  onAccept?: (value: string) => void;
   unmask?: boolean;
   error?: string;
 }

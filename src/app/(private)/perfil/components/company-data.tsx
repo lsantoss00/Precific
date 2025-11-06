@@ -3,6 +3,7 @@
 import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { MaskedInput } from "@/src/components/core/masked-input";
 import Show from "@/src/components/core/show";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
@@ -33,7 +34,13 @@ const CompanyData = () => {
         </Column>
         <Column className="space-y-2 col-span-2">
           <Label htmlFor="cnpj">CNPJ</Label>
-          <Input id="cnpj" disabled value={company?.cnpj ?? ""} />
+          <MaskedInput
+            id="cnpj"
+            mask="00.000.000/0000-00"
+            value={company?.cnpj ?? ""}
+            unmask={true}
+            disabled
+          />
         </Column>
         <Column
           className={`space-y-2 ${
@@ -68,7 +75,13 @@ const CompanyData = () => {
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="postal_code">CEP</Label>
-          <Input id="postal_code" disabled value={company?.postal_code ?? ""} />
+          <MaskedInput
+            id="cnpj"
+            mask="00000-000"
+            value={company?.postal_code ?? ""}
+            unmask={true}
+            disabled
+          />
         </Column>
         <Column className="space-y-2 col-span-2">
           <Label htmlFor="street_address">Endereço</Label>
