@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  SECTOR_LABELS,
+  TAX_REGIME_LABELS,
+} from "@/src/app/(private)/perfil/constants/company-labels";
 import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -48,11 +52,21 @@ const CompanyData = () => {
           }`}
         >
           <Label htmlFor="sector">Setor</Label>
-          <Input id="sector" disabled value={company?.sector ?? ""} />
+          <Input
+            id="sector"
+            disabled
+            value={company?.sector ? SECTOR_LABELS[company.sector] : ""}
+          />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="tax_regime">Regime Tributário</Label>
-          <Input id="tax_regime" disabled value={company?.tax_regime ?? ""} />
+          <Input
+            id="tax_regime"
+            disabled
+            value={
+              company?.tax_regime ? TAX_REGIME_LABELS[company.tax_regime] : ""
+            }
+          />
         </Column>
         <Show when={isSimpleNational}>
           <Column className="space-y-2 col-span-2 md:col-span-1">
