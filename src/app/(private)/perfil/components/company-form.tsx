@@ -7,6 +7,7 @@ import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { Loader2Icon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -418,11 +419,11 @@ const CompanyForm = () => {
       <Button
         className="hover:cursor-pointer w-full h-12 mt-6"
         type="submit"
-        disabled={formInputFieldIsBlank}
+        disabled={formInputFieldIsBlank || pendingPostCompany}
       >
-        {/* <Show when={pendingPostCompany}>
+        <Show when={pendingPostCompany}>
           <Loader2Icon className="animate-spin" />
-        </Show> */}
+        </Show>
         Cadastrar
       </Button>
     </form>
