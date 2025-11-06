@@ -2,7 +2,6 @@
 
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
-import Show from "@/src/components/core/show";
 
 const CompanyData = () => {
   return (
@@ -17,7 +16,7 @@ const CompanyData = () => {
           <Label htmlFor="taxId">CNPJ</Label>
           <Input id="taxId" disabled />
         </Column>
-        <Column className="space-y-2 col-span-2 md:col-span-1">
+        <Column className="space-y-2 col-span-2">
           <Label htmlFor="industrySector">Setor</Label>
           <Input id="industrySector" disabled />
         </Column>
@@ -26,12 +25,12 @@ const CompanyData = () => {
           <Input id="taxRegime" disabled />
         </Column>
         {/* TO-DO: Mostrar apenas quando o regime tributário for Simples Nacional */}
-        <Show>
-          <Column className="space-y-2 col-span-2 md:col-span-1">
-            <Label htmlFor="revenueRange">Faixa de Faturamento</Label>
-            <Input id="revenueRange" disabled />
-          </Column>
-        </Show>
+        {/* <Show> */}
+        <Column className="space-y-2 col-span-2 md:col-span-1">
+          <Label htmlFor="revenueRange">Faixa de Faturamento</Label>
+          <Input id="revenueRange" disabled />
+        </Column>
+        {/* </Show> */}
         <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="state">Estado</Label>
           <Input id="state" maxLength={2} disabled />

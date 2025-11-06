@@ -28,7 +28,7 @@ const UserImageUpload = ({
 
   return (
     <Card
-      className={`p-6 md:h-33.5 w-full shadow-2xs transition-colors duration-200 border-neutral-100 flex justify-center rounded-sm relative ${
+      className={`p-6 md:h-33 w-full shadow-2xs transition-colors duration-200 border-neutral-100 flex justify-center rounded-sm relative ${
         disabled
           ? "opacity-50 cursor-not-allowed"
           : "cursor-pointer hover:bg-gray-100"
