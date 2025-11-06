@@ -1,6 +1,8 @@
 "use client";
 
+import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
 import { Button, Card } from "@/src/components/core";
@@ -9,7 +11,8 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
-import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "@/src/providers/auth-provider";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -27,9 +30,18 @@ import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
 const ProductResult = () => {
+  const { profile, isLoadingAuth } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { form, isEditMode, productId } = useProductForm();
+
+  const companyId = profile?.company?.id;
+
+  const { data: company } = useQuery({
+    queryFn: () => getCompanyById({ companyId }),
+    queryKey: ["company", companyId],
+    enabled: !!companyId,
+  });
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,
@@ -87,8 +99,8 @@ const ProductResult = () => {
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
     isSimpleNational: false,
-    range: "range_6",
-    sector: "business",
+    range: company?.revenue_range,
+    sector: company?.sector,
   });
 
   const ibs = ibsCbsCalc({
@@ -141,46 +153,45 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  const realProfit = realProfitCalc({
-    priceToday: priceToday,
-    unitPrice: data?.unit_price,
-    icms: icmsValue,
-    pisCofins: pisCofinsValue,
-    fixedCosts: fixedCosts,
-    salesIcms: salesIcmsValue,
-    salesPisCofins: salesPisCofinsValue,
-    shipping: shipping,
-    othersCosts: othersCosts,
-    irpjCsllPercent: 34,
-  });
+  const companyRegime = company?.tax_regime;
 
-  // const presumedProfit = presumedProfitCalc({
-  //   priceToday: priceToday,
-  //   unitPrice: data?.unit_price,
-  //   icms: icmsValue,
-  //   pisCofins: pisCofinsValue,
-  //   fixedCosts: fixedCosts,
-  //   salesIcms: salesIcmsValue,
-  //   salesPisCofins: salesPisCofinsValue,
-  //   shipping: shipping,
-  //   othersCosts: othersCosts,
-  //   irpjPercent: 0.15,
-  //   csllPercent: 0.09,
-  // });
+  const netProfit = (() => {
+    const baseCalcParams = {
+      priceToday: priceToday,
+      unitPrice: data?.unit_price,
+      icms: icmsValue,
+      pisCofins: pisCofinsValue,
+      fixedCosts: fixedCosts,
+      salesIcms: salesIcmsValue,
+      salesPisCofins: salesPisCofinsValue,
+      shipping: shipping,
+      othersCosts: othersCosts,
+    };
 
-  const simpleNational = simpleNationalCalc({
-    priceToday: priceToday,
-    unitPrice: data?.unit_price,
-    icms: icmsValue,
-    pisCofins: pisCofinsValue,
-    fixedCosts: fixedCosts,
-    salesIcms: salesIcmsValue,
-    salesPisCofins: salesPisCofinsValue,
-    shipping: shipping,
-    othersCosts: othersCosts,
-    range: "range_6",
-    sector: "business",
-  });
+    if (companyRegime === "presumed_profit") {
+      return presumedProfitCalc({
+        ...baseCalcParams,
+        irpjPercent: 0.15,
+        csllPercent: 0.09,
+      });
+    }
+
+    if (
+      companyRegime === "simple_national" &&
+      company?.revenue_range &&
+      company?.sector
+    ) {
+      return simpleNationalCalc({
+        ...baseCalcParams,
+        range: company.revenue_range,
+        sector: company.sector,
+      });
+    }
+    return realProfitCalc({
+      ...baseCalcParams,
+      irpjCsllPercent: 34,
+    });
+  })();
 
   const priceIn2026 = priceToday;
 
@@ -205,10 +216,9 @@ const ProductResult = () => {
       title: "Frete",
       value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
-    // TO-DO: MOSTRAR REALPROFIT OU PRESUMEDPROFIT OU SIMPLENATIONAL CONFORME ESCOLHIDO PELO USUARIO NO FORM DE COMPANY
     {
       title: "Lucro líquido",
-      value: realProfit,
+      value: netProfit,
       variant: "success" as const,
     },
   ];

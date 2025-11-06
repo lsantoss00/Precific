@@ -23,6 +23,7 @@ const PricingForm = () => {
   const { data: company } = useQuery({
     queryFn: () => getCompanyById({ companyId }),
     queryKey: ["company", companyId],
+    enabled: !!companyId,
   });
 
   const isSimpleNational = company?.tax_regime === "simple_national";
