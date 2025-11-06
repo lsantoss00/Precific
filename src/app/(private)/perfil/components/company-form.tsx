@@ -4,6 +4,7 @@ import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import SelectInput from "@/src/components/core/select-input";
 import Show from "@/src/components/core/show";
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
@@ -77,6 +78,7 @@ const CompanyForm = () => {
       toast.success("Empresa registrada com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
+      await queryClient?.invalidateQueries({ queryKey: ["profile"] });
     },
     onError: (error) => {
       toast.error(error.message, {
