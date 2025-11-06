@@ -1,6 +1,8 @@
 "use client";
 
+import { getUserProfile } from "@/src/app/(private)/perfil/services/get-user-profile";
 import { User } from "@supabase/supabase-js";
+import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "../libs/supabase/client";
 
@@ -26,7 +28,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } = await supabase.auth.getUser();
       setUser(user);
     };
-
     getUser();
 
     const {
@@ -40,9 +41,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // const hasCompany = !!user?.user_metadata?.company_id;
-  const hasCompany = true;
-  //
+  const { data: profile } = useQuery({
+    queryFn: () => getUserProfile({ userId: user!.id }),
+    queryKey: ["userProfile", user?.id],
+    enabled: !!user?.id,
+  });
+
+  const hasCompany = !!profile?.company_id;
 
   return (
     <AuthContext.Provider value={{ user, hasCompany }}>

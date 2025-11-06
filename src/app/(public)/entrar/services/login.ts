@@ -1,31 +1,19 @@
-"use server";
-
-import { createServer } from "@/src/libs/supabase/server";
-import { ServiceResponseType } from "@/src/types/service-response-type";
+import { createClient } from "@/src/libs/supabase/client";
 
 interface LoginProps {
   email: string;
   password: string;
 }
 
-export async function login({
-  email,
-  password,
-}: LoginProps): Promise<ServiceResponseType> {
-  const supabase = await createServer();
+export async function login({ email, password }: LoginProps) {
+  const supabase = createClient();
 
-  try {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    if (error) {
-      return { success: false, error: error.message };
-    }
+  if (error) throw error;
 
-    return { success: true, error: null };
-  } catch (err) {
-    return { success: false, error: "Erro inesperado. Tente novamente." };
-  }
+  return;
 }

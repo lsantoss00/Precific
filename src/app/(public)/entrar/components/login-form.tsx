@@ -35,14 +35,13 @@ const LoginForm = () => {
 
   const { mutate: doLogin, isPending: pendingLogin } = useMutation({
     mutationFn: login,
-    onSuccess: (result) => {
-      if (result.error) {
-        toast.error(supabaseErrorsTranslator(result.error), {
-          className: "!bg-red-600 !text-white",
-        });
-        return;
-      }
+    onSuccess: () => {
       router.push("/produtos");
+    },
+    onError: (error) => {
+      toast.error(supabaseErrorsTranslator(error), {
+        className: "!bg-red-600 !text-white",
+      });
     },
   });
 
