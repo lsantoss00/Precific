@@ -15,10 +15,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const CompanyFormDialog = () => {
-  const { profile } = useAuth();
+  const { profile, isLoadingAuth } = useAuth();
   const router = useRouter();
-
-  const hasCompany = !!profile?.company_id;
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
@@ -26,16 +24,16 @@ const CompanyFormDialog = () => {
   });
 
   const handleOpenChange = (open: boolean) => {
-    if (!hasCompany && !open) return;
+    if (!profile?.company_id && !open) return;
   };
 
-  if (hasCompany) return null;
+  if (isLoadingAuth || profile?.company_id) return null;
 
   return (
     <Dialog open={true} onOpenChange={handleOpenChange} modal>
       <DialogContent
         showCloseButton={false}
-        className="w-full max-w-[90vw] md:!max-w-xl gap-6 max-h-[95vh]  overflow-y-auto"
+        className="w-full max-w-[90vw] md:!max-w-xl gap-6 max-h-[95vh] overflow-y-auto"
       >
         <DialogHeader className="flex flex-row items-center justify-start">
           <DialogTitle>Cadastro de Empresa</DialogTitle>
