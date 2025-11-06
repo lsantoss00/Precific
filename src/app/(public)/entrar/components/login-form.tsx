@@ -43,7 +43,6 @@ const LoginForm = () => {
         return;
       }
       router.push("/produtos");
-      router.refresh();
     },
   });
 
