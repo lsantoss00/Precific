@@ -17,6 +17,8 @@ const CompanyData = () => {
     queryKey: ["company", companyId],
   });
 
+  const isSimpleNational = company?.tax_regime === "simple_national";
+
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
       <h3>Dados da Empresa</h3>
@@ -29,7 +31,11 @@ const CompanyData = () => {
           <Label htmlFor="cnpj">CNPJ</Label>
           <Input id="cnpj" disabled value={company?.cnpj} />
         </Column>
-        <Column className="space-y-2 col-span-2">
+        <Column
+          className={`space-y-2 ${
+            isSimpleNational ? "col-span-2" : "col-span-2 md:col-span-1"
+          }`}
+        >
           <Label htmlFor="sector">Setor</Label>
           <Input id="sector" disabled value={company?.sector} />
         </Column>
@@ -37,7 +43,7 @@ const CompanyData = () => {
           <Label htmlFor="tax_regime">Regime Tributário</Label>
           <Input id="tax_regime" disabled value={company?.tax_regime} />
         </Column>
-        <Show when={company?.tax_regime === "simple_national"}>
+        <Show when={isSimpleNational}>
           <Column className="space-y-2 col-span-2 md:col-span-1">
             <Label htmlFor="revenue_range">Faixa de Faturamento</Label>
             <Input id="revenue_range" disabled value={company?.revenue_range} />
