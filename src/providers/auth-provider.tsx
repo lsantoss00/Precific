@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
     queryKey: ["user"],
     staleTime: Infinity,
+    gcTime: Infinity,
   });
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
@@ -35,13 +36,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryKey: ["profile", user?.id],
     enabled: !!user?.id,
     staleTime: Infinity,
+    gcTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(() => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+    } = supabase.auth.onAuthStateChange((event) => {
+      const relevantAuthEvents =
+        event === "SIGNED_IN" ||
+        event === "SIGNED_OUT" ||
+        event === "TOKEN_REFRESHED";
+
+      if (relevantAuthEvents) {
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+      }
+
+      if (event === "SIGNED_OUT") {
+        queryClient.removeQueries({ queryKey: ["profile"] });
+      }
     });
 
     return () => subscription.unsubscribe();
