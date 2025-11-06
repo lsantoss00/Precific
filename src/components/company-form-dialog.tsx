@@ -15,8 +15,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const CompanyFormDialog = () => {
-  const { hasCompany } = useAuth();
+  const { profile } = useAuth();
   const router = useRouter();
+
+  const hasCompany = !!profile?.company_id;
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
