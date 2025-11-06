@@ -74,7 +74,7 @@ const CompanyForm = () => {
   const { mutate: post, isPending: pendingPostCompany } = useMutation({
     mutationFn: postCompany,
     onSuccess: async () => {
-      toast.success("Produto adicionado com sucesso!", {
+      toast.success("Empresa registrada com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
     },
