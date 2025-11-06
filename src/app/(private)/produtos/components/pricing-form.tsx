@@ -1,18 +1,33 @@
 "use client";
 
+import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
+import { useAuth } from "@/src/providers/auth-provider";
+import { useQuery } from "@tanstack/react-query";
 
 const PricingForm = () => {
+  const { profile } = useAuth();
   const { form } = useProductForm();
   const {
     register,
     formState: { errors },
   } = form;
+
+  const companyId = profile?.company_id;
+
+  const { data: company } = useQuery({
+    queryFn: () => getCompanyById({ companyId }),
+    queryKey: ["company", companyId],
+  });
+
+  const isSimpleNational = company?.tax_regime === "simple_national";
+
+  const icmsSt = form.watch("icms_st") ?? 0;
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
@@ -69,6 +84,7 @@ const PricingForm = () => {
                   max: { value: 100, message: "Valor máximo é 100" },
                 })}
                 error={errors.sales_icms?.message}
+                disabled={icmsSt > 0}
               />
               <CustomTooltip
                 message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
@@ -104,6 +120,7 @@ const PricingForm = () => {
                   max: { value: 100, message: "Valor máximo é 100" },
                 })}
                 error={errors.sales_pis_cofins?.message}
+                disabled={isSimpleNational}
               />
               <CustomTooltip
                 message="Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
