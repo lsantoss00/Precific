@@ -37,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryFn: () => getUserProfile({ userId: user!.id }),
     queryKey: ["profile", user?.id],
     enabled: !!user?.id,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
