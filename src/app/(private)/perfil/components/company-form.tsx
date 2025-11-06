@@ -122,7 +122,7 @@ const CompanyForm = () => {
     <form
       id="company-form"
       onSubmit={handleSubmit(handleSubmitCompany)}
-      className="space-y-4 "
+      className="space-y-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Column className="space-y-2 col-span-2">
@@ -181,7 +181,7 @@ const CompanyForm = () => {
             )}
           />
         </Column>
-        <Column className="space-y-2 col-span-2">
+        <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="industry_sector" required>
             Setor
           </Label>
@@ -211,7 +211,7 @@ const CompanyForm = () => {
             )}
           />
         </Column>
-        <Column className="space-y-2 col-span-2">
+        <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="tax_regime" required>
             Regime Tributário
           </Label>
