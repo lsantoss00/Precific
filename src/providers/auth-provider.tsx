@@ -2,19 +2,16 @@
 
 import { getUserProfile } from "@/src/app/(private)/perfil/services/get-user-profile";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
-import { User } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useEffect } from "react";
 import { createClient } from "../libs/supabase/client";
 
 interface AuthContextType {
-  user: User | null;
   profile: any;
   isLoadingAuth: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
-  user: null,
   profile: null,
   isLoadingAuth: true,
 });
@@ -55,7 +52,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return (
     <AuthContext.Provider
       value={{
-        user: user ?? null,
         profile,
         isLoadingAuth,
       }}

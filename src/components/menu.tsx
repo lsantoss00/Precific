@@ -18,7 +18,7 @@ import {
 import Show from "./core/show";
 
 const Menu = () => {
-  const { user } = useAuth();
+  const { profile } = useAuth();
 
   const router = useRouter();
 
@@ -34,9 +34,8 @@ const Menu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 p-1" align="end">
         <DropdownMenuLabel className="flex flex-col">
-          <span className="text-base">{user?.user_metadata?.display_name}</span>
           <span className="text-xs sm:text-sm text-gray-500">
-            {user?.email}
+            {profile?.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuItem asChild className="cursor-pointer">
