@@ -4,24 +4,14 @@ import {
   SECTOR_LABELS,
   TAX_REGIME_LABELS,
 } from "@/src/app/(private)/perfil/constants/company-labels";
-import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import Show from "@/src/components/core/show";
 import { useAuth } from "@/src/providers/auth-provider";
-import { useQuery } from "@tanstack/react-query";
 
 const CompanyData = () => {
-  const { profile } = useAuth();
-
-  const companyId = profile?.company_id;
-
-  const { data: company } = useQuery({
-    queryFn: () => getCompanyById({ companyId }),
-    queryKey: ["company", companyId],
-    enabled: !!companyId,
-  });
+  const { company } = useAuth();
 
   const isSimpleNational = company?.tax_regime === "simple_national";
 
@@ -56,7 +46,7 @@ const CompanyData = () => {
           <Input
             id="sector"
             disabled
-            value={company?.sector ? SECTOR_LABELS[company.sector] : ""}
+            value={SECTOR_LABELS[company.sector as keyof typeof SECTOR_LABELS]}
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
@@ -65,7 +55,9 @@ const CompanyData = () => {
             id="tax_regime"
             disabled
             value={
-              company?.tax_regime ? TAX_REGIME_LABELS[company.tax_regime] : ""
+              TAX_REGIME_LABELS[
+                company.tax_regime as keyof typeof TAX_REGIME_LABELS
+              ]
             }
           />
         </Column>

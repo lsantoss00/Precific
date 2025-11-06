@@ -1,6 +1,5 @@
 "use client";
 
-import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
@@ -12,7 +11,7 @@ import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,18 +29,10 @@ import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
 
 const ProductResult = () => {
-  const { profile, isLoadingAuth } = useAuth();
+  const { company } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { form, isEditMode, productId } = useProductForm();
-
-  const companyId = profile?.company?.id;
-
-  const { data: company } = useQuery({
-    queryFn: () => getCompanyById({ companyId }),
-    queryKey: ["company", companyId],
-    enabled: !!companyId,
-  });
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,

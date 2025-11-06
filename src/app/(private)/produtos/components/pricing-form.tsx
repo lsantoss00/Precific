@@ -1,6 +1,5 @@
 "use client";
 
-import { getCompanyById } from "@/src/app/(private)/perfil/services/get-company-by-id";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -8,23 +7,14 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
 import { useAuth } from "@/src/providers/auth-provider";
-import { useQuery } from "@tanstack/react-query";
 
 const PricingForm = () => {
-  const { profile } = useAuth();
+  const { company } = useAuth();
   const { form } = useProductForm();
   const {
     register,
     formState: { errors },
   } = form;
-
-  const companyId = profile?.company_id;
-
-  const { data: company } = useQuery({
-    queryFn: () => getCompanyById({ companyId }),
-    queryKey: ["company", companyId],
-    enabled: !!companyId,
-  });
 
   const isSimpleNational = company?.tax_regime === "simple_national";
 
