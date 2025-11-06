@@ -13,11 +13,11 @@ import z from "zod";
 const CompanyFormSchema = z
   .object({
     company_name: z.string().min(1, "O campo nome é obrigatório."),
-    tax_id_cnpj: z
+    cnpj: z
       .string()
       .min(14, "O campo CNPJ é obrigatório.")
       .length(14, "CNPJ inválido."),
-    industry_sector: z.enum(["business", "industry"], {
+    sector: z.enum(["business", "industry"], {
       message: "O campo setor é obrigatório.",
     }),
     tax_regime: z.enum(["real_profit", "presumed_profit", "simple_national"], {
@@ -59,8 +59,8 @@ const CompanyForm = () => {
     resolver: zodResolver(CompanyFormSchema),
     defaultValues: {
       company_name: "",
-      tax_id_cnpj: "",
-      industry_sector: undefined,
+      cnpj: "",
+      sector: undefined,
       tax_regime: undefined,
       revenue_range: undefined,
       state: "",
@@ -91,8 +91,8 @@ const CompanyForm = () => {
 
   const {
     company_name,
-    tax_id_cnpj,
-    industry_sector,
+    cnpj,
+    sector,
     tax_regime,
     revenue_range,
     state,
@@ -103,8 +103,8 @@ const CompanyForm = () => {
 
   const requiredFields = [
     company_name,
-    tax_id_cnpj,
-    industry_sector,
+    cnpj,
+    sector,
     tax_regime,
     state,
     postal_code,
@@ -153,16 +153,16 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2">
-          <Label htmlFor="tax_id_cnpj" required>
+          <Label htmlFor="cnpj" required>
             CNPJ
           </Label>
           <Controller
-            name="tax_id_cnpj"
+            name="cnpj"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <MaskedInput
-                  id="tax_id_cnpj"
+                  id="cnpj"
                   mask="00.000.000/0000-00"
                   placeholder="00.000.000/0000-00"
                   value={value}
@@ -182,17 +182,17 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="industry_sector" required>
+          <Label htmlFor="sector" required>
             Setor
           </Label>
           <Controller
-            name="industry_sector"
+            name="sector"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <SelectInput
                   triggerProps={{
-                    id: "industry_sector",
+                    id: "sector",
                   }}
                   options={sectorSelectOptions}
                   value={value}

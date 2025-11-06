@@ -15,8 +15,8 @@ export type RevenueRangeType =
 
 export interface CompanyType {
   company_name: string;
-  tax_id_cnpj: string;
-  industry_sector: SectorType;
+  cnpj: string;
+  sector: SectorType;
   tax_regime: TaxRegimeType;
   revenue_range?: RevenueRangeType;
   state: string;
