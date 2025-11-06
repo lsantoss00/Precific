@@ -35,7 +35,7 @@ const UserImageUpload = ({
       }`}
     >
       <div
-        className="flex flex-col sm:flex-row lg:!flex-row max-sm:text-center lg:!text-center lg:!text-start justify-start items-center gap-4"
+        className="flex flex-col sm:flex-row lg:!flex-row max-sm:text-center lg:!text-start justify-start items-center gap-4"
         onClick={() => !disabled && ref.current?.click()}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
