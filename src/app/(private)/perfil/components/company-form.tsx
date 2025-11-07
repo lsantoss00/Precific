@@ -1,3 +1,8 @@
+import {
+  REVENUE_RANGE_LABELS,
+  SECTOR_LABELS,
+  TAX_REGIME_LABELS,
+} from "@/src/app/(private)/perfil/constants/company-labels";
 import { postCompany } from "@/src/app/(private)/perfil/services/post-company";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -433,21 +438,21 @@ const CompanyForm = () => {
 export default CompanyForm;
 
 const sectorSelectOptions = [
-  { value: "business", label: "Comércio" },
-  { value: "industry", label: "Indústria" },
+  { value: "business", label: SECTOR_LABELS.business },
+  { value: "industry", label: SECTOR_LABELS.industry },
 ];
 
 const taxRegimesSelectOptions = [
-  { value: "real_profit", label: "Lucro Real" },
-  { value: "presumed_profit", label: "Lucro Presumido" },
-  { value: "simple_national", label: "Simples Nacional" },
+  { value: "real_profit", label: TAX_REGIME_LABELS.real_profit },
+  { value: "presumed_profit", label: TAX_REGIME_LABELS.presumed_profit },
+  { value: "simple_national", label: TAX_REGIME_LABELS.simple_national },
 ];
 
 const revenueRangeSelectOptions = [
-  { value: "range_1", label: "R$0,00 - R$180.000,00" },
-  { value: "range_2", label: "R$180.000,01 - R$360.000,00" },
-  { value: "range_3", label: "R$360.000,01 - R$720.000,00" },
-  { value: "range_4", label: "R$720.000,01 - R$1.800.000,00" },
-  { value: "range_5", label: "R$1.800.000,01 - R$3.600.000,00" },
-  { value: "range_6", label: "R$3.600.000,01 - R$4.800.000,00" },
+  { value: "range_1", label: REVENUE_RANGE_LABELS.range_1 },
+  { value: "range_2", label: REVENUE_RANGE_LABELS.range_2 },
+  { value: "range_3", label: REVENUE_RANGE_LABELS.range_3 },
+  { value: "range_4", label: REVENUE_RANGE_LABELS.range_4 },
+  { value: "range_5", label: REVENUE_RANGE_LABELS.range_5 },
+  { value: "range_6", label: REVENUE_RANGE_LABELS.range_6 },
 ];

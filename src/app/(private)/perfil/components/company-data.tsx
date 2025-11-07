@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  REVENUE_RANGE_LABELS,
   SECTOR_LABELS,
   TAX_REGIME_LABELS,
 } from "@/src/app/(private)/perfil/constants/company-labels";
@@ -67,7 +68,11 @@ const CompanyData = () => {
             <Input
               id="revenue_range"
               disabled
-              value={company?.revenue_range ?? ""}
+              value={
+                REVENUE_RANGE_LABELS[
+                  company.revenue_range as keyof typeof REVENUE_RANGE_LABELS
+                ]
+              }
             />
           </Column>
         </Show>
