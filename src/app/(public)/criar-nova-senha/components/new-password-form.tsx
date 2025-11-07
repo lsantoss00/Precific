@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -31,6 +32,15 @@ type NewPasswordFormSchemaType = z.infer<typeof NewPasswordFormSchema>;
 
 const NewPasswordForm = () => {
   const router = useRouter();
+  const [isInviteFlow, setIsInviteFlow] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie.split(";");
+    const hasInviteCookie = cookies.some((cookie) =>
+      cookie.trim().startsWith("invite_mode=true")
+    );
+    setIsInviteFlow(hasInviteCookie);
+  }, []);
 
   const {
     handleSubmit,
@@ -56,14 +66,21 @@ const NewPasswordForm = () => {
           });
           return;
         }
-        toast.success("Senha atualizada com sucesso!", {
+
+        const successMessage = isInviteFlow
+          ? "Senha criada com sucesso!"
+          : "Senha alterada com sucesso!";
+
+        toast.success(successMessage, {
           className: "!bg-green-600 !text-white",
         });
 
         document.cookie =
           "recovery_mode=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        const supabase = createClient();
+        document.cookie =
+          "invite_mode=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+        const supabase = createClient();
         await supabase.auth.signOut();
         router.push("/entrar");
       },
@@ -87,7 +104,7 @@ const NewPasswordForm = () => {
       >
         <Column className="space-y-2">
           <Label htmlFor="password" required>
-            Nova Senha
+            Senha
           </Label>
           <Controller
             name="password"
@@ -154,7 +171,7 @@ const NewPasswordForm = () => {
             <Show when={pendingCreateNewPassword}>
               <Loader2Icon className="animate-spin" />
             </Show>
-            Criar Nova Senha
+            {isInviteFlow ? "Criar Senha" : "Alterar Senha"}
           </Button>
         </Column>
       </form>
