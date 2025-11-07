@@ -5,8 +5,6 @@ const errorMessagesTranslation: Record<string, string> = {
   email_not_confirmed:
     "E-mail não confirmado. Verifique sua caixa de entrada ou reenvie a confirmação.",
 
-  // SIGN UP
-  "User already registered": "Usuário já registrado.",
   // PASSWORD
   "Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789, !@#$%^&*()_+-=[]{};':\"|<>?,./`~.":
     "A senha deve conter ao menos um caractere de cada tipo: letras minúsculas, letras maiúsculas, números e símbolos.",
