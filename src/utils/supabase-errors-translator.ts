@@ -1,21 +1,12 @@
 const errorMessagesTranslation: Record<string, string> = {
   // LOGIN
-  "Invalid login credentials": "Credenciais inválidas.",
-  invalid_credentials: "Credenciais inválidas.",
+  "Invalid login credentials": "E-mail ou senha inválidos.",
+  invalid_credentials: "E-mail ou senha inválidos.",
   email_not_confirmed:
     "E-mail não confirmado. Verifique sua caixa de entrada ou reenvie a confirmação.",
-  phone_not_confirmed:
-    "Telefone não confirmado. Conclua a verificação para entrar.",
 
   // SIGN UP
   "User already registered": "Usuário já registrado.",
-  email_exists: "Este e-mail já está cadastrado.",
-  phone_exists: "Este telefone já está cadastrado.",
-  email_provider_disabled: "Cadastros com e-mail/senha estão desativados.",
-  phone_provider_disabled: "Cadastros com telefone/senha estão desativados.",
-  "Signup disabled for this provider":
-    "Cadastro desabilitado para este provedor.",
-
   // PASSWORD
   "Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789, !@#$%^&*()_+-=[]{};':\"|<>?,./`~.":
     "A senha deve conter ao menos um caractere de cada tipo: letras minúsculas, letras maiúsculas, números e símbolos.",
@@ -47,14 +38,11 @@ const errorMessagesTranslation: Record<string, string> = {
 
   // ACCOUNT
   "User not found": "Usuário não encontrado.",
-  identity_not_found: "Identidade não encontrada.",
-  identity_already_exists: "Esta identidade já está vinculada a um usuário.",
   "Email not confirmed": "O e-mail ainda não foi confirmado.",
   "User is banned":
     "Usuário banido. Caso acredite que foi um erro, entre em contato conosco.",
 
   // OTHERS
-  captcha_failed: "Falha ao verificar o CAPTCHA. Tente novamente.",
   conflict: "Conflito de operação. Aguarde um instante e tente novamente.",
 
   // COMPANY
