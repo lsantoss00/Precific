@@ -10,6 +10,7 @@ import { MaskedInput } from "@/src/components/core/masked-input";
 import SelectInput from "@/src/components/core/select-input";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
+import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
@@ -87,7 +88,7 @@ const CompanyForm = () => {
       await queryClient?.invalidateQueries({ queryKey: ["profile"] });
     },
     onError: (error) => {
-      toast.error(error.message, {
+      toast.error(supabaseErrorsTranslator(error.message), {
         className: "!bg-red-600 !text-white",
       });
     },

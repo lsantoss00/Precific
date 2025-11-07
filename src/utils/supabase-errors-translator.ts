@@ -56,6 +56,10 @@ const errorMessagesTranslation: Record<string, string> = {
   // OTHERS
   captcha_failed: "Falha ao verificar o CAPTCHA. Tente novamente.",
   conflict: "Conflito de operação. Aguarde um instante e tente novamente.",
+
+  // COMPANY
+  'duplicate key value violates unique constraint "companies_cnpj_unique"':
+    "Já existe uma empresa cadastrada com esse CNPJ.",
 };
 
 type SupabaseError =
