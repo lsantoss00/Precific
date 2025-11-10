@@ -19,6 +19,10 @@ export type ProductType = {
   price_today: number;
   price_in_2026: number;
   price_in_2027?: number;
+  interstate: boolean;
+  state_destination: string;
+  imported_product: boolean;
+  costumer_taxpayer: boolean;
 };
 
 export type ProductFormDataType = Omit<

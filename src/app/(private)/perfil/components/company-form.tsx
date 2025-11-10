@@ -234,7 +234,7 @@ const CompanyForm = () => {
                     id: "tax_regime",
                   }}
                   placeholder={"Selecione o regime tributário"}
-                  options={taxRegimesSelectOptions}
+                  options={taxRegimeSelectOptions}
                   value={value}
                   onChange={onChange}
                   className={`${error && "border-red-600"}`}
@@ -443,7 +443,7 @@ const sectorSelectOptions = [
   { value: "industry", label: SECTOR_LABELS.industry },
 ];
 
-const taxRegimesSelectOptions = [
+const taxRegimeSelectOptions = [
   { value: "real_profit", label: TAX_REGIME_LABELS.real_profit },
   { value: "presumed_profit", label: TAX_REGIME_LABELS.presumed_profit },
   { value: "simple_national", label: TAX_REGIME_LABELS.simple_national },

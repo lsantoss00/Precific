@@ -50,6 +50,10 @@ export const ProductFormProvider = ({
       shipping: 0,
       other_costs: 0,
       profit: 0,
+      interstate: false,
+      state_destination: "",
+      imported_product: false,
+      costumer_taxpayer: false,
     },
   });
 
