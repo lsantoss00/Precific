@@ -1,12 +1,12 @@
 "use client";
 
+import SelectStateInput from "@/src/app/(private)/produtos/components/select-state-input";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import { Checkbox } from "@/src/components/core/checkbox";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import Row from "@/src/components/core/row";
-import SelectInput from "@/src/components/core/select-input";
 import Show from "@/src/components/core/show";
 import { Controller } from "react-hook-form";
 
@@ -107,15 +107,12 @@ const ProductDetailsForm = () => {
                 <Label htmlFor="state_destination" required>
                   Estado de destino
                 </Label>
-                <SelectInput
-                  triggerProps={{
-                    id: "state_destination",
-                  }}
-                  options={stateSelectOptions}
+                <SelectStateInput
+                  id="state_destination"
                   value={value}
-                  placeholder={"Selecione o estado de destino"}
+                  placeholder="Selecione o estado de destino"
                   onChange={onChange}
-                  className={`${error && "border-red-600"}`}
+                  error={Boolean(error)}
                 />
                 <Show when={error}>
                   <span className="text-xs text-red-500 -mt-1">
@@ -164,33 +161,3 @@ const ProductDetailsForm = () => {
 };
 
 export default ProductDetailsForm;
-
-const stateSelectOptions = [
-  { value: "AC", label: "Acre" },
-  { value: "AL", label: "Alagoas" },
-  { value: "AP", label: "Amapá" },
-  { value: "AM", label: "Amazonas" },
-  { value: "BA", label: "Bahia" },
-  { value: "CE", label: "Ceará" },
-  { value: "DF", label: "Distrito Federal" },
-  { value: "ES", label: "Espírito Santo" },
-  { value: "GO", label: "Goiás" },
-  { value: "MA", label: "Maranhão" },
-  { value: "MT", label: "Mato Grosso" },
-  { value: "MS", label: "Mato Grosso do Sul" },
-  { value: "MG", label: "Minas Gerais" },
-  { value: "PA", label: "Pará" },
-  { value: "PB", label: "Paraíba" },
-  { value: "PR", label: "Paraná" },
-  { value: "PE", label: "Pernambuco" },
-  { value: "PI", label: "Piauí" },
-  { value: "RJ", label: "Rio de Janeiro" },
-  { value: "RN", label: "Rio Grande do Norte" },
-  { value: "RS", label: "Rio Grande do Sul" },
-  { value: "RO", label: "Rondônia" },
-  { value: "RR", label: "Roraima" },
-  { value: "SC", label: "Santa Catarina" },
-  { value: "SP", label: "São Paulo" },
-  { value: "SE", label: "Sergipe" },
-  { value: "TO", label: "Tocantins" },
-];

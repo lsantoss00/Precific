@@ -4,6 +4,7 @@ import {
   TAX_REGIME_LABELS,
 } from "@/src/app/(private)/perfil/constants/company-labels";
 import { postCompany } from "@/src/app/(private)/perfil/services/post-company";
+import SelectStateInput from "@/src/app/(private)/produtos/components/select-state-input";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
@@ -294,13 +295,12 @@ const CompanyForm = () => {
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
-                <Input
+                <SelectStateInput
                   id="state"
-                  placeholder="UF"
-                  maxLength={2}
                   value={value}
-                  onChange={(e) => onChange(e.target.value.toUpperCase())}
-                  className={`${error && "border-red-600"}`}
+                  placeholder="Selecione o estado"
+                  onChange={onChange}
+                  error={Boolean(error)}
                 />
                 <div className="h-2 -mt-1">
                   <Show when={error}>
