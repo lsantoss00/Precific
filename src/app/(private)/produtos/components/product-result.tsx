@@ -1,6 +1,8 @@
 "use client";
 
+import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
@@ -183,7 +185,26 @@ const ProductResult = () => {
     });
   })();
 
-  const priceIn2026 = priceToday;
+  const companyState = company?.state;
+  const stateDestination = form.watch("state_destination");
+
+  const originTaxRate = companyState
+    ? getICMSRate(companyState, companyState)
+    : 0;
+  const destinationTaxRate = stateDestination
+    ? getICMSRate(stateDestination, stateDestination)
+    : 0;
+
+  const priceTodayWithDifal = difalCalc({
+    priceToday,
+    originTaxRate,
+    destinationTaxRate,
+  });
+
+  const isCostumerTaxPayer = data?.costumer_taxpayer === true;
+  const finalSalePrice = isCostumerTaxPayer
+    ? priceToday
+    : priceToday + priceTodayWithDifal;
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -229,7 +250,7 @@ const ProductResult = () => {
       ...data,
       status: "ACTIVE",
       price_today: priceToday,
-      price_in_2026: priceIn2026,
+      price_in_2026: priceToday,
     };
 
     if (isEditMode && productId) {
@@ -285,7 +306,7 @@ const ProductResult = () => {
             </div>
             <MetricCard
               title="Preço de venda final"
-              value={priceToday}
+              value={finalSalePrice}
               variant="secondary"
             />
           </Column>
@@ -320,7 +341,7 @@ const ProductResult = () => {
             </Column>
             <MetricCard
               title="Preço de venda final"
-              value={priceToday}
+              value={finalSalePrice}
               variant="secondary"
             />
           </Column>

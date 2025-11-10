@@ -1,5 +1,6 @@
 "use client";
 
+import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -22,12 +23,27 @@ const PricingForm = () => {
   const icmsSt = form.watch("icms_st") ?? 0;
 
   const isImportedProduct = !!form.watch("imported_product");
+  const isInterstateSale = !!form.watch("interstate");
+  const stateDestination = form.watch("state_destination");
 
   useEffect(() => {
     if (isImportedProduct) {
       form.setValue("sales_icms", 4);
+      return;
     }
-  }, [isImportedProduct, form]);
+
+    if (isInterstateSale && stateDestination && company?.state) {
+      const icmsRate = getICMSRate(company.state, stateDestination);
+      form.setValue("sales_icms", icmsRate);
+      return;
+    }
+  }, [
+    isImportedProduct,
+    isInterstateSale,
+    stateDestination,
+    company?.state,
+    form,
+  ]);
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
@@ -84,7 +100,7 @@ const PricingForm = () => {
                   max: { value: 100, message: "Valor máximo é 100" },
                 })}
                 error={errors.sales_icms?.message}
-                disabled={icmsSt > 0 || isImportedProduct}
+                disabled={icmsSt > 0 || isImportedProduct || isInterstateSale}
               />
               <CustomTooltip
                 message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
