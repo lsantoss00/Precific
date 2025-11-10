@@ -85,11 +85,13 @@ const ProductResult = () => {
   const markupBase = acquisitionCost + acquisitionCost * percentSum;
   const firstBase = markupBase + markupBase * ((data?.profit ?? 0) / 100);
 
+  const companyRegime = company?.tax_regime;
+
   const priceToday = priceTodayCalc({
     firstBase,
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
-    isSimpleNational: false,
+    isSimpleNational: companyRegime === "simple_national",
     range: company?.revenue_range,
     sector: company?.sector,
   });
@@ -144,8 +146,6 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  const companyRegime = company?.tax_regime;
-
   const netProfit = (() => {
     const baseCalcParams = {
       priceToday: priceToday,
@@ -162,8 +162,7 @@ const ProductResult = () => {
     if (companyRegime === "presumed_profit") {
       return presumedProfitCalc({
         ...baseCalcParams,
-        irpjPercent: 0.15,
-        csllPercent: 0.09,
+        irpjPercent: 0.25, // TO-DO: Adicionar select input para este valor e bloquear campo PISCOFINS (0), quando for lucro presumido
       });
     }
 
