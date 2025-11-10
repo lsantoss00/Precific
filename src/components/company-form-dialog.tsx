@@ -37,7 +37,6 @@ const CompanyFormDialog = () => {
       >
         <DialogHeader className="flex flex-row items-center justify-start">
           <DialogTitle>Cadastro de Empresa</DialogTitle>
-          {/* TO-DO: Adicionar um tooltip para explicar o porquê o cadastro da empresa é obrigatório */}
         </DialogHeader>
         <Column>
           <CompanyForm />

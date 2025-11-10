@@ -11,7 +11,6 @@ interface PresumedProfitCalcProps {
   shipping: number;
   othersCosts: number;
   irpjPercent: 0.15 | 0.25;
-  csllPercent: 0.09;
 }
 
 export function presumedProfitCalc({
@@ -24,7 +23,6 @@ export function presumedProfitCalc({
   shipping,
   othersCosts,
   irpjPercent,
-  csllPercent,
 }: PresumedProfitCalcProps): number {
   const calcBaseIrpj = percentageValueCalc({
     base: priceToday,
@@ -37,7 +35,7 @@ export function presumedProfitCalc({
   });
 
   const irpj = calcBaseIrpj * irpjPercent;
-  const csll = calcBaseCsll * csllPercent;
+  const csll = calcBaseCsll * 0.09;
 
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 

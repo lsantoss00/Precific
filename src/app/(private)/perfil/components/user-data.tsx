@@ -31,7 +31,6 @@ const UserData = () => {
         <div className="space-y-4 flex flex-col justify-between">
           <Column className="space-y-2">
             <Label htmlFor="companyName">Nome</Label>
-            {/* TO-DO: Trocar pelo nome do usuário */}
             <Input id="name" value={profile?.username ?? ""} disabled />
           </Column>
           <Column className="space-y-2">
