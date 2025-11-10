@@ -7,6 +7,7 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
 import { useAuth } from "@/src/providers/auth-provider";
+import { useEffect } from "react";
 
 const PricingForm = () => {
   const { company } = useAuth();
@@ -19,6 +20,14 @@ const PricingForm = () => {
   const isSimpleNational = company?.tax_regime === "simple_national";
 
   const icmsSt = form.watch("icms_st") ?? 0;
+
+  const isImportedProduct = !!form.watch("imported_product");
+
+  useEffect(() => {
+    if (isImportedProduct) {
+      form.setValue("sales_icms", 4);
+    }
+  }, [isImportedProduct, form]);
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
@@ -75,7 +84,7 @@ const PricingForm = () => {
                   max: { value: 100, message: "Valor máximo é 100" },
                 })}
                 error={errors.sales_icms?.message}
-                disabled={icmsSt > 0}
+                disabled={icmsSt > 0 || isImportedProduct}
               />
               <CustomTooltip
                 message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
