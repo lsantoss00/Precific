@@ -6,6 +6,7 @@ import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
+import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
@@ -161,10 +162,20 @@ const ProductResult = () => {
       othersCosts: othersCosts,
     };
 
+    const business = company?.sector === "business";
+    const revenueRangeData = getRevenueRangeDataPercentage({ business });
+    const revenueRangeKey = (company?.revenue_range ??
+      "range_1") as keyof typeof revenueRangeData;
+
+    const das = percentageValueCalc({
+      base: priceToday ?? 0,
+      percentage: revenueRangeData[revenueRangeKey],
+    });
+
     if (companyRegime === "presumed_profit") {
       return presumedProfitCalc({
         ...baseCalcParams,
-        irpjPercent: data?.irpj_percent, // Bloquear campo PISCOFINS (0), quando for lucro presumido
+        irpjPercent: data?.irpj_percent,
       });
     }
 
@@ -176,7 +187,7 @@ const ProductResult = () => {
       return simpleNationalCalc({
         ...baseCalcParams,
         range: company.revenue_range,
-        sector: company.sector,
+        das,
       });
     }
     return realProfitCalc({
@@ -207,6 +218,15 @@ const ProductResult = () => {
   const finalSalePrice = !isCostumerTaxPayer
     ? priceToday
     : priceToday + priceTodayWithDifal;
+
+  const business = company?.sector === "business";
+  const revenueRangeData = getRevenueRangeDataPercentage({ business });
+  const revenueRangeKey = (company?.revenue_range ??
+    "range_1") as keyof typeof revenueRangeData;
+  const das = percentageValueCalc({
+    base: priceToday ?? 0,
+    percentage: revenueRangeData[revenueRangeKey],
+  });
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -270,8 +290,6 @@ const ProductResult = () => {
   const backPath =
     isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
 
-  // TO-DO: Quando for Simples nacional, mostar o card de DAS
-
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
       <Show when={!isLoading}>
@@ -307,12 +325,24 @@ const ProductResult = () => {
                   variant={metric.variant}
                 />
               ))}
+              {/* TO-DO: AJUSTAR POSIÇÃO DOS CARDS (LUCRO ESTA ANTES DA DAS) */}
+              <Show when={company?.tax_regime === "simple_national"}>
+                <MetricCard title="DAS" value={das} variant="neutral" />
+              </Show>
+              <div
+                className={
+                  company?.tax_regime === "simple_national"
+                    ? "col-span-1"
+                    : "col-span-2"
+                }
+              >
+                <MetricCard
+                  title="Preço de venda final"
+                  value={finalSalePrice}
+                  variant="secondary"
+                />
+              </div>
             </div>
-            <MetricCard
-              title="Preço de venda final"
-              value={finalSalePrice}
-              variant="secondary"
-            />
           </Column>
         </Card>
         <Card className="h-full w-full p-6 rounded-md">
