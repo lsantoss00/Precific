@@ -251,8 +251,8 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...data,
       status: "ACTIVE",
-      price_today: priceToday,
-      price_in_2026: priceToday,
+      price_today: finalSalePrice,
+      price_in_2026: finalSalePrice,
     };
 
     if (isEditMode && productId) {
