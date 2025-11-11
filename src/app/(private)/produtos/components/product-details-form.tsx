@@ -132,7 +132,10 @@ const ProductDetailsForm = () => {
                 id="imported_product"
                 checked={value}
                 onCheckedChange={onChange}
-                disabled={!form.watch("interstate_sale")}
+                disabled={
+                  !form.watch("interstate_sale") ||
+                  !form.watch("state_destination")
+                }
               />
             )}
           />
@@ -149,7 +152,10 @@ const ProductDetailsForm = () => {
                 id="costumer_taxpayer"
                 checked={value}
                 onCheckedChange={onChange}
-                disabled={!form.watch("interstate_sale")}
+                disabled={
+                  !form.watch("interstate_sale") ||
+                  !form.watch("state_destination")
+                }
               />
             )}
           />
