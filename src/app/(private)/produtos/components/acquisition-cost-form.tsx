@@ -7,11 +7,14 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
+import { useAuth } from "@/src/providers/auth-provider";
 import { Controller } from "react-hook-form";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
   const { form } = useProductForm();
+  const { company } = useAuth();
+
   const {
     control,
     formState: { errors },
@@ -27,6 +30,8 @@ const AcquisitionCostForm = () => {
     ipi: data.ipi ?? 0,
     others: data.others ?? 0,
   });
+
+  const ísPresumedProfit = company?.tax_regime === "presumed_profit";
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
@@ -140,6 +145,7 @@ const AcquisitionCostForm = () => {
                       field.onChange(value === "" ? "" : Number(value));
                     }}
                     error={errors.pis_cofins?.message}
+                    disabled={ísPresumedProfit}
                   />
                 )}
               />

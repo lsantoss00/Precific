@@ -30,6 +30,11 @@ const PricingForm = () => {
   const stateDestination = form.watch("state_destination");
 
   useEffect(() => {
+    if (icmsSt > 0) {
+      form.setValue("sales_icms", 0);
+      return;
+    }
+
     if (isImportedProduct) {
       form.setValue("sales_icms", 4);
       return;
@@ -41,13 +46,13 @@ const PricingForm = () => {
       return;
     }
   }, [
+    icmsSt,
     isImportedProduct,
     isInterstateSale,
     stateDestination,
     company?.state,
     form,
   ]);
-
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
       <h3>Precificação</h3>
@@ -170,7 +175,7 @@ const PricingForm = () => {
                       field.onChange(value === "" ? "" : Number(value));
                     }}
                     error={errors.sales_pis_cofins?.message}
-                    disabled={isSimpleNational || isPresumedProfit}
+                    disabled={isSimpleNational}
                   />
                 )}
               />
