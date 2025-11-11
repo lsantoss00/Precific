@@ -11,11 +11,11 @@ import { twMerge } from "tailwind-merge";
 
 interface SelectInputProps {
   options: {
-    value: string;
+    value: string | number;
     label: string;
   }[];
-  value: string;
-  onChange: (value: string) => void;
+  value: string | number;
+  onChange: (value: string | number) => void;
   placeholder?: string;
   className?: string;
   triggerProps?: Omit<
@@ -32,8 +32,17 @@ const SelectInput = ({
   className,
   triggerProps,
 }: SelectInputProps) => {
+  const handleChange = (newValue: string) => {
+    const originalOption = options.find(
+      (opt) => String(opt.value) === newValue
+    );
+    if (originalOption) {
+      onChange(originalOption.value);
+    }
+  };
+
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={String(value)} onValueChange={handleChange}>
       <SelectTrigger
         {...triggerProps}
         className={twMerge("w-full text-base", className)}
@@ -44,7 +53,7 @@ const SelectInput = ({
       <SelectContent>
         <SelectGroup>
           {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+            <SelectItem key={option.value} value={String(option.value)}>
               {option.label}
             </SelectItem>
           ))}
