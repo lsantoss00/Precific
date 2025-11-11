@@ -132,6 +132,7 @@ const ProductDetailsForm = () => {
                 id="imported_product"
                 checked={value}
                 onCheckedChange={onChange}
+                disabled={!form.watch("interstate_sale")}
               />
             )}
           />
@@ -148,11 +149,12 @@ const ProductDetailsForm = () => {
                 id="costumer_taxpayer"
                 checked={value}
                 onCheckedChange={onChange}
+                disabled={!form.watch("interstate_sale")}
               />
             )}
           />
           <Label htmlFor="costumer_taxpayer" className="cursor-pointer">
-            A venda é para um consumidor final que é contribuinte do ICMS?
+            A venda é para um consumidor final que NÃO é contribuinte do ICMS?
           </Label>
         </Row>
       </form>
