@@ -46,6 +46,11 @@ const ProductForm = ({ productId }: ProductFormProps) => {
         shipping: product.shipping,
         other_costs: product.other_costs,
         profit: product.profit,
+        interstate_sale: product.interstate_sale,
+        state_destination: product.state_destination,
+        imported_product: product.imported_product,
+        costumer_taxpayer: product.costumer_taxpayer,
+        irpj_percent: product.irpj_percent,
       });
     }
   }, [product, form, isEditMode]);
