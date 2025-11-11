@@ -186,7 +186,7 @@ const ProductResult = () => {
   })();
 
   const companyState = company?.state;
-  const stateDestination = form.watch("state_destination");
+  const stateDestination = data?.state_destination;
 
   const internalTaxRate = companyState
     ? getICMSRate(companyState, companyState)
