@@ -5,25 +5,28 @@ import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-fo
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
+import SelectInput from "@/src/components/core/select-input";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useEffect } from "react";
+import { Controller } from "react-hook-form";
 
 const PricingForm = () => {
   const { company } = useAuth();
   const { form } = useProductForm();
   const {
-    register,
+    control,
     formState: { errors },
   } = form;
 
+  const isPresumedProfit = company?.tax_regime === "presumed_profit";
   const isSimpleNational = company?.tax_regime === "simple_national";
 
   const icmsSt = form.watch("icms_st") ?? 0;
 
   const isImportedProduct = !!form.watch("imported_product");
-  const isInterstateSale = !!form.watch("interstate");
+  const isInterstateSale = !!form.watch("interstate_sale");
   const stateDestination = form.watch("state_destination");
 
   useEffect(() => {
@@ -53,21 +56,36 @@ const PricingForm = () => {
           <Label htmlFor="fixed_costs">Custos Fixos (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="fixed_costs"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("fixed_costs", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="fixed_costs"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.fixed_costs?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="fixed_costs"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || value === null) {
+                        field.onChange(0);
+                      }
+                      field.onBlur();
+                    }}
+                    error={errors.fixed_costs?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Custos Insira o percentual dos custos fixos da sua empresa (ex: aluguel, salários, internet) que deve ser atribuído a este produto." />
             </Row>
@@ -84,23 +102,33 @@ const PricingForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="sales_icms"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("sales_icms", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="sales_icms"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.sales_icms?.message}
-                disabled={icmsSt > 0 || isImportedProduct || isInterstateSale}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="sales_icms"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.sales_icms?.message}
+                    disabled={
+                      icmsSt > 0 || isImportedProduct || isInterstateSale
+                    }
+                  />
+                )}
               />
               <CustomTooltip
                 message="Informe a alíquota de ICMS que será aplicada na venda deste produto. 
@@ -120,23 +148,31 @@ const PricingForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="sales_pis_cofins"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("sales_pis_cofins", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="sales_pis_cofins"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.sales_pis_cofins?.message}
-                disabled={isSimpleNational}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="sales_pis_cofins"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.sales_pis_cofins?.message}
+                    disabled={isSimpleNational || isPresumedProfit}
+                  />
+                )}
               />
               <CustomTooltip
                 message="Digite a alíquota de PIS e COFINS que incidirá sobre a receita da venda. 
@@ -150,25 +186,70 @@ const PricingForm = () => {
             </Show>
           </Column>
         </Column>
+        <Show when={isPresumedProfit}>
+          <Column className="space-y-2">
+            <Label htmlFor="irpj_percent" required>
+              Percentual do IRPJ
+            </Label>
+            <Column className="gap-2">
+              <Row className="items-center gap-2">
+                <Controller
+                  name="irpj_percent"
+                  control={control}
+                  rules={{
+                    required: "Campo obrigatório",
+                  }}
+                  render={({ field: { value, onChange } }) => (
+                    <SelectInput
+                      triggerProps={{
+                        id: "irpj_percent",
+                      }}
+                      placeholder="Selecione o percentual do IRPJ"
+                      options={irpjPercentOptions}
+                      value={value!}
+                      onChange={onChange}
+                      className={`${errors.irpj_percent && "border-red-600"}`}
+                    />
+                  )}
+                />
+                {/* TO-DO: Atualizar a mensagem desse tooltip */}
+                <CustomTooltip message="Selecione o percentual do IRPJ aplicado para este produto." />
+              </Row>
+              <Show when={errors.irpj_percent?.message}>
+                <span className="text-xs text-red-500 -mt-1">
+                  {errors.irpj_percent?.message}
+                </span>
+              </Show>
+            </Column>
+          </Column>
+        </Show>
         <Column className="space-y-2">
           <Label htmlFor="shipping">Frete (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="shipping"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("shipping", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="shipping"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.shipping?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="shipping"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.shipping?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Informe o custo percentual do frete para enviar o produto ao cliente final, caso este custo seja responsabilidade da sua empresa." />
             </Row>
@@ -183,21 +264,29 @@ const PricingForm = () => {
           <Label htmlFor="other_costs">Outros Custos (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="other_costs"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("other_costs", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="other_costs"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.other_costs?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="other_costs"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.other_costs?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Adicione outros custos variáveis ligados à venda, como taxas de marketplace ou custos com embalagem." />
             </Row>
@@ -214,19 +303,27 @@ const PricingForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="profit"
-                type="number"
-                placeholder="0,00%"
-                {...register("profit", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="profit"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
-                })}
-                error={errors.profit?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="profit"
+                    type="number"
+                    placeholder="0,00%"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.profit?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Defina sua margem de lucro desejada." />
             </Row>
@@ -243,3 +340,8 @@ const PricingForm = () => {
 };
 
 export default PricingForm;
+
+const irpjPercentOptions = [
+  { value: "0.15", label: "15%" },
+  { value: "0.25", label: "25%" },
+];

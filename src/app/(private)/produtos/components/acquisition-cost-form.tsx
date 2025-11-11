@@ -7,12 +7,13 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
+import { Controller } from "react-hook-form";
 import MetricCard from "./metric-card";
 
 const AcquisitionCostForm = () => {
   const { form } = useProductForm();
   const {
-    register,
+    control,
     formState: { errors },
   } = form;
 
@@ -37,19 +38,27 @@ const AcquisitionCostForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="unit_price"
-                type="number"
-                placeholder="R$ 0,00"
-                {...register("unit_price", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="unit_price"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
-                })}
-                error={errors.unit_price?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="unit_price"
+                    type="number"
+                    placeholder="R$ 0,00"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.unit_price?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
             </Row>
@@ -66,22 +75,30 @@ const AcquisitionCostForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="icms"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("icms", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="icms"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.icms?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="icms"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.icms?.message}
+                  />
+                )}
               />
               <CustomTooltip
                 message="Insira a alíquota de ICMS (Imposto sobre Circulação de Mercadorias e Serviços) que veio na nota fiscal de compra. 
@@ -101,22 +118,30 @@ const AcquisitionCostForm = () => {
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="pis_cofins"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("pis_cofins", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="pis_cofins"
+                control={control}
+                rules={{
                   required: "Campo obrigatório",
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.pis_cofins?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="pis_cofins"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    error={errors.pis_cofins?.message}
+                  />
+                )}
               />
               <CustomTooltip
                 message="Informe a alíquota de PIS/COFINS da compra. 
@@ -130,25 +155,41 @@ const AcquisitionCostForm = () => {
             </Show>
           </Column>
         </Column>
+
         <Column className="space-y-2">
           <Label htmlFor="icms_st">ICMS ST (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="icms_st"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("icms_st", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="icms_st"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.icms_st?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="icms_st"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || value === null) {
+                        field.onChange(0);
+                      }
+                      field.onBlur();
+                    }}
+                    error={errors.icms_st?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Informe a alíquota ou valor do ICMS por Substituição Tributária (ST) pago na entrada." />
             </Row>
@@ -163,21 +204,36 @@ const AcquisitionCostForm = () => {
           <Label htmlFor="ipi">IPI (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="ipi"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("ipi", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="ipi"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.ipi?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="ipi"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || value === null) {
+                        field.onChange(0);
+                      }
+                      field.onBlur();
+                    }}
+                    error={errors.ipi?.message}
+                  />
+                )}
               />
               <CustomTooltip message="Digite a alíquota do IPI (Imposto sobre Produtos Industrializados) destacada na nota de compra." />
             </Row>
@@ -192,21 +248,36 @@ const AcquisitionCostForm = () => {
           <Label htmlFor="others">Outros (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
-              <Input
-                id="others"
-                type="number"
-                placeholder="0,00%"
-                min="0"
-                max="100"
-                {...register("others", {
-                  setValueAs: (value) =>
-                    value === "" || value === null || isNaN(Number(value))
-                      ? 0
-                      : Number(value),
+              <Controller
+                name="others"
+                control={control}
+                rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
-                })}
-                error={errors.others?.message}
+                }}
+                render={({ field }) => (
+                  <Input
+                    id="others"
+                    type="number"
+                    placeholder="0,00%"
+                    min="0"
+                    max="100"
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? "" : Number(value));
+                    }}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || value === null) {
+                        field.onChange(0);
+                      }
+                      field.onBlur();
+                    }}
+                    error={errors.others?.message}
+                  />
+                )}
               />
               <CustomTooltip
                 message="Adicione outras despesas que incidiram diretamente na compra, como frete de compra (FOB), 

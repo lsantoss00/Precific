@@ -164,7 +164,7 @@ const ProductResult = () => {
     if (companyRegime === "presumed_profit") {
       return presumedProfitCalc({
         ...baseCalcParams,
-        irpjPercent: 0.25, // TO-DO: Adicionar select input para este valor e bloquear campo PISCOFINS (0), quando for lucro presumido
+        irpjPercent: data?.irpj_percent, // Bloquear campo PISCOFINS (0), quando for lucro presumido
       });
     }
 

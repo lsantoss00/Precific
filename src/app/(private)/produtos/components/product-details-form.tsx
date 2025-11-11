@@ -84,21 +84,21 @@ const ProductDetailsForm = () => {
         </Column>
         <Row className="gap-2 items-center">
           <Controller
-            name="interstate"
+            name="interstate_sale"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="interstate"
+                id="interstate_sale"
                 checked={value}
                 onCheckedChange={onChange}
               />
             )}
           />
-          <Label htmlFor="interstate" className="cursor-pointer">
+          <Label htmlFor="interstate_sale" className="cursor-pointer">
             A venda é interestadual?
           </Label>
         </Row>
-        <Show when={form.watch("interstate")}>
+        <Show when={form.watch("interstate_sale")}>
           <Controller
             name="state_destination"
             control={control}
