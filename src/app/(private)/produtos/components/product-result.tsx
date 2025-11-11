@@ -268,6 +268,8 @@ const ProductResult = () => {
   const backPath =
     isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
 
+  // TO-DO: Quando for Simples nacional, mostar o card de DAS
+
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
       <Show when={!isLoading}>
