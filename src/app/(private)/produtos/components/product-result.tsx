@@ -187,10 +187,12 @@ const ProductResult = () => {
 
   const companyState = company?.state;
   const stateDestination = data?.state_destination;
+  const isImportedProduct = data?.imported_product === true;
 
   const internalTaxRate = companyState
     ? getICMSRate(companyState, companyState)
     : 0;
+
   const interstateTaxRate = stateDestination
     ? getICMSRate(companyState, stateDestination)
     : 0;
@@ -198,7 +200,7 @@ const ProductResult = () => {
   const priceTodayWithDifal = difalCalc({
     priceToday,
     internalTaxRate,
-    interstateTaxRate,
+    interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
   });
 
   const isCostumerTaxPayer = data?.costumer_taxpayer === true;
