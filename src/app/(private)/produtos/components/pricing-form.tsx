@@ -29,6 +29,8 @@ const PricingForm = () => {
   const isInterstateSale = !!form.watch("interstate_sale");
   const stateDestination = form.watch("state_destination");
 
+  const isSixthRevenueRange = company?.revenue_range === "range_6";
+
   useEffect(() => {
     if (icmsSt > 0) {
       form.setValue("sales_icms", 0);
@@ -130,7 +132,10 @@ const PricingForm = () => {
                     }}
                     error={errors.sales_icms?.message}
                     disabled={
-                      icmsSt > 0 || isImportedProduct || isInterstateSale
+                      icmsSt > 0 ||
+                      isImportedProduct ||
+                      isInterstateSale ||
+                      !isSixthRevenueRange
                     }
                   />
                 )}
