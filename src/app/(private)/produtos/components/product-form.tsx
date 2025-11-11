@@ -55,7 +55,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
     }
   }, [product, form, isEditMode]);
 
-  const isFormValid = form.formState.isValid;
+  const isFormValid = form.formState.isValid && form.getValues("profit") > 0;
 
   const resultPath =
     isEditMode && productId
