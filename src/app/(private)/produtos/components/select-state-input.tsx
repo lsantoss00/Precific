@@ -4,7 +4,7 @@ interface SelectStateInputProps {
   id: string;
   value: string;
   placeholder: string;
-  onChange: (value: string) => void;
+  onChange: (value: string | number) => void;
   error?: boolean;
 }
 
