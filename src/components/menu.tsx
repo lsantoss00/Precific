@@ -35,7 +35,7 @@ const Menu = () => {
       <DropdownMenuContent className="w-56 p-1" align="end">
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-xs sm:text-sm text-gray-500">
-            {profile?.email}
+            {profile?.username}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuItem asChild className="cursor-pointer">
