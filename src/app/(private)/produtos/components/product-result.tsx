@@ -188,17 +188,17 @@ const ProductResult = () => {
   const companyState = company?.state;
   const stateDestination = form.watch("state_destination");
 
-  const originTaxRate = companyState
+  const internalTaxRate = companyState
     ? getICMSRate(companyState, companyState)
     : 0;
-  const destinationTaxRate = stateDestination
-    ? getICMSRate(stateDestination, stateDestination)
+  const interstateTaxRate = stateDestination
+    ? getICMSRate(companyState, stateDestination)
     : 0;
 
   const priceTodayWithDifal = difalCalc({
     priceToday,
-    originTaxRate,
-    destinationTaxRate,
+    internalTaxRate,
+    interstateTaxRate,
   });
 
   const isCostumerTaxPayer = data?.costumer_taxpayer === true;
