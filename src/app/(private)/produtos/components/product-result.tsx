@@ -290,6 +290,8 @@ const ProductResult = () => {
   const backPath =
     isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
 
+  const isSimpleNational = company?.tax_regime === "simple_national";
+
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
       <Show when={!isLoading}>
@@ -317,7 +319,7 @@ const ProductResult = () => {
               Pré-Reforma Tributária <strong>2025</strong>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-              {metrics2025.map((metric, index) => (
+              {metrics2025.slice(0, 5).map((metric, index) => (
                 <MetricCard
                   key={`metric-2025-${index}`}
                   title={metric.title}
@@ -325,22 +327,41 @@ const ProductResult = () => {
                   variant={metric.variant}
                 />
               ))}
-              <Show when={company?.tax_regime === "simple_national"}>
+              <Show when={isSimpleNational}>
                 <MetricCard title="DAS" value={das} variant="neutral" />
               </Show>
-              <div
-                className={
-                  company?.tax_regime === "simple_national"
-                    ? "col-span-1"
-                    : "col-span-1 md:col-span-2"
-                }
-              >
+              <Show when={!isSimpleNational}>
                 <MetricCard
-                  title="Preço de venda final"
-                  value={finalSalePrice}
-                  variant="secondary"
+                  title="Lucro líquido"
+                  value={netProfit}
+                  variant="success"
                 />
-              </div>
+              </Show>
+              <Show when={isSimpleNational}>
+                <div className="col-span-1 md:col-span-2">
+                  <MetricCard
+                    title="Lucro líquido"
+                    value={netProfit}
+                    variant="success"
+                  />
+                </div>
+                <div className="col-span-1 md:col-span-2">
+                  <MetricCard
+                    title="Preço de venda final"
+                    value={finalSalePrice}
+                    variant="secondary"
+                  />
+                </div>
+              </Show>
+              <Show when={!isSimpleNational}>
+                <div className="col-span-1 md:col-span-2">
+                  <MetricCard
+                    title="Preço de venda final"
+                    value={finalSalePrice}
+                    variant="secondary"
+                  />
+                </div>
+              </Show>
             </div>
           </Column>
         </Card>
