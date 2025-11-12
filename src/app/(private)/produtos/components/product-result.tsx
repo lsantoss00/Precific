@@ -382,7 +382,7 @@ const ProductResult = () => {
                 value={firstBase}
                 variant="neutral"
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4">
                 {metrics2026.map((metric, index) => (
                   <MetricCard
                     key={`metric-2026-${index}`}
