@@ -325,7 +325,6 @@ const ProductResult = () => {
                   variant={metric.variant}
                 />
               ))}
-              {/* TO-DO: AJUSTAR POSIÇÃO DOS CARDS (LUCRO ESTA ANTES DA DAS) */}
               <Show when={company?.tax_regime === "simple_national"}>
                 <MetricCard title="DAS" value={das} variant="neutral" />
               </Show>
@@ -333,7 +332,7 @@ const ProductResult = () => {
                 className={
                   company?.tax_regime === "simple_national"
                     ? "col-span-1"
-                    : "col-span-2"
+                    : "col-span-1 md:col-span-2"
                 }
               >
                 <MetricCard
@@ -347,12 +346,12 @@ const ProductResult = () => {
         </Card>
         <Card className="h-full w-full p-6 rounded-md">
           <Column className="space-y-4 h-full">
-            <Row className="gap-2 items-center">
+            <Row className="gap-1 items-center">
               <h3 className="text-lg">
                 Transição Reforma Tributária <strong>2026</strong>
               </h3>
               <CustomTooltip
-                icon={<CircleAlert className="text-[#66289B] !w-6 !h-6" />}
+                icon={<CircleAlert className="!w-4 !h-4" />}
                 message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
               />
             </Row>
