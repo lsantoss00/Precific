@@ -1,4 +1,4 @@
-import NewPasswordForm from "@/src/app/(public)/criar-nova-senha/components/new-password-form";
+import PasswordForm from "@/src/app/(public)/criar-senha/components/password-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreateNewPasswordPage() {
-  return <NewPasswordForm />;
+  return <PasswordForm />;
 }

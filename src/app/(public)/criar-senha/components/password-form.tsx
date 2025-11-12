@@ -14,9 +14,9 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createNewPassword } from "../services/create-new-password";
+import { newPassword } from "../services/new-password";
 
-const NewPasswordFormSchema = z
+const PasswordFormSchema = z
   .object({
     password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
     confirmPassword: z
@@ -28,9 +28,9 @@ const NewPasswordFormSchema = z
     path: ["confirmPassword"],
   });
 
-type NewPasswordFormSchemaType = z.infer<typeof NewPasswordFormSchema>;
+type PasswordFormSchemaType = z.infer<typeof PasswordFormSchema>;
 
-const NewPasswordForm = () => {
+const PasswordForm = () => {
   const router = useRouter();
   const [isInviteFlow, setIsInviteFlow] = useState(false);
 
@@ -47,8 +47,8 @@ const NewPasswordForm = () => {
     control,
     watch,
     formState: { isValid },
-  } = useForm<NewPasswordFormSchemaType>({
-    resolver: zodResolver(NewPasswordFormSchema),
+  } = useForm<PasswordFormSchemaType>({
+    resolver: zodResolver(PasswordFormSchema),
     mode: "onChange",
     defaultValues: {
       password: "",
@@ -58,7 +58,7 @@ const NewPasswordForm = () => {
 
   const { mutate: doCreateNewPassword, isPending: pendingCreateNewPassword } =
     useMutation({
-      mutationFn: createNewPassword,
+      mutationFn: newPassword,
       onSuccess: async (result) => {
         if (result.error) {
           toast.error(supabaseErrorsTranslator(result.error), {
@@ -86,7 +86,7 @@ const NewPasswordForm = () => {
       },
     });
 
-  const handleCreateNewPassword = ({ password }: NewPasswordFormSchemaType) => {
+  const handleCreateNewPassword = ({ password }: PasswordFormSchemaType) => {
     doCreateNewPassword({ password });
   };
 
@@ -98,7 +98,7 @@ const NewPasswordForm = () => {
   return (
     <AuthFormCard>
       <form
-        id="new-password-form"
+        id="password-form"
         onSubmit={handleSubmit(handleCreateNewPassword)}
         className="space-y-4 flex flex-col justify-between"
       >
@@ -115,7 +115,7 @@ const NewPasswordForm = () => {
                   id="password"
                   type="password"
                   placeholder="••••••••"
-                  autoComplete="new-password"
+                  autoComplete="password"
                   value={value}
                   onChange={onChange}
                   className={`${error && "border-red-600"}`}
@@ -144,7 +144,7 @@ const NewPasswordForm = () => {
                   id="confirmPassword"
                   type="password"
                   placeholder="••••••••"
-                  autoComplete="new-password"
+                  autoComplete="password"
                   value={value}
                   onChange={onChange}
                   className={`${error && "border-red-600"}`}
@@ -179,4 +179,4 @@ const NewPasswordForm = () => {
   );
 };
 
-export default NewPasswordForm;
+export default PasswordForm;

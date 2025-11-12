@@ -2,11 +2,11 @@
 
 import { createServer } from "@/src/libs/supabase/server";
 
-interface CreateNewPasswordProps {
+interface NewPasswordProps {
   password: string;
 }
 
-export async function createNewPassword({ password }: CreateNewPasswordProps) {
+export async function newPassword({ password }: NewPasswordProps) {
   const supabase = await createServer();
 
   try {

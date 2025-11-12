@@ -1,12 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = [
-  "/entrar",
-  "/criar-nova-senha",
-  "/redefinir-senha",
-  "/auth",
-];
+const PUBLIC_ROUTES = ["/entrar", "/criar-senha", "/redefinir-senha", "/auth"];
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -64,10 +59,10 @@ export async function updateSession(request: NextRequest) {
   if (
     user &&
     (isRecoveryFlow || isInviteFlow || cookieRecovery || cookieInvite) &&
-    pathname !== "/criar-nova-senha"
+    pathname !== "/criar-senha"
   ) {
     const url = request.nextUrl.clone();
-    url.pathname = "/criar-nova-senha";
+    url.pathname = "/criar-senha";
     url.search = "";
     return NextResponse.redirect(url);
   }
