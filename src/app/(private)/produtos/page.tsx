@@ -1,9 +1,14 @@
 import Column from "@/src/components/core/column";
 import { Loader2 } from "lucide-react";
+import { Metadata } from "next";
 import { Suspense } from "react";
 import ProductsHeaderSection from "./components/products-header-section";
 import ProductInfoCards from "./components/products-info-cards";
 import ProductsTable from "./components/products-table";
+
+export const metadata: Metadata = {
+  title: "Produtos | Precific",
+};
 
 export default function ProductsPage() {
   return (
