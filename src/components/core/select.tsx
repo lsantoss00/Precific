@@ -116,7 +116,7 @@ function SelectItem({
       data-slot="select-item"
       className={cn(
         "[&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm pr-8 pl-2 outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-        "h-12 bg-white md:text-sm hover:bg-[#66289B]/70 hover:text-white focus:bg-[#66289B]/70 focus:text-white",
+        "h-12 bg-white md:text-sm hover:bg-[#66289B]/70 hover:text-white focus:bg-[#66289B] focus:text-white",
         "hover:[&_svg]:!text-white focus:[&_svg]:!text-white",
         className
       )}
