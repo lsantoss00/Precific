@@ -192,7 +192,7 @@ const ProductResult = () => {
     }
     return realProfitCalc({
       ...baseCalcParams,
-      irpjCsllPercent: 34,
+      irpjCsllPercent: data?.irpj_percent,
     });
   })();
 
