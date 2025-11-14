@@ -10,7 +10,7 @@ interface RealProfitCalcProps {
   salesPisCofins: number;
   shipping: number;
   othersCosts: number;
-  irpjCsllPercent: 24 | 34;
+  irpjCsllPercent: number;
 }
 
 export function realProfitCalc({

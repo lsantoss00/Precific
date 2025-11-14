@@ -20,6 +20,7 @@ const PricingForm = () => {
     formState: { errors },
   } = form;
 
+  const isRealProfit = company?.tax_regime === "real_profit";
   const isPresumedProfit = company?.tax_regime === "presumed_profit";
   const isSimpleNational = company?.tax_regime === "simple_national";
 
@@ -196,6 +197,43 @@ const PricingForm = () => {
             </Show>
           </Column>
         </Column>
+        <Show when={isRealProfit}>
+          <Column className="space-y-2">
+            <Label htmlFor="irpj_percent" required>
+              Percentual do IRPJ
+            </Label>
+            <Column className="gap-2">
+              <Row className="items-center gap-2">
+                <Controller
+                  name="irpj_percent"
+                  control={control}
+                  rules={{
+                    required: "Campo obrigatório",
+                  }}
+                  render={({ field: { value, onChange } }) => (
+                    <SelectInput
+                      triggerProps={{
+                        id: "irpj_percent",
+                      }}
+                      placeholder="Selecione o percentual do IRPJ"
+                      options={realProfitIrpjPercentOptions}
+                      value={value!}
+                      onChange={(value) => onChange(Number(value))}
+                      className={`${errors.irpj_percent && "border-red-600"}`}
+                    />
+                  )}
+                />
+                {/* TO-DO: Atualizar a mensagem desse tooltip */}
+                <CustomTooltip message="Selecione o percentual do IRPJ aplicado para este produto." />
+              </Row>
+              <Show when={errors.irpj_percent?.message}>
+                <span className="text-xs text-red-500 -mt-1">
+                  {errors.irpj_percent?.message}
+                </span>
+              </Show>
+            </Column>
+          </Column>
+        </Show>
         <Show when={isPresumedProfit}>
           <Column className="space-y-2">
             <Label htmlFor="irpj_percent" required>
@@ -215,9 +253,9 @@ const PricingForm = () => {
                         id: "irpj_percent",
                       }}
                       placeholder="Selecione o percentual do IRPJ"
-                      options={irpjPercentOptions}
+                      options={presumedProfitIrpjPercentOptions}
                       value={value!}
-                      onChange={onChange}
+                      onChange={(value) => onChange(Number(value))}
                       className={`${errors.irpj_percent && "border-red-600"}`}
                     />
                   )}
@@ -351,7 +389,12 @@ const PricingForm = () => {
 
 export default PricingForm;
 
-const irpjPercentOptions = [
+const presumedProfitIrpjPercentOptions = [
   { value: "0.15", label: "15%" },
   { value: "0.25", label: "25%" },
+];
+
+const realProfitIrpjPercentOptions = [
+  { value: "24", label: "24%" },
+  { value: "34", label: "34%" },
 ];

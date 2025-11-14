@@ -10,7 +10,7 @@ interface PresumedProfitCalcProps {
   salesPisCofins: number;
   shipping: number;
   othersCosts: number;
-  irpjPercent: 0.15 | 0.25;
+  irpjPercent: number;
 }
 
 export function presumedProfitCalc({

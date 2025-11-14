@@ -19,7 +19,7 @@ export type ProductType = {
   price_today: number;
   price_in_2026: number;
   price_in_2027?: number;
-  irpj_percent: 0.15 | 0.25;
+  irpj_percent: number;
   interstate_sale: boolean;
   state_destination: string;
   imported_product: boolean;
