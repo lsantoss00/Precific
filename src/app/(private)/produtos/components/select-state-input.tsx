@@ -31,7 +31,7 @@ const SelectStateInput = ({
 
 export default SelectStateInput;
 
-const stateSelectOptions = [
+export const stateSelectOptions = [
   { value: "AC", label: "Acre" },
   { value: "AL", label: "Alagoas" },
   { value: "AP", label: "Amapá" },

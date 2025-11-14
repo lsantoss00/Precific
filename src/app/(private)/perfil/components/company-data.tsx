@@ -5,6 +5,7 @@ import {
   SECTOR_LABELS,
   TAX_REGIME_LABELS,
 } from "@/src/app/(private)/perfil/constants/company-labels";
+import { stateSelectOptions } from "@/src/app/(private)/produtos/components/select-state-input";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
@@ -15,6 +16,10 @@ const CompanyData = () => {
   const { company } = useAuth();
 
   const isSimpleNational = company?.tax_regime === "simple_national";
+
+  const stateLabel =
+    stateSelectOptions.find((state) => state.value === company?.state)?.label ??
+    "";
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
@@ -78,12 +83,7 @@ const CompanyData = () => {
         </Show>
         <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="state">Estado</Label>
-          <Input
-            id="state"
-            maxLength={2}
-            disabled
-            value={company?.state ?? ""}
-          />
+          <Input id="state" maxLength={2} disabled value={stateLabel} />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
           <Label htmlFor="postal_code">CEP</Label>
