@@ -38,7 +38,7 @@ const MultipleImportLoadingState = ({
   };
 
   return (
-    <div className="h-full !max-h-[500px] w-full flex flex-col justify-center items-center space-y-7">
+    <div className="h-full w-full flex flex-col justify-center items-center space-y-7">
       <div className="w-full flex flex-col gap-2">
         <span className="font-medium">{Math.round(displayProgress)}%</span>
         <div className="w-full bg-slate-200 rounded-full h-[10px] overflow-hidden">

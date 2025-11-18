@@ -24,7 +24,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="w-full h-fit min-w-full lg:!max-h-[500px] lg:min-w-5xl flex flex-col py-12 md:px-12">
+      <DialogContent className="flex flex-col h-[620px] md:min-w-2xl md:h-[500px] md:py-12 md:px-12">
         <DialogTitle className="text-2xl text-dark font-bold">
           Importação de Produtos
         </DialogTitle>
@@ -40,7 +40,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
               <a
                 href="/planilha-exemplo-precific.csv"
                 download
-                className="w-fit"
+                className="w-full"
               >
                 <Button
                   aria-label="download-spreadsheet-example"
@@ -66,7 +66,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
                 />
               </div>
             </div> */}
-            <div className="h-80">
+            <div className="h-full">
               <ImportSpreadsheetArea
                 setIsImporting={setIsImporting}
                 setImportProgress={setImportProgress}
