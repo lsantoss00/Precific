@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/src/components/core";
-import ImportSpreadsheetArea from "@/src/components/multiple-import-dialog/import-sheet-area";
+import ImportSpreadsheetArea from "@/src/components/multiple-import-dialog/import-spreadsheet-area";
 import MultipleImportLoadingState from "@/src/components/multiple-import-dialog/multiple-import-loading-state";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Download } from "lucide-react";
@@ -16,21 +16,20 @@ interface MultipleImportDialogProps {
   trigger: React.ReactNode;
 }
 
-export default function MultipleImportDialog({
-  trigger,
-}: MultipleImportDialogProps) {
+const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isImporting, setIsImporting] = useState<boolean>(false);
+  const [importProgress, setImportProgress] = useState<number>(0);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="w-full h-fit min-w-5xl flex flex-col py-12 md:px-11">
+      <DialogContent className="w-full h-full !max-h-[500px] min-w-5xl flex flex-col py-12 md:px-11">
         <DialogTitle className="text-2xl text-dark font-bold">
           Importação de Produtos
         </DialogTitle>
         {isImporting ? (
-          <MultipleImportLoadingState setIsImporting={setIsImporting} />
+          <MultipleImportLoadingState progress={importProgress} />
         ) : (
           <>
             <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 mb-3">
@@ -62,11 +61,17 @@ export default function MultipleImportDialog({
               </div>
             </div> */}
             <div className="h-80">
-              <ImportSpreadsheetArea setIsImporting={setIsImporting} />
+              <ImportSpreadsheetArea
+                setIsImporting={setIsImporting}
+                setImportProgress={setImportProgress}
+                onClose={() => setIsOpen(false)}
+              />
             </div>
           </>
         )}
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default MultipleImportDialog;

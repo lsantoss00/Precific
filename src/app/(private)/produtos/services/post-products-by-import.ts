@@ -19,8 +19,8 @@ export async function importProducts(products: ProductImportData[]) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabase.rpc("import_products_json", {
-    rows: products,
+  const { data, error } = await supabase.rpc("bulk_import_products", {
+    products_data: products,
   });
 
   if (error) throw error;

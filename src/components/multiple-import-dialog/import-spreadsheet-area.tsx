@@ -22,18 +22,28 @@ interface CSVRow {
 
 interface ImportSpreadsheetAreaProps {
   setIsImporting: Dispatch<SetStateAction<boolean>>;
-  onImportSuccess?: () => void;
+  setImportProgress?: Dispatch<SetStateAction<number>>;
+  onClose?: () => void;
 }
 
 export default function ImportSpreadsheetArea({
   setIsImporting,
-  onImportSuccess,
+  setImportProgress,
+  onClose,
 }: ImportSpreadsheetAreaProps) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const updateProgress = (value: number) => {
+    if (setImportProgress) {
+      setImportProgress(value);
+    }
+  };
+
   const importMutation = useMutation({
     mutationFn: async (csvData: CSVRow[]) => {
+      updateProgress(60);
+
       const productsToImport = csvData.map((row) => ({
         sku: row.sku === "-" || !row.sku ? "-" : row.sku,
         name: row.nome === "-" || !row.nome ? "-" : row.nome,
@@ -48,19 +58,32 @@ export default function ImportSpreadsheetArea({
         status: "ACTIVE",
       }));
 
-      return await importProducts(productsToImport);
+      updateProgress(75);
+
+      const result = await importProducts(productsToImport);
+
+      updateProgress(90);
+
+      return result;
     },
     onSuccess: async () => {
-      toast.success(`Produtos importados com sucesso!`, {
-        className: "!bg-green-600 !text-white",
-      });
+      updateProgress(95);
 
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
 
-      if (fileInputRef.current) fileInputRef.current.value = "";
-      setIsImporting(false);
-      onImportSuccess?.();
+      updateProgress(100);
+
+      setTimeout(() => {
+        toast.success(`Produtos importados com sucesso!`, {
+          className: "!bg-green-600 !text-white",
+        });
+
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        setIsImporting(false);
+      }, 500);
+
+      onClose?.();
     },
     onError: () => {
       toast.error(
@@ -71,6 +94,7 @@ export default function ImportSpreadsheetArea({
       );
       if (fileInputRef.current) fileInputRef.current.value = "";
       setIsImporting(false);
+      updateProgress(0);
     },
   });
 
@@ -109,7 +133,11 @@ export default function ImportSpreadsheetArea({
   };
 
   const processAndImportData = (allData: any[], totalRows: number) => {
+    updateProgress(30);
+
     const normalizedData = normalizeHeaders(allData);
+
+    updateProgress(40);
 
     const validRows = normalizedData.filter(isValidRow);
     const invalidCount = totalRows - validRows.length;
@@ -124,6 +152,7 @@ export default function ImportSpreadsheetArea({
       );
       if (fileInputRef.current) fileInputRef.current.value = "";
       setIsImporting(false);
+      updateProgress(0);
       return;
     }
 
@@ -135,25 +164,22 @@ export default function ImportSpreadsheetArea({
           duration: 5000,
         }
       );
-    } else {
-      toast.info(`${validRows.length} produto(s) serão importados.`, {
-        className: "!bg-blue-600 !text-white",
-        duration: 3000,
-      });
     }
+
+    updateProgress(50);
 
     importMutation.mutate(validRows as CSVRow[]);
   };
 
   const processXLSX = (file: File) => {
-    toast.info("Processando arquivo XLSX... Isso pode demorar um pouco.", {
-      className: "!bg-blue-600 !text-white",
-    });
+    updateProgress(10);
 
     const reader = new FileReader();
 
     reader.onload = (e) => {
       try {
+        updateProgress(20);
+
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
         const workbook = XLSX.read(data, { type: "array" });
 
@@ -171,6 +197,7 @@ export default function ImportSpreadsheetArea({
           });
           if (fileInputRef.current) fileInputRef.current.value = "";
           setIsImporting(false);
+          updateProgress(0);
           return;
         }
 
@@ -181,6 +208,7 @@ export default function ImportSpreadsheetArea({
         });
         if (fileInputRef.current) fileInputRef.current.value = "";
         setIsImporting(false);
+        updateProgress(0);
       }
     };
 
@@ -190,15 +218,14 @@ export default function ImportSpreadsheetArea({
       });
       if (fileInputRef.current) fileInputRef.current.value = "";
       setIsImporting(false);
+      updateProgress(0);
     };
 
     reader.readAsArrayBuffer(file);
   };
 
   const processCSV = (file: File) => {
-    toast.info("Processando arquivo CSV... Isso pode demorar um pouco.", {
-      className: "!bg-blue-600 !text-white",
-    });
+    updateProgress(10);
 
     Papa.parse(file, {
       header: true,
@@ -209,12 +236,15 @@ export default function ImportSpreadsheetArea({
       delimitersToGuess: [",", "\t", "|", ";"],
       transform: (value) => value.trim(),
       complete: (results) => {
+        updateProgress(20);
+
         if (!results.data || results.data.length === 0) {
           toast.error("Nenhum dado encontrado no arquivo CSV", {
             className: "!bg-red-600 !text-white",
           });
           if (fileInputRef.current) fileInputRef.current.value = "";
           setIsImporting(false);
+          updateProgress(0);
           return;
         }
 
@@ -226,6 +256,7 @@ export default function ImportSpreadsheetArea({
         });
         if (fileInputRef.current) fileInputRef.current.value = "";
         setIsImporting(false);
+        updateProgress(0);
       },
     });
   };
@@ -280,6 +311,7 @@ export default function ImportSpreadsheetArea({
     }
 
     setIsImporting(true);
+    updateProgress(0);
 
     if (fileExtension === ".csv") {
       processCSV(file);
