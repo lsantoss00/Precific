@@ -5,8 +5,8 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import ExportDataButton from "@/src/components/export-data-button";
-import ImportDataButton from "@/src/components/import-data-button";
-import { Plus } from "lucide-react";
+import MultipleImportDialog from "@/src/components/multiple-import-dialog";
+import { Plus, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -56,7 +56,14 @@ const ProductsHeaderSection = () => {
             </Link>
           </Button>
           <ExportDataButton search={searchTerm} />
-          <ImportDataButton />
+          <MultipleImportDialog
+            trigger={
+              <Button className="hover:cursor-pointer flex-1 md:flex-none md:w-fit h-12">
+                <Upload className="text-white" />
+                <span className="hidden sm:flex">Importar CSV</span>
+              </Button>
+            }
+          />
         </Row>
       </Flex>
     </Column>

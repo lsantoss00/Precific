@@ -1,0 +1,72 @@
+"use client";
+
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/src/components/core";
+import ImportSpreadsheetArea from "@/src/components/multiple-import-dialog/import-sheet-area";
+import MultipleImportLoadingState from "@/src/components/multiple-import-dialog/multiple-import-loading-state";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { Download } from "lucide-react";
+import { useState } from "react";
+
+interface MultipleImportDialogProps {
+  trigger: React.ReactNode;
+}
+
+export default function MultipleImportDialog({
+  trigger,
+}: MultipleImportDialogProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isImporting, setIsImporting] = useState<boolean>(false);
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent className="w-full h-fit min-w-5xl flex flex-col py-12 md:px-11">
+        <DialogTitle className="text-2xl text-dark font-bold">
+          Importação de Produtos
+        </DialogTitle>
+        {isImporting ? (
+          <MultipleImportLoadingState setIsImporting={setIsImporting} />
+        ) : (
+          <>
+            <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 mb-3">
+              <p className="text-sm">
+                Para realizar a importação de planilha, siga as instruções
+                abaixo para preencher a planilha corretamente.
+              </p>
+              <Button
+                onClick={() => null}
+                className="shrink-0 h-12 w-full md:max-w-72 bg-green-500 hover:bg-green-600 !ring-green-600 text-white"
+              >
+                <Download className="h-5 w-5" />
+                Baixar planilha exemplo
+              </Button>
+            </div>
+            {/* <div className="gap-1 mb-4 lg:mb-9">
+              <span className="text-xs text-zinc-500">
+                Exemplo de preenchimento da planilha
+              </span>
+              <div className="overflow-x-auto">
+                <Image
+                  src={spreadsheetExampleImageSrc}
+                  alt="Ilustração de exemplo de planilha"
+                  width={1040}
+                  height={155}
+                  priority
+                  className="min-w-[1040px]"
+                />
+              </div>
+            </div> */}
+            <div className="h-80">
+              <ImportSpreadsheetArea setIsImporting={setIsImporting} />
+            </div>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
