@@ -22,9 +22,9 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   const [importProgress, setImportProgress] = useState<number>(0);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="w-full h-full !max-h-[500px] min-w-5xl flex flex-col py-12 md:px-11">
+      <DialogContent className="w-full h-fit min-w-full lg:!max-h-[500px] lg:min-w-5xl flex flex-col py-12 md:px-12">
         <DialogTitle className="text-2xl text-dark font-bold">
           Importação de Produtos
         </DialogTitle>
@@ -37,15 +37,21 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
                 Para realizar a importação de planilha, siga as instruções
                 abaixo para preencher a planilha corretamente.
               </p>
-              <Button
-                onClick={() => null}
-                className="shrink-0 h-12 w-full md:max-w-72 bg-green-500 hover:bg-green-600 !ring-green-600 text-white"
+              <a
+                href="/planilha-exemplo-precific.csv"
+                download
+                className="w-fit"
               >
-                <Download className="h-5 w-5" />
-                Baixar planilha exemplo
-              </Button>
+                <Button
+                  aria-label="download-spreadsheet-example"
+                  className="shrink-0 h-12 w-full md:max-w-72 bg-green-500 hover:bg-green-600 !ring-green-600 text-white"
+                >
+                  <Download className="h-5 w-5" />
+                  Baixar planilha exemplo
+                </Button>
+              </a>
             </div>
-            {/* <div className="gap-1 mb-4 lg:mb-9">
+            {/* <div className="gap-1 mb-4 md:mb-9">
               <span className="text-xs text-zinc-500">
                 Exemplo de preenchimento da planilha
               </span>
