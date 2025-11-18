@@ -345,12 +345,12 @@ export default function ImportSpreadsheetArea({
       }`}
     >
       <div className="h-full max-w-110 flex flex-col justify-center items-center m-auto">
-        <div className="flex flex-col items-center mb-8 space-y-5">
+        <div className="flex flex-col items-center mb-8 space-y-5 select-none pointer-events-none">
           <Image
             src="/file-xls.webp"
             alt="Ilustração de arquivo XLS"
-            width={49}
-            height={64}
+            width={50}
+            height={50}
           />
           <p className="text-center">
             Clique no botão abaixo ou arraste um arquivo de extensão .xls, .xlsx

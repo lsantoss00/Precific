@@ -21,6 +21,20 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   const [isImporting, setIsImporting] = useState<boolean>(false);
   const [importProgress, setImportProgress] = useState<number>(0);
 
+  const handleDownloadSpreadsheetExample = async () => {
+    const res = await fetch("/planilha-exemplo-precific.csv");
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "planilha-exemplo-precific.csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -37,19 +51,15 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
                 Para realizar a importação de planilha, siga as instruções
                 abaixo para preencher a planilha corretamente.
               </p>
-              <a
-                href="/planilha-exemplo-precific.csv"
-                download
-                className="w-full"
+
+              <Button
+                aria-label="download-spreadsheet-example"
+                className="shrink-0 h-12 w-full md:max-w-60 bg-green-500 hover:bg-green-600 !ring-green-600 text-white"
+                onClick={handleDownloadSpreadsheetExample}
               >
-                <Button
-                  aria-label="download-spreadsheet-example"
-                  className="shrink-0 h-12 w-full md:max-w-72 bg-green-500 hover:bg-green-600 !ring-green-600 text-white"
-                >
-                  <Download className="h-5 w-5" />
-                  Baixar planilha exemplo
-                </Button>
-              </a>
+                <Download className="h-5 w-5" />
+                Baixar planilha exemplo
+              </Button>
             </div>
             {/* <div className="gap-1 mb-4 md:mb-9">
               <span className="text-xs text-zinc-500">
