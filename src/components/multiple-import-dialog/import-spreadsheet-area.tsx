@@ -345,7 +345,7 @@ export default function ImportSpreadsheetArea({
       }`}
     >
       <div className="h-full max-w-110 flex flex-col justify-center items-center m-auto">
-        <div className="flex flex-col items-center mb-8 space-y-5 select-none pointer-events-none">
+        <div className="flex flex-col items-center space-y-5 select-none pointer-events-none">
           <Image
             src="/file-xls.webp"
             alt="Ilustração de arquivo XLS"
@@ -356,14 +356,14 @@ export default function ImportSpreadsheetArea({
             Clique no botão abaixo ou arraste um arquivo de extensão .xls, .xlsx
             ou .csv para importar seus produtos.
           </p>
+          <Button
+            onClick={handleButtonClick}
+            disabled={importMutation.isPending}
+            className="shrink-0 h-14 w-full md:max-w-56 bg-[#66289B] text-white flex items-center gap-2"
+          >
+            Fazer upload de planilha
+          </Button>
         </div>
-        <Button
-          onClick={handleButtonClick}
-          disabled={importMutation.isPending}
-          className="shrink-0 h-14 w-full md:max-w-56 bg-[#66289B] text-white flex items-center gap-2"
-        >
-          Fazer upload de planilha
-        </Button>
         <input
           ref={fileInputRef}
           type="file"
