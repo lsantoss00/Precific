@@ -38,7 +38,7 @@ const ProductsTable = () => {
   const search = searchParams.get("filtro") || "";
   const page = Number(searchParams.get("pagina")) || 1;
 
-  const pageSize = 20;
+  const pageSize = 10;
 
   const [products, setProducts] = useState<ProductResponseType[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -140,10 +140,7 @@ const ProductsTable = () => {
   }, [data]);
 
   return (
-    <Column
-      className="bg-white shadow-sm rounded-md flex flex-col relative"
-      style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
-    >
+    <Column className="bg-white shadow-sm rounded-md flex flex-col relative !h-[630.5px]">
       <div className="flex-1 overflow-y-auto overflow-x-auto">
         <Table className="w-full">
           <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">

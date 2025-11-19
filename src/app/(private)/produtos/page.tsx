@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <Column className="w-full max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] py-8 px-6 xl:px-0 space-y-4">
+    <Column className="w-full max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] p-6 xl:px-0 space-y-4">
       <Suspense
         fallback={
           <Loader2 className="text-[#66289B] animate-spin m-auto w-10 h-10" />

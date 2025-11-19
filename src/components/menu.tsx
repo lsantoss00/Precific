@@ -32,7 +32,7 @@ const Menu = () => {
       <DropdownMenuTrigger asChild className="cursor-pointer">
         <CircleUser className="text-[#66289B] w-10 h-10" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 p-1" align="end">
+      <DropdownMenuContent className="w-56 p-1" align="start">
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-xs sm:text-sm text-gray-500">
             {profile?.username}

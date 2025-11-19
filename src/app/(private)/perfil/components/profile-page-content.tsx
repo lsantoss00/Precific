@@ -12,7 +12,7 @@ const ProfilePageContent = () => {
   const { isLoadingAuth } = useAuth();
 
   return (
-    <Column className="w-full py-8 px-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
+    <Column className="w-full p-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
       <Show
         when={!isLoadingAuth}
         fallback={

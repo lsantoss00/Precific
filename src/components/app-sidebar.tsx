@@ -1,5 +1,6 @@
 "use client";
 
+import Menu from "@/src/components/menu";
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -123,7 +124,8 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="items-center mb-2">
+      <SidebarFooter className="items-center mb-2 space-y-4">
+        <Menu />
         <span className="text-gray-500 text-xs font-medium">v0.1.0</span>
       </SidebarFooter>
     </Sidebar>

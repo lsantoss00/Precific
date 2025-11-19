@@ -12,7 +12,7 @@ import ProductPriceHistoryDialog from "./product-price-history-dialog";
 const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
   return (
-    <Column className="w-full py-8 px-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
+    <Column className="w-full py-6 px-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
       <Flex className="flex-col md:flex-row gap-2 justify-between">
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}
