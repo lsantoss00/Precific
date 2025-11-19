@@ -23,12 +23,13 @@ const ProductsHeaderSection = () => {
       const params = new URLSearchParams(searchParams.toString());
 
       if (searchTerm) {
+        params.set("pagina", "1");
         params.set("filtro", searchTerm);
       } else {
         params.delete("filtro");
       }
 
-      router.push(`?${params.toString()}`, { scroll: false });
+      router.push(`?${params.toString()}`);
     }, 500);
 
     return () => clearTimeout(timer);

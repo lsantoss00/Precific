@@ -139,14 +139,6 @@ const ProductsTable = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (page !== 1) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("pagina", "1");
-      router.replace(`?${params.toString()}`);
-    }
-  }, [search]);
-
   return (
     <Column
       className="bg-white shadow-sm rounded-md flex flex-col relative"
