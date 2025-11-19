@@ -22,61 +22,39 @@ import {
 } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
 import { updateProductStatus } from "../../services/update-product-status";
 import { ProductResponseType } from "../../types/product-type";
 import { productsTableColumns } from "./products-table-columns";
+import { ProductsTablePagination } from "./products-table-pagination";
 
 const ProductsTable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const search = searchParams.get("filtro") || "";
+  const page = Number(searchParams.get("pagina")) || 1;
+
   const pageSize = 20;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [allProducts, setAllProducts] = useState<ProductResponseType[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
-  const [isFilterChanging, setIsFilterChanging] = useState(false);
+  const [products, setProducts] = useState<ProductResponseType[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [_, setTotalCount] = useState(0);
 
-  useEffect(() => {
-    setIsFilterChanging(true);
-    setCurrentPage(1);
-    setAllProducts([]);
-    setTotalCount(0);
-  }, [search]);
-
-  const { data, isPending, isFetching } = useQuery({
+  const { data, isFetching } = useQuery({
     queryFn: () => getProducts({ page: currentPage, pageSize, search }),
     queryKey: ["products", currentPage, pageSize, search],
   });
-
-  const hasMore = data?.totalPages ? currentPage < data.totalPages : false;
-
-  useEffect(() => {
-    if (data?.data) {
-      setAllProducts((prev) => {
-        if (currentPage === 1) {
-          return data.data;
-        }
-        return [...prev, ...data.data];
-      });
-      setIsFilterChanging(false);
-    }
-    if (data?.count !== undefined) {
-      setTotalCount(data.count);
-    }
-  }, [data, currentPage]);
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
     useMutation({
       mutationFn: updateProductStatus,
       onSuccess: async (_, variables) => {
-        setAllProducts((prev) =>
+        setProducts((prev) =>
           prev.map((product) =>
             product.id === variables.productId
               ? {
@@ -102,34 +80,39 @@ const ProductsTable = () => {
 
   const { mutate: del, isPending: pendingDeleteProduct } = useMutation({
     mutationFn: deleteProduct,
-    onSuccess: async (_, variables) => {
-      setAllProducts((prev) =>
+
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+
+      const previousProducts = products;
+
+      setProducts((prev) =>
         prev.filter((product) => product.id !== variables.productId)
       );
-      setTotalCount((prev) => prev - 1);
+
+      return { previousProducts };
+    },
+
+    onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
-      toast.success(`Produto deletado com sucesso!`, {
+      toast.success("Produto deletado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
     },
-    onError: (error) => {
+
+    onError: (error, variables, context) => {
+      if (context?.previousProducts) {
+        setProducts(context.previousProducts);
+      }
+
       toast.error(error.message, {
         className: "!bg-red-600 !text-white",
       });
     },
   });
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    const scrollPercentage = (scrollTop + clientHeight) / scrollHeight;
-
-    if (scrollPercentage > 0.8 && hasMore && !isFetching) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
   const table = useReactTable({
-    data: allProducts,
+    data: products,
     columns: productsTableColumns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -145,18 +128,32 @@ const ProductsTable = () => {
     },
   });
 
-  const showLoading = (isPending && currentPage === 1) || isFilterChanging;
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  useEffect(() => {
+    if (data?.data) {
+      setProducts(data.data);
+    }
+    if (data?.totalPages !== undefined) {
+      setTotalPages(data.totalPages);
+    }
+    if (data?.count !== undefined) {
+      setTotalCount(data.count);
+    }
+  }, [data]);
 
   return (
     <Column
       className="bg-white shadow-sm rounded-md flex flex-col relative"
       style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}
     >
-      <div
-        ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto overflow-x-auto"
-        onScroll={handleScroll}
-      >
+      <div className="flex-1 overflow-y-auto overflow-x-auto">
         <Table className="w-full">
           <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -176,14 +173,21 @@ const ProductsTable = () => {
           </TableHeader>
           <TableBody>
             <Show
-              when={table.getRowModel().rows?.length}
+              when={!isFetching && table.getRowModel().rows?.length}
               fallback={
                 <TableRow className="hover:!bg-transparent">
                   <TableCell
                     colSpan={productsTableColumns.length}
                     className="h-24 text-center text-gray-500"
                   >
-                    Sem resultados.
+                    {isFetching ? (
+                      <Row className="justify-center items-center gap-2">
+                        <Loader2 className="text-[#66289B] animate-spin" />
+                        <span>Carregando produtos...</span>
+                      </Row>
+                    ) : (
+                      "Sem resultados."
+                    )}
                   </TableCell>
                 </TableRow>
               }
@@ -206,30 +210,12 @@ const ProductsTable = () => {
             </Show>
           </TableBody>
         </Table>
-        <Show when={isFetching && currentPage > 1}>
-          <Row className="justify-center py-6">
-            <Row className="flex items-center gap-2">
-              <Loader2 className="text-[#66289B] animate-spin" />
-              <span className="text-sm text-gray-600">
-                Carregando mais produtos...
-              </span>
-            </Row>
-          </Row>
-        </Show>
-        <Show when={!hasMore && allProducts.length > 0 && !isFetching}>
-          <div className="flex justify-center py-6 text-sm text-gray-500">
-            Não há mais produtos para carregar
-          </div>
-        </Show>
       </div>
-      {/* <div className="border-t bg-gray-50 flex-shrink-0">
-        <Row className="items-center justify-between w-full px-4 py-3">
-          <span className="text-sm text-gray-600">
-            Mostrando <strong>{allProducts.length}</strong> de{" "}
-            <strong>{totalCount}</strong> produtos
-          </span>
-        </Row>
-      </div> */}
+      <ProductsTablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </Column>
   );
 };
