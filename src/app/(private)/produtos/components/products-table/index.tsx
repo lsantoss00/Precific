@@ -222,14 +222,14 @@ const ProductsTable = () => {
           </div>
         </Show>
       </div>
-      <div className="border-t bg-gray-50 flex-shrink-0">
+      {/* <div className="border-t bg-gray-50 flex-shrink-0">
         <Row className="items-center justify-between w-full px-4 py-3">
           <span className="text-sm text-gray-600">
             Mostrando <strong>{allProducts.length}</strong> de{" "}
             <strong>{totalCount}</strong> produtos
           </span>
         </Row>
-      </div>
+      </div> */}
     </Column>
   );
 };
