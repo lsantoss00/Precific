@@ -27,7 +27,7 @@ export function ProductsTablePagination({
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("pagina", page.toString());
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const generatePageNumbers = () => {
