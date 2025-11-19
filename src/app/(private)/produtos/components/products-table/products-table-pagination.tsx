@@ -10,19 +10,26 @@ import {
   PaginationPrevious,
 } from "@/src/components/core/pagination";
 import Row from "@/src/components/core/row";
-import Show from "@/src/components/core/show";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface ProductsTablePaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 }
 
 export function ProductsTablePagination({
   currentPage,
   totalPages,
-  onPageChange,
 }: ProductsTablePaginationProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("pagina", page.toString());
+    router.push(`?${params.toString()}`);
+  };
+
   const generatePageNumbers = () => {
     const pages: (number | "ellipsis")[] = [];
     const maxVisiblePages = 5;
@@ -68,64 +75,62 @@ export function ProductsTablePagination({
   return (
     <div className="border-t bg-gray-50 flex-shrink-0">
       <Row className="items-center w-full p-2">
-        <Show when={totalPages > 1}>
-          <Pagination className="justify-end">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage > 1) {
-                      onPageChange(currentPage - 1);
-                    }
-                  }}
-                  className={
-                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+        <Pagination className="justify-end">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) {
+                    handlePageChange(currentPage - 1);
                   }
-                />
-              </PaginationItem>
+                }}
+                className={
+                  currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                }
+              />
+            </PaginationItem>
 
-              {generatePageNumbers().map((page, index) =>
-                page === "ellipsis" ? (
-                  <PaginationItem key={`ellipsis-${index}`}>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                ) : (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onPageChange(page);
-                      }}
-                      isActive={currentPage === page}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                )
-              )}
+            {generatePageNumbers().map((page, index) =>
+              page === "ellipsis" ? (
+                <PaginationItem key={`ellipsis-${index}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(page);
+                    }}
+                    isActive={currentPage === page}
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage < totalPages) {
-                      onPageChange(currentPage + 1);
-                    }
-                  }}
-                  className={
-                    currentPage === totalPages
-                      ? "pointer-events-none opacity-50"
-                      : ""
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage < totalPages) {
+                    handlePageChange(currentPage + 1);
                   }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </Show>
+                }}
+                className={
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : ""
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </Row>
     </div>
   );

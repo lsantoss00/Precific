@@ -40,14 +40,13 @@ const ProductsTable = () => {
 
   const pageSize = 20;
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState<ProductResponseType[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [_, setTotalCount] = useState(0);
 
   const { data, isFetching } = useQuery({
-    queryFn: () => getProducts({ page: currentPage, pageSize, search }),
-    queryKey: ["products", currentPage, pageSize, search],
+    queryFn: () => getProducts({ page, pageSize, search }),
+    queryKey: ["products", page, pageSize, search],
   });
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
@@ -129,14 +128,6 @@ const ProductsTable = () => {
   });
 
   useEffect(() => {
-    setCurrentPage(page);
-  }, [page]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
-
-  useEffect(() => {
     if (data?.data) {
       setProducts(data.data);
     }
@@ -147,6 +138,14 @@ const ProductsTable = () => {
       setTotalCount(data.count);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (page !== 1) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("pagina", "1");
+      router.replace(`?${params.toString()}`);
+    }
+  }, [search]);
 
   return (
     <Column
@@ -211,11 +210,7 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </div>
-      <ProductsTablePagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <ProductsTablePagination currentPage={page} totalPages={totalPages} />
     </Column>
   );
 };
