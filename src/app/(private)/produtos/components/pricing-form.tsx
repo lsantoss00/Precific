@@ -136,7 +136,7 @@ const PricingForm = () => {
                       icmsSt > 0 ||
                       isImportedProduct ||
                       isInterstateSale ||
-                      !isSixthRevenueRange
+                      (isSimpleNational && !isSixthRevenueRange)
                     }
                   />
                 )}
