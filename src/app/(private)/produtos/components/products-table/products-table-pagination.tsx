@@ -29,8 +29,23 @@ export function ProductsTablePagination({
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
-  const generatePageNumbers = () => {
+  const generatePageNumbers = (isMobile: boolean = false) => {
     const pages: (number | "ellipsis-start" | "ellipsis-end")[] = [];
+
+    if (isMobile) {
+      if (totalPages <= 4) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1);
+      }
+
+      if (currentPage <= 2) {
+        return [1, 2, 3, "ellipsis-end"];
+      } else if (currentPage >= totalPages - 1) {
+        return ["ellipsis-start", totalPages - 2, totalPages - 1, totalPages];
+      } else {
+        return ["ellipsis-start", currentPage, currentPage + 1, "ellipsis-end"];
+      }
+    }
+
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
@@ -63,7 +78,7 @@ export function ProductsTablePagination({
   };
 
   return (
-    <Pagination className="justify-end">
+    <Pagination className="md:justify-end">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -80,26 +95,51 @@ export function ProductsTablePagination({
           />
         </PaginationItem>
 
-        {generatePageNumbers().map((page) =>
-          page === "ellipsis-start" || page === "ellipsis-end" ? (
-            <PaginationItem key={page}>
-              <PaginationEllipsis />
-            </PaginationItem>
-          ) : (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handlePageChange(page as number);
-                }}
-                isActive={currentPage === page}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          )
-        )}
+        <div className="hidden md:contents">
+          {generatePageNumbers(false).map((page) =>
+            page === "ellipsis-start" || page === "ellipsis-end" ? (
+              <PaginationItem key={page}>
+                <PaginationEllipsis />
+              </PaginationItem>
+            ) : (
+              <PaginationItem key={page}>
+                <PaginationLink
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(page as number);
+                  }}
+                  isActive={currentPage === page}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
+            )
+          )}
+        </div>
+
+        <div className="md:hidden contents">
+          {generatePageNumbers(true).map((page) =>
+            page === "ellipsis-start" || page === "ellipsis-end" ? (
+              <PaginationItem key={page}>
+                <PaginationEllipsis />
+              </PaginationItem>
+            ) : (
+              <PaginationItem key={page}>
+                <PaginationLink
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(page as number);
+                  }}
+                  isActive={currentPage === page}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
+            )
+          )}
+        </div>
 
         <PaginationItem>
           <PaginationNext
