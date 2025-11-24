@@ -10,29 +10,21 @@ const WhatsAppHelpLink = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const whatsAppNumber = "+552122929071";
-
-  // %20 = space
-  // %C3%A1 = á
-  // %2C = ,
-  // %3F = ?
-  // %21 = !
   const whatsAppMessage =
     "Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20o%20Precific!";
-
   const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}`;
 
-  // TO-DO: Adicionar uma transition para isHovered
   return (
-    <Row className="fixed bottom-3 right-3 flex items-center gap-3 z-50">
+    <Row className="fixed bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-3 z-50">
       <Card
         className={`px-4 py-2 transition-all duration-300 whitespace-nowrap pointer-events-none ${
-          isHovered ? "block" : "hidden"
-        }`}
+          isHovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+        } hidden md:block`}
       >
         <span className="text-sm font-medium">Precisa de ajuda?</span>
       </Card>
       <Link
-        className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full"
+        className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transition-shadow"
         href={whatsAppLink}
         target="_blank"
         onMouseEnter={() => setIsHovered(true)}
