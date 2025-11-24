@@ -63,7 +63,7 @@ const ProductsTable = () => {
               : product
           )
         );
-        await queryClient?.invalidateQueries({
+        await queryClient.invalidateQueries({
           queryKey: ["product-summaries"],
         });
         toast.success(`Status atualizado com sucesso!`, {
@@ -79,7 +79,6 @@ const ProductsTable = () => {
 
   const { mutate: del, isPending: pendingDeleteProduct } = useMutation({
     mutationFn: deleteProduct,
-
     onMutate: async (variables) => {
       await queryClient.cancelQueries({ queryKey: ["products"] });
 
@@ -91,19 +90,18 @@ const ProductsTable = () => {
 
       return { previousProducts };
     },
-
     onSuccess: async () => {
-      await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
+      await queryClient.invalidateQueries({
+        queryKey: ["product-summaries"],
+      });
       toast.success("Produto deletado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
     },
-
     onError: (error, variables, context) => {
       if (context?.previousProducts) {
         setProducts(context.previousProducts);
       }
-
       toast.error(error.message, {
         className: "!bg-red-600 !text-white",
       });
@@ -118,25 +116,19 @@ const ProductsTable = () => {
     getFilteredRowModel: getFilteredRowModel(),
     meta: {
       onDeleteProduct: (productId: string) => del({ productId }),
-      pendingDeleteProduct: pendingDeleteProduct,
+      pendingDeleteProduct,
       onPriceProduct: (productId: string) =>
         router.push(`/produtos/${productId}`),
       onUpdateProductStatus: (productId: string, status: string) =>
         updateStatus({ productId, status }),
-      pendingUpdateProductStatus: pendingUpdateProductStatus,
+      pendingUpdateProductStatus,
     },
   });
 
   useEffect(() => {
-    if (data?.data) {
-      setProducts(data.data);
-    }
-    if (data?.totalPages !== undefined) {
-      setTotalPages(data.totalPages);
-    }
-    if (data?.count !== undefined) {
-      setTotalCount(data.count);
-    }
+    if (data?.data) setProducts(data.data);
+    if (data?.totalPages !== undefined) setTotalPages(data.totalPages);
+    if (data?.count !== undefined) setTotalCount(data.count);
   }, [data]);
 
   return (
@@ -147,7 +139,12 @@ const ProductsTable = () => {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:!bg-transparent">
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="text-gray-400">
+                  <TableHead
+                    key={header.id}
+                    className={`text-gray-400 ${
+                      header.column.columnDef.meta?.className ?? ""
+                    }`}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -159,6 +156,7 @@ const ProductsTable = () => {
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             <Show
               when={!isPending && table.getRowModel().rows?.length > 0}
@@ -182,12 +180,14 @@ const ProductsTable = () => {
               }
             >
               {table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="px-4">
+                    <TableCell
+                      key={cell.id}
+                      className={`px-4 ${
+                        cell.column.columnDef.meta?.className ?? ""
+                      }`}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

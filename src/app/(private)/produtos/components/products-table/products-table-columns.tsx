@@ -19,6 +19,7 @@ interface ProductTableMeta {
 
 export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
+    id: "sku",
     accessorKey: "sku",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -30,8 +31,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {row.getValue("sku")}
       </div>
     ),
+    meta: {
+      className: "table-cell",
+    },
   },
   {
+    id: "name",
     accessorKey: "name",
     header: ({ column }) => (
       <div className="w-[300px]">
@@ -43,8 +48,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {row.getValue("name")}
       </div>
     ),
+    meta: {
+      className: "hidden sm:table-cell",
+    },
   },
   {
+    id: "ncm",
     accessorKey: "ncm",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -56,8 +65,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {row.getValue("ncm")}
       </div>
     ),
+    meta: {
+      className: "hidden md:table-cell",
+    },
   },
   {
+    id: "price_today",
     accessorKey: "price_today",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -69,8 +82,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {currencyFormatter(row.getValue("price_today"))}
       </div>
     ),
+    meta: {
+      className: "hidden md:table-cell",
+    },
   },
   {
+    id: "price_in_2026",
     accessorKey: "price_in_2026",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -82,8 +99,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {currencyFormatter(row.getValue("price_in_2026"))}
       </div>
     ),
+    meta: {
+      className: "hidden lg:table-cell",
+    },
   },
   {
+    id: "price_in_2027",
     accessorKey: "price_in_2027",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -95,8 +116,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         {currencyFormatter(row.getValue("price_in_2027"))}
       </div>
     ),
+    meta: {
+      className: "hidden xl:table-cell",
+    },
   },
   {
+    id: "status",
     accessorKey: "status",
     header: ({ column }) => (
       <div className="w-[120px]">
@@ -125,6 +150,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
         </div>
       );
     },
+    meta: {
+      className: "hidden sm:table-cell",
+    },
   },
   {
     id: "actions",
@@ -145,6 +173,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           >
             <Link href={`/produtos/${product.id}`}>Precificar</Link>
           </Button>
+
           <Button
             variant="destructive"
             size="icon"
@@ -162,6 +191,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           </Button>
         </Row>
       );
+    },
+    meta: {
+      className: "table-cell",
     },
   },
 ];
