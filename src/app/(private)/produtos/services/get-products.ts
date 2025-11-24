@@ -28,7 +28,8 @@ export async function getProducts({
   let query = supabase
     .from("products")
     .select("*", { count: "exact" })
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false });
 
   if (search && search.trim()) {
     const searchTerm = search.trim();
@@ -39,13 +40,14 @@ export async function getProducts({
   }
 
   const { data, error, count } = await query.range(from, to);
+
   if (error) throw error;
 
   const totalCount = count || 0;
   const totalPages = Math.ceil(totalCount / pageSize);
 
   return {
-    data: data,
+    data,
     count: totalCount,
     totalPages,
     currentPage: page,

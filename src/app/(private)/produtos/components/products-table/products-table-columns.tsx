@@ -124,7 +124,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     id: "status",
     accessorKey: "status",
     header: ({ column }) => (
-      <div className="w-[120px]">
+      <div className="w-[80px]">
         <SortableHeader column={column}>STATUS</SortableHeader>
       </div>
     ),
@@ -157,13 +157,13 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "actions",
     enableHiding: false,
-    header: () => <div className="w-[200px]" />,
+    header: () => <div className="w-[150px]" />,
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
 
       return (
-        <Row className="justify-end space-x-2 w-[200px]">
+        <Row className="justify-end space-x-2 w-[150px]">
           <Button
             asChild
             variant="secondary"
