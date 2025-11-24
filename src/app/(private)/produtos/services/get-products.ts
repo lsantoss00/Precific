@@ -7,12 +7,16 @@ import { ProductResponseType } from "../types/product-type";
 
 interface GetProductsProps extends PaginationType {
   search?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
 }
 
 export async function getProducts({
   page = 1,
   pageSize = 10,
   search = "",
+  sortBy = "created_at",
+  sortOrder = "desc",
 }: GetProductsProps): Promise<PaginatedResponseType<ProductResponseType>> {
   const supabase = createClient();
 
@@ -28,7 +32,7 @@ export async function getProducts({
   let query = supabase
     .from("products")
     .select("*", { count: "exact" })
-    .order("created_at", { ascending: false })
+    .order(sortBy, { ascending: sortOrder === "asc" })
     .order("id", { ascending: false });
 
   if (search && search.trim()) {

@@ -16,8 +16,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
@@ -37,16 +36,21 @@ const ProductsTable = () => {
 
   const search = searchParams.get("filtro") || "";
   const page = Number(searchParams.get("pagina")) || 1;
+  const sortBy = searchParams.get("ordenar") || "created_at";
+  const sortOrder = (searchParams.get("ordem") as "asc" | "desc") || "desc";
 
   const pageSize = 10;
 
   const [products, setProducts] = useState<ProductResponseType[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [_, setTotalCount] = useState(0);
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: sortBy, desc: sortOrder === "desc" },
+  ]);
 
   const { data, isPending } = useQuery({
-    queryFn: () => getProducts({ page, pageSize, search }),
-    queryKey: ["products", page, pageSize, search],
+    queryFn: () => getProducts({ page, pageSize, search, sortBy, sortOrder }),
+    queryKey: ["products", page, pageSize, search, sortBy, sortOrder],
   });
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
@@ -112,8 +116,27 @@ const ProductsTable = () => {
     data: products,
     columns: productsTableColumns,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    manualSorting: true,
+    state: {
+      sorting,
+    },
+    onSortingChange: (updater) => {
+      const newSorting =
+        typeof updater === "function" ? updater(sorting) : updater;
+      setSorting(newSorting);
+
+      const params = new URLSearchParams(searchParams.toString());
+      if (newSorting.length > 0) {
+        params.set("ordenar", newSorting[0].id);
+        params.set("ordem", newSorting[0].desc ? "desc" : "asc");
+      } else {
+        params.delete("ordenar");
+        params.delete("ordem");
+      }
+      params.set("pagina", "1");
+
+      router.push(`?${params.toString()}`);
+    },
     meta: {
       onDeleteProduct: (productId: string) => del({ productId }),
       pendingDeleteProduct,
@@ -130,6 +153,10 @@ const ProductsTable = () => {
     if (data?.totalPages !== undefined) setTotalPages(data.totalPages);
     if (data?.count !== undefined) setTotalCount(data.count);
   }, [data]);
+
+  useEffect(() => {
+    setSorting([{ id: sortBy, desc: sortOrder === "desc" }]);
+  }, [sortBy, sortOrder]);
 
   return (
     <Column className="bg-white shadow-sm rounded-md flex flex-col !h-[630.5px]">
