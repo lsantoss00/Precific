@@ -44,7 +44,7 @@ const ProductsTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [_, setTotalCount] = useState(0);
 
-  const { data, isFetching } = useQuery({
+  const { data, isPending } = useQuery({
     queryFn: () => getProducts({ page, pageSize, search }),
     queryKey: ["products", page, pageSize, search],
   });
@@ -140,8 +140,8 @@ const ProductsTable = () => {
   }, [data]);
 
   return (
-    <Column className="bg-white shadow-sm rounded-md flex flex-col relative !h-[630.5px]">
-      <div className="flex-1 overflow-y-auto overflow-x-auto">
+    <Column className="bg-white shadow-sm rounded-md flex flex-col !h-[630.5px]">
+      <div className="flex-1 overflow-auto">
         <Table className="w-full">
           <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -161,21 +161,22 @@ const ProductsTable = () => {
           </TableHeader>
           <TableBody>
             <Show
-              when={!isFetching && table.getRowModel().rows?.length}
+              when={!isPending && table.getRowModel().rows?.length > 0}
               fallback={
                 <TableRow className="hover:!bg-transparent">
                   <TableCell
                     colSpan={productsTableColumns.length}
-                    className="h-24 text-center text-gray-500"
+                    className="h-[500px] text-center text-gray-500"
                   >
-                    {isFetching ? (
+                    <Show
+                      when={isPending}
+                      fallback={<span>Sem resultados.</span>}
+                    >
                       <Row className="justify-center items-center gap-2">
                         <Loader2 className="text-[#66289B] animate-spin" />
                         <span>Carregando produtos...</span>
                       </Row>
-                    ) : (
-                      "Sem resultados."
-                    )}
+                    </Show>
                   </TableCell>
                 </TableRow>
               }
@@ -199,7 +200,9 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </div>
-      <ProductsTablePagination currentPage={page} totalPages={totalPages} />
+      <Row className="bg-neutral-50 border-t p-2">
+        <ProductsTablePagination currentPage={page} totalPages={totalPages} />
+      </Row>
     </Column>
   );
 };

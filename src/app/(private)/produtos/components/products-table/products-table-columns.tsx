@@ -21,10 +21,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "sku",
     header: ({ column }) => (
-      <SortableHeader column={column}>SKU</SortableHeader>
+      <div className="w-[120px]">
+        <SortableHeader column={column}>SKU</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[120px]">
         {row.getValue("sku")}
       </div>
     ),
@@ -32,10 +34,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <SortableHeader column={column}>NOME</SortableHeader>
+      <div className="w-[300px]">
+        <SortableHeader column={column}>NOME</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[300px]">
         {row.getValue("name")}
       </div>
     ),
@@ -43,10 +47,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "ncm",
     header: ({ column }) => (
-      <SortableHeader column={column}>NCM</SortableHeader>
+      <div className="w-[120px]">
+        <SortableHeader column={column}>NCM</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[120px]">
         {row.getValue("ncm")}
       </div>
     ),
@@ -54,10 +60,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "price_today",
     header: ({ column }) => (
-      <SortableHeader column={column}>HOJE (R$)</SortableHeader>
+      <div className="w-[120px]">
+        <SortableHeader column={column}>HOJE (R$)</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[120px]">
         {currencyFormatter(row.getValue("price_today"))}
       </div>
     ),
@@ -65,10 +73,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "price_in_2026",
     header: ({ column }) => (
-      <SortableHeader column={column}>2026 (R$)</SortableHeader>
+      <div className="w-[120px]">
+        <SortableHeader column={column}>2026 (R$)</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[120px]">
         {currencyFormatter(row.getValue("price_in_2026"))}
       </div>
     ),
@@ -76,24 +86,27 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     accessorKey: "price_in_2027",
     header: ({ column }) => (
-      <SortableHeader column={column}>2027 (R$)</SortableHeader>
+      <div className="w-[120px]">
+        <SortableHeader column={column}>2027 (R$)</SortableHeader>
+      </div>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis">
+      <div className="uppercase truncate text-ellipsis w-[120px]">
         {currencyFormatter(row.getValue("price_in_2027"))}
       </div>
     ),
   },
   {
     accessorKey: "status",
-    header: "STATUS",
+    header: ({ column }) => (
+      <div className="w-[120px]">
+        <SortableHeader column={column}>STATUS</SortableHeader>
+      </div>
+    ),
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
-      // TO-DO: ARRUMAR ESSA DUPLICAÇÃO DESNECESSÁRIA
-      const isActive =
-        row.getValue("status") === "ACTIVE" ||
-        row.getValue("status") === "active";
+      const isActive = row.getValue("status") === "ACTIVE";
 
       return (
         <div className="flex items-center">
@@ -116,12 +129,13 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "actions",
     enableHiding: false,
+    header: () => <div className="w-[200px]" />,
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
 
       return (
-        <Row className="justify-end space-x-2">
+        <Row className="justify-end space-x-2 w-[200px]">
           <Button
             asChild
             variant="secondary"
