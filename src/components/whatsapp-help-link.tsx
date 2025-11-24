@@ -17,9 +17,9 @@ const WhatsAppHelpLink = () => {
   return (
     <Row className="fixed bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-3 z-50">
       <Card
-        className={`px-4 py-2 transition-all duration-300 whitespace-nowrap pointer-events-none ${
-          isHovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-        } hidden md:block`}
+        className={`px-4 py-2 duration-300 whitespace-nowrap pointer-events-none ${
+          isHovered ? "block" : "hidden"
+        }`}
       >
         <span className="text-sm font-medium">Precisa de ajuda?</span>
       </Card>
