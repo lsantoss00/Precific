@@ -390,11 +390,13 @@ const PricingForm = () => {
 export default PricingForm;
 
 const presumedProfitIrpjPercentOptions = [
+  { value: "0", label: "0%" },
   { value: "0.15", label: "15%" },
   { value: "0.25", label: "25%" },
 ];
 
 const realProfitIrpjPercentOptions = [
+  { value: "0", label: "0%" },
   { value: "24", label: "24%" },
   { value: "34", label: "34%" },
 ];
