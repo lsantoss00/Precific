@@ -8,6 +8,7 @@ import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 
 const ProductDetailsForm = () => {
@@ -17,6 +18,17 @@ const ProductDetailsForm = () => {
     control,
     formState: { errors },
   } = form;
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name }) => {
+      if (name === "interstate_sale" && !value.interstate_sale) {
+        form.setValue("imported_product", false);
+        form.setValue("costumer_taxpayer", false);
+        form.setValue("state_destination", "");
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-6">
