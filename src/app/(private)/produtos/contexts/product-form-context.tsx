@@ -54,7 +54,7 @@ export const ProductFormProvider = ({
       shipping: 0,
       other_costs: 0,
       profit: 0,
-      irpj_percent: isRealProfit ? 24 : 0.15,
+      irpj_percent: 0,
       interstate_sale: false,
       state_destination: "",
       imported_product: false,
