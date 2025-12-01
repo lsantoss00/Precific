@@ -1,5 +1,6 @@
 "use client";
 
+import xlsImage from "@/public/file-xls.webp";
 import { importProducts } from "@/src/app/(private)/produtos/services/post-products-by-import";
 import { Button } from "@/src/components/core";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
@@ -347,7 +348,7 @@ export default function ImportSpreadsheetArea({
       <div className="h-full max-w-110 flex flex-col justify-center items-center m-auto">
         <div className="flex flex-col items-center space-y-5">
           <Image
-            src="/file-xls.webp"
+            src={xlsImage}
             alt="Ilustração de arquivo XLS"
             width={50}
             height={50}

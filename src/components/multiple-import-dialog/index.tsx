@@ -1,5 +1,6 @@
 "use client";
 
+import spreadsheetExampleImage from "@/public/spreadsheet-example.webp";
 import {
   Button,
   Dialog,
@@ -10,6 +11,7 @@ import ImportSpreadsheetArea from "@/src/components/multiple-import-dialog/impor
 import MultipleImportLoadingState from "@/src/components/multiple-import-dialog/multiple-import-loading-state";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Download } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 interface MultipleImportDialogProps {
@@ -38,7 +40,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="flex flex-col h-[620px] md:min-w-2xl md:h-[500px] md:py-12 md:px-12">
+      <DialogContent className="flex flex-col md:min-w-2xl md:py-12 md:px-12">
         <DialogTitle className="text-2xl text-dark font-bold">
           Importação de Produtos
         </DialogTitle>
@@ -61,21 +63,20 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
                 Baixar planilha exemplo
               </Button>
             </div>
-            {/* <div className="gap-1 mb-4 md:mb-9">
+            <div className="gap-1 mb-4 md:mb-9">
               <span className="text-xs text-zinc-500">
                 Exemplo de preenchimento da planilha
               </span>
               <div className="overflow-x-auto">
                 <Image
-                  src={spreadsheetExampleImageSrc}
+                  src={spreadsheetExampleImage}
                   alt="Ilustração de exemplo de planilha"
                   width={1040}
-                  height={155}
-                  priority
-                  className="min-w-[1040px]"
+                  height={150}
+                  className="min-w-[550px]"
                 />
               </div>
-            </div> */}
+            </div>
             <div className="h-full">
               <ImportSpreadsheetArea
                 setIsImporting={setIsImporting}
