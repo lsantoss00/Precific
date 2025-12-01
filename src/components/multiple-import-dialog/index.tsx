@@ -40,14 +40,14 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="flex flex-col md:min-w-2xl md:py-12 md:px-12">
-        <DialogTitle className="text-2xl text-dark font-bold">
-          Importação de Produtos
-        </DialogTitle>
+      <DialogContent className="flex flex-col md:min-w-2xl md:py-12 md:px-12 h-[96vh]">
         {isImporting ? (
           <MultipleImportLoadingState progress={importProgress} />
         ) : (
           <>
+            <DialogTitle className="text-2xl text-dark font-bold">
+              Importação de Produtos
+            </DialogTitle>
             <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 mb-3">
               <p className="text-sm">
                 Para realizar a importação de planilha, siga as instruções
