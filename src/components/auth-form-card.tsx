@@ -15,6 +15,7 @@ const AuthFormCard = ({ children }: AuthFormCardProps) => {
         height={80}
         className="object-contain mb-10 self-center"
         priority
+        sizes="300px"
       />
       {children}
     </Card>
