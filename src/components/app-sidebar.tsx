@@ -1,5 +1,7 @@
 "use client";
 
+import logoImage from "@/public/precific-logo-image.webp";
+import shortLogoImage from "@/public/precific-short-logo-image.webp";
 import Menu from "@/src/components/menu";
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";
@@ -33,7 +35,7 @@ export function AppSidebar() {
           <SidebarHeader className="!p-0 h-16 items-center justify-center">
             <SidebarTrigger className="w-full h-full hover:!bg-transparent">
               <Image
-                src="/precific-short-logo-image.webp"
+                src={shortLogoImage}
                 alt="precific-logo-image"
                 width={48}
                 height={48}
@@ -43,7 +45,7 @@ export function AppSidebar() {
                 }`}
               />
               <Image
-                src="/precific-logo-image.webp"
+                src={logoImage}
                 alt="precific-logo-image"
                 width={200}
                 height={40}
