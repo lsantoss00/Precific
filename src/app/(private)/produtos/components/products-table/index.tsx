@@ -158,9 +158,11 @@ const ProductsTable = () => {
     setSorting([{ id: sortBy, desc: sortOrder === "desc" }]);
   }, [sortBy, sortOrder]);
 
+  const hasData = !isPending && table.getRowModel().rows?.length > 0;
+
   return (
     <Column className="bg-white shadow-sm rounded-md flex flex-col !h-[630.5px]">
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-hidden">
         <Table className="w-full table-fixed">
           <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -187,22 +189,24 @@ const ProductsTable = () => {
 
           <TableBody>
             <Show
-              when={!isPending && table.getRowModel().rows?.length > 0}
+              when={hasData}
               fallback={
                 <TableRow className="hover:!bg-transparent">
                   <TableCell
-                    colSpan={productsTableColumns.length}
+                    colSpan={table.getAllColumns().length}
                     className="h-[500px] text-center text-gray-500"
                   >
-                    <Show
-                      when={isPending}
-                      fallback={<span>Sem resultados.</span>}
-                    >
-                      <Row className="justify-center items-center gap-2">
-                        <Loader2 className="text-[#66289B] animate-spin" />
-                        <span>Carregando produtos...</span>
-                      </Row>
-                    </Show>
+                    <div className="flex items-center justify-center h-full">
+                      <Show
+                        when={isPending}
+                        fallback={<span>Sem resultados.</span>}
+                      >
+                        <Row className="justify-center items-center gap-2">
+                          <Loader2 className="text-[#66289B] animate-spin" />
+                          <span>Carregando produtos...</span>
+                        </Row>
+                      </Show>
+                    </div>
                   </TableCell>
                 </TableRow>
               }
@@ -230,7 +234,7 @@ const ProductsTable = () => {
         </Table>
       </div>
       <Row className="bg-neutral-50 border-t h-13">
-        <Show when={!isPending && table.getRowModel().rows?.length > 0}>
+        <Show when={hasData}>
           <ProductsTablePagination currentPage={page} totalPages={totalPages} />
         </Show>
       </Row>
