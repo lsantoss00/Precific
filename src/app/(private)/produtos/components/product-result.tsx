@@ -15,7 +15,13 @@ import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
-import { Check, ChevronLeft, CircleAlert, Loader2Icon } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  CircleAlert,
+  Loader2,
+  Loader2Icon,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -36,6 +42,18 @@ const ProductResult = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { form, isEditMode, productId } = useProductForm();
+  const data = form.watch();
+
+  const hasEssentialData =
+    data?.unit_price !== undefined && data?.unit_price > 0;
+
+  if (!hasEssentialData) {
+    const redirectPath =
+      isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
+    router.replace(redirectPath);
+
+    return <Loader2 className="text-[#66289B] animate-spin m-auto w-10 h-10" />;
+  }
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,
@@ -68,8 +86,6 @@ const ProductResult = () => {
       });
     },
   });
-
-  const data = form.watch();
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
@@ -201,7 +217,7 @@ const ProductResult = () => {
   const isImportedProduct = data?.imported_product === true;
 
   const internalTaxRate = companyState
-    ? getICMSRate(stateDestination, stateDestination)
+    ? getICMSRate(stateDestination!, stateDestination!)
     : 0;
 
   const interstateTaxRate = stateDestination
