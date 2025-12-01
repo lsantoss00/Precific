@@ -34,7 +34,7 @@ const ProductInfoCards = () => {
       ),
       value: summary?.precified_products || 0,
       icon: (
-        <Tag className="w-16 h-16 p-4 text-[#E9BA67] bg-[#E9BA67]/20 rounded-full" />
+        <Tag className="w-16 h-16 p-4 text-secondary bg-secondary/20 rounded-full" />
       ),
     },
     {

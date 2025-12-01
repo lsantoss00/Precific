@@ -202,7 +202,7 @@ const ProductsTable = () => {
                         fallback={<span>Sem resultados.</span>}
                       >
                         <Row className="justify-center items-center gap-2">
-                          <Loader2 className="text-[#66289B] animate-spin" />
+                          <Loader2 className="text-primary animate-spin" />
                           <span>Carregando produtos...</span>
                         </Row>
                       </Show>

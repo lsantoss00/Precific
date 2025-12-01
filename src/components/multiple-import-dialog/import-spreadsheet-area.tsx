@@ -341,8 +341,8 @@ export default function ImportSpreadsheetArea({
       onDrop={handleDrop}
       className={`w-full h-full border-1 border-dashed rounded-md transition-colors p-4 ${
         isDragging
-          ? "border-[#66289B] bg-[#66289B]/50"
-          : "border-[#66289B] bg-[#66289B]/10"
+          ? "border-primary bg-primary/50"
+          : "border-primary bg-primary/10"
       }`}
     >
       <div className="h-full max-w-110 flex flex-col justify-center items-center m-auto">
@@ -361,7 +361,7 @@ export default function ImportSpreadsheetArea({
           <Button
             onClick={handleButtonClick}
             disabled={importMutation.isPending}
-            className="shrink-0 h-14 w-full md:max-w-56 bg-[#66289B] text-white flex items-center gap-2"
+            className="shrink-0 h-14 w-full md:max-w-56 bg-primary text-white flex items-center gap-2"
           >
             Fazer upload de planilha
           </Button>

@@ -40,7 +40,7 @@ const UserImageUpload = ({
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className="w-24 h-24 rounded-full flex justify-center items-center border-2 border-[#66289B] relative">
+        <div className="w-24 h-24 rounded-full flex justify-center items-center border-2 border-primary relative">
           {preview ? (
             <div className="relative w-full h-full overflow-hidden rounded-full">
               <Image

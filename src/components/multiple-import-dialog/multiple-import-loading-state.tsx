@@ -43,7 +43,7 @@ const MultipleImportLoadingState = ({
         <span className="font-medium">{Math.round(displayProgress)}%</span>
         <div className="w-full bg-slate-200 rounded-full h-[10px] overflow-hidden">
           <div
-            className="bg-[#66289B] h-full rounded-full transition-all duration-300 ease-out"
+            className="bg-primary h-full rounded-full transition-all duration-300 ease-out"
             style={{ width: `${Math.min(displayProgress, 100)}%` }}
           />
         </div>

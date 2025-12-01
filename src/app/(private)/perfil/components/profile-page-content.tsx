@@ -16,7 +16,7 @@ const ProfilePageContent = () => {
       <Show
         when={!isLoadingAuth}
         fallback={
-          <Loader2 className="text-[#66289B] animate-spin m-auto w-10 h-10" />
+          <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />
         }
       >
         <h2 className="text-3xl text-black font-bold">Perfil</h2>

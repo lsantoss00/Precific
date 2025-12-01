@@ -21,8 +21,8 @@ const MetricCard = ({ title, value, variant = "neutral" }: MetricCardProps) => {
 export default MetricCard;
 
 const variantStyles: Record<VariantType, string> = {
-  primary: "bg-[#66289B] text-white",
-  secondary: "bg-[#E9BA67] text-white",
+  primary: "bg-primary text-white",
+  secondary: "bg-secondary text-white",
   neutral: "bg-gray-200 text-black",
   success: "bg-green-600 text-white",
   error: "bg-red-600 text-white",

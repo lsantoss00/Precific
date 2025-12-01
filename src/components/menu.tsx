@@ -42,7 +42,7 @@ const Menu = () => {
         className="cursor-pointer hover:bg-neutral-100 p-2 h-12 rounded-md"
       >
         <Row className="w-full items-center gap-2">
-          <User className="text-[#66289B] border-2 border-[#66289B] rounded-md w-8 h-8 p-1 shrink-0" />
+          <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
           <Show when={!isCollapsed}>
             <Column className="min-w-0 flex-1">
               <span className="text-sm font-medium text-neutral-900 truncate">

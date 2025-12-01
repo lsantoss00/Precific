@@ -53,11 +53,11 @@ const LoadingResultState = ({ onComplete }: LoadingResultStateProps) => {
 
   return (
     <Column className="items-center justify-center max-w-md w-full h-full self-center space-y-8">
-      <CurrentIcon className="w-16 h-16 text-[#66289B] animate-pulse" />
-      <p className="text-xl font-medium text-center text-[#66289B]">
+      <CurrentIcon className="w-16 h-16 text-primary animate-pulse" />
+      <p className="text-xl font-medium text-center text-primary">
         {currentMessage}
       </p>
-      <Progress value={progress} className="h-3 [&>div]:bg-[#66289B]" />
+      <Progress value={progress} className="h-3 [&>div]:bg-primary" />
     </Column>
   );
 };
