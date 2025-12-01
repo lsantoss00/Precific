@@ -234,9 +234,7 @@ const ProductsTable = () => {
         </Table>
       </div>
       <Row className="bg-neutral-50 border-t h-13">
-        <Show when={hasData}>
-          <ProductsTablePagination currentPage={page} totalPages={totalPages} />
-        </Show>
+        <ProductsTablePagination currentPage={page} totalPages={totalPages} />
       </Row>
     </Column>
   );
