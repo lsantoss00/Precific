@@ -100,7 +100,7 @@ const PasswordForm = () => {
       <form
         id="password-form"
         onSubmit={handleSubmit(handleCreateNewPassword)}
-        className="space-y-4 flex flex-col justify-between"
+        className="space-y-4 flex flex-col justify-between w-full"
       >
         <Column className="space-y-2">
           <Label htmlFor="password" required>

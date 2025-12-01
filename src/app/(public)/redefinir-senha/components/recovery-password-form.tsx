@@ -77,7 +77,7 @@ const RecoveryPasswordForm = () => {
       <form
         id="login-form"
         onSubmit={handleSubmit(handleRecoveryPassword)}
-        className="space-y-4 flex flex-col justify-between"
+        className="space-y-4 flex flex-col justify-between w-full"
       >
         <Column className="space-y-2">
           <Label htmlFor="email" required>
