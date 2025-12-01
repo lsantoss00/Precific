@@ -56,7 +56,7 @@ export const ProductFormProvider = ({
       profit: 0,
       irpj_percent: 0,
       interstate_sale: false,
-      state_destination: "",
+      state_destination: undefined,
       imported_product: false,
       costumer_taxpayer: false,
     },

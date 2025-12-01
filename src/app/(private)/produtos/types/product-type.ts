@@ -21,7 +21,7 @@ export type ProductType = {
   price_in_2027?: number;
   irpj_percent: number;
   interstate_sale: boolean;
-  state_destination: string;
+  state_destination: string | undefined;
   imported_product: boolean;
   costumer_taxpayer: boolean;
 };

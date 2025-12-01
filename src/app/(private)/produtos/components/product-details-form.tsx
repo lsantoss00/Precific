@@ -24,7 +24,7 @@ const ProductDetailsForm = () => {
       if (name === "interstate_sale" && !value.interstate_sale) {
         form.setValue("imported_product", false);
         form.setValue("costumer_taxpayer", false);
-        form.setValue("state_destination", "");
+        form.setValue("state_destination", undefined);
       }
     });
     return () => subscription.unsubscribe();
@@ -121,7 +121,7 @@ const ProductDetailsForm = () => {
                 </Label>
                 <SelectStateInput
                   id="state_destination"
-                  value={value}
+                  value={value || ""}
                   placeholder="Selecione o estado de destino"
                   onChange={onChange}
                   error={Boolean(error)}

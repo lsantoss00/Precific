@@ -200,7 +200,7 @@ const PricingForm = () => {
         <Show when={isRealProfit}>
           <Column className="space-y-2">
             <Label htmlFor="irpj_percent" required>
-              IRPJ (%)
+              IRPJ/CSLL (%)
             </Label>
             <Column className="gap-2">
               <Row className="items-center gap-2">
@@ -237,7 +237,7 @@ const PricingForm = () => {
         <Show when={isPresumedProfit}>
           <Column className="space-y-2">
             <Label htmlFor="irpj_percent" required>
-              IRPJ (%){" "}
+              IRPJ/CSLL (%)
             </Label>
             <Column className="gap-2">
               <Row className="items-center gap-2">
