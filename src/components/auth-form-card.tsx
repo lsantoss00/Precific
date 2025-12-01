@@ -1,3 +1,4 @@
+import logoImage from "@/public/precific-logo-image.webp";
 import { Card } from "@/src/components/core";
 import Image from "next/image";
 
@@ -7,9 +8,9 @@ interface AuthFormCardProps {
 
 const AuthFormCard = ({ children }: AuthFormCardProps) => {
   return (
-    <Card className="rounded-2xl p-6 shadow-sm w-full max-w-125 max-h-125 flex items-center bg-white">
+    <Card className="rounded-2xl p-6 shadow-sm w-full max-w-125 flex flex-col items-center bg-white">
       <Image
-        src="/precific-logo-image.webp"
+        src={logoImage}
         alt="precific-logo-image"
         width={300}
         height={80}
