@@ -229,8 +229,10 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </div>
-      <Row className="bg-neutral-50 border-t p-2">
-        <ProductsTablePagination currentPage={page} totalPages={totalPages} />
+      <Row className="bg-neutral-50 border-t h-13">
+        <Show when={!isPending && table.getRowModel().rows?.length > 0}>
+          <ProductsTablePagination currentPage={page} totalPages={totalPages} />
+        </Show>
       </Row>
     </Column>
   );
