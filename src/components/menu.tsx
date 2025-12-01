@@ -39,7 +39,7 @@ const Menu = () => {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         asChild
-        className="cursor-pointer hover:bg-neutral-100 p-2 rounded-md"
+        className="cursor-pointer hover:bg-neutral-100 p-2 h-12 rounded-md"
       >
         <Row className="w-full items-center gap-2">
           <User className="text-[#66289B] border-2 border-[#66289B] rounded-md w-8 h-8 p-1 shrink-0" />
