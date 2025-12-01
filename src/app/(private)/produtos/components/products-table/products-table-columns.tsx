@@ -21,6 +21,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "sku",
     accessorKey: "sku",
+    size: 100,
     header: ({ column }) => (
       <div className="w-[80px] sm:w-[100px]">
         <SortableHeader column={column}>SKU</SortableHeader>
@@ -38,6 +39,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "name",
     accessorKey: "name",
+    size: 300,
     header: ({ column }) => (
       <div className="w-[200px] lg:w-[300px]">
         <SortableHeader column={column}>NOME</SortableHeader>
@@ -55,6 +57,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "ncm",
     accessorKey: "ncm",
+    size: 120,
     header: ({ column }) => (
       <div className="w-[120px]">
         <SortableHeader column={column}>NCM</SortableHeader>
@@ -72,6 +75,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_today",
     accessorKey: "price_today",
+    size: 110,
     header: ({ column }) => (
       <div className="w-[110px]">
         <SortableHeader column={column}>HOJE (R$)</SortableHeader>
@@ -89,6 +93,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2026",
     accessorKey: "price_in_2026",
+    size: 110,
     header: ({ column }) => (
       <div className="w-[110px]">
         <SortableHeader column={column}>2026 (R$)</SortableHeader>
@@ -106,6 +111,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2027",
     accessorKey: "price_in_2027",
+    size: 110,
     header: ({ column }) => (
       <div className="w-[110px]">
         <SortableHeader column={column}>2027 (R$)</SortableHeader>
@@ -123,6 +129,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "status",
     accessorKey: "status",
+    size: 80,
     header: ({ column }) => (
       <div className="w-[80px]">
         <SortableHeader column={column}>STATUS</SortableHeader>
@@ -157,6 +164,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "actions",
     enableHiding: false,
+    size: 150,
     header: () => <div className="w-[120px] sm:w-[150px]" />,
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;

@@ -161,13 +161,14 @@ const ProductsTable = () => {
   return (
     <Column className="bg-white shadow-sm rounded-md flex flex-col !h-[630.5px]">
       <div className="flex-1 overflow-auto">
-        <Table className="w-full">
+        <Table className="w-full table-fixed">
           <TableHeader className="sticky top-0 bg-white z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:!bg-transparent">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
+                    style={{ width: header.column.columnDef.size }}
                     className={`text-gray-400 ${
                       header.column.columnDef.meta?.className ?? ""
                     }`}
@@ -211,6 +212,7 @@ const ProductsTable = () => {
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
+                      style={{ width: cell.column.columnDef.size }}
                       className={`px-4 ${
                         cell.column.columnDef.meta?.className ?? ""
                       }`}
