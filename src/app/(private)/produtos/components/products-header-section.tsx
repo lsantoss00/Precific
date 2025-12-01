@@ -61,7 +61,7 @@ const ProductsHeaderSection = () => {
             trigger={
               <Button className="hover:cursor-pointer flex-1 md:flex-none md:w-fit h-12">
                 <Upload className="text-white" />
-                <span className="hidden sm:flex">Importar CSV</span>
+                <span className="hidden sm:flex">Importar</span>
               </Button>
             }
           />

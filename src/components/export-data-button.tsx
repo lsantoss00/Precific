@@ -70,7 +70,7 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
         <Loader2Icon className="animate-spin" />
       </Show>
 
-      <span className="hidden sm:flex">Exportar CSV</span>
+      <span className="hidden sm:flex">Exportar</span>
     </Button>
   );
 };
