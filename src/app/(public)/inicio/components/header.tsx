@@ -1,5 +1,3 @@
-"use client";
-
 import shortLogoImage from "@/public/precific-short-logo-image.webp";
 import { Button } from "@/src/components/core";
 import Image from "next/image";
@@ -7,8 +5,8 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 bg-white border-b border-zinc-200">
-      <nav className="hidden md:flex items-center space-x-8">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 h-20 bg-white border-b border-zinc-200">
+      <nav className="flex items-center space-x-8">
         <Link href="/inicio">
           <Image
             src={shortLogoImage}

@@ -1,4 +1,4 @@
-import Header from "@/src/app/(public)/inicio/components/header";
+import HeroSection from "@/src/app/(public)/inicio/components/hero-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function LandingPage() {
-  return <Header />;
+  return <HeroSection />;
 }
