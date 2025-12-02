@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${poppins.className} antialiased bg-[#F5F5F5] pb-14 md:pb-20 2xl:pb-0`}
+        className={`${poppins.className} antialiased bg-background pb-14 md:pb-20 2xl:pb-0`}
       >
         <Providers>
           <NextTopLoader
