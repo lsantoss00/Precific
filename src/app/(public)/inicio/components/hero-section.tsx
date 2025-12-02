@@ -26,7 +26,7 @@ const HeroSection = () => {
           <Link href="/entrar">Agendar Demonstração</Link>
         </Button>
       </Column>
-      <div className="bg-black/60 h-150 w-240 rounded-md z-50" />
+      <div className="bg-black/60 h-150 w-240 rounded-md z-10" />
     </Row>
   );
 };
