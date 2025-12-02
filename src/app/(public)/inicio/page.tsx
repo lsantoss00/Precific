@@ -1,9 +1,10 @@
+import Header from "@/src/app/(public)/inicio/components/header";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Redefinir Senha | Precific",
+  title: "Precific",
 };
 
 export default function LandingPage() {
-  return <h1>Landing Page</h1>;
+  return <Header />;
 }

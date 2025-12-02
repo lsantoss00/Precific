@@ -1,7 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/entrar", "/criar-senha", "/redefinir-senha", "/auth"];
+const PUBLIC_ROUTES = [
+  "/entrar",
+  "/criar-senha",
+  "/redefinir-senha",
+  "/auth",
+  "/inicio",
+];
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
