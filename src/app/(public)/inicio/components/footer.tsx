@@ -1,6 +1,8 @@
+import logoImage from "@/public/precific-logo-image.webp";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
@@ -16,9 +18,13 @@ const Footer = () => {
     <footer className="bg-white w-full py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
       <Flex className="flex-col md:flex-row justify-between items-start gap-8 md:gap-12 lg:gap-16">
         <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary">
-            Precific
-          </h2>
+          <Image
+            src={logoImage}
+            alt="precific-logo-image"
+            width={200}
+            height={100}
+            quality={100}
+          />
           <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a
             mollis purus, et luctus nisl. Mauris vel luctus lacus.
