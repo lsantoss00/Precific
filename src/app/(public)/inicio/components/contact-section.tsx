@@ -1,21 +1,26 @@
 import ContactForm from "@/src/app/(public)/inicio/components/contact-form";
 import Column from "@/src/components/core/column";
-import Row from "@/src/components/core/row";
+import Flex from "@/src/components/core/flex";
 import Image from "next/image";
 
 const ContactSection = () => {
   return (
-    <Row className="relative bg-primary w-full h-220 items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat">
+    <Flex
+      id="contato"
+      className="relative bg-primary w-full lg:h-220 flex-col lg:flex-row items-stretch justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat overflow-hidden"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/50 to-transparent" />
-      <Column className="z-10 space-y-51 w-1/2 e h-full px-25 py-27 bg-background">
-        <Column className="space-y-5">
-          <h3 className="font-bold text-5xl  max-w-lg leading-14">
+      <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-51 w-full lg:w-1/2 h-auto lg:h-full px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-0 lg:py-27 bg-background">
+        <Column className="space-y-4 md:space-y-5 py-12 md:py-16 lg:py-0">
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-lg leading-tight">
             Nossa equipe especializada está pronta para tirar suas dúvidas
           </h3>
-          <p className=" text-lg max-w-xl">
-            Preencha o formulário ao lado para que um dos nossos especialistas
-            entre em contato, assim, poderemos tirar suas dúvidas e marcar uma
-            demonstração gratuita!
+          <p className="text-sm md:text-base lg:text-lg max-w-xl text-muted-foreground">
+            Preencha o formulário{" "}
+            <span className="lg:inline hidden">ao lado</span>
+            <span className="lg:hidden">abaixo</span> para que um dos nossos
+            especialistas entre em contato, assim, poderemos tirar suas dúvidas
+            e marcar uma demonstração gratuita!
           </p>
         </Column>
         <Image
@@ -23,20 +28,21 @@ const ContactSection = () => {
           alt="Sinalização de formulário"
           width={400}
           height={130}
+          className="hidden lg:block w-full max-w-sm"
         />
       </Column>
-      <Column className="z-10 space-y-40 w-1/2 e h-full px-25 py-27 items-center">
-        <Column className="space-y-5">
-          <h3 className="font-bold text-5xl text-white text-center max-w-lg leading-14">
+      <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-40 w-full lg:w-1/2 h-auto lg:h-full px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-0 lg:py-27 items-center justify-center py-12 md:py-16 lg:py-0">
+        <Column className="space-y-4 md:space-y-5 w-full">
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center max-w-lg leading-tight self-center">
             Fale com um especialista agora e garanta o seu Precific!
           </h3>
-          <p className="text-lg text-white text-center max-w-xl">
+          <p className="text-sm md:text-base lg:text-lg text-white text-center max-w-xl self-center">
             Nossa equipe prestará o atendimento rápido.
           </p>
           <ContactForm />
         </Column>
       </Column>
-    </Row>
+    </Flex>
   );
 };
 export default ContactSection;

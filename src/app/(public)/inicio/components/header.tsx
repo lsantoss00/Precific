@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-25 py-4 h-20 bg-white border-b border-zinc-200">
-      <nav className="flex items-center space-x-8">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-4 h-20 bg-white border-b border-zinc-200">
+      <nav className="flex items-center space-x-4 md:space-x-8">
         <Link href="/inicio">
           <Image
             src={shortLogoImage}
@@ -18,11 +18,11 @@ const Header = () => {
             className="hover:scale-105 transition-transform duration-200"
           />
         </Link>
-        <ul className="flex items-center space-x-8">
+        <ul className="hidden md:flex items-center space-x-6 lg:space-x-8">
           <li>
             <Link
               href="#descubra"
-              className="text-zinc-800 hover:text-primary font-medium transition-colors py-2 border-b-2 border-transparent hover:border-primary"
+              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 border-b-2 border-transparent hover:border-primary"
             >
               Descubra
             </Link>
@@ -30,7 +30,7 @@ const Header = () => {
           <li>
             <Link
               href="#contato"
-              className="text-zinc-800 hover:text-primary font-medium transition-colors py-2 border-b-2 border-transparent hover:border-primary"
+              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 border-b-2 border-transparent hover:border-primary"
             >
               Converse conosco
             </Link>
@@ -39,7 +39,7 @@ const Header = () => {
       </nav>
       <Button
         asChild
-        className="w-fit h-12 px-6 hover:cursor-pointer font-medium"
+        className="w-fit h-10 md:h-12 px-4 md:px-6 text-sm md:text-base hover:cursor-pointer font-medium"
         variant="secondary"
       >
         <Link href="/entrar">Login</Link>

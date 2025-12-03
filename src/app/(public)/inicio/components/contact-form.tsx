@@ -42,7 +42,7 @@ const ContactForm = () => {
     <form
       id="contactForm"
       onSubmit={handleSubmit(handleSubmitContactForm)}
-      className="space-y-4 flex flex-col justify-between w-full max-w-sm self-center"
+      className="space-y-3 md:space-y-4 flex flex-col justify-between w-full max-w-sm self-center"
     >
       <Controller
         name="name"
@@ -55,7 +55,7 @@ const ContactForm = () => {
               autoComplete="name"
               value={value}
               onChange={onChange}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 ${
+              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -79,7 +79,7 @@ const ContactForm = () => {
               value={value}
               onAccept={onChange}
               unmask={true}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 ${
+              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -102,7 +102,7 @@ const ContactForm = () => {
               autoComplete="email"
               value={value}
               onChange={onChange}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 ${
+              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -126,7 +126,7 @@ const ContactForm = () => {
               value={value}
               onAccept={onChange}
               unmask={true}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 ${
+              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -154,13 +154,17 @@ const ContactForm = () => {
         />
         <Label
           htmlFor="acceptMarketing"
-          className="cursor-pointer text-white font-normal text-xs"
+          className="cursor-pointer text-white font-normal text-xs md:text-sm leading-tight"
         >
           Aceito receber comunicações de marketing e promoções exclusivas da
           Precific
         </Label>
       </Row>
-      <Button className="h-12" type="submit" variant="secondary">
+      <Button
+        className="h-12 md:h-14 text-sm md:text-base"
+        type="submit"
+        variant="secondary"
+      >
         {/* <Show when={handleSubmitContactForm}>
             <Loader2Icon className="animate-spin" />
           </Show> */}

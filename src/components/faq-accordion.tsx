@@ -10,11 +10,11 @@ const FAQAccordion = () => {
     <Accordion
       type="single"
       collapsible
-      className="w-full h-full p-10 space-y-5"
+      className="w-full h-full p-4 lg:p-10 space-y-5"
     >
       {faqs.map((faq, index) => (
         <AccordionItem key={index} value={`item-${index}`}>
-          <AccordionTrigger className="text-lg font-bold">
+          <AccordionTrigger className="lg:text-lg font-bold">
             {faq.question}
           </AccordionTrigger>
           <AccordionContent>{faq.answer}</AccordionContent>

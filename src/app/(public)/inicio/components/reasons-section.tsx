@@ -4,11 +4,14 @@ import { Brain, ChartColumn, FileSpreadsheet } from "lucide-react";
 
 const ReasonsSection = () => {
   return (
-    <Column className="bg-background w-full h-150 items-center">
-      <h2 className="font-bold text-5xl text-center mt-25">
+    <Column
+      id="descubra"
+      className="bg-background w-full py-12 md:py-16 lg:py-20 lg:h-150 items-center px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25"
+    >
+      <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center mb-8 md:mb-12 lg:mb-16">
         Em poucos cliques, do custo ao lucro ideal
       </h2>
-      <div className="grid grid-cols-3 gap-8 flex-1 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full lg:max-w-5xl gap-8 h-full items-center">
         {reasonsMap?.map((reason, index) => (
           <ReasonCard key={index} reason={reason} />
         ))}
