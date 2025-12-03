@@ -7,7 +7,7 @@ const ContactSection = () => {
   return (
     <Row className="relative bg-primary w-full h-220 items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/50 to-transparent" />
-      <Column className="z-10 space-y-51 w-1/2 e h-full px-25 py-27 bg-white">
+      <Column className="z-10 space-y-51 w-1/2 e h-full px-25 py-27 bg-background">
         <Column className="space-y-5">
           <h3 className="font-bold text-5xl  max-w-lg leading-14">
             Nossa equipe especializada está pronta para tirar suas dúvidas

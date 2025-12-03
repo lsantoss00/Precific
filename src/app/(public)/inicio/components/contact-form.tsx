@@ -156,7 +156,7 @@ const ContactForm = () => {
           htmlFor="acceptMarketing"
           className="cursor-pointer text-white font-normal text-xs"
         >
-          Aceito receber comunicações de marketing e promoções exclusivas do
+          Aceito receber comunicações de marketing e promoções exclusivas da
           Precific
         </Label>
       </Row>
