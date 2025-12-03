@@ -7,18 +7,18 @@ const ContactSection = () => {
   return (
     <Flex
       id="contato"
-      className="relative bg-primary w-full lg:h-220 flex-col lg:flex-row items-stretch justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative bg-primary w-full xl:h-220 flex-col lg:flex-row items-stretch justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/50 to-transparent" />
-      <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-51 w-full lg:w-1/2 h-auto lg:h-full px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-0 lg:py-27 bg-background">
-        <Column className="space-y-4 md:space-y-5 py-12 md:py-16 lg:py-0">
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-lg leading-tight">
+      <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-31 xl:space-y-51 w-full xl:w-1/2 h-auto xl:h-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-25 py-0 xl:py-27 bg-background">
+        <Column className="space-y-4 md:space-y-5 py-12 md:py-16 xl:py-0">
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-5xl max-w-lg leading-tight">
             Nossa equipe especializada está pronta para tirar suas dúvidas
           </h3>
-          <p className="text-sm md:text-base lg:text-lg max-w-xl text-muted-foreground">
+          <p className="text-sm md:text-base xl:text-lg max-w-xl text-muted-foreground">
             Preencha o formulário{" "}
-            <span className="lg:inline hidden">ao lado</span>
-            <span className="lg:hidden">abaixo</span> para que um dos nossos
+            <span className="xl:inline hidden">ao lado</span>
+            <span className="xl:hidden">abaixo</span> para que um dos nossos
             especialistas entre em contato, assim, poderemos tirar suas dúvidas
             e marcar uma demonstração gratuita!
           </p>
@@ -31,12 +31,12 @@ const ContactSection = () => {
           className="hidden lg:block w-full max-w-sm"
         />
       </Column>
-      <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-40 w-full lg:w-1/2 h-auto lg:h-full px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-0 lg:py-27 items-center justify-center py-12 md:py-16 lg:py-0">
+      <Column className="z-10 space-y-8 md:space-y-12 xl:space-y-40 w-full xl:w-1/2 h-auto xl:h-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-25 py-12 md:py-16 xl:py-27 items-center justify-center">
         <Column className="space-y-4 md:space-y-5 w-full">
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center max-w-lg leading-tight self-center">
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-5xl text-white text-center max-w-lg leading-tight self-center">
             Fale com um especialista agora e garanta o seu Precific!
           </h3>
-          <p className="text-sm md:text-base lg:text-lg text-white text-center max-w-xl self-center">
+          <p className="text-sm md:text-base xl:text-lg text-white text-center max-w-xl self-center">
             Nossa equipe prestará o atendimento rápido.
           </p>
           <ContactForm />

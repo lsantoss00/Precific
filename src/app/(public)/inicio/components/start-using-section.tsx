@@ -3,12 +3,12 @@ import Column from "@/src/components/core/column";
 
 const StartUsingSection = () => {
   return (
-    <Column className="bg-white w-full py-12 md:py-16 lg:py-20 lg:h-75 items-center justify-center px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
+    <Column className="bg-white w-full py-12 md:py-16 xl:py-20 xl:h-75 items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-25">
       <Column className="space-y-4 md:space-y-6 items-center">
-        <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center leading-tight">
+        <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-5xl text-center leading-tight">
           Comece a usar a Precific agora!
         </h3>
-        <p className="text-center text-sm md:text-base lg:text-lg max-w-155 text-muted-foreground">
+        <p className="text-center text-sm md:text-base xl:text-lg max-w-155 text-muted-foreground">
           Enquanto você pensa, seu concorrente já já vai começar a{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-bold">
             PRECIFIC

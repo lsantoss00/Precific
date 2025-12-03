@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25 py-4 h-20 bg-white border-b border-zinc-200">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-25  py-4 h-20 bg-white border-b border-zinc-200">
       <nav className="flex items-center space-x-4 md:space-x-8">
         <Link href="/inicio">
           <Image
