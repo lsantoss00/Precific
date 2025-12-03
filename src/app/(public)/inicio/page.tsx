@@ -1,5 +1,6 @@
 import ContactSection from "@/src/app/(public)/inicio/components/contact-section";
 import FAQSection from "@/src/app/(public)/inicio/components/faq-section";
+import Footer from "@/src/app/(public)/inicio/components/footer";
 import GetAheadSection from "@/src/app/(public)/inicio/components/get-ahead-section";
 import HeroSection from "@/src/app/(public)/inicio/components/hero-section";
 import LogoSection from "@/src/app/(public)/inicio/components/logo-section";
@@ -23,6 +24,7 @@ export default function LandingPage() {
       <ContactSection />
       <StartUsingSection />
       <FAQSection />
+      <Footer />
     </>
   );
 }

@@ -1,5 +1,4 @@
 import ReasonCard from "@/src/app/(public)/inicio/components/reason-card";
-import { ReasonType } from "@/src/app/(public)/inicio/types/reason-type";
 import Column from "@/src/components/core/column";
 import { Brain, ChartColumn, FileSpreadsheet } from "lucide-react";
 
@@ -17,9 +16,10 @@ const ReasonsSection = () => {
     </Column>
   );
 };
+
 export default ReasonsSection;
 
-const reasonsMap: ReasonType[] = [
+const reasonsMap = [
   {
     icon: <FileSpreadsheet />,
     title: "Importe sua tabela de produtos",
