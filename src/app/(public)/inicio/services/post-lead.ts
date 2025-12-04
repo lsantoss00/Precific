@@ -16,7 +16,7 @@ export async function postLead({ lead }: PostLeadProps) {
     accept_marketing: lead.acceptMarketing,
   };
 
-  const { error } = await supabase.from("leads").insert(leadData).select();
+  const { error } = await supabase.from("leads").insert(leadData).single();
 
   if (error) throw error;
 
