@@ -7,36 +7,83 @@ import { MaskedInput } from "@/src/components/core/masked-input";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { Loader2Icon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
+import { postContact } from "../services/post-contact";
 
 const ContactFormSchema = z.object({
-  name: z.string().min(1, "O campo nome é obrigatório."),
-  cnpj: z.string().min(1, "O campo CNPJ é obrigatório."),
-  email: z.string().min(1, "O campo email é obrigatório."),
-  phone: z.string().min(1, "O campo telefone é obrigatório."),
+  name: z
+    .string()
+    .min(1, "O campo nome é obrigatório.")
+    .min(3, "O nome deve ter no mínimo 3 caracteres."),
+  cnpj: z
+    .string()
+    .min(1, "O campo CNPJ é obrigatório.")
+    .length(14, "CNPJ inválido. Deve conter 14 dígitos."),
+  email: z
+    .string()
+    .min(1, "O campo email é obrigatório.")
+    .email("Email inválido."),
+  phone: z
+    .string()
+    .min(1, "O campo telefone é obrigatório.")
+    .refine(
+      (val) => val.length === 10 || val.length === 11,
+      "Telefone inválido. Deve conter 10 ou 11 dígitos."
+    ),
   acceptMarketing: z.boolean(),
 });
 
 type ContactFormSchemaType = z.infer<typeof ContactFormSchema>;
 
 const ContactForm = () => {
-  const { handleSubmit, control, watch } = useForm<ContactFormSchemaType>({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    watch,
+    formState: { isValid },
+  } = useForm<ContactFormSchemaType>({
     resolver: zodResolver(ContactFormSchema),
+    mode: "onChange",
     defaultValues: {
+      name: "",
+      cnpj: "",
+      email: "",
+      phone: "",
       acceptMarketing: false,
     },
   });
 
-  const handleSubmitContactForm = ({
-    name,
-    cnpj,
-    email,
-    phone,
-    acceptMarketing,
-  }: ContactFormSchemaType) => {
-    console.log({ name, cnpj, email, phone, acceptMarketing });
+  const contactMutation = useMutation({
+    mutationFn: postContact,
+    onSuccess: () => {
+      toast.success(
+        "Formulário enviado com sucesso! Em breve entraremos em contato.",
+        {
+          className: "!bg-green-600 !text-white",
+        }
+      );
+      reset();
+    },
+    onError: () => {
+      toast.error("Erro ao enviar formulário. Por favor, tente novamente.", {
+        className: "!bg-red-600 !text-white",
+      });
+    },
+  });
+
+  const handleSubmitContactForm = (data: ContactFormSchemaType) => {
+    contactMutation.mutate({ contact: data });
   };
+
+  const { name, cnpj, email, phone } = watch();
+  const formInputFieldIsBlank = [name, cnpj, email, phone].some(
+    (value) => value === ""
+  );
 
   return (
     <form
@@ -59,7 +106,9 @@ const ContactForm = () => {
                 error && "border-red-600"
               }`}
             />
-            <div className="h-2 -mt-1">
+            <div
+              className={`${error ? "h-3" : "h-0"} transition-all duration-200`}
+            >
               <Show when={error}>
                 <span className="text-xs text-red-600">{error?.message}</span>
               </Show>
@@ -83,7 +132,9 @@ const ContactForm = () => {
                 error && "border-red-600"
               }`}
             />
-            <div className="h-2 -mt-1">
+            <div
+              className={`${error ? "h-3" : "h-0"} transition-all duration-200`}
+            >
               <Show when={error}>
                 <span className="text-xs text-red-600">{error?.message}</span>
               </Show>
@@ -106,7 +157,9 @@ const ContactForm = () => {
                 error && "border-red-600"
               }`}
             />
-            <div className="h-2 -mt-1">
+            <div
+              className={`${error ? "h-3" : "h-0"} transition-all duration-200`}
+            >
               <Show when={error}>
                 <span className="text-xs text-red-600">{error?.message}</span>
               </Show>
@@ -117,27 +170,35 @@ const ContactForm = () => {
       <Controller
         name="phone"
         control={control}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <Column>
-            <MaskedInput
-              id="phone"
-              mask="(00) 00000-0000"
-              placeholder="Telefone"
-              value={value}
-              onAccept={onChange}
-              unmask={true}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
-                error && "border-red-600"
-              }`}
-            />
+        render={({ field: { onChange, value }, fieldState: { error } }) => {
+          const phoneMask =
+            value && value.length <= 10 ? "(00) 0000-0000" : "(00) 00000-0000";
 
-            <div className="h-2 -mt-1">
-              <Show when={error}>
-                <span className="text-xs text-red-600">{error?.message}</span>
-              </Show>
-            </div>
-          </Column>
-        )}
+          return (
+            <Column>
+              <MaskedInput
+                id="phone"
+                mask={phoneMask}
+                placeholder="Telefone"
+                value={value}
+                onAccept={onChange}
+                unmask={true}
+                className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
+                  error && "border-red-600"
+                }`}
+              />
+              <div
+                className={`${
+                  error ? "h-3" : "h-0"
+                } transition-all duration-200`}
+              >
+                <Show when={error}>
+                  <span className="text-xs text-red-600">{error?.message}</span>
+                </Show>
+              </div>
+            </Column>
+          );
+        }}
       />
       <Row className="gap-2 items-center">
         <Controller
@@ -148,7 +209,7 @@ const ContactForm = () => {
               id="acceptMarketing"
               checked={value}
               onCheckedChange={onChange}
-              className="!bg-black/20 data-[state=checked]:border-white focus-visible:border-white focus-visible:ring-white/50 "
+              className="bg-black/20! data-[state=checked]:border-white focus-visible:border-white focus-visible:ring-white/50"
             />
           )}
         />
@@ -164,10 +225,13 @@ const ContactForm = () => {
         className="h-12 md:h-14 text-sm md:text-base"
         type="submit"
         variant="secondary"
+        disabled={
+          contactMutation.isPending || formInputFieldIsBlank || !isValid
+        }
       >
-        {/* <Show when={handleSubmitContactForm}>
-            <Loader2Icon className="animate-spin" />
-          </Show> */}
+        <Show when={contactMutation.isPending}>
+          <Loader2Icon className="animate-spin" />
+        </Show>
         Eu quero precificar!
       </Button>
     </form>
