@@ -3,14 +3,15 @@ import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import { Ellipsis } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const ValuePropositionSection = () => {
   return (
-    <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-16 2xl:py-20 xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
+    <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
       <FadeInOnScroll direction="left" className="w-full xl:w-1/2">
-        <Flex className="flex-col lg:flex-row xl:flex-col relative z-10 space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full">
+        <Flex className="flex-col lg:flex-row xl:flex-col relative z-10 space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 py-12 md:py-16 xl:py-16 2xl:py-20">
           <Column className="space-y-4 md:space-y-5">
             <h3 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white max-w-lg leading-tight">
               Maior precisão, menos estresse!
@@ -32,9 +33,15 @@ const ValuePropositionSection = () => {
       </FadeInOnScroll>
       <FadeInOnScroll
         direction="right"
-        className="relative z-10 w-full xl:w-1/2 h-64 sm:h-80 md:h-96 lg:h-110 xl:h-full mt-8 xl:mt-0"
+        className="relative z-10 w-full xl:w-1/2 h-64 sm:h-80 md:h-96 lg:h-110 xl:h-full"
       >
-        <div className="w-full h-full bg-black/60" />
+        <Image
+          src="/landing-page/user-image.webp"
+          alt="Usuária do Precific"
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </FadeInOnScroll>
     </Flex>
   );
