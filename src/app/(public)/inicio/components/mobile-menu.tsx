@@ -18,6 +18,14 @@ const MobileMenu = () => {
     closeMenu();
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    closeMenu();
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild className="md:hidden">
@@ -64,24 +72,20 @@ const MobileMenu = () => {
             <div className="h-px bg-zinc-200 my-1" />
             <Button
               variant="ghost"
-              asChild
+              onClick={() => scrollToSection("descubra")}
               className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
             >
-              <Link href="#descubra" onClick={closeMenu}>
-                <Compass className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
-                Descubra
-              </Link>
+              <Compass className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
+              Descubra
             </Button>
             <div className="h-px bg-zinc-200 my-1" />
             <Button
               variant="ghost"
-              asChild
+              onClick={() => scrollToSection("contato")}
               className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
             >
-              <Link href="#contato" onClick={closeMenu}>
-                <MessageCircle className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
-                Converse conosco
-              </Link>
+              <MessageCircle className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
+              Converse conosco
             </Button>
           </nav>
 

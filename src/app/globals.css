@@ -83,6 +83,7 @@
     @apply bg-background text-foreground overflow-x-hidden;
   }
   html {
+    scroll-behavior: smooth;
     scroll-padding-top: 5rem;
   }
 }
