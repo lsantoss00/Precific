@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import Link from "next/link";
-
+import notFoundImage from "@/public/404-image.webp";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   return (
     <html lang="pt-BR" className={poppins.className}>
-      <body className="antialiased bg-[url('/app-background-image.webp')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen flex flex-col items-center justify-center space-y-4 m-4">
+      <body className="antialiased bg-background min-h-screen flex flex-col items-center justify-center space-y-4 m-4">
         <Column className="gap-10">
           <Image
-            src="/404-image.webp"
+            src={notFoundImage}
             alt="Erro 404"
             width={500}
             height={500}
