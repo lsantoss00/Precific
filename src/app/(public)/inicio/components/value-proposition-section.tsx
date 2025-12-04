@@ -1,3 +1,4 @@
+import userImage from "@/public/landing-page/user-image.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -36,7 +37,7 @@ const ValuePropositionSection = () => {
         className="relative z-10 w-full xl:w-1/2 h-64 sm:h-80 md:h-96 lg:h-110 xl:h-full"
       >
         <Image
-          src="/landing-page/user-image.webp"
+          src={userImage}
           alt="Usuária do Precific"
           fill
           className="object-cover object-center"

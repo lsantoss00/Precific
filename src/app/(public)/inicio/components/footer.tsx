@@ -1,6 +1,8 @@
-import logoImage from "@/public/precific-logo-image.webp";
+import grupoViriatoLogoImage from "@/public/landing-page/grupo-viriato-logo.webp";
+import precificLogoImage from "@/public/precific-logo-image.webp";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
+import Row from "@/src/components/core/row";
 import { Instagram, Linkedin, YoutubeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,16 +20,37 @@ const Footer = () => {
     <footer className="bg-white w-full py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
       <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
         <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
-          <Image
-            src={logoImage}
-            alt="precific-logo-image"
-            width={200}
-            height={100}
-            quality={100}
-          />
-          <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a
-            mollis purus, et luctus nisl. Mauris vel luctus lacus.
+          <Row className="items-center gap-4">
+            <div className="relative">
+              <Image
+                src={grupoViriatoLogoImage}
+                alt="grupo-viriato-logo-image"
+                width={100}
+                height={100}
+                quality={100}
+                className="object-contain"
+              />
+            </div>
+            <div className="h-12 w-px bg-border" />
+            <div className="relative">
+              <Image
+                src={precificLogoImage}
+                alt="precific-logo-image"
+                width={100}
+                height={50}
+                quality={100}
+                className="object-contain"
+              />
+            </div>
+          </Row>
+          <p className="text-muted-foreground text-sm sm:text-base max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg leading-relaxed lg:text-justify">
+            O Precific é um produto oficial do Grupo Viriato, desenvolvido para
+            apoiar empresas na formação de preços com precisão, inteligência
+            tributária e eficiência operacional. Há mais de 40 anos
+            impulsionando negócios, o Grupo Viriato reúne soluções em
+            contabilidade, consultoria tributária, jurídico, seguros e gestão
+            empresarial, oferecendo tecnologia e expertise para transformar
+            resultados.
           </p>
           <Flex className="gap-4">
             {socialLinks.map((social) => (
