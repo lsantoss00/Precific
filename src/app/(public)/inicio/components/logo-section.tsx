@@ -12,7 +12,6 @@ const LogoSection = () => {
           alt="precific-logo-image"
           width={800}
           height={225}
-          quality={100}
           className="w-full max-w-sm md:max-w-md xl:max-w-xl 2xl:max-w-2xl h-auto"
         />
       </FadeInOnScroll>

@@ -27,7 +27,6 @@ const Header = () => {
             alt="Precific Logo"
             width={48}
             height={48}
-            quality={100}
             priority
             className="hover:scale-105 transition-transform duration-200"
           />
