@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    domains: ["i.ytimg.com"],
+    remotePatterns: [{ hostname: "i.ytimg.com" }],
   },
   experimental: {
     globalNotFound: true,
