@@ -1,11 +1,19 @@
+"use client";
+
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import YouTubeEmbed from "@/src/components/youtube-embed";
-import Link from "next/link";
 
 const HeroSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <Flex className="relative bg-primary w-full py-20 md:py-24 xl:py-0 xl:h-180 2xl:h-200 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
@@ -22,11 +30,11 @@ const HeroSection = () => {
             </p>
           </Column>
           <Button
-            asChild
             className="w-full sm:w-fit h-12 md:h-14 px-6 md:px-8 hover:cursor-pointer font-medium text-sm md:text-base"
             variant="secondary"
+            onClick={() => scrollToSection("contato")}
           >
-            <Link href="/entrar">Agendar Demonstração</Link>
+            Agendar Demonstração
           </Button>
         </Column>
       </FadeInOnScroll>

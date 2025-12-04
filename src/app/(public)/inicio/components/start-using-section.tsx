@@ -1,8 +1,17 @@
+"use client";
+
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 
 const StartUsingSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <Column className="bg-white w-full py-12 md:py-16 xl:py-16 2xl:py-20 xl:min-h-[18rem] 2xl:h-75 items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
       <FadeInOnScroll direction="up">
@@ -19,7 +28,7 @@ const StartUsingSection = () => {
           </p>
           <Button
             className="h-12 md:h-14 w-full sm:w-fit px-6 md:px-8 text-sm md:text-base"
-            type="submit"
+            onClick={() => scrollToSection("contato")}
           >
             Não quero ficar para trás!
           </Button>

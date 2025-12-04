@@ -1,3 +1,5 @@
+"use client";
+
 import userImage from "@/public/landing-page/user-image.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
@@ -5,9 +7,15 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 const ValuePropositionSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
@@ -24,11 +32,11 @@ const ValuePropositionSection = () => {
             <Ellipsis className="text-white w-12 h-12 md:w-16 md:h-16 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 -my-5 -ml-2" />
           </Column>
           <Button
-            asChild
             className="w-full sm:w-fit h-12 md:h-14 px-6 md:px-8 hover:cursor-pointer font-medium text-sm md:text-base"
             variant="secondary"
+            onClick={() => scrollToSection("contato")}
           >
-            <Link href="/entrar">Quero falar com um especialista!</Link>
+            Quero falar com um especialista!
           </Button>
         </Flex>
       </FadeInOnScroll>
