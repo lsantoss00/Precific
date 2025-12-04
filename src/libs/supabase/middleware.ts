@@ -7,6 +7,9 @@ const PUBLIC_ROUTES = [
   "/redefinir-senha",
   "/auth",
   "/inicio",
+  "/sobre",
+  "/termos-de-uso",
+  "/politica-de-privacidade",
 ];
 
 export async function updateSession(request: NextRequest) {

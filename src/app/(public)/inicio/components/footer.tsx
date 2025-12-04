@@ -1,7 +1,7 @@
 import logoImage from "@/public/precific-logo-image.webp";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin, YoutubeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,7 +65,8 @@ const Footer = () => {
       </Flex>
       <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
         <p className="text-muted-foreground text-xs md:text-sm text-center">
-          © {currentYear} Precific. Todos os direitos reservados.
+          © {currentYear} Precific. Uma aplicação do Grupo Viriato. Todos os
+          direitos reservados.
         </p>
       </div>
     </footer>
@@ -76,19 +77,19 @@ export default Footer;
 
 const socialLinks = [
   {
-    href: "https://facebook.com",
-    icon: <Facebook className="w-5 h-5" />,
-    label: "Facebook",
-  },
-  {
-    href: "https://twitter.com",
-    icon: <Twitter className="w-5 h-5" />,
-    label: "Twitter",
-  },
-  {
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/grupo-viriato/",
     icon: <Linkedin className="w-5 h-5" />,
     label: "LinkedIn",
+  },
+  {
+    href: "https://www.instagram.com/grupoviriato",
+    icon: <Instagram className="w-5 h-5" />,
+    label: "Instagram",
+  },
+  {
+    href: "https://www.youtube.com/@ViriatoCast",
+    icon: <YoutubeIcon className="w-5 h-5" />,
+    label: "Youtube",
   },
 ];
 
@@ -97,12 +98,33 @@ const footerLinks = [
     title: "Atendimento",
     links: [
       {
-        title: "contato@precific.com",
-        href: "mailto:contato@precific.com",
+        title: "contato@precificapp.com",
+        href: "mailto:contato@precificapp.com",
       },
       {
         title: "+55 (21) 2292-9071",
-        href: "/termos-de-uso",
+        href: "tel:+552122929071",
+      },
+    ],
+  },
+  {
+    title: "Nossas Empresas",
+    links: [
+      {
+        title: "Grupo Viriato",
+        href: "https://www.viriato.com.br/",
+      },
+      {
+        title: "Correa & Lopes",
+        href: "https://correaelopes.com.br/",
+      },
+      {
+        title: "Viriato Imobiliária",
+        href: "https://www.viriatoimobiliaria.com.br/",
+      },
+      {
+        title: "Nova Viriato",
+        href: "https://www.viriatocorretoradeseguros.com.br/",
       },
     ],
   },
