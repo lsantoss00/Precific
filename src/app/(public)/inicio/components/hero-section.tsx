@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <Flex className="relative bg-primary w-full py-20 md:py-24 xl:py-0 xl:h-[45rem] 2xl:h-200 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat overflow-hidden">
+    <Flex className="relative bg-primary w-full py-20 md:py-24 xl:py-0 xl:h-[45rem] 2xl:h-200 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
       <FadeInOnScroll direction="up" delay={0.2}>
         <Column className="relative z-10 w-full xl:max-w-[35rem] 2xl:max-w-140 space-y-6 md:space-y-8">

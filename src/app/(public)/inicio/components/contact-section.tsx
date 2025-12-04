@@ -8,7 +8,7 @@ const ContactSection = () => {
   return (
     <Flex
       id="contato"
-      className="relative bg-primary w-full xl:min-h-200 2xl:h-220 flex-col lg:flex-row items-stretch justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative bg-primary w-full xl:min-h-200 2xl:h-220 flex-col lg:flex-row items-stretch justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden"
     >
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
       <Column className="z-10 space-y-8 md:space-y-12 lg:space-y-31 xl:space-y-54 2xl:space-y-51 w-full xl:w-1/2 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 py-0 xl:py-16 2xl:py-27 bg-background">
