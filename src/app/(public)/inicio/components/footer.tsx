@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white w-full py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
-      <Flex className="flex-col md:flex-row justify-between items-start gap-8 md:gap-12 lg:gap-16">
+      <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
         <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
           <Image
             src={logoImage}
@@ -65,7 +65,7 @@ const Footer = () => {
       </Flex>
       <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
         <p className="text-muted-foreground text-xs md:text-sm text-center">
-          © {currentYear} Precific. Uma aplicação do Grupo Viriato. Todos os
+          © {currentYear} Precific — uma solução do Grupo Viriato. Todos os
           direitos reservados.
         </p>
       </div>
