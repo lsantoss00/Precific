@@ -134,7 +134,7 @@ const footerLinks = [
     title: "Nossas Empresas",
     links: [
       {
-        title: "Grupo Viriato",
+        title: "Viriato Contabilidade",
         href: "https://www.viriato.com.br/",
       },
       {
@@ -146,8 +146,16 @@ const footerLinks = [
         href: "https://www.viriatoimobiliaria.com.br/",
       },
       {
-        title: "Nova Viriato",
+        title: "J.A Lopes Advogados",
+        href: "https://www.jalopesadvogados.com.br/",
+      },
+      {
+        title: "Viriato Corretora de Seguros",
         href: "https://www.viriatocorretoradeseguros.com.br/",
+      },
+      {
+        title: "Viriato Cast",
+        href: "https://www.instagram.com/viriatocast/",
       },
     ],
   },
