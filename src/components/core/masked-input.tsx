@@ -1,10 +1,12 @@
 "use client";
+
 import { cn } from "@/src/libs/shadcn-ui/utils";
 import { forwardRef } from "react";
 import { IMaskInput } from "react-imask";
 
-interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  mask: string;
+interface MaskedInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "min" | "max"> {
+  mask: string | Array<{ mask: string }>;
   value: string;
   onAccept?: (value: string) => void;
   unmask?: boolean;
@@ -18,7 +20,7 @@ const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
   ) => {
     return (
       <IMaskInput
-        mask={mask}
+        mask={mask as any}
         value={value}
         unmask={unmask}
         onAccept={onAccept}

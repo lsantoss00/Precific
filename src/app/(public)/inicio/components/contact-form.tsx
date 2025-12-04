@@ -182,13 +182,14 @@ const ContactForm = () => {
         name="phone"
         control={control}
         render={({ field: { onChange, value }, fieldState: { error } }) => {
-          const phoneMask =
-            value.length < 11 ? "(00) 0000-0000" : "(00) 00000-0000";
           return (
             <Column>
               <MaskedInput
                 id="phone"
-                mask={phoneMask}
+                mask={[
+                  { mask: "(00) 0000-0000" },
+                  { mask: "(00) 0 0000-0000" },
+                ]}
                 placeholder="Telefone"
                 value={value}
                 onAccept={onChange}
