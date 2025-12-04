@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  images: {
+    domains: ["i.ytimg.com"],
+  },
   experimental: {
     globalNotFound: true,
   },
