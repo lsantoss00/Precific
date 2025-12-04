@@ -14,7 +14,7 @@ const ReasonsSection = () => {
           Em poucos cliques, do custo ao lucro ideal
         </h2>
       </FadeInOnScroll>
-      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-7xl gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-5xl gap-6">
         {reasonsMap?.map((reason, index) => (
           <ReasonCard key={index} reason={reason} delay={index * 0.15} />
         ))}

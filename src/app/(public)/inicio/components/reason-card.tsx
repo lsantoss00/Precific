@@ -14,7 +14,7 @@ interface ReasonCardProps {
 const ReasonCard = ({ reason, delay = 0 }: ReasonCardProps) => {
   return (
     <FadeInOnScroll direction="up" delay={delay}>
-      <Card className="bg-white w-full h-auto p-6 space-y-3 md:space-y-4 hover:scale-105 duration-300">
+      <Card className="bg-white w-full h-full p-8 space-y-3 md:space-y-4 hover:scale-105 duration-300">
         <span className="[&>svg]:w-10 [&>svg]:h-10 md:[&>svg]:w-12 md:[&>svg]:h-12">
           {reason?.icon}
         </span>
