@@ -1,4 +1,4 @@
-import ReasonCard from "@/src/app/(public)/inicio/components/reason-card";
+import ReasonCard from "@/src/app/(landing)/components/reason-card";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 import { Brain, ChartColumn, FileSpreadsheet } from "lucide-react";

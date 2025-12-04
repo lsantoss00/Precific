@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/src/app/(public)/inicio/components/header";
+import Header from "@/src/app/(landing)/components/header";
 import Column from "@/src/components/core/column";
 import { useEffect } from "react";
 

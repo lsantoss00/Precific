@@ -1,15 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = [
-  "/entrar",
-  "/criar-senha",
-  "/redefinir-senha",
-  "/auth",
-  "/inicio",
-  "/sobre",
-  "/termos-de-uso",
-  "/politica-de-privacidade",
+const PRIVATE_ROUTES = [
+  "/dashboard",
+  "/produtos",
+  "/perfil",
+  "/configuracoes",
+  "/suporte",
 ];
 
 export async function updateSession(request: NextRequest) {
@@ -47,7 +44,7 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
+  const isPrivateRoute = PRIVATE_ROUTES.some((route) =>
     pathname.startsWith(route)
   );
 
@@ -76,19 +73,25 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (!user && !isPublicRoute) {
+  if (pathname === "/") {
+    return supabaseResponse;
+  }
+
+  if (user && pathname === "/entrar") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/produtos";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
+
+  if (!user && isPrivateRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/entrar";
     return NextResponse.redirect(url);
   }
 
-  if (
-    user &&
-    (pathname === "/entrar" ||
-      pathname === "/redefinir-senha" ||
-      pathname === "/")
-  ) {
-    if (pathname === "/redefinir-senha" && hasErrorParam) {
+  if (user && pathname === "/redefinir-senha") {
+    if (hasErrorParam) {
       return supabaseResponse;
     }
     const url = request.nextUrl.clone();

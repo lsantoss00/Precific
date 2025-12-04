@@ -1,6 +1,6 @@
 "use client";
 
-import { postLead } from "@/src/app/(public)/inicio/services/post-lead";
+import { postLead } from "@/src/app/(landing)/services/post-lead";
 import { Button, Input, Label } from "@/src/components/core";
 import { Checkbox } from "@/src/components/core/checkbox";
 import Column from "@/src/components/core/column";

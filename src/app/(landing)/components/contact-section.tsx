@@ -1,4 +1,4 @@
-import ContactForm from "@/src/app/(public)/inicio/components/contact-form";
+import ContactForm from "@/src/app/(landing)/components/contact-form";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
