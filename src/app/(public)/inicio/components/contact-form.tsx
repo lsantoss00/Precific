@@ -1,5 +1,6 @@
 "use client";
 
+import { postLead } from "@/src/app/(public)/inicio/services/post-lead";
 import { Button, Input, Label } from "@/src/components/core";
 import { Checkbox } from "@/src/components/core/checkbox";
 import Column from "@/src/components/core/column";
@@ -12,7 +13,6 @@ import { Loader2Icon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { postContact } from "../services/post-contact";
 
 const ContactFormSchema = z.object({
   name: z
@@ -48,7 +48,7 @@ const ContactForm = () => {
     formState: { isValid },
   } = useForm<ContactFormSchemaType>({
     resolver: zodResolver(ContactFormSchema),
-    mode: "onChange",
+    mode: "onTouched",
     defaultValues: {
       name: "",
       cnpj: "",
@@ -59,10 +59,14 @@ const ContactForm = () => {
   });
 
   const contactMutation = useMutation({
-    mutationFn: postContact,
+    mutationFn: postLead,
     onSuccess: () => {
       toast.success(
-        "Formulário enviado com sucesso! Em breve entraremos em contato.",
+        <span>
+          Formulário enviado com sucesso!
+          <br />
+          Em breve entraremos em contato.
+        </span>,
         {
           className: "!bg-green-600 !text-white",
         }
@@ -70,14 +74,21 @@ const ContactForm = () => {
       reset();
     },
     onError: () => {
-      toast.error("Erro ao enviar formulário. Por favor, tente novamente.", {
-        className: "!bg-red-600 !text-white",
-      });
+      toast.error(
+        <span>
+          Erro ao enviar formulário.
+          <br />
+          Por favor, tente novamente.
+        </span>,
+        {
+          className: "!bg-red-600 !text-white",
+        }
+      );
     },
   });
 
   const handleSubmitContactForm = (data: ContactFormSchemaType) => {
-    contactMutation.mutate({ contact: data });
+    contactMutation.mutate({ lead: data });
   };
 
   const { name, cnpj, email, phone } = watch();
@@ -102,7 +113,7 @@ const ContactForm = () => {
               autoComplete="name"
               value={value}
               onChange={onChange}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
+              className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -128,7 +139,7 @@ const ContactForm = () => {
               value={value}
               onAccept={onChange}
               unmask={true}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
+              className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -153,7 +164,7 @@ const ContactForm = () => {
               autoComplete="email"
               value={value}
               onChange={onChange}
-              className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
+              className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
             />
@@ -172,8 +183,7 @@ const ContactForm = () => {
         control={control}
         render={({ field: { onChange, value }, fieldState: { error } }) => {
           const phoneMask =
-            value && value.length <= 10 ? "(00) 0000-0000" : "(00) 00000-0000";
-
+            value.length < 11 ? "(00) 0000-0000" : "(00) 00000-0000";
           return (
             <Column>
               <MaskedInput
@@ -183,7 +193,7 @@ const ContactForm = () => {
                 value={value}
                 onAccept={onChange}
                 unmask={true}
-                className={`bg-black/20 placeholder:text-zinc-350 text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
+                className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                   error && "border-red-600"
                 }`}
               />

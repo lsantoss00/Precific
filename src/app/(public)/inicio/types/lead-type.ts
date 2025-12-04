@@ -1,4 +1,4 @@
-export interface ContactType {
+export interface LeadType {
   name: string;
   cnpj: string;
   email: string;
