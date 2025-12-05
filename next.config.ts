@@ -18,7 +18,9 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
     optimizePackageImports: ["@/src/components/core"],
+    optimizeCss: true,
   },
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

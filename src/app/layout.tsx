@@ -46,6 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link
+          rel="preload"
+          href="/landing-page/hero-section-background.webp"
+          as="image"
+          fetchPriority="high"
+        />
+      </head>
       <body className={`${poppins.className} antialiased bg-background`}>
         <Providers>
           <NextTopLoader
