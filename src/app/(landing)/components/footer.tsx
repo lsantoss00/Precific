@@ -27,7 +27,7 @@ const Footer = () => {
                 alt="grupo-viriato-logo-image"
                 width={100}
                 height={100}
-                quality={100}
+                loading="lazy"
                 className="object-contain"
               />
             </div>
@@ -38,7 +38,7 @@ const Footer = () => {
                 alt="precific-logo-image"
                 width={100}
                 height={50}
-                quality={100}
+                loading="lazy"
                 className="object-contain"
               />
             </div>
