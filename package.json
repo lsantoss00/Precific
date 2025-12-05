@@ -31,7 +31,7 @@
     "@types/papaparse": "^5.3.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "beasties": "^0.1.0",
+    "critters": "^0.0.25",
     "date-fns": "^4.1.0",
     "decimal.js": "^10.6.0",
     "framer-motion": "^12.23.25",
