@@ -26,6 +26,7 @@ const Header = () => {
           alt="Precific Logo"
           width={48}
           height={48}
+          sizes="48px"
           priority
         />
         <ul className="hidden md:flex items-center space-x-6 lg:space-x-8">

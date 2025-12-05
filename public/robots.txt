@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Disallow private routes
+Disallow: /dashboard
+Disallow: /produtos
+Disallow: /perfil
+Disallow: /configuracoes
+Disallow: /suporte
+Disallow: /auth
+
+# Sitemap
+Sitemap: https://www.precificapp.com/sitemap.xml

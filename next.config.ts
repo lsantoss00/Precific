@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -10,6 +10,56 @@ const nextConfig: NextConfig = {
     config.infrastructureLogging = {
       level: "error",
     };
+
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: "deterministic",
+        runtimeChunk: "single",
+        splitChunks: {
+          chunks: "all",
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            framework: {
+              name: "framework",
+              chunks: "all",
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-sync-external-store)[\\/]/,
+              priority: 40,
+              enforce: true,
+            },
+            lib: {
+              test(module: any) {
+                return (
+                  module.size() > 160000 &&
+                  /node_modules[/\\]/.test(module.identifier())
+                );
+              },
+              name(module: any) {
+                const hash = require("crypto");
+                const ident = module.identifier();
+                return (
+                  "lib-" +
+                  hash
+                    .createHash("sha1")
+                    .update(ident)
+                    .digest("hex")
+                    .substring(0, 8)
+                );
+              },
+              priority: 30,
+              minChunks: 1,
+              reuseExistingChunk: true,
+            },
+            commons: {
+              name: "commons",
+              minChunks: 2,
+              priority: 20,
+            },
+          },
+        },
+      };
+    }
 
     return config;
   },
@@ -26,6 +76,7 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
     optimizeCss: true,
+    optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",

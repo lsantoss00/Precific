@@ -20,6 +20,7 @@ const poppins = Poppins({
     "Roboto",
     "sans-serif",
   ],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -39,6 +40,16 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-code",
   },
   openGraph: {
     type: "website",
@@ -63,14 +74,23 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+        <meta name="theme-color" content="#66289B" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link
           rel="preconnect"
-          href="https://fonts.gstatic.com"
+          href="https://www.youtube-nocookie.com"
           crossOrigin="anonymous"
         />
-        <link rel="dns-prefetch" href="https://www.youtube.com" />
-        <link rel="dns-prefetch" href="https://i.ytimg.com" />
+        <link
+          rel="preconnect"
+          href="https://i.ytimg.com"
+          crossOrigin="anonymous"
+        />
         <link
           rel="preload"
           href="/landing-page/hero-section-background.webp"
@@ -78,7 +98,10 @@ export default function RootLayout({
           fetchPriority="high"
         />
       </head>
-      <body className={`${poppins.className} antialiased bg-background`}>
+      <body
+        className={`${poppins.className} antialiased bg-background`}
+        suppressHydrationWarning
+      >
         <Providers>
           <NextTopLoader
             color="#66289B"
