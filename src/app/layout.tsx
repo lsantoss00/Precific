@@ -57,6 +57,14 @@ export const metadata: Metadata = {
     title: "Precific",
     description: "Precificação de Produtos com Inteligência Artificial",
     url: "https://www.precificapp.com",
+    images: [
+      {
+        url: "/opengraph-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Precific",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
