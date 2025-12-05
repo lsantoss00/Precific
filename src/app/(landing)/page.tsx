@@ -24,7 +24,9 @@ const FAQSection = dynamic(
 const Footer = dynamic(() => import("@/src/app/(landing)/components/footer"));
 
 export const metadata: Metadata = {
-  title: "Precific",
+  title: {
+    absolute: "Precific",
+  },
   description:
     "O Precific é um produto oficial do Grupo Viriato, desenvolvido para apoiar empresas na formação de preços com precisão, inteligência tributária e eficiência operacional.",
   openGraph: {
