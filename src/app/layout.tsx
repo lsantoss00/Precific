@@ -7,14 +7,36 @@ import Providers from "../providers";
 import "./globals.css";
 
 const poppins = Poppins({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
-  title: "Precific",
-  description: "Precificação de Produtos",
+  title: {
+    default: "Precific",
+    template: "%s | Precific",
+  },
+  description: "Precificação de Produtos com Inteligência Artificial",
+  metadataBase: new URL("https://www.precificapp.com"),
+  keywords: [
+    "precificação",
+    "preços",
+    "reforma tributária",
+    "impostos",
+    "gestão de custos",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Precific",
+  },
 };
 
 export default function RootLayout({

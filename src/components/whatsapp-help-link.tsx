@@ -29,6 +29,7 @@ const WhatsAppHelpLink = () => {
         target="_blank"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        aria-label="Link para suporte via WhatsApp"
       >
         <WhatsAppIcon className="text-white h-6 w-6" />
       </Link>
