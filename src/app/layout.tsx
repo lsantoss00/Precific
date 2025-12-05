@@ -36,6 +36,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Precific",
+    title: "Precific",
+    description: "Precificação de Produtos com Inteligência Artificial",
+    url: "https://www.precificapp.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Precific",
+    description: "Precificação de Produtos com Inteligência Artificial",
   },
 };
 
