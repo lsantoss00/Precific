@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Precific - Formação de Preços Inteligente",
+    name: "Precific - Precificação Inteligente",
     short_name: "Precific",
     description:
       "Automatize o cálculo de preços com base em custos, impostos e margens. Simule cenários futuros da Reforma Tributária.",
