@@ -87,3 +87,11 @@
     scroll-padding-top: 5rem;
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
