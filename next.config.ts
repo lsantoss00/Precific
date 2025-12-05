@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+
+    config.infrastructureLogging = {
+      level: "error",
+    };
+
     return config;
   },
   images: {
@@ -20,11 +25,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     globalNotFound: true,
-    optimizePackageImports: [
-      "@/src/components/core",
-      "lucide-react",
-      "date-fns",
-    ],
     optimizeCss: true,
   },
   compiler: {
