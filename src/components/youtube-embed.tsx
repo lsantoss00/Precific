@@ -50,7 +50,6 @@ const YouTubeEmbed: React.FC<Props> = ({
               sizes="(max-width: 640px) 95vw, (max-width: 1024px) 90vw, (max-width: 1280px) 50vw, 720px"
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               priority
-              quality={75}
               loading="eager"
               onError={() => {
                 if (thumbIndex < thumbnailCandidates.length - 1) {

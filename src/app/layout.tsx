@@ -20,7 +20,6 @@ const poppins = Poppins({
     "Roboto",
     "sans-serif",
   ],
-  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -107,10 +106,7 @@ export default function RootLayout({
           as="image"
         />
       </head>
-      <body
-        className={`${poppins.className} antialiased bg-background`}
-        suppressHydrationWarning
-      >
+      <body className={`${poppins.className} antialiased bg-background`}>
         <Providers>
           <NextTopLoader
             color="#66289B"

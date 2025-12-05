@@ -86,11 +86,6 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
   }
-
-  img,
-  video {
-    content-visibility: auto;
-  }
 }
 
 @supports (-webkit-touch-callout: none) {
