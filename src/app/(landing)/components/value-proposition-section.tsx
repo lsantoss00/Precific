@@ -1,5 +1,6 @@
 "use client";
 
+import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
 import userImage from "@/public/landing-page/user-image.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
@@ -17,7 +18,15 @@ const ValuePropositionSection = () => {
   };
 
   return (
-    <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
+    <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between overflow-hidden">
+      <Image
+        src={backgroundSectionImage}
+        alt="Imagem de fundo"
+        fill
+        sizes="100vw"
+        className="object-cover object-center"
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
       <FadeInOnScroll direction="left" className="w-full xl:w-1/2">
         <Flex className="flex-col lg:flex-row xl:flex-col relative z-10 space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 py-12 md:py-16 xl:py-16 2xl:py-20">

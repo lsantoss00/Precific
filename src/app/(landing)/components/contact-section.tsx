@@ -1,3 +1,4 @@
+import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
 import ContactForm from "@/src/app/(landing)/components/contact-form";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
@@ -10,11 +11,12 @@ const ContactSection = () => {
       id="contato"
       className="relative bg-primary w-full xl:min-h-200 2xl:h-220 flex-col lg:flex-row items-stretch justify-between overflow-hidden"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/landing-page/hero-section-background.webp')",
-        }}
+      <Image
+        src={backgroundSectionImage}
+        alt="Imagem de fundo"
+        fill
+        sizes="100vw"
+        className="object-cover object-center"
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />

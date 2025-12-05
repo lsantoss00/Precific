@@ -1,11 +1,21 @@
+import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import FAQAccordion from "@/src/components/faq-accordion";
+import Image from "next/image";
 
 const FAQSection = () => {
   return (
-    <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-20 2xl:py-50  px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row gap-8 xl:gap-12 justify-between bg-[url('/landing-page/hero-section-background.webp')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
+    <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-20 2xl:py-50 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row gap-8 xl:gap-12 justify-between overflow-hidden">
+      <Image
+        src={backgroundSectionImage}
+        alt="Imagem de fundo"
+        fill
+        sizes="100vw"
+        className="object-cover object-center"
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent pointer-events-none" />
       <FadeInOnScroll direction="left">
         <Column className="relative z-10 w-full xl:w-140 2xl:w-140 space-y-6 md:space-y-8">

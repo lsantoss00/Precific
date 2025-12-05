@@ -4,24 +4,32 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 const GetAheadSection = dynamic(
-  () => import("@/src/app/(landing)/components/get-ahead-section")
+  () => import("@/src/app/(landing)/components/get-ahead-section"),
+  { ssr: true }
 );
 const ValuePropositionSection = dynamic(
-  () => import("@/src/app/(landing)/components/value-proposition-section")
+  () => import("@/src/app/(landing)/components/value-proposition-section"),
+  { ssr: true }
 );
 const LogoSection = dynamic(
-  () => import("@/src/app/(landing)/components/logo-section")
+  () => import("@/src/app/(landing)/components/logo-section"),
+  { ssr: true }
 );
 const ContactSection = dynamic(
-  () => import("@/src/app/(landing)/components/contact-section")
+  () => import("@/src/app/(landing)/components/contact-section"),
+  { ssr: true }
 );
 const StartUsingSection = dynamic(
-  () => import("@/src/app/(landing)/components/start-using-section")
+  () => import("@/src/app/(landing)/components/start-using-section"),
+  { ssr: true }
 );
 const FAQSection = dynamic(
-  () => import("@/src/app/(landing)/components/faq-section")
+  () => import("@/src/app/(landing)/components/faq-section"),
+  { ssr: true }
 );
-const Footer = dynamic(() => import("@/src/app/(landing)/components/footer"));
+const Footer = dynamic(() => import("@/src/app/(landing)/components/footer"), {
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: {

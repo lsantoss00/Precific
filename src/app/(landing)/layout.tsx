@@ -1,5 +1,3 @@
-"use client";
-
 import Header from "@/src/app/(landing)/components/header";
 import Column from "@/src/components/core/column";
 import Script from "next/script";
@@ -14,11 +12,13 @@ export default function LandingPageLayout({
       <Script
         id="software-app-jsonld"
         type="application/ld+json"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       <Script
         id="organization-jsonld"
         type="application/ld+json"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationJsonLd),
         }}
@@ -26,6 +26,7 @@ export default function LandingPageLayout({
       <Script
         id="faq-jsonld"
         type="application/ld+json"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Header />

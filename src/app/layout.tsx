@@ -107,32 +107,14 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
         <meta name="theme-color" content="#66289B" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://www.youtube-nocookie.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://i.ytimg.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/landing-page/hero-section-background.webp"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="https://i.ytimg.com/vi/9gNKBYR-rhg/sddefault.jpg"
-          as="image"
         />
       </head>
       <body
