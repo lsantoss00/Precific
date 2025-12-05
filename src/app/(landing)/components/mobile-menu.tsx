@@ -43,7 +43,7 @@ const MobileMenu = () => {
         className="w-full sm:w-[380px] p-0 [&>button]:hidden bg-zinc-50"
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between px-6 py-5 bg-white border-b border-zinc-200">
+          <div className="flex items-center justify-between px-6 py-5 h-20 bg-white border-b border-zinc-200">
             <Image
               src={shortLogoImage}
               alt="Precific Logo"

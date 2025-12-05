@@ -31,7 +31,7 @@ export function AppHeader() {
   return (
     <header className="bg-[#fafafa] sticky top-0 z-50 border-b xl:hidden">
       <div className="h-[env(safe-area-inset-top)]" />
-      <Row className="w-full h-14 justify-between items-center px-4">
+      <Row className="w-full h-20 justify-between items-center px-4">
         <SidebarTrigger className="!p-2 hover:bg-gray-100 rounded-md transition-colors shrink-0">
           <MenuIcon className="!w-6 !h-6 text-gray-700" />
         </SidebarTrigger>
