@@ -52,7 +52,7 @@ const ProductsHeaderSection = () => {
             variant="secondary"
           >
             <Link href="/produtos/novo">
-              <Plus className="text-white" />
+              <Plus />
               <span>Novo Produto</span>
             </Link>
           </Button>
