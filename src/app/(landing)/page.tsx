@@ -3,8 +3,6 @@ import ReasonsSection from "@/src/app/(landing)/components/reasons-section";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-// Lazy load componentes abaixo da dobra seguindo best practices do Next.js
-// SSR é true por padrão, não precisa especificar
 const GetAheadSection = dynamic(
   () => import("@/src/app/(landing)/components/get-ahead-section")
 );
