@@ -8,6 +8,10 @@ import ProductsTable from "./components/products-table";
 
 export const metadata: Metadata = {
   title: "Produtos",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ProductsPage() {

@@ -4,6 +4,10 @@ import { use } from "react";
 
 export const metadata: Metadata = {
   title: "Formulário de Produto",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ProductFormLayout({

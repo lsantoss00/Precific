@@ -27,7 +27,11 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "404",
-  description: "A página que você está tentando acessar não existe.",
+  description: "A página que você está procurando não foi encontrada.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function GlobalNotFound() {

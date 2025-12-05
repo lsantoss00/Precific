@@ -27,15 +27,30 @@ export const metadata: Metadata = {
     default: "Precific",
     template: "%s | Precific",
   },
-  description: "Precificação de Produtos com Inteligência Artificial",
+  description:
+    "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
   metadataBase: new URL("https://www.precificapp.com"),
   keywords: [
     "precificação",
-    "preços",
+    "formação de preços",
+    "cálculo de impostos",
     "reforma tributária",
-    "impostos",
     "gestão de custos",
+    "margem de lucro",
+    "sistema de precificação",
+    "tributação empresarial",
+    "IBS",
+    "CBS",
+    "inteligência tributária",
+    "precificação automática",
+    "gestão financeira",
+    "markup",
+    "DRE",
   ],
+  authors: [{ name: "Grupo Viriato", url: "https://www.viriato.com.br/" }],
+  creator: "Grupo Viriato",
+  publisher: "Precific",
+  category: "Business Software",
   robots: {
     index: true,
     follow: true,
@@ -55,7 +70,8 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     siteName: "Precific",
     title: "Precific",
-    description: "Precificação de Produtos com Inteligência Artificial",
+    description:
+      "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
     url: "https://www.precificapp.com",
     images: [
       {
@@ -69,7 +85,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Precific",
-    description: "Precificação de Produtos com Inteligência Artificial",
+    description:
+      "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
+    images: ["/opengraph-image.webp"],
+  },
+  alternates: {
+    canonical: "https://www.precificapp.com",
   },
 };
 

@@ -2,10 +2,10 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Precific - Precificação Inteligente",
+    name: "Precific - Sistema de Precificação e Gestão Tributária",
     short_name: "Precific",
     description:
-      "Automatize o cálculo de preços com base em custos, impostos e margens. Simule cenários futuros da Reforma Tributária.",
+      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS).",
     start_url: "/",
     scope: "/",
     display: "standalone",
@@ -13,6 +13,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#66289B",
     orientation: "portrait-primary",
     categories: ["business", "finance", "productivity"],
+    lang: "pt-BR",
     icons: [
       {
         src: "/precific-short-logo-image.webp",
