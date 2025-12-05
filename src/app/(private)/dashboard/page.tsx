@@ -2,7 +2,7 @@ import PageInConstruction from "@/src/components/page-in-construction";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Precific",
+  title: "Dashboard",
 };
 
 export default function DashboardPage() {

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { use } from "react";
 
 export const metadata: Metadata = {
-  title: "Formulário de Produto | Precific",
+  title: "Formulário de Produto",
 };
 
 export default function ProductFormLayout({

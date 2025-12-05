@@ -7,7 +7,7 @@ import ProductInfoCards from "./components/products-info-cards";
 import ProductsTable from "./components/products-table";
 
 export const metadata: Metadata = {
-  title: "Produtos | Precific",
+  title: "Produtos",
 };
 
 export default function ProductsPage() {

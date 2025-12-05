@@ -2,7 +2,7 @@ import ProfilePageContent from "@/src/app/(private)/perfil/components/profile-pa
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Perfil | Precific",
+  title: "Perfil",
 };
 
 export default function ProfilePage() {

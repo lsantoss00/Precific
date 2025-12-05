@@ -2,7 +2,7 @@ import PasswordForm from "@/src/app/(public)/criar-senha/components/password-for
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Criar Senha | Precific",
+  title: "Criar Senha",
 };
 
 export default function CreateNewPasswordPage() {
