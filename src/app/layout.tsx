@@ -9,7 +9,7 @@ import "./globals.css";
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   preload: true,
   adjustFontFallback: true,
   fallback: [
@@ -79,8 +79,12 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
         <meta name="theme-color" content="#66289B" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           rel="preconnect"
           href="https://www.youtube-nocookie.com"
@@ -97,6 +101,11 @@ export default function RootLayout({
           as="image"
           fetchPriority="high"
         />
+        <link
+          rel="preload"
+          href="https://i.ytimg.com/vi/9gNKBYR-rhg/sddefault.jpg"
+          as="image"
+        />
       </head>
       <body
         className={`${poppins.className} antialiased bg-background`}
@@ -105,9 +114,12 @@ export default function RootLayout({
         <Providers>
           <NextTopLoader
             color="#66289B"
-            height={4}
+            height={3}
             showSpinner={false}
-            speed={200}
+            speed={300}
+            crawl={false}
+            easing="ease"
+            showAtBottom={false}
           />
 
           {children}

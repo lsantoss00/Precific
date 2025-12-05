@@ -9,9 +9,20 @@ import Link from "next/link";
 import "./globals.css";
 
 const poppins = Poppins({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  preload: true,
+  adjustFontFallback: true,
+  fallback: [
+    "system-ui",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "sans-serif",
+  ],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {

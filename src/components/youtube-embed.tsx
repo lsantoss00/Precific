@@ -22,10 +22,11 @@ const YouTubeEmbed: React.FC<Props> = ({
 
   const embedBase = `https://www.youtube-nocookie.com/embed/${videoId}`;
   const embedParams = "rel=0&modestbranding=1&playsinline=1&controls=1";
+
   const thumbnailCandidates = [
-    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
     `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`,
     `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
     `https://i.ytimg.com/vi/${videoId}/default.jpg`,
   ];
 
@@ -46,10 +47,11 @@ const YouTubeEmbed: React.FC<Props> = ({
               src={thumbnail}
               alt={title}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 720px"
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              sizes="(max-width: 640px) 95vw, (max-width: 1024px) 90vw, (max-width: 1280px) 50vw, 720px"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               priority
-              quality={85}
+              quality={75}
+              loading="eager"
               onError={() => {
                 if (thumbIndex < thumbnailCandidates.length - 1) {
                   setThumbIndex((i) => i + 1);
