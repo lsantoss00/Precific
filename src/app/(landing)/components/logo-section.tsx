@@ -12,7 +12,7 @@ const LogoSection = () => {
           alt="precific-logo-image"
           width={800}
           height={225}
-          className="w-full max-w-sm md:max-w-md xl:max-w-xl 2xl:max-w-2xl h-auto"
+          sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, (max-width: 1280px) 576px, 672px"
         />
       </FadeInOnScroll>
     </Flex>

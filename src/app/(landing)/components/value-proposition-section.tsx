@@ -42,14 +42,16 @@ const ValuePropositionSection = () => {
       </FadeInOnScroll>
       <FadeInOnScroll
         direction="right"
-        className="relative z-10 w-full xl:w-1/2 h-64 sm:h-80 md:h-96 lg:h-110 xl:h-full"
+        className="relative z-10 w-full xl:w-1/2 h-80 sm:h-96 md:h-110 lg:h-140 xl:h-full"
       >
         <Image
           src={userImage}
           alt="Usuária do Precific"
           fill
-          className="object-cover object-center"
           priority
+          className="object-cover object-center"
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 50vw"
+          quality={85}
         />
       </FadeInOnScroll>
     </Flex>
