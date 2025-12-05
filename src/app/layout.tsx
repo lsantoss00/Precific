@@ -106,7 +106,10 @@ export default function RootLayout({
           as="image"
         />
       </head>
-      <body className={`${poppins.className} antialiased bg-background`}>
+      <body
+        className={`${poppins.className} antialiased bg-background`}
+        suppressHydrationWarning
+      >
         <Providers>
           <NextTopLoader
             color="#66289B"
