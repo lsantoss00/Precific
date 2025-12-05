@@ -23,7 +23,7 @@ const HeroSection = () => {
         }}
         aria-hidden="true"
         // @ts-ignore
-        fetchpriority="high"
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
       <FadeInOnScroll direction="up" delay={0.2}>
