@@ -65,15 +65,13 @@ const YouTubeEmbed: React.FC<Props> = ({
           </Row>
         </Button>
       ) : (
-        <div className="relative w-full h-full rounded-md bg-black overflow-hidden">
+        <div className="relative w-full h-full rounded-md bg-black">
           <iframe
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 transform lg:scale-100 scale-[1.08]"
+            className="absolute top-0 left-0 w-full h-full rounded-md"
             src={`${embedBase}?${embedParams}&autoplay=1`}
             title={title}
-            frameBorder={0}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
-            loading="lazy"
           />
         </div>
       )}
