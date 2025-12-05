@@ -51,7 +51,6 @@ const ValuePropositionSection = () => {
           priority
           className="object-cover object-center"
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 50vw"
-          quality={85}
         />
       </FadeInOnScroll>
     </Flex>
