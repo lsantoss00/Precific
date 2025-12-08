@@ -3,6 +3,7 @@
 import shortLogoImage from "@/public/precific-short-logo-image.webp";
 import { Button } from "@/src/components/core";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/core/sheet";
+import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import { Compass, Home, Menu, MessageCircle, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import { useState } from "react";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { scrollToSection } = useScrollToSection();
 
   const closeMenu = () => setIsOpen(false);
 
@@ -18,11 +20,8 @@ const MobileMenu = () => {
     closeMenu();
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const handleScrollToSection = (sectionId: string) => {
+    scrollToSection(sectionId);
     closeMenu();
   };
 
@@ -72,7 +71,7 @@ const MobileMenu = () => {
             <div className="h-px bg-zinc-200 my-1" />
             <Button
               variant="ghost"
-              onClick={() => scrollToSection("descubra")}
+              onClick={() => handleScrollToSection("descubra")}
               className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
             >
               <Compass className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
@@ -81,7 +80,7 @@ const MobileMenu = () => {
             <div className="h-px bg-zinc-200 my-1" />
             <Button
               variant="ghost"
-              onClick={() => scrollToSection("contato")}
+              onClick={() => handleScrollToSection("contato")}
               className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
             >
               <MessageCircle className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />

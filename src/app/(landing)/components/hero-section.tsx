@@ -4,6 +4,7 @@ import backgroundSectionImage from "@/public/landing-page/hero-section-backgroun
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
+import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -15,12 +16,7 @@ const YouTubeEmbed = dynamic(() => import("@/src/components/youtube-embed"), {
 });
 
 const HeroSection = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { scrollToSection } = useScrollToSection();
 
   return (
     <Flex className="relative bg-primary w-full py-20 md:py-24 xl:py-0 xl:h-180 2xl:h-200 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between overflow-hidden">

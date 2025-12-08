@@ -6,16 +6,12 @@ import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
+import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 
 const ValuePropositionSection = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { scrollToSection } = useScrollToSection();
 
   return (
     <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between overflow-hidden">

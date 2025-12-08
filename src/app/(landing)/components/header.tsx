@@ -2,17 +2,13 @@
 
 import shortLogoImage from "@/public/precific-short-logo-image.webp";
 import { Button } from "@/src/components/core";
+import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./mobile-menu";
 
 const Header = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { scrollToSection } = useScrollToSection();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
