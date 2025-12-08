@@ -82,13 +82,13 @@ const createFadeInVariants = (
 });
 
 const reducedMotionVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     x: 0,
     y: 0,
     transform: "translate3d(0, 0, 0)",
   },
-  visible: { 
+  visible: {
     opacity: 1,
     x: 0,
     y: 0,
@@ -103,7 +103,7 @@ const FadeInOnScroll = ({
   direction = "up",
   delay = 0,
   duration = 0.5,
-  amount = 0.2,
+  amount = 0.1,
   className,
   as = "div",
   offset = 24,
@@ -114,7 +114,7 @@ const FadeInOnScroll = ({
   const isInView = useInView(ref, {
     once: true,
     amount,
-    margin: "0px 0px -50px 0px",
+    margin: "100px 0px 0px 0px",
   });
 
   const variants = useMemo(() => {
