@@ -9,7 +9,7 @@ const ReasonsSection = () => {
       id="descubra"
       className="bg-background w-full py-12 md:py-16 xl:py-16 2xl:py-20 2xl:h-150 items-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25"
     >
-      <FadeInOnScroll direction="up">
+      <FadeInOnScroll direction="up" offset={16}>
         <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center mb-8 md:mb-12 xl:mb-12 2xl:mb-16">
           Em poucos cliques, do custo ao lucro ideal
         </h2>

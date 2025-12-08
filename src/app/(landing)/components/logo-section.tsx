@@ -6,7 +6,7 @@ import Image from "next/image";
 const LogoSection = () => {
   return (
     <Flex className="w-full py-8 md:py-12 xl:py-12 2xl:py-16 xl:min-h-[18rem] 2xl:h-75 items-center justify-center bg-white px-4 sm:px-6 md:px-12 lg:px-16">
-      <FadeInOnScroll direction="none" duration={0.8}>
+      <FadeInOnScroll as="figure" direction="none" duration={0.8}>
         <Image
           src={logoImage}
           alt="precific-logo-image"

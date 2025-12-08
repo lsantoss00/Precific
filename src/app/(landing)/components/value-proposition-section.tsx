@@ -24,7 +24,7 @@ const ValuePropositionSection = () => {
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
-      <FadeInOnScroll direction="left" className="w-full xl:w-1/2">
+      <FadeInOnScroll direction="left" offset={20} className="w-full xl:w-1/2">
         <Flex className="flex-col lg:flex-row xl:flex-col relative z-10 space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 py-12 md:py-16 xl:py-16 2xl:py-20">
           <Column className="space-y-4 md:space-y-5">
             <h3 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white max-w-lg leading-tight">
@@ -47,6 +47,7 @@ const ValuePropositionSection = () => {
       </FadeInOnScroll>
       <FadeInOnScroll
         direction="right"
+        offset={20}
         className="relative z-10 w-full xl:w-1/2 h-80 sm:h-96 md:h-110 lg:h-140 xl:h-full"
       >
         <Image
