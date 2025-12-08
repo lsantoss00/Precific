@@ -82,8 +82,18 @@ const createFadeInVariants = (
 });
 
 const reducedMotionVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
+  hidden: { 
+    opacity: 0,
+    x: 0,
+    y: 0,
+    transform: "translate3d(0, 0, 0)",
+  },
+  visible: { 
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transform: "translate3d(0, 0, 0)",
+  },
 };
 
 const SMOOTH_EASING: [number, number, number, number] = [0.22, 1, 0.36, 1];
