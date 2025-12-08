@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const FAQSection = () => {
   return (
-    <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-20 2xl:py-50 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row gap-8 xl:gap-12 justify-between overflow-hidden">
+    <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-20 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row gap-8 xl:gap-12 justify-between overflow-hidden">
       <Image
         src={backgroundSectionImage}
         alt="Imagem de fundo"
