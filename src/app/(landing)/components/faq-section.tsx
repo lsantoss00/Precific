@@ -12,6 +12,7 @@ const FAQSection = () => {
         src={backgroundSectionImage}
         alt="Imagem de fundo"
         fill
+        loading="lazy"
         sizes="100vw"
         className="object-cover object-center"
         aria-hidden="true"

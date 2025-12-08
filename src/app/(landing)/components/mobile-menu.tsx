@@ -48,6 +48,7 @@ const MobileMenu = () => {
               alt="Precific Logo"
               width={48}
               height={48}
+              sizes="48px"
             />
             <Button
               variant="ghost"

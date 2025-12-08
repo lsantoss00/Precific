@@ -19,6 +19,7 @@ const ValuePropositionSection = () => {
         src={backgroundSectionImage}
         alt="Imagem de fundo"
         fill
+        loading="lazy"
         sizes="100vw"
         className="object-cover object-center"
         aria-hidden="true"
@@ -54,9 +55,9 @@ const ValuePropositionSection = () => {
           src={userImage}
           alt="Usuária do Precific"
           fill
-          priority
+          loading="lazy"
           className="object-cover object-center"
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 50vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1280px) 100vw, 50vw"
         />
       </FadeInOnScroll>
     </Flex>
