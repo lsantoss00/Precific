@@ -22,8 +22,10 @@ export function ProductsTablePagination({
 }: ProductsTablePaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isEmpty = totalPages === 0;
 
   const handlePageChange = (page: number) => {
+    if (isEmpty) return;
     const params = new URLSearchParams(searchParams.toString());
     params.set("pagina", page.toString());
     router.push(`?${params.toString()}`, { scroll: false });
@@ -85,12 +87,15 @@ export function ProductsTablePagination({
             href="#"
             onClick={(e) => {
               e.preventDefault();
+              if (isEmpty) return;
               if (currentPage > 1) {
                 handlePageChange(currentPage - 1);
               }
             }}
             className={
-              currentPage === 1 ? "pointer-events-none opacity-50" : ""
+              currentPage === 1 || isEmpty
+                ? "pointer-events-none opacity-50"
+                : ""
             }
           />
         </PaginationItem>
@@ -146,12 +151,15 @@ export function ProductsTablePagination({
             href="#"
             onClick={(e) => {
               e.preventDefault();
+              if (isEmpty) return;
               if (currentPage < totalPages) {
                 handlePageChange(currentPage + 1);
               }
             }}
             className={
-              currentPage === totalPages ? "pointer-events-none opacity-50" : ""
+              currentPage === totalPages || isEmpty
+                ? "pointer-events-none opacity-50"
+                : ""
             }
           />
         </PaginationItem>
