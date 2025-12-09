@@ -22,7 +22,6 @@ const poppins = Poppins({
     "Roboto",
     "sans-serif",
   ],
-  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
