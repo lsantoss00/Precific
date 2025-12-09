@@ -8,7 +8,7 @@ interface AuthFormCardProps {
 
 const AuthFormCard = ({ children }: AuthFormCardProps) => {
   return (
-    <Card className="rounded-2xl p-6 shadow-sm w-full max-w-125 flex flex-col items-center bg-white">
+    <Card className="rounded-2xl p-6 mx-2 shadow-sm w-full max-w-125 flex flex-col items-center bg-white">
       <Image
         src={logoImage}
         alt="precific-logo-image"
