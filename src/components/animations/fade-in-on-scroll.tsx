@@ -98,6 +98,17 @@ const reducedMotionVariants: Variants = {
 
 const SMOOTH_EASING: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const motionComponents = {
+  div: motion.div,
+  section: motion.section,
+  article: motion.article,
+  aside: motion.aside,
+  header: motion.header,
+  footer: motion.footer,
+  main: motion.main,
+  figure: motion.figure,
+} as const;
+
 const FadeInOnScroll = ({
   children,
   direction = "up",
@@ -133,7 +144,7 @@ const FadeInOnScroll = ({
     [prefersReducedMotion, duration, delay]
   );
 
-  const MotionComponent = motion[as] as typeof motion.div;
+  const MotionComponent = motionComponents[as];
 
   return (
     <MotionComponent
