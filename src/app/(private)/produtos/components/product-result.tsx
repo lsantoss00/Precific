@@ -376,7 +376,7 @@ const ProductResult = () => {
               Pré-Reforma Tributária <strong>2025</strong>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-              {metrics2025.slice(0, 6).map((metric, index) => (
+              {metrics2025.slice(0, 5).map((metric, index) => (
                 <MetricCard
                   key={`metric-2025-${index}`}
                   title={metric.title}
@@ -384,6 +384,22 @@ const ProductResult = () => {
                   variant={metric.variant}
                 />
               ))}
+              <Show
+                when={
+                  companyRegime === "presumed_profit" ||
+                  companyRegime === "real_profit"
+                }
+              >
+                <MetricCard
+                  title="IRPJ + CSLL"
+                  value={
+                    companyRegime === "presumed_profit"
+                      ? presumedProfitIrpjCsll
+                      : realProfitIrpjCsll
+                  }
+                  variant="neutral"
+                />
+              </Show>
               <Show when={isSimpleNational}>
                 <MetricCard title="DAS" value={das} variant="neutral" />
               </Show>
@@ -421,11 +437,7 @@ const ProductResult = () => {
                 value={firstBase}
                 variant="neutral"
               />
-              <div
-                className={`grid grid-cols-1 md:grid-cols-2 ${
-                  isSimpleNational ? "grid-rows-3" : "grid-rows-2"
-                } gap-4`}
-              >
+              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4">
                 {metrics2026.map((metric, index) => (
                   <MetricCard
                     key={`metric-2026-${index}`}
