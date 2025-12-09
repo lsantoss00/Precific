@@ -71,6 +71,7 @@ const ProductInfoCards = () => {
           title={card.title}
           value={card.value}
           icon={card.icon}
+          pending={pendingProductSummaries}
         />
       ))}
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/src/components/core";
+import { Skeleton, useSidebar } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import { useAuth } from "@/src/providers/auth-provider";
@@ -21,7 +21,7 @@ import {
 import Show from "./core/show";
 
 const Menu = () => {
-  const { profile } = useAuth();
+  const { profile, isLoadingAuth } = useAuth();
   const { state } = useSidebar();
 
   const isCollapsed = state === "collapsed";
@@ -39,18 +39,30 @@ const Menu = () => {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         asChild
-        className="cursor-pointer hover:bg-neutral-100 p-2 h-12 rounded-md"
+        className={`${
+          !isLoadingAuth && "cursor-pointer hover:bg-neutral-100"
+        }  p-2 h-12 rounded-md`}
       >
         <Row className="w-full items-center gap-2">
           <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
           <Show when={!isCollapsed}>
             <Column className="min-w-0 flex-1">
-              <span className="text-sm font-medium text-neutral-900 truncate">
-                {firstName}
-              </span>
-              <span className="text-xs text-neutral-500 truncate">
-                {profile?.email}
-              </span>
+              <Show
+                when={!isLoadingAuth}
+                fallback={
+                  <Column className="space-y-1">
+                    <Skeleton className="w-1/2 h-4" />
+                    <Skeleton className="w-full h-3" />
+                  </Column>
+                }
+              >
+                <span className="text-sm font-medium text-neutral-900 truncate">
+                  {firstName}
+                </span>
+                <span className="text-xs text-neutral-500 truncate">
+                  {profile?.email}
+                </span>
+              </Show>
             </Column>
           </Show>
         </Row>
