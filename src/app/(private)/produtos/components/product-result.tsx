@@ -166,7 +166,7 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  // IRPJ + CSLL LUCRO PRESUMIDO
+  // IRPJ + CSLL LUCRO PRESUMIDO =======================
   const calcBaseIrpj = percentageValueCalc({
     base: priceToday,
     percentage: 8,
@@ -177,12 +177,12 @@ const ProductResult = () => {
     percentage: 12,
   });
 
-  const irpj = calcBaseIrpj * data?.irpj_percent;
-  const csll = calcBaseCsll * 0.09;
+  const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpj_percent;
+  const csll = calcBaseCsll < 0 ? 0 : calcBaseCsll * 0.09;
 
   const presumedProfitIrpjCsll = irpj + csll;
 
-  // IRPJ + CSLL LUCRO REAL
+  // IRPJ + CSLL LUCRO REAL =======================
   const bcIrpjCsll =
     priceToday -
     unitPrice -
@@ -192,10 +192,13 @@ const ProductResult = () => {
     shipping -
     othersCosts;
 
-  const realProfitIrpjCsllCalc = percentageValueCalc({
-    base: bcIrpjCsll,
-    percentage: data?.irpj_percent,
-  });
+  const realProfitIrpjCsllCalc =
+    bcIrpjCsll < 0
+      ? 0
+      : percentageValueCalc({
+          base: bcIrpjCsll,
+          percentage: data?.irpj_percent,
+        });
 
   const realProfitIrpjCsll = realProfitIrpjCsllCalc;
 
@@ -304,7 +307,9 @@ const ProductResult = () => {
       value:
         companyRegime === "presumed_profit"
           ? presumedProfitIrpjCsll
-          : realProfitIrpjCsll,
+          : companyRegime === "real_profit"
+          ? realProfitIrpjCsll
+          : undefined,
     },
   ];
 

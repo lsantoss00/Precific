@@ -5,7 +5,7 @@ type VariantType = "primary" | "secondary" | "neutral" | "success" | "error";
 
 export interface MetricCardProps {
   title: string;
-  value: string | number;
+  value: string | number | undefined;
   variant?: VariantType;
 }
 
