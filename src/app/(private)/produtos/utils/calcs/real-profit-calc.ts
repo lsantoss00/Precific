@@ -34,10 +34,13 @@ export function realProfitCalc({
     shipping -
     othersCosts;
 
-  const irpjCsll = percentageValueCalc({
-    base: bcIrpjCsll,
-    percentage: irpjCsllPercent,
-  });
+  const irpjCsll =
+    bcIrpjCsll < 0
+      ? 0
+      : percentageValueCalc({
+          base: bcIrpjCsll,
+          percentage: irpjCsllPercent,
+        });
 
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 

@@ -34,8 +34,8 @@ export function presumedProfitCalc({
     percentage: 12,
   });
 
-  const irpj = calcBaseIrpj * irpjPercent;
-  const csll = calcBaseCsll * 0.09;
+  const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * irpjPercent;
+  const csll = calcBaseCsll < 0 ? 0 : calcBaseCsll * 0.09;
 
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
