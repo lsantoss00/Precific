@@ -44,8 +44,9 @@ const ProductResult = () => {
   const { form, isEditMode, productId } = useProductForm();
   const data = form.watch();
 
-  const hasEssentialData =
-    data?.unit_price !== undefined && data?.unit_price > 0;
+  const unitPrice = data?.unit_price ?? 0;
+
+  const hasEssentialData = unitPrice !== undefined && unitPrice > 0;
 
   if (!hasEssentialData) {
     const redirectPath =
@@ -90,7 +91,7 @@ const ProductResult = () => {
   const pending = pendingPostProduct || pendingUpdateProduct;
 
   const acquisitionCost = acquisitionCostCalc({
-    unitPrice: data?.unit_price ?? 0,
+    unitPrice: unitPrice ?? 0,
     icms: data.icms ?? 0,
     pisCofins: data?.pis_cofins ?? 0,
     icmsSt: data.icms_st ?? 0,
@@ -155,20 +156,53 @@ const ProductResult = () => {
   });
 
   const icmsValue = percentageValueCalc({
-    base: data?.unit_price ?? 0,
+    base: unitPrice ?? 0,
     percentage: data?.icms ?? 0,
   });
 
-  const pisCofinsBase = data?.unit_price - icmsValue;
+  const pisCofinsBase = unitPrice - icmsValue;
   const pisCofinsValue = percentageValueCalc({
     base: pisCofinsBase,
     percentage: data?.pis_cofins ?? 0,
   });
 
+  // IRPJ + CSLL LUCRO PRESUMIDO
+  const calcBaseIrpj = percentageValueCalc({
+    base: priceToday,
+    percentage: 8,
+  });
+
+  const calcBaseCsll = percentageValueCalc({
+    base: priceToday,
+    percentage: 12,
+  });
+
+  const irpj = calcBaseIrpj * data?.irpj_percent;
+  const csll = calcBaseCsll * 0.09;
+
+  const presumedProfitIrpjCsll = irpj + csll;
+
+  // IRPJ + CSLL LUCRO REAL
+  const bcIrpjCsll =
+    priceToday -
+    unitPrice -
+    fixedCosts -
+    salesIcmsValue -
+    salesPisCofinsValue -
+    shipping -
+    othersCosts;
+
+  const realProfitIrpjCsllCalc = percentageValueCalc({
+    base: bcIrpjCsll,
+    percentage: data?.irpj_percent,
+  });
+
+  const realProfitIrpjCsll = realProfitIrpjCsllCalc;
+
   const netProfit = (() => {
     const baseCalcParams = {
       priceToday: priceToday,
-      unitPrice: data?.unit_price,
+      unitPrice: unitPrice,
       icms: icmsValue,
       pisCofins: pisCofinsValue,
       fixedCosts: fixedCosts,
@@ -191,7 +225,7 @@ const ProductResult = () => {
     if (companyRegime === "presumed_profit") {
       return presumedProfitCalc({
         ...baseCalcParams,
-        irpjPercent: data?.irpj_percent,
+        irpjCsll: presumedProfitIrpjCsll,
       });
     }
 
@@ -208,7 +242,7 @@ const ProductResult = () => {
     }
     return realProfitCalc({
       ...baseCalcParams,
-      irpjCsllPercent: data?.irpj_percent,
+      irpjCsll: realProfitIrpjCsll,
     });
   })();
 
@@ -266,9 +300,11 @@ const ProductResult = () => {
       value: acquisitionCost * ((data?.shipping ?? 0) / 100),
     },
     {
-      title: "Lucro líquido",
-      value: netProfit,
-      variant: "success" as const,
+      title: "IRPJ + CSLL",
+      value:
+        companyRegime === "presumed_profit"
+          ? presumedProfitIrpjCsll
+          : realProfitIrpjCsll,
     },
   ];
 
@@ -335,7 +371,7 @@ const ProductResult = () => {
               Pré-Reforma Tributária <strong>2025</strong>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-              {metrics2025.slice(0, 5).map((metric, index) => (
+              {metrics2025.slice(0, 6).map((metric, index) => (
                 <MetricCard
                   key={`metric-2025-${index}`}
                   title={metric.title}
@@ -346,38 +382,20 @@ const ProductResult = () => {
               <Show when={isSimpleNational}>
                 <MetricCard title="DAS" value={das} variant="neutral" />
               </Show>
-              <Show when={!isSimpleNational}>
+              <div className="col-span-1 md:!col-span-2">
                 <MetricCard
                   title="Lucro líquido"
                   value={netProfit}
                   variant="success"
                 />
-              </Show>
-              <Show when={isSimpleNational}>
-                <div className="col-span-1 md:col-span-2">
-                  <MetricCard
-                    title="Lucro líquido"
-                    value={netProfit}
-                    variant="success"
-                  />
-                </div>
-                <div className="col-span-1 md:col-span-2">
-                  <MetricCard
-                    title="Preço de venda final"
-                    value={finalSalePrice}
-                    variant="secondary"
-                  />
-                </div>
-              </Show>
-              <Show when={!isSimpleNational}>
-                <div className="col-span-1 md:col-span-2">
-                  <MetricCard
-                    title="Preço de venda final"
-                    value={finalSalePrice}
-                    variant="secondary"
-                  />
-                </div>
-              </Show>
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                <MetricCard
+                  title="Preço de venda final"
+                  value={finalSalePrice}
+                  variant="secondary"
+                />
+              </div>
             </div>
           </Column>
         </Card>

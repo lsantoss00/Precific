@@ -1,5 +1,3 @@
-import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/percentage-value-calc";
-
 interface PresumedProfitCalcProps {
   priceToday: number;
   unitPrice: number;
@@ -10,7 +8,7 @@ interface PresumedProfitCalcProps {
   salesPisCofins: number;
   shipping: number;
   othersCosts: number;
-  irpjPercent: number;
+  irpjCsll: number;
 }
 
 export function presumedProfitCalc({
@@ -22,21 +20,8 @@ export function presumedProfitCalc({
   salesPisCofins,
   shipping,
   othersCosts,
-  irpjPercent,
+  irpjCsll,
 }: PresumedProfitCalcProps): number {
-  const calcBaseIrpj = percentageValueCalc({
-    base: priceToday,
-    percentage: 8,
-  });
-
-  const calcBaseCsll = percentageValueCalc({
-    base: priceToday,
-    percentage: 12,
-  });
-
-  const irpj = calcBaseIrpj * irpjPercent;
-  const csll = calcBaseCsll * 0.09;
-
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
   const result =
@@ -47,8 +32,7 @@ export function presumedProfitCalc({
     shipping -
     othersCosts -
     unitPrice -
-    irpj -
-    csll;
+    irpjCsll;
 
   return result;
 }
