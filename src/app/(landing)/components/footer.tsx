@@ -166,7 +166,7 @@ const footerLinks = [
     links: [
       {
         title: "Sobre Nós",
-        href: "/sobre",
+        href: "/sobre-nos",
       },
       {
         title: "Termos de Uso",
