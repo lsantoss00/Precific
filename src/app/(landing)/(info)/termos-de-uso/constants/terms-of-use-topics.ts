@@ -1,6 +1,6 @@
-import { InfoTopic } from "@/src/app/(landing)/components/info-page-topics";
+import { InfoTopicType } from "@/src/app/(landing)/types/info-topic-type";
 
-export const termsOfUseTopics: InfoTopic[] = [
+export const termsOfUseTopics: InfoTopicType[] = [
   {
     title: "1. Aceitação dos Termos",
     content:

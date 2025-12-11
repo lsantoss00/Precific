@@ -1,13 +1,8 @@
+import { InfoTopicType } from "@/src/app/(landing)/types/info-topic-type";
 import Column from "@/src/components/core/column";
 
-export type InfoTopic = {
-  title: string;
-  content?: string;
-  items?: string[];
-};
-
 interface InfoPageTopicsProps {
-  topics: InfoTopic[];
+  topics: InfoTopicType[];
 }
 
 export default function InfoPageTopics({ topics }: InfoPageTopicsProps) {
