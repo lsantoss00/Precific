@@ -29,9 +29,13 @@ const ValuePropositionSection = () => {
         <Flex className="flex-col lg:flex-row xl:flex-col relative z-10 space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 py-12 md:py-16 xl:py-16 2xl:py-20">
           <Column className="space-y-4 md:space-y-5">
             <h3 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white max-w-lg leading-tight">
-              Maior precisão, menos estresse!
+              Maior precisão,{" "}
+              <span className="relative inline-block">
+                menos estresse!
+                <div className="absolute bottom-1 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+              </span>
             </h3>
-            <p className="text-white text-base md:text-lg max-w-xl">
+            <p className="text-zinc-200 text-base md:text-lg max-w-xl">
               Com a nossa plataforma você não terá problemas para cadastrar um
               novo produto e descobrir o valor real de venda.
             </p>

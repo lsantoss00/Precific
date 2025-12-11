@@ -53,7 +53,7 @@ const ContactSection = () => {
             <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-white text-center max-w-lg leading-tight self-center">
               Fale com um especialista agora e garanta o seu Precific!
             </h3>
-            <p className="text-sm md:text-base xl:text-base 2xl:text-lg text-white text-center max-w-xl self-center">
+            <p className="text-sm md:text-base xl:text-base 2xl:text-lg text-zinc-200 text-center max-w-xl self-center">
               Nossa equipe prestará o atendimento rápido.
             </p>
             <ContactForm />

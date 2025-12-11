@@ -1,8 +1,14 @@
+"use client";
+
 import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
-import FAQAccordion from "@/src/components/faq-accordion";
+import dynamic from "next/dynamic";
+
+const FAQAccordion = dynamic(() => import("@/src/components/faq-accordion"), {
+  ssr: false,
+});
 
 const FAQSection = () => {
   return (
@@ -23,9 +29,12 @@ const FAQSection = () => {
             <h3 className="font-bold text-3xl sm:text-4xl xl:text-4xl 2xl:text-5xl text-white leading-tight">
               Ficou alguma dúvida?
             </h3>
-            <p className="text-2xl md:text-3xl xl:text-3xl 2xl:text-4xl text-white">
-              Perguntas frequentes
-            </p>
+            <div>
+              <span className="relative inline-block text-2xl md:text-3xl xl:text-3xl 2xl:text-4xl text-white">
+                Perguntas frequentes
+                <div className="absolute -bottom-1.5 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+              </span>
+            </div>
           </Column>
         </Column>
       </FadeInOnScroll>

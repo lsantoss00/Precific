@@ -31,10 +31,16 @@ const HeroSection = () => {
       />
       <Column className="relative z-10 w-full xl:max-w-140 space-y-6 md:space-y-8">
         <Column className="space-y-4 md:space-y-5">
-          <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
-            Precifique seus produtos com precisão.
-          </h1>
-          <p className="text-white text-base md:text-lg max-w-2xl">
+          <Column className="w-fit">
+            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
+              <span className="relative inline-block">
+                Precifique
+                <div className="absolute bottom-1 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+              </span>{" "}
+              seus produtos com precisão.
+            </h1>
+          </Column>
+          <p className="text-zinc-200 text-base md:text-lg max-w-2xl">
             A Precific automatiza o cálculo de preços com base em custos,
             impostos e margens, simulando cenários futuros da Reforma
             Tributária.
