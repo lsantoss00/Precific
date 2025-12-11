@@ -11,12 +11,12 @@ import { useState } from "react";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { scrollToSection } = useScrollToSection();
+  const { scrollToSection, scrollToTop } = useScrollToSection();
 
   const closeMenu = () => setIsOpen(false);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleScrollToTop = () => {
+    scrollToTop();
     closeMenu();
   };
 
@@ -63,7 +63,7 @@ const MobileMenu = () => {
           <nav className="flex flex-col px-6 py-6 flex-1">
             <Button
               variant="ghost"
-              onClick={scrollToTop}
+              onClick={handleScrollToTop}
               className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
             >
               <Home className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />

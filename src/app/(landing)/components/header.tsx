@@ -5,14 +5,11 @@ import { Button } from "@/src/components/core";
 import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import Image from "next/image";
 import Link from "next/link";
+
 import MobileMenu from "./mobile-menu";
 
 const Header = () => {
-  const { scrollToSection } = useScrollToSection();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const { scrollToSection, scrollToTop } = useScrollToSection();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 md:px-12 2xl:px-25 py-4 h-20 bg-white border-b border-zinc-200">
