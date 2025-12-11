@@ -130,12 +130,7 @@ export const termsOfUseTopics: InfoTopic[] = [
     ],
   },
   {
-    title: "12. Legislação Aplicável e Foro",
-    content:
-      "Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Para dirimir quaisquer controvérsias oriundas destes termos ou do uso da plataforma, fica eleito o foro da Comarca de Goiânia, Estado de Goiás, com exclusão de qualquer outro, por mais privilegiado que seja.",
-  },
-  {
-    title: "13. Disposições Gerais",
+    title: "12. Disposições Gerais",
     content: "Disposições finais que complementam estes Termos de Uso:",
     items: [
       "Integralidade: Estes termos constituem o acordo integral entre você e a Precific, substituindo quaisquer acordos anteriores.",
@@ -146,7 +141,7 @@ export const termsOfUseTopics: InfoTopic[] = [
     ],
   },
   {
-    title: "14. Contato",
+    title: "13. Contato",
     content:
       "Em caso de dúvidas, sugestões ou solicitações relacionadas a estes Termos de Uso, entre em contato conosco através dos canais de comunicação disponíveis em nosso site ou pelo e-mail de suporte. Nosso compromisso é manter uma comunicação transparente e atender às suas necessidades da melhor forma possível.",
   },
