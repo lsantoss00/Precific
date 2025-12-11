@@ -15,13 +15,14 @@ const ValuePropositionSection = () => {
 
   return (
     <Flex className="relative bg-primary w-full xl:h-168 2xl:h-175 flex-col xl:flex-row items-center justify-between overflow-hidden">
-      <Image
-        src={backgroundSectionImage}
-        alt="Imagem de fundo"
-        fill
-        loading="lazy"
-        sizes="100vw"
-        className="object-cover object-center"
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${backgroundSectionImage.src})`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundPosition: "center",
+        }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />

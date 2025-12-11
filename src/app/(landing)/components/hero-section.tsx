@@ -6,7 +6,6 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 
 const YouTubeEmbed = dynamic(() => import("@/src/components/youtube-embed"), {
   ssr: false,
@@ -20,14 +19,14 @@ const HeroSection = () => {
 
   return (
     <Flex className="relative bg-primary w-full py-20 md:py-24 xl:py-0 xl:h-180 2xl:h-200 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between overflow-hidden">
-      <Image
-        src={backgroundSectionImage}
-        alt="Imagem de fundo"
-        fill
-        priority
-        fetchPriority="high"
-        sizes="100vw"
-        className="object-cover object-center"
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${backgroundSectionImage.src})`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundPosition: "center",
+        }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />

@@ -11,13 +11,14 @@ const ContactSection = () => {
       id="contato"
       className="relative bg-primary w-full xl:min-h-200 2xl:h-220 flex-col lg:flex-row items-stretch justify-between overflow-hidden"
     >
-      <Image
-        src={backgroundSectionImage}
-        alt="Imagem de fundo"
-        fill
-        loading="lazy"
-        sizes="100vw"
-        className="object-cover object-center"
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${backgroundSectionImage.src})`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundPosition: "center",
+        }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />

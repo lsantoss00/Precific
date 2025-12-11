@@ -3,18 +3,18 @@ import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import FAQAccordion from "@/src/components/faq-accordion";
-import Image from "next/image";
 
 const FAQSection = () => {
   return (
     <Flex className="relative bg-primary w-full py-12 md:py-16 xl:py-20 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row gap-8 xl:gap-12 justify-between overflow-hidden">
-      <Image
-        src={backgroundSectionImage}
-        alt="Imagem de fundo"
-        fill
-        loading="lazy"
-        sizes="100vw"
-        className="object-cover object-center"
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${backgroundSectionImage.src})`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundPosition: "center",
+        }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent pointer-events-none" />

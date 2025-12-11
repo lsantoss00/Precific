@@ -1,38 +1,6 @@
-import Column from "@/src/components/core/column";
+import { InfoTopic } from "@/src/app/(landing)/components/info-page-topics";
 
-type Topic = {
-  title: string;
-  content?: string;
-  items?: string[];
-};
-
-export function PrivacyPolicyTopics() {
-  return (
-    <Column className="space-y-10">
-      {privacyPolicyTopicsMap?.map((topic, index) => (
-        <section key={index}>
-          <h2 className="text-xl font-bold leading-8 mb-4 text-white">
-            {topic?.title}
-          </h2>
-          <p className="leading-7 mb-3 text-zinc-200">{topic?.content}</p>
-          {topic?.items && topic.items.length > 0 && (
-            <ol className="list-decimal list-inside space-y-2 ml-4">
-              {topic.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="leading-7 text-zinc-200">
-                  {item}
-                </li>
-              ))}
-            </ol>
-          )}
-        </section>
-      ))}
-    </Column>
-  );
-}
-
-export default PrivacyPolicyTopics;
-
-const privacyPolicyTopicsMap: Topic[] = [
+export const privacyPolicyTopics: InfoTopic[] = [
   {
     title: "1. Informações coletadas",
     content:

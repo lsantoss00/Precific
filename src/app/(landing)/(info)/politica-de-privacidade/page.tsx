@@ -1,9 +1,8 @@
-import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
-import PrivacyPolicyHeader from "@/src/app/(landing)/(info)/politica-de-privacidade/components/privacy-policy-header";
-import PrivacyPolicyTopics from "@/src/app/(landing)/(info)/politica-de-privacidade/components/privacy-policy-topics";
-import Column from "@/src/components/core/column";
+import InfoPageHeader from "@/src/app/(landing)/components/info-page-header";
+import InfoPageLayout from "@/src/app/(landing)/components/info-page-layout";
+import InfoPageTopics from "@/src/app/(landing)/components/info-page-topics";
 import { Metadata } from "next";
-import Image from "next/image";
+import { privacyPolicyTopics } from "./constants/privacy-policy-topics";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -44,22 +43,16 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <Column className="relative bg-primary py-16">
-      <Image
-        src={backgroundSectionImage}
-        alt="Imagem de fundo"
-        fill
-        priority
-        fetchPriority="high"
-        sizes="100vw"
-        className="object-cover object-center"
-        aria-hidden="true"
+    <InfoPageLayout>
+      <InfoPageHeader
+        title="Política de Privacidade"
+        description="Esta Política de Privacidade descreve como a Precific coleta, usa,
+        armazena e protege as informações pessoais dos usuários da nossa
+        plataforma de precificação. <br /> É importante ler atentamente esta
+        política antes de utilizar nossos serviços ou fornecer quaisquer
+        informações pessoais."
       />
-      <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
-      <Column className="z-10 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
-        <PrivacyPolicyHeader />
-        <PrivacyPolicyTopics />
-      </Column>
-    </Column>
+      <InfoPageTopics topics={privacyPolicyTopics} />
+    </InfoPageLayout>
   );
 }
