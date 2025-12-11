@@ -3,7 +3,7 @@ import Column from "@/src/components/core/column";
 
 const GetAheadSection = () => {
   return (
-    <Column className="bg-white w-full py-12 md:py-16 xl:py-16 2xl:py-20 xl:min-h-[18rem] 2xl:h-75 items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
+    <Column className="bg-white w-full py-12 md:py-16 xl:py-16 2xl:py-20 xl:min-h-72 2xl:h-75 items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
       <FadeInOnScroll direction="up" offset={20}>
         <Column className="max-w-155 space-y-4 md:space-y-6">
           <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center leading-tight">
