@@ -1,4 +1,4 @@
-import { CompanyInfoType } from "@/src/app/(landing)/(info)/sobre-nos/types/company-info-type";
+import { CompanyInfoType } from "@/src/app/(landing)/types/company-info-type";
 import { Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";

@@ -4,7 +4,7 @@ import viriatoCastLogo from "@/public/landing-page/viriato-cast-logo.webp";
 import viriatoContabilidadeLogo from "@/public/landing-page/viriato-contabilidade-logo.webp";
 import viriatoCorretoraDeSegurosLogo from "@/public/landing-page/viriato-corretora-de-seguros-logo.webp";
 import viriatoImobiliariaLogo from "@/public/landing-page/viriato-imobiliaria-logo.webp";
-import { CompanyInfoType } from "@/src/app/(landing)/(info)/sobre-nos/types/company-info-type";
+import { CompanyInfoType } from "@/src/app/(landing)/types/company-info-type";
 
 export const companiesInfo: CompanyInfoType[] = [
   {
