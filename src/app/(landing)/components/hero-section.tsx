@@ -31,7 +31,7 @@ const HeroSection = () => {
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent" />
-      <Column className="relative z-10 w-full xl:max-w-140 space-y-6 md:space-y-8 animate-fade-in-up">
+      <Column className="relative z-10 w-full xl:max-w-140 space-y-6 md:space-y-8">
         <Column className="space-y-4 md:space-y-5">
           <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
             Precifique seus produtos com precisão.
@@ -51,7 +51,7 @@ const HeroSection = () => {
         </Button>
       </Column>
       <div
-        className="relative z-10 w-full xl:max-w-180 2xl:max-w-240 mt-8 xl:mt-0 aspect-video animate-fade-in-up"
+        className="relative z-10 w-full xl:max-w-180 2xl:max-w-240 mt-8 xl:mt-0 aspect-video"
         style={{ animationDelay: "0.2s" }}
       >
         <YouTubeEmbed videoId="9gNKBYR-rhg" title="Precific — Demonstração" />
