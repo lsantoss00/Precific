@@ -1,5 +1,4 @@
 import correaLopesLogo from "@/public/landing-page/correa-e-lopes-logo.webp";
-import grupoViriatoLogo from "@/public/landing-page/grupo-viriato-logo.webp";
 import lopesAdvogadosLogo from "@/public/landing-page/lopes-advogados-logo.webp";
 import viriatoCastLogo from "@/public/landing-page/viriato-cast-logo.webp";
 import viriatoContabilidadeLogo from "@/public/landing-page/viriato-contabilidade-logo.webp";
@@ -8,14 +7,6 @@ import viriatoImobiliariaLogo from "@/public/landing-page/viriato-imobiliaria-lo
 import { CompanyInfoType } from "@/src/app/(landing)/(info)/sobre-nos/types/company-info-type";
 
 export const companiesInfo: CompanyInfoType[] = [
-  {
-    name: "Grupo Viriato",
-    description:
-      "O Grupo Viriato é uma holding de tecnologia e serviços focada em desenvolver soluções que transformam a gestão empresarial. Com expertise em contabilidade, tributação e tecnologia, o grupo cria produtos que simplificam processos complexos para empresas de todos os portes.",
-    image: grupoViriatoLogo,
-    externalLink: "https://www.grupoviriato.com.br",
-    foundedYear: "1983",
-  },
   {
     name: "Viriato Contabilidade",
     description:
