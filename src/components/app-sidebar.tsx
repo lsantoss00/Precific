@@ -1,7 +1,7 @@
 "use client";
 
-import logoImage from "@/public/precific-logo-image.webp";
-import shortLogoImage from "@/public/precific-short-logo-image.webp";
+import logoImage from "@/public/images/precific-logo-image.webp";
+import shortLogoImage from "@/public/images/precific-short-logo-image.webp";
 import Menu from "@/src/components/menu";
 import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
 import Image from "next/image";

@@ -1,4 +1,4 @@
-import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
+import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import ContactForm from "@/src/app/(landing)/components/contact-form";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";

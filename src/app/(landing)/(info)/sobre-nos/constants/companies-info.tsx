@@ -1,9 +1,9 @@
-import correaLopesLogo from "@/public/landing-page/correa-e-lopes-logo.webp";
-import lopesAdvogadosLogo from "@/public/landing-page/lopes-advogados-logo.webp";
-import viriatoCastLogo from "@/public/landing-page/viriato-cast-logo.webp";
-import viriatoContabilidadeLogo from "@/public/landing-page/viriato-contabilidade-logo.webp";
-import viriatoCorretoraDeSegurosLogo from "@/public/landing-page/viriato-corretora-de-seguros-logo.webp";
-import viriatoImobiliariaLogo from "@/public/landing-page/viriato-imobiliaria-logo.webp";
+import correaLopesLogo from "@/public/images/correa-e-lopes-logo.webp";
+import lopesAdvogadosLogo from "@/public/images/lopes-advogados-logo.webp";
+import viriatoCastLogo from "@/public/images/viriato-cast-logo.webp";
+import viriatoContabilidadeLogo from "@/public/images/viriato-contabilidade-logo.webp";
+import viriatoCorretoraDeSegurosLogo from "@/public/images/viriato-corretora-de-seguros-logo.webp";
+import viriatoImobiliariaLogo from "@/public/images/viriato-imobiliaria-logo.webp";
 import { CompanyInfoType } from "@/src/app/(landing)/types/company-info-type";
 
 export const companiesInfo: CompanyInfoType[] = [

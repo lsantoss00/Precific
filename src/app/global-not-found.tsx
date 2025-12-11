@@ -1,4 +1,4 @@
-import notFoundImage from "@/public/404-image.webp";
+import notFoundImage from "@/public/images/404-image.webp";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { ArrowLeft } from "lucide-react";

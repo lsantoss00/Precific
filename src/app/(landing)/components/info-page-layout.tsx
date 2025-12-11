@@ -1,4 +1,4 @@
-import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
+import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import Column from "@/src/components/core/column";
 import { ReactNode } from "react";
 

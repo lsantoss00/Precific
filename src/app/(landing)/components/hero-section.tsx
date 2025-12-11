@@ -1,6 +1,6 @@
 "use client";
 
-import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
+import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";

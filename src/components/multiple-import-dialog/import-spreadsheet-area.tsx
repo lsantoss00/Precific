@@ -1,6 +1,6 @@
 "use client";
 
-import xlsImage from "@/public/file-xls.webp";
+import xlsImage from "@/public/images/file-xls.webp";
 import { importProducts } from "@/src/app/(private)/produtos/services/post-products-by-import";
 import { Button } from "@/src/components/core";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";

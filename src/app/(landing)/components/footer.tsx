@@ -1,5 +1,5 @@
-import grupoViriatoLogoImage from "@/public/landing-page/grupo-viriato-logo.webp";
-import precificLogoImage from "@/public/precific-logo-image.webp";
+import grupoViriatoLogoImage from "@/public/images/grupo-viriato-logo.webp";
+import precificLogoImage from "@/public/images/precific-logo-image.webp";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";

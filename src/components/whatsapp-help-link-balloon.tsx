@@ -1,7 +1,7 @@
 "use client";
 
+import WhatsAppIcon from "@/public/svgs/whatsapp-logo.svg";
 import { useState } from "react";
-import WhatsAppIcon from "../../public/whatsapp-logo.svg";
 import { Card } from "./core";
 import Row from "./core/row";
 

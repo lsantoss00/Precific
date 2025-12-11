@@ -1,7 +1,7 @@
 "use client";
 
+import AtlasTributarioIcon from "@/public/svgs/atlas-logo.svg";
 import { useState } from "react";
-import AtlasTributarioIcon from "../../public/atlas-logo.svg";
 import { Card } from "./core";
 import Row from "./core/row";
 

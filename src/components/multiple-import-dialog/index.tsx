@@ -1,6 +1,6 @@
 "use client";
 
-import spreadsheetExampleImage from "@/public/spreadsheet-example.webp";
+import spreadsheetExampleImage from "@/public/images/spreadsheet-example.webp";
 import {
   Button,
   Dialog,

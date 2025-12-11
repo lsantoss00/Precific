@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { privacyPolicyTopics } from "./constants/privacy-policy-topics";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade",
+  title: "Política de Privacidade | Precific",
   description:
     "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações no Precific.",
   keywords: [

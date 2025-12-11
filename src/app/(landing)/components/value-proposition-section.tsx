@@ -1,7 +1,7 @@
 "use client";
 
-import backgroundSectionImage from "@/public/landing-page/hero-section-background.webp";
-import userImage from "@/public/landing-page/user-image.webp";
+import backgroundSectionImage from "@/public/images/hero-section-background.webp";
+import userImage from "@/public/images/user-image.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import { Button } from "@/src/components/core";
 import Column from "@/src/components/core/column";

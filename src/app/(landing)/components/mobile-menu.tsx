@@ -1,6 +1,6 @@
 "use client";
 
-import shortLogoImage from "@/public/precific-short-logo-image.webp";
+import shortLogoImage from "@/public/images/precific-short-logo-image.webp";
 import { Button } from "@/src/components/core";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/core/sheet";
 import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";

@@ -1,4 +1,4 @@
-import logoImage from "@/public/precific-logo-image.webp";
+import logoImage from "@/public/images/precific-logo-image.webp";
 import { Card } from "@/src/components/core";
 import Image from "next/image";
 

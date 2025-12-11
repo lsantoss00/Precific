@@ -1,4 +1,4 @@
-import logoImage from "@/public/precific-logo-image.webp";
+import logoImage from "@/public/images/precific-logo-image.webp";
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Flex from "@/src/components/core/flex";
 import Image from "next/image";
