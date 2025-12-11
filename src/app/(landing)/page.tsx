@@ -1,4 +1,3 @@
-import Footer from "@/src/app/(landing)/components/footer";
 import GetAheadSection from "@/src/app/(landing)/components/get-ahead-section";
 import HeroSection from "@/src/app/(landing)/components/hero-section";
 import LogoSection from "@/src/app/(landing)/components/logo-section";
@@ -38,7 +37,6 @@ export default function LandingPage() {
       <ContactSection />
       <StartUsingSection />
       <FAQSection />
-      <Footer />
     </>
   );
 }

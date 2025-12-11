@@ -19,7 +19,7 @@ const FAQSection = () => {
       />
       <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-transparent pointer-events-none" />
       <FadeInOnScroll direction="left" offset={20}>
-        <Column className="relative z-10 w-full xl:w-140 2xl:w-140 space-y-6 md:space-y-8">
+        <Column className="relative z-10 w-full 2xl:w-140 space-y-6 md:space-y-8">
           <Column className="space-y-4 md:space-y-5">
             <h3 className="font-bold text-3xl sm:text-4xl xl:text-4xl 2xl:text-5xl text-white leading-tight">
               Ficou alguma dúvida?

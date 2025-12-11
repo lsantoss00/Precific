@@ -1,3 +1,4 @@
+import Footer from "@/src/app/(landing)/components/footer";
 import Header from "@/src/app/(landing)/components/header";
 import Column from "@/src/components/core/column";
 import Script from "next/script";
@@ -31,6 +32,7 @@ export default function LandingPageLayout({
       />
       <Header />
       <main className="flex-1 pt-20">{children}</main>
+      <Footer />
     </Column>
   );
 }
