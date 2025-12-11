@@ -30,7 +30,7 @@ const Header = () => {
             <Button
               variant="ghost"
               onClick={scrollToTop}
-              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:!bg-transparent rounded-none"
+              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:bg-transparent! rounded-none"
             >
               Início
             </Button>
@@ -39,7 +39,7 @@ const Header = () => {
             <Button
               variant="ghost"
               onClick={() => scrollToSection("descubra")}
-              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:!bg-transparent rounded-none"
+              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:bg-transparent! rounded-none"
             >
               Descubra
             </Button>
@@ -48,7 +48,7 @@ const Header = () => {
             <Button
               variant="ghost"
               onClick={() => scrollToSection("contato")}
-              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:!bg-transparent rounded-none"
+              className="text-sm lg:text-base text-zinc-800 hover:text-primary font-medium transition-colors py-2 px-0 h-auto border-b-2 border-transparent hover:border-primary hover:bg-transparent! rounded-none"
             >
               Converse conosco
             </Button>
