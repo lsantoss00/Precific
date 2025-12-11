@@ -1,8 +1,9 @@
+import AtlasLinkBalloon from "@/src/components/atlas-link-balloon";
+import WhatsAppHelpLinkBalloon from "@/src/components/whatsapp-help-link-balloon";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "../components/core/sonner";
-import WhatsAppHelpLink from "../components/whatsapp-help-link";
 import Providers from "../providers";
 import "./globals.css";
 
@@ -135,7 +136,8 @@ export default function RootLayout({
           {children}
           <Toaster position="top-center" />
         </Providers>
-        <WhatsAppHelpLink />
+        <AtlasLinkBalloon />
+        <WhatsAppHelpLinkBalloon />
       </body>
     </html>
   );

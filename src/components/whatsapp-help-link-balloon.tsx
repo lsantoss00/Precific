@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import WhatsAppIcon from "../../public/whatsapp-logo.svg";
 import { Card } from "./core";
 import Row from "./core/row";
 
-const WhatsAppHelpLink = () => {
+const WhatsAppHelpLinkBalloon = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const whatsAppNumber = "+552122929071";
@@ -23,18 +22,19 @@ const WhatsAppHelpLink = () => {
       >
         <span className="text-sm font-medium">Precisa de ajuda?</span>
       </Card>
-      <Link
+      <a
         className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transition-shadow"
         href={whatsAppLink}
         target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         aria-label="Link para suporte via WhatsApp"
       >
-        <WhatsAppIcon className="text-white h-6 w-6" />
-      </Link>
+        <WhatsAppIcon className="text-white h-7 w-7" />
+      </a>
     </Row>
   );
 };
 
-export default WhatsAppHelpLink;
+export default WhatsAppHelpLinkBalloon;
