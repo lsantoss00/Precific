@@ -8,6 +8,8 @@ import ProductsTable from "./components/products-table";
 
 export const metadata: Metadata = {
   title: "Produtos",
+  description:
+    "Gerencie seus produtos, realize cálculos de precificação, impostos e margens. Simule cenários da Reforma Tributária e otimize seus preços.",
   robots: {
     index: false,
     follow: false,

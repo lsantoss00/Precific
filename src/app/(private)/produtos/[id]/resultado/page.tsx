@@ -2,6 +2,8 @@ import ProductFormResultPageContent from "../../components/product-form-result-p
 
 export const metadata = {
   title: "Resultado",
+  description:
+    "Visualize os resultados detalhados da precificação do produto. Confira margens, impostos calculados e simulações tributárias.",
   robots: {
     index: false,
     follow: false,
