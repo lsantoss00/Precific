@@ -4,7 +4,7 @@ import viriatoCastLogo from "@/public/images/viriato-cast-logo.webp";
 import viriatoContabilidadeLogo from "@/public/images/viriato-contabilidade-logo.webp";
 import viriatoCorretoraDeSegurosLogo from "@/public/images/viriato-corretora-de-seguros-logo.webp";
 import viriatoImobiliariaLogo from "@/public/images/viriato-imobiliaria-logo.webp";
-import { CompanyInfoType } from "@/src/app/(landing)/types/company-info-type";
+import { CompanyInfoType } from "@/src/app/(landing)/(info)/sobre-nos/types/company-info-type";
 
 export const companiesInfo: CompanyInfoType[] = [
   {
@@ -55,12 +55,4 @@ export const companiesInfo: CompanyInfoType[] = [
     externalLink: "https://www.instagram.com/viriatocast/",
     foundedYear: "2020",
   },
-  // {
-  //   name: "Precific",
-  //   description:
-  //     "Sistema inteligente de precificação e gestão tributária desenvolvido pelo Grupo Viriato. Nossa missão é simplificar a gestão financeira e tributária das empresas brasileiras, oferecendo soluções inovadoras e eficientes com tecnologia de ponta.",
-  //   image: precificLogo,
-  //   externalLink: "https://www.precificapp.com",
-  //   foundedYear: "2024",
-  // },
 ];

@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const AboutUsHeroSection = () => {
   return (
-    <Flex className="relative bg-primary w-full h-[calc(100vh-80px)] py-20 md:py-24 xl:py-0 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25  flex-col xl:flex-row items-center justify-between">
+    <Flex className="relative bg-primary w-full h-[calc(100vh-80px)] py-20 md:py-24 xl:py-0 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 flex-col xl:flex-row items-center justify-between">
       <div
         className="absolute inset-0 w-full h-full"
         style={{
@@ -46,14 +46,14 @@ const AboutUsHeroSection = () => {
         <div className="w-150 h-150 relative mr-14">
           <Image
             src={people1}
-            alt="Usuário do Precific"
+            alt="Funcionário Grupo Viriato"
             fill
             priority
             className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
           />
           <Image
             src={people2}
-            alt="Usuário do Precific"
+            alt="Funcionário Grupo Viriato"
             width={320}
             height={320}
             priority
@@ -61,7 +61,7 @@ const AboutUsHeroSection = () => {
           />
           <Image
             src={people3}
-            alt="Usuário do Precific"
+            alt="Funcionário Grupo Viriato"
             width={160}
             height={160}
             priority
