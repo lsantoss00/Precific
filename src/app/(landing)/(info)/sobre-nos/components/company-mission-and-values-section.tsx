@@ -42,14 +42,14 @@ export function CompanyMissionAndValuesSection() {
           {companyValuesTopics.map((value, index) => (
             <Column
               key={index}
-              className="relative max-w-2xl items-center justify-center space-y-6 rounded-lg bg-black/40 px-4 py-6 lg:h-60 lg:flex-row lg:space-y-0 lg:px-0 lg:py-0"
+              className="relative w-full xl:max-w-2xl items-center justify-center space-y-6 rounded-lg bg-black/40 px-4 py-6 lg:h-60 lg:flex-row lg:space-y-0 lg:px-0 lg:py-0"
             >
               <Column className="w-full lg:w-auto">
                 <span className="-left-10 top-20 h-fit w-fit rounded-full bg-secondary p-3 text-white lg:absolute lg:p-6">
                   {value.icon}
                 </span>
               </Column>
-              <Column className="space-y-4 lg:py-12 lg:pl-20 lg:pr-16">
+              <Column className="space-y-4 lg:py-12 lg:pl-12 xl:pl-16 lg:pr-8 w-full">
                 <span className="text-xl font-bold lg:text-2xl text-white">
                   {value.title}
                 </span>
@@ -78,14 +78,14 @@ export function CompanyMissionAndValuesSection() {
           {companyMissionTopics.map((mission, index) => (
             <Column
               key={index}
-              className="relative max-w-2xl items-center justify-center space-y-6 rounded-lg bg-black/40 px-4 py-6 lg:h-60 lg:flex-row lg:space-y-0 lg:px-0 lg:py-0"
+              className="relative w-full xl:max-w-2xl items-center justify-center space-y-6 rounded-lg bg-black/40 px-4 py-6 lg:h-60 lg:flex-row lg:space-y-0 lg:px-0 lg:py-0"
             >
               <Column className="w-full lg:w-auto">
                 <span className="-left-10 top-20 h-fit w-fit rounded-full bg-secondary p-3 text-white lg:absolute lg:p-6">
                   {mission.icon}
                 </span>
               </Column>
-              <Column className="space-y-4 lg:py-12 lg:pl-20 lg:pr-16">
+              <Column className="space-y-4 lg:py-12 lg:pl-12 xl:pl-16 lg:pr-8 w-full">
                 <span className="text-xl font-bold lg:text-2xl text-white">
                   {mission.title}
                 </span>
