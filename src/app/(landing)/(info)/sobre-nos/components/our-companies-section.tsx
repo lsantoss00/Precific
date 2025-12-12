@@ -4,7 +4,7 @@ import Column from "@/src/components/core/column";
 
 const OurCompaniesSection = () => {
   return (
-    <Column className="py-12 md:py-16 xl:py-16 2xl:py-20 space-y-8 sm:px-6 md:px-12 lg:px-20 xl:px-25">
+    <Column className="max-sm:mx-4 py-12 md:py-16 xl:py-16 2xl:py-20 space-y-8 sm:px-6 md:px-12 2xl:px-25">
       <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl leading-tight">
         Nossas Empresas
       </h3>

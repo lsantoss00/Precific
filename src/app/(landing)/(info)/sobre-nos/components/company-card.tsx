@@ -1,6 +1,7 @@
 import { CompanyInfoType } from "@/src/app/(landing)/(info)/sobre-nos/types/company-info-type";
 import { Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
@@ -25,8 +26,8 @@ const CompanyCard = ({ company, isLast = false }: CompanyCardProps) => {
         rel="noopener noreferrer"
         className="group block flex-1"
       >
-        <Card className="relative overflow-hidden p-5 md:p-6 lg:p-8 transition-all duration-300 ease-out hover:shadow-lg">
-          <Row className="items-center gap-5 md:gap-6 lg:gap-8 flex-col sm:flex-row">
+        <Card className="relative overflow-hidden p-4 md:p-6 lg:p-8 transition-all duration-300 ease-out hover:shadow-lg">
+          <Flex className="flex flex-col sm:flex-row sm:items-center gap-5 md:gap-6 lg:gap-8">
             <div className="absolute top-3 right-3 md:top-4 md:right-4">
               <ExternalLink className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground transition-all duration-300 group-hover:text-primary" />
             </div>
@@ -36,10 +37,10 @@ const CompanyCard = ({ company, isLast = false }: CompanyCardProps) => {
                 alt={`${company.name}-logo`}
                 sizes="(max-width: 768px) 128px, 80px"
                 loading="lazy"
-                className="object-contain grayscale transition-all duration-500 ease-out group-hover:grayscale-0"
+                className="object-contain md:grayscale transition-all duration-500 ease-out md:group-hover:grayscale-0"
               />
             </Card>
-            <Column className="gap-2.5 md:gap-3 flex-1 text-center sm:text-left">
+            <Column className="gap-2.5 md:gap-3 flex-1">
               <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">
                 {company.name}
               </h3>
@@ -47,7 +48,7 @@ const CompanyCard = ({ company, isLast = false }: CompanyCardProps) => {
                 {company.description}
               </p>
             </Column>
-          </Row>
+          </Flex>
         </Card>
       </a>
     </Row>
