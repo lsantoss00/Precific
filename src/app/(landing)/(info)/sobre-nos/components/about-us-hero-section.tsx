@@ -48,6 +48,7 @@ const AboutUsHeroSection = () => {
             src={people1}
             alt="Usuário do Precific"
             fill
+            priority
             className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
           />
           <Image
@@ -55,6 +56,7 @@ const AboutUsHeroSection = () => {
             alt="Usuário do Precific"
             width={320}
             height={320}
+            priority
             className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-10 -right-13.5 w-80 h-80 shadow-2xl"
           />
           <Image
@@ -62,6 +64,7 @@ const AboutUsHeroSection = () => {
             alt="Usuário do Precific"
             width={160}
             height={160}
+            priority
             className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-20 left-48 w-40 h-40 shadow-2xl"
           />
         </div>
