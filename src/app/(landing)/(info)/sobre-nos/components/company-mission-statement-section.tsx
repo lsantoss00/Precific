@@ -1,7 +1,7 @@
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
 import Column from "@/src/components/core/column";
 
-const CompanyMissionStatement = () => {
+const CompanyMissionStatementSection = () => {
   return (
     <Column className="bg-white w-full py-12 md:py-16 xl:py-16 2xl:py-20 xl:min-h-72 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
       <FadeInOnScroll direction="up" offset={20}>
@@ -25,4 +25,4 @@ const CompanyMissionStatement = () => {
   );
 };
 
-export default CompanyMissionStatement;
+export default CompanyMissionStatementSection;
