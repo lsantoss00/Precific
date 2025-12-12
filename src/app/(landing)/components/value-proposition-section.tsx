@@ -57,7 +57,7 @@ const ValuePropositionSection = () => {
       >
         <Image
           src={userImage}
-          alt="Usuária do Precific"
+          alt="Usuário do Precific"
           fill
           loading="lazy"
           className="object-cover object-center"
