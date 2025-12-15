@@ -2,6 +2,7 @@ import InfoPageHeader from "@/src/app/(landing)/components/info-page-header";
 import InfoPageLayout from "@/src/app/(landing)/components/info-page-layout";
 import InfoPageTopics from "@/src/app/(landing)/components/info-page-topics";
 import { Metadata } from "next";
+import Script from "next/script";
 import { termsOfUseTopics } from "./constants/terms-of-use-topics";
 
 export const metadata: Metadata = {
@@ -42,8 +43,33 @@ export const metadata: Metadata = {
 };
 
 export default function TermsOfUsePage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Início",
+        item: "https://www.precificapp.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Termos de Uso",
+        item: "https://www.precificapp.com/termos-de-uso",
+      },
+    ],
+  };
+
   return (
     <InfoPageLayout>
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <InfoPageHeader
         title="Termos de Uso"
         description="Bem-vindo ao Precific! Estes Termos de Uso estabelecem as regras e

@@ -1,5 +1,6 @@
 import grupoViriatoLogoImage from "@/public/images/grupo-viriato-logo.webp";
 import precificLogoImage from "@/public/images/precific-logo-image.webp";
+import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
@@ -17,14 +18,15 @@ const Footer = () => {
     "text-muted-foreground text-sm hover:text-primary transition-colors";
 
   return (
-    <footer className="bg-white w-full py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
+    <footer className="bg-white w-full">
+      <Container variant="section-alt" paddingY="md" className="py-12 md:py-16">
       <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
         <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
           <Row className="items-center gap-4">
             <div className="relative">
               <Image
                 src={grupoViriatoLogoImage}
-                alt="grupo-viriato-logo-image"
+                alt="Logo do Grupo Viriato - Empresa de contabilidade e consultoria tributária"
                 width={100}
                 height={100}
                 sizes="100px"
@@ -36,7 +38,7 @@ const Footer = () => {
             <div className="relative">
               <Image
                 src={precificLogoImage}
-                alt="precific-logo-image"
+                alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
                 width={100}
                 height={50}
                 sizes="100px"
@@ -94,6 +96,7 @@ const Footer = () => {
           direitos reservados.
         </p>
       </div>
+      </Container>
     </footer>
   );
 };

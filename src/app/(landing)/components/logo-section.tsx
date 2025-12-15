@@ -9,7 +9,7 @@ const LogoSection = () => {
       <FadeInOnScroll as="figure" direction="none" duration={0.8}>
         <Image
           src={logoImage}
-          alt="precific-logo-image"
+          alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
           width={800}
           height={225}
           sizes="(max-width: 640px) 90vw, (max-width: 768px) 448px, (max-width: 1280px) 576px, 672px"

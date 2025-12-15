@@ -34,7 +34,7 @@ const CompanyCard = ({ company, isLast = false }: CompanyCardProps) => {
             <Card className="h-20 w-20 md:h-28 md:w-28 shrink-0 items-center justify-center overflow-hidden p-3 md:p-4 transition-all duration-300">
               <Image
                 src={company.image}
-                alt={`${company.name}-logo`}
+                alt={`Logo da empresa ${company.name} - ${company.description}`}
                 sizes="(max-width: 768px) 128px, 80px"
                 loading="lazy"
                 className="object-contain md:grayscale transition-all duration-500 ease-out md:group-hover:grayscale-0"

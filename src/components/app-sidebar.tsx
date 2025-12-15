@@ -36,7 +36,7 @@ export function AppSidebar() {
             <SidebarTrigger className="w-full h-full hover:!bg-transparent">
               <Image
                 src={shortLogoImage}
-                alt="precific-logo-image"
+                alt="Logo do Precific"
                 width={48}
                 height={48}
                 priority
@@ -46,7 +46,7 @@ export function AppSidebar() {
               />
               <Image
                 src={logoImage}
-                alt="precific-logo-image"
+                alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
                 width={200}
                 height={40}
                 priority

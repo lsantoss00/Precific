@@ -30,6 +30,18 @@ export default function LandingPageLayout({
         strategy="lazyOnload"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <Script
+        id="website-jsonld"
+        type="application/ld+json"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <Script
+        id="contact-page-jsonld"
+        type="application/ld+json"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+      />
       <Header />
       <main className="flex-1 pt-20">{children}</main>
       <Footer />
@@ -71,15 +83,34 @@ const organizationJsonLd = {
   name: "Precific",
   legalName: "Grupo Viriato",
   url: "https://www.precificapp.com",
-  logo: "https://www.precificapp.com/opengraph-image.webp",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://www.precificapp.com/opengraph-image.webp",
+    width: 1200,
+    height: 630,
+  },
   description:
     "Sistema completo de precificação e gestão tributária para empresas.",
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "Suporte",
-    availableLanguage: "Portuguese",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "Suporte",
+      email: "contato@precificapp.com",
+      telephone: "+552122929071",
+      availableLanguage: ["Portuguese", "pt-BR"],
+      areaServed: "BR",
+    },
+  ],
+  sameAs: [
+    "https://www.linkedin.com/company/grupo-viriato/",
+    "https://www.instagram.com/grupoviriato",
+    "https://www.youtube.com/@ViriatoCast",
+  ],
+  foundingDate: "1980",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "BR",
   },
-  sameAs: [],
 };
 
 const faqJsonLd = {
@@ -135,4 +166,50 @@ const faqJsonLd = {
       },
     },
   ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Precific",
+  url: "https://www.precificapp.com",
+  description:
+    "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
+  publisher: {
+    "@type": "Organization",
+    name: "Grupo Viriato",
+    url: "https://www.viriato.com.br/",
+  },
+  inLanguage: "pt-BR",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://www.precificapp.com/?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const contactPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Fale Conosco | Precific",
+  description:
+    "Entre em contato com a equipe do Precific. Nossa equipe especializada está pronta para tirar suas dúvidas e agendar uma demonstração gratuita.",
+  url: "https://www.precificapp.com#contato",
+  mainEntity: {
+    "@type": "Organization",
+    name: "Precific",
+    email: "contato@precificapp.com",
+    telephone: "+552122929071",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Atendimento ao Cliente",
+      email: "contato@precificapp.com",
+      telephone: "+552122929071",
+      availableLanguage: ["Portuguese", "pt-BR"],
+      areaServed: "BR",
+    },
+  },
 };

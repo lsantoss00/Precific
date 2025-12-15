@@ -2,6 +2,7 @@ import InfoPageHeader from "@/src/app/(landing)/components/info-page-header";
 import InfoPageLayout from "@/src/app/(landing)/components/info-page-layout";
 import InfoPageTopics from "@/src/app/(landing)/components/info-page-topics";
 import { Metadata } from "next";
+import Script from "next/script";
 import { privacyPolicyTopics } from "./constants/privacy-policy-topics";
 
 export const metadata: Metadata = {
@@ -42,8 +43,33 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Início",
+        item: "https://www.precificapp.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Política de Privacidade",
+        item: "https://www.precificapp.com/politica-de-privacidade",
+      },
+    ],
+  };
+
   return (
     <InfoPageLayout>
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <InfoPageHeader
         title="Política de Privacidade"
         description="Esta Política de Privacidade descreve como a Precific coleta, usa,

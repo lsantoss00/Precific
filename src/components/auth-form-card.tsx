@@ -11,7 +11,7 @@ const AuthFormCard = ({ children }: AuthFormCardProps) => {
     <Card className="rounded-2xl p-6 mx-2 shadow-sm w-full max-w-125 flex flex-col items-center bg-white">
       <Image
         src={logoImage}
-        alt="precific-logo-image"
+        alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
         width={300}
         height={80}
         className="mb-10"
