@@ -13,41 +13,41 @@ const CompanyMissionAndValuesSection = () => {
   return (
     <SectionWithBackground className="w-full">
       <Container variant="section" className="space-y-20 py-16">
-      <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
-        <CompanySectionBlock
-          icon={<Award className="text-secondary" />}
-          title="Nossos Valores"
-          heading="Nossos valores evoluíram conosco à medida que a empresa crescia e aprendemos com nossas experiências."
-          description="Eles resumem o que queremos alcançar e podem mudar no futuro, à medida que almejamos cada vez mais alto. Pensamos nesses valores como importantes para nossa cultura e senso individual de realização."
-        />
-        <Column className="space-y-6">
-          {companyValuesTopics.map((value, index) => (
-            <CompanyTopicCard
-              key={index}
-              icon={value.icon}
-              title={value.title}
-              description={value.description}
-            />
-          ))}
+        <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
+          <CompanySectionBlock
+            icon={<Award className="text-secondary" />}
+            title="Nossos Valores"
+            heading="Nossos valores evoluíram conosco à medida que a empresa crescia e aprendemos com nossas experiências."
+            description="Eles resumem o que queremos alcançar e podem mudar no futuro, à medida que almejamos cada vez mais alto. Pensamos nesses valores como importantes para nossa cultura e senso individual de realização."
+          />
+          <Column className="space-y-6">
+            {companyValuesTopics.map((value) => (
+              <CompanyTopicCard
+                key={value.title}
+                icon={value.icon}
+                title={value.title}
+                description={value.description}
+              />
+            ))}
+          </Column>
         </Column>
-      </Column>
-      <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
-        <CompanySectionBlock
-          icon={<Goal className="text-secondary" />}
-          title="Nossa Missão"
-          heading="Nossa missão guia nosso caminho e inspira cada passo que damos para gerar impacto real e duradouro."
-        />
-        <Column className="space-y-6">
-          {companyMissionTopics.map((mission, index) => (
-            <CompanyTopicCard
-              key={index}
-              icon={mission.icon}
-              title={mission.title}
-              description={mission.description}
-            />
-          ))}
+        <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
+          <CompanySectionBlock
+            icon={<Goal className="text-secondary" />}
+            title="Nossa Missão"
+            heading="Nossa missão guia nosso caminho e inspira cada passo que damos para gerar impacto real e duradouro."
+          />
+          <Column className="space-y-6">
+            {companyMissionTopics.map((mission) => (
+              <CompanyTopicCard
+                key={mission.title}
+                icon={mission.icon}
+                title={mission.title}
+                description={mission.description}
+              />
+            ))}
+          </Column>
         </Column>
-      </Column>
       </Container>
     </SectionWithBackground>
   );
