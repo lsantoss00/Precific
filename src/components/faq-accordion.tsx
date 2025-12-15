@@ -13,7 +13,7 @@ const FAQAccordion = () => {
       className="w-full h-full p-4 lg:p-10 space-y-5"
     >
       {faqs.map((faq, index) => (
-        <AccordionItem key={index} value={`item-${index}`}>
+        <AccordionItem key={faq.question} value={`item-${index}`}>
           <AccordionTrigger className="lg:text-lg font-bold">
             {faq.question}
           </AccordionTrigger>

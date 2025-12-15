@@ -90,6 +90,7 @@ const UserImageUpload = ({
               setPreview(null);
               if (onChange) onChange(null, "");
             }}
+            aria-label="Remover imagem"
           >
             <XIcon />
           </button>

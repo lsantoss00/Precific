@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useReducedMotion, Variants } from "framer-motion";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type AnimationDirection = "up" | "down" | "left" | "right" | "none";
 
@@ -121,12 +121,17 @@ const FadeInOnScroll = ({
 }: FadeInOnScrollProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
 
   const isInView = useInView(ref, {
     once: true,
     amount,
     margin: "100px 0px 0px 0px",
   });
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const variants = useMemo(() => {
     if (prefersReducedMotion) {
@@ -149,14 +154,12 @@ const FadeInOnScroll = ({
   return (
     <MotionComponent
       ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={isMounted ? "hidden" : false}
+      animate={isMounted && isInView ? "visible" : "hidden"}
       variants={variants}
       transition={transition}
       className={className}
-      style={{
-        willChange: isInView ? "auto" : "opacity, transform",
-      }}
+      suppressHydrationWarning
     >
       {children}
     </MotionComponent>

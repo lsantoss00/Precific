@@ -72,8 +72,8 @@ const Footer = () => {
             </Flex>
           </Column>
           <Flex className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto">
-            {footerLinks.map((footerLink, index) => (
-              <Column key={index} className="space-y-3 md:space-y-4">
+            {footerLinks.map((footerLink) => (
+              <Column key={footerLink.title} className="space-y-3 md:space-y-4">
                 <h3 className="text-base md:text-lg font-semibold">
                   {footerLink.title}
                 </h3>

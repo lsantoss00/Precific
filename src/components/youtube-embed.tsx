@@ -38,6 +38,7 @@ const YouTubeEmbed: React.FC<Props> = ({
               src={videoThumbnail}
               alt={title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               priority
               loading="eager"

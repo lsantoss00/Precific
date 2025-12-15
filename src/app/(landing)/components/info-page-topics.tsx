@@ -9,7 +9,7 @@ export default function InfoPageTopics({ topics }: InfoPageTopicsProps) {
   return (
     <Column className="space-y-10">
       {topics?.map((topic, index) => (
-        <section key={index}>
+        <section key={topic?.title || `topic-${index}`}>
           <h2 className="mb-4 text-xl font-bold leading-8 text-white">
             {topic?.title}
           </h2>
@@ -17,7 +17,7 @@ export default function InfoPageTopics({ topics }: InfoPageTopicsProps) {
           {topic?.items && topic.items.length > 0 && (
             <ol className="ml-4 list-inside list-decimal space-y-2">
               {topic.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="leading-7 text-zinc-200">
+                <li key={`${topic?.title}-item-${itemIndex}`} className="leading-7 text-zinc-200">
                   {item}
                 </li>
               ))}

@@ -194,6 +194,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
             disabled={
               meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
             }
+            aria-label="Excluir produto"
           >
             <Show
               when={!meta?.pendingDeleteProduct}

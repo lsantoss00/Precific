@@ -26,7 +26,9 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
       const result = await refetch();
 
       if (!result.data || result.data.length === 0) {
-        alert("Não há dados para exportar");
+        toast.error("Não há dados para exportar", {
+          className: "!bg-red-600 !text-white",
+        });
         return;
       }
 
@@ -51,11 +53,12 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
       link.download = `produtos_${new Date().toISOString().split("T")[0]}.csv`;
       link.click();
       URL.revokeObjectURL(url);
-    } catch (error) {
-      alert("Erro ao exportar dados");
-    } finally {
       toast.success("Dados exportados com sucesso!", {
         className: "!bg-green-600 !text-white",
+      });
+    } catch (error) {
+      toast.error("Erro ao exportar dados", {
+        className: "!bg-red-600 !text-white",
       });
     }
   };
