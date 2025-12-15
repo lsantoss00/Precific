@@ -16,19 +16,19 @@ export const companiesInfo: CompanyInfoType[] = [
     foundedYear: "1983",
   },
   {
+    name: "Viriato Gestão Imobiliária",
+    description:
+      "Administradora de imóveis com expertise em gestão patrimonial completa. Oferecemos soluções personalizadas para proprietários e locatários, com transparência, tecnologia e atendimento diferenciado no mercado imobiliário.",
+    image: viriatoImobiliariaLogo,
+    externalLink: "https://www.viriatoimobiliaria.com.br/",
+    foundedYear: "2003",
+  },
+  {
     name: "Correa & Lopes",
     description:
       "Escritório especializado em consultoria tributária e planejamento fiscal estratégico. Atuamos com foco em otimização tributária, sempre dentro da legalidade, ajudando empresas a reduzirem sua carga fiscal e aumentarem sua competitividade no mercado.",
     image: correaLopesLogo,
     externalLink: "https://correaelopes.com.br/",
-    foundedYear: "2005",
-  },
-  {
-    name: "Viriato Imobiliária",
-    description:
-      "Administradora de imóveis com expertise em gestão patrimonial completa. Oferecemos soluções personalizadas para proprietários e locatários, com transparência, tecnologia e atendimento diferenciado no mercado imobiliário.",
-    image: viriatoImobiliariaLogo,
-    externalLink: "https://www.viriatoimobiliaria.com.br/",
     foundedYear: "2010",
   },
   {
@@ -37,7 +37,7 @@ export const companiesInfo: CompanyInfoType[] = [
       "Escritório de advocacia empresarial com foco em direito tributário, corporativo e trabalhista. Nossa equipe oferece assessoria jurídica estratégica e personalizada, protegendo os interesses dos nossos clientes com excelência e comprometimento.",
     image: lopesAdvogadosLogo,
     externalLink: "https://www.jalopesadvogados.com.br/",
-    foundedYear: "2012",
+    foundedYear: "2010",
   },
   {
     name: "Viriato Corretora de Seguros",
@@ -45,7 +45,7 @@ export const companiesInfo: CompanyInfoType[] = [
       "Corretora de seguros especializada em soluções personalizadas para pessoas físicas e jurídicas. Oferecemos consultoria completa em seguros patrimoniais, de vida, empresariais e muito mais, sempre buscando as melhores condições do mercado para nossos clientes.",
     image: viriatoCorretoraDeSegurosLogo,
     externalLink: "https://www.viriatocorretoradeseguros.com.br/",
-    foundedYear: "2015",
+    foundedYear: "2023",
   },
   {
     name: "Viriato Cast",

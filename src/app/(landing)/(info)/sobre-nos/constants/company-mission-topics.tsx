@@ -5,13 +5,13 @@ export const companyMissionTopics: CompanyMissionAndValuesTopicType[] = [
   {
     title: "Propósito",
     description:
-      "Nascemos para desenvolver, encorajar, servir e impactar pessoas pela tecnologia",
+      "Existimos para desenvolver, orientar e servir empresas por meio de soluções que unem conhecimento técnico, estratégia e tecnologia, promovendo crescimento sustentável e decisões mais seguras.",
     icon: <User />,
   },
   {
     title: "Missão",
     description:
-      "Impactar empresas por meio de serviços e soluções financeiras de nível world-class.",
+      "Apoiar empresas na construção de estruturas mais sólidas, eficientes e preparadas para o futuro, oferecendo serviços e soluções que gerem clareza, controle e valor de longo prazo.",
     icon: <Settings />,
   },
 ];

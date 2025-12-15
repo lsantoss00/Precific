@@ -15,7 +15,7 @@ const CompanySectionBlock = ({
   description,
   children,
 }: CompanySectionBlockProps) => (
-  <Column className="w-full lg:max-w-lg space-y-4 sm:space-y-5 md:space-y-6">
+  <Column className="w-full space-y-4 sm:space-y-5 md:space-y-6">
     <Column className="gap-2 sm:gap-3">
       <span className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">{icon}</span>
       <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-zinc-200">

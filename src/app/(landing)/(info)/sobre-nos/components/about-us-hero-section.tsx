@@ -13,9 +13,12 @@ import Image from "next/image";
 
 const AboutUsHeroSection = () => {
   return (
-    <SectionWithBackground className="w-full min-h-[calc(100vh-80px)] xl:h-[calc(100vh-80px)] overflow-hidden pt-20">
-      <Container variant="section" className="py-20 md:py-24 xl:py-0 xl:h-full">
-        <Flex className="flex-col xl:flex-row items-center justify-between xl:h-full gap-8 md:gap-12">
+    <SectionWithBackground className="w-full min-h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)] overflow-hidden">
+      <Container
+        variant="section"
+        className="py-20 md:py-24 lg:py-0 lg:h-full lg:flex lg:flex-col lg:justify-center"
+      >
+        <Flex className="flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
           <FadeInOnScroll
             direction="left"
             offset={20}
@@ -29,13 +32,13 @@ const AboutUsHeroSection = () => {
                   controle e decisões empresariais seguras.
                 </p>
               </Column>
-              <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
+              <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight max-w-2xl">
                 Nós{" "}
                 <span className="relative inline-block">
                   impulsionamos
                   <div className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
                 </span>{" "}
-                empresas há mais <br className="hidden sm:block" /> de{" "}
+                empresas há mais de{" "}
                 <span className="relative inline-block">
                   40 anos.
                   <div className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
@@ -43,38 +46,37 @@ const AboutUsHeroSection = () => {
               </h1>
             </Column>
           </FadeInOnScroll>
-
           <FadeInOnScroll
             direction="right"
             offset={20}
-            className="relative z-10 w-full xl:w-auto xl:h-full mt-8 xl:mt-0"
+            className="relative z-10"
           >
-            <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[350px] lg:h-[350px] xl:w-[500px] xl:h-[500px] 2xl:w-[580px] 2xl:h-[580px] relative xl:mr-14 mx-auto">
+            <div className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[500px] xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-20">
               <Image
                 src={people1}
                 alt="Funcionário Grupo Viriato"
                 fill
                 priority
-                sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, (max-width: 1024px) 280px, (max-width: 1280px) 350px, 500px"
+                sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 280px, 500px"
                 className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
               />
               <Image
                 src={people2}
                 alt="Funcionário Grupo Viriato"
-                width={320}
-                height={320}
+                width={250}
+                height={250}
                 priority
-                sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 250px, 320px"
-                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-8 lg:-right-8 xl:-bottom-10 xl:-right-[54px] w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px] xl:w-80 xl:h-80 shadow-2xl"
+                sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 200px, 250px"
+                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-4 lg:-right-4 xl:-bottom-10 xl:-right-[54px] w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px] lg:w-[140px] lg:h-[140px] xl:w-[250px] xl:h-[250px] shadow-2xl"
               />
               <Image
                 src={people3}
                 alt="Funcionário Grupo Viriato"
-                width={160}
-                height={160}
+                width={125}
+                height={125}
                 priority
-                sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 120px, 160px"
-                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-8 md:left-28 lg:-bottom-12 lg:left-36 xl:-bottom-20 xl:left-48 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px] xl:w-40 xl:h-40 shadow-2xl"
+                sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 100px, 125px"
+                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-10 lg:-bottom-8 xl:-bottom-16 xl:left-40 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[85px] md:h-[85px] lg:w-[70px] lg:h-[70px] xl:w-[125px] xl:h-[125px] shadow-2xl"
               />
             </div>
           </FadeInOnScroll>

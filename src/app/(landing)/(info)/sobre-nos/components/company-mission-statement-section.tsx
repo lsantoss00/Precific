@@ -10,10 +10,10 @@ const CompanyMissionStatementSection = () => {
     >
       <FadeInOnScroll direction="up" offset={20} className="w-full">
         <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full xl:max-w-none">
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight">
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight text-center">
             O Grupo Viriato leva as empresas à excelência.
           </h3>
-          <p className="text-sm sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-lg text-muted-foreground leading-relaxed text-center">
             Há quatro décadas, transformamos desafios em estratégia e estratégia
             em crescimento real. Evoluímos de um escritório familiar para um
             ecossistema completo que impulsiona negócios com inteligência

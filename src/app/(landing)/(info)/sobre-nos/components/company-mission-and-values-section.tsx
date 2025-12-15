@@ -17,20 +17,20 @@ const CompanyMissionAndValuesSection = () => {
         variant="section"
         className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24 py-12 sm:py-16 md:py-20 lg:py-24"
       >
-        <Column className="space-y-8 sm:space-y-10 md:space-y-12 lg:flex-row lg:space-y-0 lg:space-x-12 xl:space-x-16 2xl:space-x-24 justify-between w-full">
+        <Column className="space-y-8 sm:space-y-10 md:space-y-12 xl:flex-row xl:space-y-0 xl:space-x-16 2xl:space-x-24 justify-between w-full">
           <FadeInOnScroll
             direction="left"
             offset={20}
-            className="w-full lg:max-w-lg"
+            className="w-full xl:max-w-xl"
           >
             <CompanySectionBlock
               icon={<Award className="text-secondary" />}
               title="Nossos Valores"
-              heading="Nossos valores evoluíram conosco à medida que a empresa crescia e aprendemos com nossas experiências."
-              description="Eles resumem o que queremos alcançar e podem mudar no futuro, à medida que almejamos cada vez mais alto. Pensamos nesses valores como importantes para nossa cultura e senso individual de realização."
+              heading="Nossos valores são fruto de décadas de experiência, evolução e aprendizado contínuo. Eles se moldaram com nosso crescimento, desafios reais e decisões que impactaram empresas, pessoas e resultados."
+              description="Eles orientam nossa cultura, guiam nossas decisões e sustentam a forma como atuamos no mercado. São o alicerce que garante consistência, responsabilidade e clareza em cada escolha feita ao longo da nossa trajetória."
             />
           </FadeInOnScroll>
-          <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full lg:w-auto lg:flex-1 lg:max-w-2xl">
+          <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full lg:w-auto lg:flex-1 xl:max-w-2xl">
             {companyValuesTopics.map((value, index) => (
               <FadeInOnScroll
                 key={value.title}
@@ -47,19 +47,19 @@ const CompanyMissionAndValuesSection = () => {
             ))}
           </Column>
         </Column>
-        <Column className="space-y-8 sm:space-y-10 md:space-y-12 lg:flex-row lg:space-y-0 lg:space-x-12 xl:space-x-16 2xl:space-x-24 justify-between w-full">
+        <Column className="space-y-8 sm:space-y-10 md:space-y-12 xl:flex-row xl:space-y-0 xl:space-x-16 2xl:space-x-24 justify-between w-full">
           <FadeInOnScroll
             direction="left"
             offset={20}
-            className="w-full lg:max-w-lg"
+            className="w-full xl:max-w-xl"
           >
             <CompanySectionBlock
               icon={<Goal className="text-secondary" />}
               title="Nossa Missão"
-              heading="Nossa missão guia nosso caminho e inspira cada passo que damos para gerar impacto real e duradouro."
+              heading="Nossa missão guia nossas ações com base na experiência, entendimento do mercado e dedicação de gerar impacto real e duradouro."
             />
           </FadeInOnScroll>
-          <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full lg:w-auto lg:flex-1 lg:max-w-2xl">
+          <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full lg:w-auto lg:flex-1 xl:max-w-2xl">
             {companyMissionTopics.map((mission, index) => (
               <FadeInOnScroll
                 key={mission.title}

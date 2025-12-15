@@ -5,19 +5,19 @@ export const companyValuesTopics: CompanyMissionAndValuesTopicType[] = [
   {
     title: "Transparência",
     description:
-      "Acreditamos em processos claros e comunicação aberta com nossos clientes.",
+      "Atuamos com processos claros, critérios objetivos e comunicação direta. Acreditamos que confiança se constrói com informação acessível e decisões bem explicadas.",
     icon: <Settings />,
   },
   {
     title: "Colaboração",
     description:
-      "Trabalhamos juntos para alcançar resultados melhores e inovadores.",
+      "Resultados sólidos não são individuais. Trabalhamos lado a lado com nossos clientes, integrando conhecimento técnico e visão estratégica para decisões mais consistentes e duradouras.",
     icon: <Share2 />,
   },
   {
     title: "Segurança",
     description:
-      "Protegemos os dados dos nossos clientes com as melhores práticas do mercado.",
+      "Protegemos dados, informações e decisões críticas. Seguimos as melhores práticas do mercado para garantir integridade, confidencialidade e estabilidade em cada processo.",
     icon: <ShieldCheck />,
   },
 ];

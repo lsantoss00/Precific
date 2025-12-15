@@ -16,13 +16,13 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "pt-BR",
     icons: [
       {
-        src: "/precific-short-logo-image.webp",
+        src: "/images/precific-short-logo-image.webp",
         sizes: "192x192",
         type: "image/webp",
         purpose: "maskable",
       },
       {
-        src: "/precific-short-logo-image.webp",
+        src: "/images/precific-short-logo-image.webp",
         sizes: "512x512",
         type: "image/webp",
         purpose: "any",

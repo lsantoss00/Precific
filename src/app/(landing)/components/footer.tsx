@@ -147,7 +147,7 @@ const footerLinks = [
         href: "https://correaelopes.com.br/",
       },
       {
-        title: "Viriato Imobiliária",
+        title: "Viriato Gestão Imobiliária",
         href: "https://www.viriatoimobiliaria.com.br/",
       },
       {
