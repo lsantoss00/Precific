@@ -11,13 +11,10 @@ export const websiteJsonLd = {
     url: "https://www.viriato.com.br/",
   },
   inLanguage: "pt-BR",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://www.precificapp.com/?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
+  copyrightYear: new Date().getFullYear(),
+  copyrightHolder: {
+    "@type": "Organization",
+    name: "Grupo Viriato",
   },
 };
 

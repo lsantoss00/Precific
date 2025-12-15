@@ -1,5 +1,4 @@
 import LandingPageContent from "@/src/app/(landing)/components/landing-page-content";
-import { HomePageScripts } from "@/src/scripts/json-ld";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -48,11 +47,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LandingPage() {
-  return (
-    <>
-      <HomePageScripts />
-      <LandingPageContent />
-    </>
-  );
+export default function HomePage() {
+  return <LandingPageContent />;
 }

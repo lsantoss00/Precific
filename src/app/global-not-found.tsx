@@ -25,8 +25,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "404",
-  description: "A página que você está procurando não foi encontrada.",
+  title: "Página Não Encontrada",
+  description:
+    "A página que você está procurando não foi encontrada. Verifique o endereço digitado ou retorne à página inicial do Precific.",
   robots: {
     index: false,
     follow: false,

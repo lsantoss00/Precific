@@ -14,12 +14,21 @@ export const metadata: Metadata = {
     description:
       "Faça login na sua conta Precific e acesse ferramentas de precificação inteligente, gestão de custos e simulação tributária.",
     url: "https://www.precificapp.com/entrar",
+    images: [
+      {
+        url: "/opengraph-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Entrar | Precific",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Entrar | Precific",
     description:
       "Faça login na sua conta Precific e acesse ferramentas de precificação inteligente.",
+    images: ["/opengraph-image.webp"],
   },
   alternates: {
     canonical: "https://www.precificapp.com/entrar",
