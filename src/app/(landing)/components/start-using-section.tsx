@@ -21,7 +21,7 @@ const StartUsingSection = () => {
             </h3>
             <p className="text-center text-sm md:text-base xl:text-base 2xl:text-lg max-w-155 text-muted-foreground">
               Enquanto você pensa, seu concorrente já já vai começar a{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-bold">
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary font-bold">
                 PRECIFIC
               </span>
               ar... Vai deixar ele sair na frente? 😏

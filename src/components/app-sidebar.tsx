@@ -32,8 +32,8 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent className="flex overflow-hidden">
         <SidebarGroup className="flex items-center">
-          <SidebarHeader className="!p-0 h-16 items-center justify-center">
-            <SidebarTrigger className="w-full h-full hover:!bg-transparent">
+          <SidebarHeader className="p-0! h-16 items-center justify-center">
+              <SidebarTrigger className="w-full h-full hover:bg-transparent!">
               <Image
                 src={shortLogoImage}
                 alt="Logo do Precific"
@@ -70,14 +70,14 @@ export function AppSidebar() {
                     >
                       {item.disabled ? (
                         <>
-                          <item.icon className="!w-5 !h-5" />
+                          <item.icon className="w-5! h-5!" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
                         </>
                       ) : (
                         <Link href={item.url}>
-                          <item.icon className="!w-5 !h-5" />
+                          <item.icon className="w-5! h-5!" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
@@ -105,14 +105,14 @@ export function AppSidebar() {
                     >
                       {item.disabled ? (
                         <>
-                          <item.icon className="!w-5 !h-5" />
+                          <item.icon className="w-5! h-5!" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
                         </>
                       ) : (
                         <Link href={item.url}>
-                          <item.icon className="!w-5 !h-5" />
+                          <item.icon className="w-5! h-5!" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
