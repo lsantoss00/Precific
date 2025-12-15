@@ -5,7 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/entrar", "/termos-de-uso", "/politica-de-privacidade"],
+        allow: [
+          "/",
+          "/entrar",
+          "/sobre-nos",
+          "/termos-de-uso",
+          "/politica-de-privacidade",
+        ],
         disallow: [
           "/dashboard",
           "/produtos",
@@ -20,7 +26,13 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "Googlebot",
-        allow: ["/", "/entrar", "/termos-de-uso", "/politica-de-privacidade"],
+        allow: [
+          "/",
+          "/entrar",
+          "/sobre-nos",
+          "/termos-de-uso",
+          "/politica-de-privacidade",
+        ],
         disallow: [
           "/dashboard",
           "/produtos",
