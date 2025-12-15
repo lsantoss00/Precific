@@ -1,26 +1,16 @@
 "use client";
 
-import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import { companyMissionTopics } from "@/src/app/(landing)/(info)/sobre-nos/constants/company-mission-topics";
 import { companyValuesTopics } from "@/src/app/(landing)/(info)/sobre-nos/constants/company-values-topics";
 import Column from "@/src/components/core/column";
+import SectionWithBackground from "@/src/components/section-with-background";
 import { Award, Goal } from "lucide-react";
 import CompanySectionBlock from "./company-section-block";
 import CompanyTopicCard from "./company-topic-card";
 
 const CompanyMissionAndValuesSection = () => {
   return (
-    <section className="relative w-full space-y-20 py-16 bg-primary px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundImage: `url(${backgroundSectionImage.src})`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "auto",
-          backgroundPosition: "center",
-        }}
-        aria-hidden="true"
-      />
+    <SectionWithBackground className="w-full space-y-20 py-16 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
       <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
         <CompanySectionBlock
           icon={<Award className="text-secondary" />}
@@ -56,7 +46,7 @@ const CompanyMissionAndValuesSection = () => {
           ))}
         </Column>
       </Column>
-    </section>
+    </SectionWithBackground>
   );
 };
 
