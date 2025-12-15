@@ -2,7 +2,7 @@
 
 import CompanyData from "@/src/app/(private)/perfil/components/company-data";
 import UserData from "@/src/app/(private)/perfil/components/user-data";
-import Column from "@/src/components/core/column";
+import { Container } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Show from "@/src/components/core/show";
 import { useAuth } from "@/src/providers/auth-provider";
@@ -12,7 +12,10 @@ const ProfilePageContent = () => {
   const { isLoadingAuth } = useAuth();
 
   return (
-    <Column className="w-full p-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
+    <Container
+      variant="page"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-3"
+    >
       <Show
         when={!isLoadingAuth}
         fallback={
@@ -25,7 +28,7 @@ const ProfilePageContent = () => {
           <CompanyData />
         </Flex>
       </Show>
-    </Column>
+    </Container>
   );
 };
 

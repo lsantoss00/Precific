@@ -2,6 +2,7 @@
 
 import { companyMissionTopics } from "@/src/app/(landing)/(info)/sobre-nos/constants/company-mission-topics";
 import { companyValuesTopics } from "@/src/app/(landing)/(info)/sobre-nos/constants/company-values-topics";
+import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import SectionWithBackground from "@/src/components/section-with-background";
 import { Award, Goal } from "lucide-react";
@@ -10,7 +11,8 @@ import CompanyTopicCard from "./company-topic-card";
 
 const CompanyMissionAndValuesSection = () => {
   return (
-    <SectionWithBackground className="w-full space-y-20 py-16 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
+    <SectionWithBackground className="w-full">
+      <Container variant="section" className="space-y-20 py-16">
       <Column className="space-y-12 lg:flex-row lg:space-x-24 justify-between w-full">
         <CompanySectionBlock
           icon={<Award className="text-secondary" />}
@@ -46,6 +48,7 @@ const CompanyMissionAndValuesSection = () => {
           ))}
         </Column>
       </Column>
+      </Container>
     </SectionWithBackground>
   );
 };

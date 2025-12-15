@@ -2,6 +2,7 @@ export * from "./button";
 export * from "./calendar";
 export * from "./card";
 export * from "./column";
+export * from "./container";
 export * from "./data-table";
 export * from "./date-picker";
 export * from "./dialog";

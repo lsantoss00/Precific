@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/src/components/core";
-import Column from "@/src/components/core/column";
+import { Button, Container } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Show from "@/src/components/core/show";
 import { ScrollText } from "lucide-react";
@@ -12,7 +11,10 @@ import ProductPriceHistoryDialog from "./product-price-history-dialog";
 const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
   return (
-    <Column className="w-full py-6 px-6 xl:px-0 space-y-3 max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px]">
+    <Container
+      variant="page"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] py-6 space-y-3"
+    >
       <Flex className="flex-col md:flex-row gap-2 justify-between">
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}
@@ -30,7 +32,7 @@ const ProductFormPageContent = () => {
         </Show>
       </Flex>
       <ProductForm productId={productId} />
-    </Column>
+    </Container>
   );
 };
 

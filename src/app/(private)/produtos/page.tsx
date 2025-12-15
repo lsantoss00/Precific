@@ -1,4 +1,4 @@
-import Column from "@/src/components/core/column";
+import { Container } from "@/src/components/core";
 import { Loader2 } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <Column className="w-full max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] p-6 xl:px-0 space-y-4">
+    <Container
+      variant="page"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-4"
+    >
       <Suspense
         fallback={
           <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />
@@ -28,6 +31,6 @@ export default function ProductsPage() {
         <ProductInfoCards />
         <ProductsTable />
       </Suspense>
-    </Column>
+    </Container>
   );
 }

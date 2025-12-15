@@ -1,6 +1,7 @@
 import people1 from "@/public/images/people-1.webp";
 import people2 from "@/public/images/people-2.webp";
 import people3 from "@/public/images/people-3.webp";
+import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import SectionWithBackground from "@/src/components/section-with-background";
@@ -9,8 +10,9 @@ import Image from "next/image";
 
 const AboutUsHeroSection = () => {
   return (
-    <SectionWithBackground className="w-full h-[calc(100vh-80px)] py-20 md:py-24 xl:py-0 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25">
-      <Flex className="flex-col xl:flex-row items-center justify-between h-full">
+    <SectionWithBackground className="w-full h-[calc(100vh-80px)]">
+      <Container variant="section" className="py-20 md:py-24 xl:py-0 h-full">
+        <Flex className="flex-col xl:flex-row items-center justify-between h-full">
         <Column className="max-w-170 z-10 gap-4">
           <Column className="gap-3 col-3 max-w-lg">
             <Sparkle className="text-secondary" />
@@ -61,6 +63,7 @@ const AboutUsHeroSection = () => {
           </div>
         </Column>
       </Flex>
+      </Container>
     </SectionWithBackground>
   );
 };

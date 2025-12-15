@@ -19,83 +19,83 @@ const Footer = () => {
 
   return (
     <footer className="bg-white w-full">
-      <Container variant="section-alt" paddingY="md" className="py-12 md:py-16">
-      <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
-        <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
-          <Row className="items-center gap-4">
-            <div className="relative">
-              <Image
-                src={grupoViriatoLogoImage}
-                alt="Logo do Grupo Viriato - Empresa de contabilidade e consultoria tributária"
-                width={100}
-                height={100}
-                sizes="100px"
-                loading="lazy"
-                className="object-contain"
-              />
-            </div>
-            <div className="h-12 w-px bg-border" />
-            <div className="relative">
-              <Image
-                src={precificLogoImage}
-                alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
-                width={100}
-                height={50}
-                sizes="100px"
-                loading="lazy"
-                className="object-contain"
-              />
-            </div>
-          </Row>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg leading-relaxed lg:text-justify">
-            O Precific é um produto oficial do Grupo Viriato, desenvolvido para
-            apoiar empresas na formação de preços com precisão, inteligência
-            tributária e eficiência operacional. Há mais de 40 anos
-            impulsionando negócios, o Grupo Viriato reúne soluções em
-            contabilidade, consultoria tributária, jurídico, seguros e gestão
-            empresarial, oferecendo tecnologia e expertise para transformar
-            resultados.
-          </p>
-          <Flex className="gap-4">
-            {socialLinks.map((social) => (
-              <Link
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClasses}
-                aria-label={social.label}
-              >
-                {social.icon}
-              </Link>
+      <Container variant="section" className="lg:px-20 xl:px-25 py-12 md:py-16">
+        <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
+          <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
+            <Row className="items-center gap-4">
+              <div className="relative">
+                <Image
+                  src={grupoViriatoLogoImage}
+                  alt="Logo do Grupo Viriato - Empresa de contabilidade e consultoria tributária"
+                  width={100}
+                  height={100}
+                  sizes="100px"
+                  loading="lazy"
+                  className="object-contain"
+                />
+              </div>
+              <div className="h-12 w-px bg-border" />
+              <div className="relative">
+                <Image
+                  src={precificLogoImage}
+                  alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
+                  width={100}
+                  height={50}
+                  sizes="100px"
+                  loading="lazy"
+                  className="object-contain"
+                />
+              </div>
+            </Row>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg leading-relaxed lg:text-justify">
+              O Precific é um produto oficial do Grupo Viriato, desenvolvido
+              para apoiar empresas na formação de preços com precisão,
+              inteligência tributária e eficiência operacional. Há mais de 40
+              anos impulsionando negócios, o Grupo Viriato reúne soluções em
+              contabilidade, consultoria tributária, jurídico, seguros e gestão
+              empresarial, oferecendo tecnologia e expertise para transformar
+              resultados.
+            </p>
+            <Flex className="gap-4">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={socialIconClasses}
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </Link>
+              ))}
+            </Flex>
+          </Column>
+          <Flex className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto">
+            {footerLinks.map((footerLink, index) => (
+              <Column key={index} className="space-y-3 md:space-y-4">
+                <h3 className="text-base md:text-lg font-semibold">
+                  {footerLink.title}
+                </h3>
+                <ul className="space-y-2 md:space-y-3">
+                  {footerLink.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <Link href={link.href} className={footerLinkClasses}>
+                        {link.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Column>
             ))}
           </Flex>
-        </Column>
-        <Flex className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto">
-          {footerLinks.map((footerLink, index) => (
-            <Column key={index} className="space-y-3 md:space-y-4">
-              <h3 className="text-base md:text-lg font-semibold">
-                {footerLink.title}
-              </h3>
-              <ul className="space-y-2 md:space-y-3">
-                {footerLink.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link href={link.href} className={footerLinkClasses}>
-                      {link.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Column>
-          ))}
         </Flex>
-      </Flex>
-      <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
-        <p className="text-muted-foreground text-xs md:text-sm text-center">
-          © {currentYear} Precific — uma solução do Grupo Viriato. Todos os
-          direitos reservados.
-        </p>
-      </div>
+        <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
+          <p className="text-muted-foreground text-xs md:text-sm text-center">
+            © {currentYear} Precific — uma solução do Grupo Viriato. Todos os
+            direitos reservados.
+          </p>
+        </div>
       </Container>
     </footer>
   );

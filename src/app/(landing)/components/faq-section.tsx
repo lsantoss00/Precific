@@ -1,6 +1,7 @@
 "use client";
 
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
+import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import SectionWithBackground from "@/src/components/section-with-background";
@@ -12,29 +13,31 @@ const FAQAccordion = dynamic(() => import("@/src/components/faq-accordion"), {
 
 const FAQSection = () => {
   return (
-    <SectionWithBackground className="w-full py-12 md:py-16 xl:py-20 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-16 2xl:px-25 overflow-hidden">
-      <Flex className="flex-col xl:flex-row gap-8 xl:gap-12 justify-between">
-        <FadeInOnScroll direction="left" offset={20}>
-          <Column className="relative z-10 w-full 2xl:w-140 space-y-6 md:space-y-8">
-            <Column className="space-y-4 md:space-y-5">
-              <h3 className="font-bold text-3xl sm:text-4xl xl:text-4xl 2xl:text-5xl text-white leading-tight">
-                Ficou alguma dúvida?
-              </h3>
-              <div>
-                <span className="relative inline-block text-2xl md:text-3xl xl:text-3xl 2xl:text-4xl text-white">
-                  Perguntas frequentes
-                  <div className="absolute -bottom-1.5 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
-                </span>
-              </div>
+    <SectionWithBackground className="w-full overflow-hidden">
+      <Container variant="section" className="py-12 md:py-16 xl:py-20">
+        <Flex className="flex-col xl:flex-row gap-8 xl:gap-12 justify-between">
+          <FadeInOnScroll direction="left" offset={20}>
+            <Column className="relative z-10 w-full 2xl:w-140 space-y-6 md:space-y-8">
+              <Column className="space-y-4 md:space-y-5">
+                <h3 className="font-bold text-3xl sm:text-4xl xl:text-4xl 2xl:text-5xl text-white leading-tight">
+                  Ficou alguma dúvida?
+                </h3>
+                <div>
+                  <span className="relative inline-block text-2xl md:text-3xl xl:text-3xl 2xl:text-4xl text-white">
+                    Perguntas frequentes
+                    <div className="absolute -bottom-1.5 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+                  </span>
+                </div>
+              </Column>
             </Column>
-          </Column>
-        </FadeInOnScroll>
-        <FadeInOnScroll direction="right" offset={20}>
-          <Column className="relative z-10 bg-white h-fit w-full xl:w-180 2xl:w-240 rounded-md">
-            <FAQAccordion />
-          </Column>
-        </FadeInOnScroll>
-      </Flex>
+          </FadeInOnScroll>
+          <FadeInOnScroll direction="right" offset={20}>
+            <Column className="relative z-10 bg-white h-fit w-full xl:w-180 2xl:w-240 rounded-md">
+              <FAQAccordion />
+            </Column>
+          </FadeInOnScroll>
+        </Flex>
+      </Container>
     </SectionWithBackground>
   );
 };

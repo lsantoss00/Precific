@@ -1,4 +1,4 @@
-import Column from "@/src/components/core/column";
+import { Container } from "@/src/components/core";
 import SectionWithBackground from "@/src/components/section-with-background";
 import { ReactNode } from "react";
 
@@ -9,9 +9,9 @@ interface InfoPageLayoutProps {
 export default function InfoPageLayout({ children }: InfoPageLayoutProps) {
   return (
     <SectionWithBackground className="py-16">
-      <Column className="z-10 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-25">
+      <Container variant="section" className="lg:px-20 xl:px-25 z-10">
         {children}
-      </Column>
+      </Container>
     </SectionWithBackground>
   );
 }
