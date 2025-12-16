@@ -4,7 +4,8 @@ import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
-import { Instagram, Linkedin, YoutubeIcon } from "lucide-react";
+import { socialMediaLinks } from "@/src/constants/social-media-links";
+import { usefulLinks } from "@/src/constants/useful-links";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,16 +58,16 @@ const Footer = () => {
               resultados.
             </p>
             <Flex as="ul" className="gap-4" aria-label="Redes sociais">
-              {socialLinks.map((social) => (
-                <li key={social.label}>
+              {socialMediaLinks.map((socialMedia) => (
+                <li key={socialMedia.label}>
                   <Link
-                    href={social.href}
+                    href={socialMedia.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={socialIconClasses}
-                    aria-label={`Visitar ${social.label}`}
+                    aria-label={`Visitar ${socialMedia.label}`}
                   >
-                    {social.icon}
+                    {socialMedia.icon}
                   </Link>
                 </li>
               ))}
@@ -77,13 +78,13 @@ const Footer = () => {
             className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto"
             aria-label="Links do rodapé"
           >
-            {footerLinks.map((footerLink) => (
-              <Column key={footerLink.title} className="space-y-3 md:space-y-4">
+            {usefulLinks.map((usefulLink) => (
+              <Column key={usefulLink.title} className="space-y-3 md:space-y-4">
                 <h3 className="text-base md:text-lg font-semibold">
-                  {footerLink.title}
+                  {usefulLink.title}
                 </h3>
                 <ul className="space-y-2 md:space-y-3">
-                  {footerLink.links.map((link, linkIndex) => (
+                  {usefulLink.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
                       <Link href={link.href} className={footerLinkClasses}>
                         {link.title}
@@ -109,83 +110,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-const socialLinks = [
-  {
-    href: "https://www.linkedin.com/company/grupo-viriato/",
-    icon: <Linkedin className="w-5 h-5" />,
-    label: "LinkedIn",
-  },
-  {
-    href: "https://www.instagram.com/grupoviriato",
-    icon: <Instagram className="w-5 h-5" />,
-    label: "Instagram",
-  },
-  {
-    href: "https://www.youtube.com/@ViriatoCast",
-    icon: <YoutubeIcon className="w-5 h-5" />,
-    label: "Youtube",
-  },
-];
-
-const footerLinks = [
-  {
-    title: "Atendimento",
-    links: [
-      {
-        title: "contato@precificapp.com",
-        href: "mailto:contato@precificapp.com",
-      },
-      {
-        title: "+55 (21) 2292-9071",
-        href: "tel:+552122929071",
-      },
-    ],
-  },
-  {
-    title: "Nossas Empresas",
-    links: [
-      {
-        title: "Viriato Contabilidade",
-        href: "https://www.viriato.com.br/",
-      },
-      {
-        title: "Correa & Lopes",
-        href: "https://correaelopes.com.br/",
-      },
-      {
-        title: "Viriato Gestão Imobiliária",
-        href: "https://www.viriatoimobiliaria.com.br/",
-      },
-      {
-        title: "J.A Lopes Advogados",
-        href: "https://www.jalopesadvogados.com.br/",
-      },
-      {
-        title: "Viriato Corretora de Seguros",
-        href: "https://www.viriatocorretoradeseguros.com.br/",
-      },
-      {
-        title: "Viriato Cast",
-        href: "https://www.instagram.com/viriatocast/",
-      },
-    ],
-  },
-  {
-    title: "Institucional",
-    links: [
-      {
-        title: "Sobre Nós",
-        href: "/sobre-nos",
-      },
-      {
-        title: "Termos de Uso",
-        href: "/termos-de-uso",
-      },
-      {
-        title: "Política de Privacidade",
-        href: "/politica-de-privacidade",
-      },
-    ],
-  },
-];
