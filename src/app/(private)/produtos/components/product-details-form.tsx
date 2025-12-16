@@ -31,7 +31,7 @@ const ProductDetailsForm = () => {
   }, [form]);
 
   return (
-    <Card className="w-full p-6 rounded-md flex space-y-6">
+    <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
       <h3>Detalhes do Produto</h3>
       <form className="flex flex-col space-y-4">
         <Column className="space-y-2">

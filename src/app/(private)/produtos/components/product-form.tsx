@@ -70,12 +70,12 @@ const ProductForm = ({ productId }: ProductFormProps) => {
       <Row className="gap-2 md:w-fit md:self-end lg:self-auto">
         <Button asChild className="lg:hidden h-full" variant="outline">
           <Link href="/produtos">
-            <ChevronLeft className="!w-6 !h-6" />
+            <ChevronLeft className="w-6! h-6!" />
           </Link>
         </Button>
         <Button
           asChild
-          className="flex-1 md:flex-none md:w-40 h-12 lg:!h-full lg:w-20 flex items-center"
+          className="flex-1 md:flex-none md:w-40 h-12 lg:h-full! lg:w-20 flex items-center"
           disabled={!isFormValid}
         >
           <Link
@@ -85,7 +85,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
             className={!isFormValid ? "opacity-50 pointer-events-none" : ""}
           >
             <Calculator className="lg:hidden" />
-            <ChevronRight className="max-lg:hidden !w-12 !h-12" />
+            <ChevronRight className="max-lg:hidden w-12! h-12!" />
             <span className="lg:hidden">Calcular</span>
           </Link>
         </Button>

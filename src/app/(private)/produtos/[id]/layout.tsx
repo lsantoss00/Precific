@@ -1,14 +1,5 @@
 import { ProductFormProvider } from "@/src/app/(private)/produtos/contexts/product-form-context";
-import type { Metadata } from "next";
 import { use } from "react";
-
-export const metadata: Metadata = {
-  title: "Formulário de Produto",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 export default function ProductFormLayout({
   children,

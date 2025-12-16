@@ -350,7 +350,7 @@ const ProductResult = () => {
   const isSimpleNational = company?.tax_regime === "simple_national";
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-fit h-full gap-2">
+    <div className="flex flex-col lg:flex-row w-full flex-1 gap-2">
       <Show when={!isLoading}>
         <Button
           asChild
@@ -365,13 +365,13 @@ const ProductResult = () => {
       <Show
         when={!isLoading}
         fallback={
-          <Card className="h-full w-full p-6 rounded-md">
+          <Card className="flex-1 w-full p-6 rounded-md">
             <LoadingResultState onComplete={() => setIsLoading(false)} />
           </Card>
         }
       >
-        <Card className="h-full w-full p-6 rounded-md">
-          <Column className="space-y-4 w-full">
+        <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
+          <Column className="space-y-4 w-full flex-1">
             <h3 className="text-lg">
               Pré-Reforma Tributária <strong>2025</strong>
             </h3>
@@ -420,8 +420,8 @@ const ProductResult = () => {
             </div>
           </Column>
         </Card>
-        <Card className="h-full w-full p-6 rounded-md">
-          <Column className="space-y-4 h-full">
+        <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
+          <Column className="space-y-4 flex-1">
             <Row className="gap-1 items-center">
               <h3 className="text-lg">
                 Transição Reforma Tributária <strong>2026</strong>
