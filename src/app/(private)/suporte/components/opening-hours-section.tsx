@@ -6,7 +6,7 @@ import {
 } from "@/src/app/(private)/suporte/utils/schedule-utils";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
-import { Clock } from "lucide-react";
+import { CircleAlert, Clock } from "lucide-react";
 
 const OpeningHoursSection = () => {
   const currentDay = getCurrentDay();
@@ -35,6 +35,10 @@ const OpeningHoursSection = () => {
           );
         })}
       </Column>
+      <Row className="gap-2 text-xs text-muted-foreground mt-2 pt-2 border-t">
+        <CircleAlert className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+        <span>Não funcionamos em feriados.</span>
+      </Row>
     </Column>
   );
 };
