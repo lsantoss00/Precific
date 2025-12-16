@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Precific",
-    title: "Precific - Sistema de Precificação e Gestão Tributária",
+    title: "Precific",
     description:
       "Simplifique a precificação dos seus produtos com a Precific. Calcule preços de forma rápida e precisa, otimize suas margens e tome decisões estratégicas com confiança.",
     url: "https://www.precificapp.com",
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image.webp",
         width: 1200,
         height: 630,
-        alt: "Precific - Sistema de Precificação e Gestão Tributária",
+        alt: "Precific",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Precific - Sistema de Precificação e Gestão Tributária",
+    title: "Precific",
     description:
       "Simplifique a precificação dos seus produtos com a Precific. Calcule preços de forma rápida e precisa, otimize suas margens e tome decisões estratégicas com confiança.",
     images: ["/opengraph-image.webp"],

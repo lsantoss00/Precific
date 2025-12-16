@@ -38,7 +38,7 @@ const Footer = () => {
               <div className="relative">
                 <Image
                   src={precificLogoImage}
-                  alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
+                  alt="Logo do Precific"
                   width={100}
                   height={50}
                   sizes="100px"

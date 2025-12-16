@@ -33,7 +33,7 @@ export function AppSidebar() {
       <SidebarContent className="flex overflow-hidden">
         <SidebarGroup className="flex items-center">
           <SidebarHeader className="p-0! h-16 items-center justify-center">
-              <SidebarTrigger className="w-full h-full hover:bg-transparent!">
+            <SidebarTrigger className="w-full h-full hover:bg-transparent!">
               <Image
                 src={shortLogoImage}
                 alt="Logo do Precific"
@@ -46,7 +46,7 @@ export function AppSidebar() {
               />
               <Image
                 src={logoImage}
-                alt="Logo do Precific - Sistema de Precificação e Gestão Tributária"
+                alt="Logo do Precific"
                 width={200}
                 height={40}
                 priority
