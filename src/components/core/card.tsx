@@ -2,9 +2,13 @@ import * as React from "react";
 
 import { cn } from "@/src/libs/shadcn-ui/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+type CardProps = React.ComponentProps<"div"> & {
+  as?: React.ElementType;
+};
+
+function Card({ className, as: Component = "div", ...props }: CardProps) {
   return (
-    <div
+    <Component
       data-slot="card"
       className={cn(
         "bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm",

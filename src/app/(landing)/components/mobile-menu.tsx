@@ -2,6 +2,9 @@
 
 import shortLogoImage from "@/public/images/precific-short-logo-image.webp";
 import { Button } from "@/src/components/core";
+import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
+import Row from "@/src/components/core/row";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/core/sheet";
 import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 import { Compass, Home, Menu, MessageCircle, X } from "lucide-react";
@@ -31,21 +34,28 @@ const MobileMenu = () => {
         <Button
           variant="ghost"
           className="h-10 w-10 p-0"
-          aria-label="Abrir menu"
+          aria-label="Abrir menu de navegação"
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
           type="button"
         >
-          <Menu className="!h-6 !w-6" />
+          <Menu className="h-6! w-6!" aria-hidden="true" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
         className="w-full sm:w-[380px] p-0 [&>button]:hidden bg-zinc-50"
+        id="mobile-menu"
+        aria-label="Menu de navegação móvel"
       >
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between px-6 py-5 h-20 bg-white border-b border-zinc-200">
+        <Column className="h-full">
+          <Row
+            as="header"
+            className="items-center justify-between px-6 py-5 h-20 bg-white border-b border-zinc-200"
+          >
             <Image
               src={shortLogoImage}
-              alt="Precific Logo"
+              alt="Logo do Precific"
               width={48}
               height={48}
               sizes="48px"
@@ -54,42 +64,70 @@ const MobileMenu = () => {
               variant="ghost"
               onClick={closeMenu}
               className="h-12 w-12 p-0"
-              aria-label="Fechar menu"
+              aria-label="Fechar menu de navegação"
             >
-              <X className="!h-6 !w-6" />
+              <X className="h-6! w-6!" aria-hidden="true" />
             </Button>
-          </div>
+          </Row>
 
-          <nav className="flex flex-col px-6 py-6 flex-1">
-            <Button
-              variant="ghost"
-              onClick={handleScrollToTop}
-              className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
-            >
-              <Home className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
-              Início
-            </Button>
-            <div className="h-px bg-zinc-200 my-1" />
-            <Button
-              variant="ghost"
-              onClick={() => handleScrollToSection("descubra")}
-              className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
-            >
-              <Compass className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
-              Descubra
-            </Button>
-            <div className="h-px bg-zinc-200 my-1" />
-            <Button
-              variant="ghost"
-              onClick={() => handleScrollToSection("contato")}
-              className="flex items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
-            >
-              <MessageCircle className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors" />
-              Converse conosco
-            </Button>
-          </nav>
+          <Column
+            as="nav"
+            className="px-6 py-6 flex-1"
+            aria-label="Navegação principal"
+          >
+            <Column as="ul">
+              <li>
+                <Button
+                  variant="ghost"
+                  onClick={handleScrollToTop}
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                >
+                  <Home
+                    className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
+                    aria-hidden="true"
+                  />
+                  Início
+                </Button>
+              </li>
+              <li aria-hidden="true">
+                <span className="block h-px bg-zinc-200 my-1" />
+              </li>
+              <li>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleScrollToSection("descubra")}
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                >
+                  <Compass
+                    className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
+                    aria-hidden="true"
+                  />
+                  Descubra
+                </Button>
+              </li>
+              <li aria-hidden="true">
+                <span className="block h-px bg-zinc-200 my-1" />
+              </li>
+              <li>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleScrollToSection("contato")}
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                >
+                  <MessageCircle
+                    className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
+                    aria-hidden="true"
+                  />
+                  Converse conosco
+                </Button>
+              </li>
+            </Column>
+          </Column>
 
-          <div className="px-6 py-6 bg-white border-t border-zinc-200">
+          <Flex
+            as="footer"
+            className="px-6 py-6 bg-white border-t border-zinc-200"
+          >
             <Button
               asChild
               className="w-full h-14 text-base font-semibold shadow-sm"
@@ -99,8 +137,8 @@ const MobileMenu = () => {
                 Acessar Plataforma
               </Link>
             </Button>
-          </div>
-        </div>
+          </Flex>
+        </Column>
       </SheetContent>
     </Sheet>
   );

@@ -1,5 +1,6 @@
 import logoImage from "@/public/images/precific-logo-image.webp";
 import { Card } from "@/src/components/core";
+import Flex from "@/src/components/core/flex";
 import Image from "next/image";
 
 interface AuthFormCardProps {
@@ -8,15 +9,19 @@ interface AuthFormCardProps {
 
 const AuthFormCard = ({ children }: AuthFormCardProps) => {
   return (
-    <Card className="rounded-2xl p-6 mx-2 shadow-sm w-full max-w-125 flex flex-col items-center bg-white">
-      <Image
-        src={logoImage}
-        alt="Logo do Precific"
-        width={300}
-        height={80}
-        className="mb-10"
-        priority
-      />
+    <Card
+      as="article"
+      className="rounded-2xl p-6 mx-2 shadow-sm w-full max-w-125 items-center bg-white"
+    >
+      <Flex as="figure" className="mb-10">
+        <Image
+          src={logoImage}
+          alt="Logo do Precific"
+          width={300}
+          height={80}
+          priority
+        />
+      </Flex>
       {children}
     </Card>
   );

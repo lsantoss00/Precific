@@ -19,7 +19,10 @@ const HeroSection = () => {
   const { scrollToSection } = useScrollToSection();
 
   return (
-    <SectionWithBackground className="w-full min-h-[calc(100vh-80px)] xl:h-[calc(100vh-80px)] overflow-hidden">
+    <SectionWithBackground
+      className="w-full min-h-[calc(100vh-80px)] xl:h-[calc(100vh-80px)] overflow-hidden"
+      aria-labelledby="hero-heading"
+    >
       <Container variant="section" className="py-20 md:py-24 xl:py-0 xl:h-full">
         <Flex className="flex-col xl:flex-row items-center justify-between xl:h-full gap-8 md:gap-12">
           <FadeInOnScroll
@@ -28,16 +31,20 @@ const HeroSection = () => {
             className="relative z-10 w-full xl:max-w-140"
           >
             <Column className="space-y-6 md:space-y-8">
-              <Column className="space-y-4 md:space-y-5">
-                <Column className="w-fit">
-                  <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
-                    <span className="relative inline-block">
-                      Precifique
-                      <div className="absolute bottom-1 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
-                    </span>{" "}
-                    seus produtos com precisão.
-                  </h1>
-                </Column>
+              <Column as="header" className="space-y-4 md:space-y-5">
+                <h1
+                  id="hero-heading"
+                  className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight"
+                >
+                  <span className="relative inline-block">
+                    Precifique
+                    <span
+                      className="absolute bottom-1 left-4 h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10"
+                      aria-hidden="true"
+                    />
+                  </span>{" "}
+                  seus produtos com precisão.
+                </h1>
                 <p className="text-zinc-200 text-base md:text-lg max-w-2xl">
                   A Precific automatiza o cálculo de preços com base em custos,
                   impostos e margens, simulando cenários futuros da Reforma
@@ -58,12 +65,12 @@ const HeroSection = () => {
             offset={20}
             className="relative z-10 w-full xl:max-w-180 2xl:max-w-240 mt-8 xl:mt-0"
           >
-            <div className="aspect-video shrink-0">
+            <Flex as="figure" className="aspect-video shrink-0">
               <YouTubeEmbed
                 videoId="9gNKBYR-rhg"
-                title="Precific — Demonstração"
+                title="Precific — Demonstração do sistema de precificação"
               />
-            </div>
+            </Flex>
           </FadeInOnScroll>
         </Flex>
       </Container>

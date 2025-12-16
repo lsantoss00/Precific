@@ -10,21 +10,30 @@ const StartUsingSection = () => {
 
   return (
     <Container
+      as="section"
       variant="section"
       className="pt-12 md:pt-16 xl:pt-16 2xl:pt-20 pb-12 md:pb-16 xl:pb-20 2xl:pb-24 bg-white"
+      aria-labelledby="start-using-heading"
     >
       <Column className="items-center">
         <FadeInOnScroll direction="up" offset={20}>
           <Column className="space-y-4 md:space-y-6 items-center">
-            <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center leading-tight">
+            <h2
+              id="start-using-heading"
+              className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center leading-tight"
+            >
               Comece a usar a Precific agora!
-            </h3>
+            </h2>
             <p className="text-center text-sm md:text-base xl:text-base 2xl:text-lg max-w-155 text-muted-foreground">
               Enquanto você pensa, seu concorrente já já vai começar a{" "}
-              <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary font-bold">
+              <span
+                className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary font-bold"
+                aria-label="Precificar"
+              >
                 PRECIFIC
               </span>
-              ar... Vai deixar ele sair na frente? 😏
+              ar... Vai deixar ele sair na frente?{" "}
+              <span aria-label="emoji sorrindo">😏</span>
             </p>
             <Button
               className="h-12 md:h-14 w-full sm:w-fit px-6 md:px-8 text-sm md:text-base"

@@ -23,7 +23,7 @@ const Footer = () => {
         <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
           <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
             <Row className="items-center gap-4">
-              <div className="relative">
+              <Flex as="figure" className="relative">
                 <Image
                   src={grupoViriatoLogoImage}
                   alt="Logo do Grupo Viriato - Empresa de contabilidade e consultoria tributária"
@@ -33,9 +33,9 @@ const Footer = () => {
                   loading="lazy"
                   className="object-contain"
                 />
-              </div>
-              <div className="h-12 w-px bg-border" />
-              <div className="relative">
+              </Flex>
+              <span className="h-12 w-px bg-border" aria-hidden="true" />
+              <Flex as="figure" className="relative">
                 <Image
                   src={precificLogoImage}
                   alt="Logo do Precific"
@@ -45,7 +45,7 @@ const Footer = () => {
                   loading="lazy"
                   className="object-contain"
                 />
-              </div>
+              </Flex>
             </Row>
             <p className="text-muted-foreground text-sm sm:text-base max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg leading-relaxed lg:text-justify">
               O Precific é um produto oficial do Grupo Viriato, desenvolvido
@@ -56,22 +56,27 @@ const Footer = () => {
               empresarial, oferecendo tecnologia e expertise para transformar
               resultados.
             </p>
-            <Flex className="gap-4">
+            <Flex as="ul" className="gap-4" aria-label="Redes sociais">
               {socialLinks.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={socialIconClasses}
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </Link>
+                <li key={social.label}>
+                  <Link
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={socialIconClasses}
+                    aria-label={`Visitar ${social.label}`}
+                  >
+                    {social.icon}
+                  </Link>
+                </li>
               ))}
             </Flex>
           </Column>
-          <Flex className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto">
+          <Flex
+            as="nav"
+            className="flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto"
+            aria-label="Links do rodapé"
+          >
             {footerLinks.map((footerLink) => (
               <Column key={footerLink.title} className="space-y-3 md:space-y-4">
                 <h3 className="text-base md:text-lg font-semibold">
@@ -92,8 +97,10 @@ const Footer = () => {
         </Flex>
         <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
           <p className="text-muted-foreground text-xs md:text-sm text-center">
-            © {currentYear} Precific — uma solução do Grupo Viriato. Todos os
-            direitos reservados.
+            <small>
+              © {currentYear} Precific — uma solução do Grupo Viriato. Todos os
+              direitos reservados.
+            </small>
           </p>
         </div>
       </Container>

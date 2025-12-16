@@ -1,13 +1,15 @@
 import React, { forwardRef } from "react";
 
-type ColumnProps = React.HTMLAttributes<HTMLDivElement>;
+type ColumnProps = React.ComponentProps<"div"> & {
+  as?: React.ElementType;
+};
 
-const Column = forwardRef<HTMLDivElement, ColumnProps>(
-  ({ className, children, ...props }, ref) => {
+const Column = forwardRef<HTMLElement, ColumnProps>(
+  ({ as: Component = "div", className, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={`flex flex-col ${className}`} {...props}>
+      <Component ref={ref} className={`flex flex-col ${className}`} {...props}>
         {children}
-      </div>
+      </Component>
     );
   }
 );

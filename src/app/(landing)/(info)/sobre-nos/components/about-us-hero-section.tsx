@@ -13,7 +13,10 @@ import Image from "next/image";
 
 const AboutUsHeroSection = () => {
   return (
-    <SectionWithBackground className="w-full min-h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)] overflow-hidden">
+    <SectionWithBackground
+      className="w-full min-h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)] overflow-hidden"
+      aria-labelledby="about-hero-heading"
+    >
       <Container
         variant="section"
         className="py-20 md:py-24 lg:py-0 lg:h-full lg:flex lg:flex-col lg:justify-center"
@@ -24,24 +27,33 @@ const AboutUsHeroSection = () => {
             offset={20}
             className="w-full xl:max-w-[600px] 2xl:max-w-[680px] z-10"
           >
-            <Column className="gap-4 md:gap-6">
+            <Column as="header" className="gap-4 md:gap-6">
               <Column className="gap-3 max-w-lg">
-                <Sparkle className="text-secondary w-5 h-5 sm:w-6 sm:h-6" />
+                <Sparkle className="text-secondary w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                 <p className="text-zinc-200 text-sm sm:text-base md:text-lg">
                   Quatro décadas de experiência transformadas em estratégia,
                   controle e decisões empresariais seguras.
                 </p>
               </Column>
-              <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight max-w-2xl">
+              <h1
+                id="about-hero-heading"
+                className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight max-w-2xl"
+              >
                 Nós{" "}
                 <span className="relative inline-block">
                   impulsionamos
-                  <div className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+                  <span
+                    className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10"
+                    aria-hidden="true"
+                  />
                 </span>{" "}
                 empresas há mais de{" "}
                 <span className="relative inline-block">
                   40 anos.
-                  <div className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10" />
+                  <span
+                    className="absolute bottom-1 left-2 sm:left-4 h-3 sm:h-4 w-full bg-linear-to-r from-secondary to-transparent -z-10"
+                    aria-hidden="true"
+                  />
                 </span>{" "}
               </h1>
             </Column>
@@ -51,10 +63,14 @@ const AboutUsHeroSection = () => {
             offset={20}
             className="relative z-10"
           >
-            <div className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[500px] xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-20">
+            <Flex
+              as="figure"
+              className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[500px] xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-20"
+              aria-label="Equipe do Grupo Viriato"
+            >
               <Image
                 src={people1}
-                alt="Funcionário Grupo Viriato"
+                alt="Membro da equipe Grupo Viriato"
                 fill
                 priority
                 sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 280px, 500px"
@@ -62,7 +78,7 @@ const AboutUsHeroSection = () => {
               />
               <Image
                 src={people2}
-                alt="Funcionário Grupo Viriato"
+                alt="Membro da equipe Grupo Viriato"
                 width={250}
                 height={250}
                 priority
@@ -71,14 +87,14 @@ const AboutUsHeroSection = () => {
               />
               <Image
                 src={people3}
-                alt="Funcionário Grupo Viriato"
+                alt="Membro da equipe Grupo Viriato"
                 width={125}
                 height={125}
                 priority
                 sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 100px, 125px"
                 className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-10 lg:-bottom-8 xl:-bottom-16 xl:left-40 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[85px] md:h-[85px] lg:w-[70px] lg:h-[70px] xl:w-[125px] xl:h-[125px] shadow-2xl"
               />
-            </div>
+            </Flex>
           </FadeInOnScroll>
         </Flex>
       </Container>

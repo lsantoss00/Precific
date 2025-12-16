@@ -29,11 +29,14 @@ export function AppSidebar() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" aria-label="Menu de navegação principal">
       <SidebarContent className="flex overflow-hidden">
         <SidebarGroup className="flex items-center">
           <SidebarHeader className="p-0! h-16 items-center justify-center">
-            <SidebarTrigger className="w-full h-full hover:bg-transparent!">
+            <SidebarTrigger
+              className="w-full h-full hover:bg-transparent!"
+              aria-label={isCollapsed ? "Expandir menu" : "Recolher menu"}
+            >
               <Image
                 src={shortLogoImage}
                 alt="Logo do Precific"
@@ -57,7 +60,10 @@ export function AppSidebar() {
             </SidebarTrigger>
           </SidebarHeader>
           <SidebarGroupContent className="mt-5">
-            <SidebarMenu className={`${isCollapsed && "items-center"}`}>
+            <SidebarMenu
+              className={`${isCollapsed && "items-center"}`}
+              aria-label="Menu principal"
+            >
               {mainItems.map((item) => {
                 const isActive = pathname.startsWith(item.url);
                 return (
@@ -67,17 +73,18 @@ export function AppSidebar() {
                       isActive={isActive}
                       disabled={item.disabled}
                       className="flex"
+                      aria-current={isActive ? "page" : undefined}
                     >
                       {item.disabled ? (
                         <>
-                          <item.icon className="w-5! h-5!" />
+                          <item.icon className="w-5! h-5!" aria-hidden="true" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
                         </>
                       ) : (
                         <Link href={item.url}>
-                          <item.icon className="w-5! h-5!" />
+                          <item.icon className="w-5! h-5!" aria-hidden="true" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
@@ -90,10 +97,13 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <Separator />
+        <Separator aria-hidden="true" />
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className={`${isCollapsed && "items-center"}`}>
+            <SidebarMenu
+              className={`${isCollapsed && "items-center"}`}
+              aria-label="Menu secundário"
+            >
               {secondaryItems.map((item) => {
                 const isActive = pathname.startsWith(item.url);
                 return (
@@ -102,17 +112,18 @@ export function AppSidebar() {
                       asChild={!item.disabled}
                       isActive={isActive}
                       disabled={item.disabled}
+                      aria-current={isActive ? "page" : undefined}
                     >
                       {item.disabled ? (
                         <>
-                          <item.icon className="w-5! h-5!" />
+                          <item.icon className="w-5! h-5!" aria-hidden="true" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
                         </>
                       ) : (
                         <Link href={item.url}>
-                          <item.icon className="w-5! h-5!" />
+                          <item.icon className="w-5! h-5!" aria-hidden="true" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
@@ -128,7 +139,9 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="items-center mb-2 space-y-4">
         <Menu />
-        <span className="text-gray-500 text-xs font-medium">v0.1.0</span>
+        <span className="text-gray-500 text-xs font-medium" aria-label="Versão do aplicativo">
+          v0.1.0
+        </span>
       </SidebarFooter>
     </Sidebar>
   );

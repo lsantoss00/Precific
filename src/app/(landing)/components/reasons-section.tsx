@@ -7,19 +7,31 @@ import { Brain, ChartColumn, FileSpreadsheet } from "lucide-react";
 const ReasonsSection = () => {
   return (
     <Container
+      as="section"
       id="descubra"
       variant="section"
       className="pt-12 md:pt-16 xl:pt-16 2xl:pt-20 pb-12 md:pb-16 xl:pb-20 2xl:pb-24 bg-background"
+      aria-labelledby="reasons-heading"
     >
       <Column className="items-center">
         <FadeInOnScroll direction="up" offset={16}>
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center mb-8 md:mb-12 xl:mb-12 2xl:mb-16">
+          <h2
+            id="reasons-heading"
+            className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center mb-8 md:mb-12 xl:mb-12 2xl:mb-16"
+          >
             Em poucos cliques, do custo ao lucro ideal
-          </h3>
+          </h2>
         </FadeInOnScroll>
-        <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-5xl gap-6">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-5xl gap-6"
+          aria-label="Benefícios do Precific"
+        >
           {reasonsMap?.map((reason, index) => (
-            <ReasonCard key={reason.title} reason={reason} delay={index * 0.15} />
+            <ReasonCard
+              key={reason.title}
+              reason={reason}
+              delay={index * 0.15}
+            />
           ))}
         </div>
       </Column>

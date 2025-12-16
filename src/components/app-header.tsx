@@ -30,18 +30,24 @@ export function AppHeader() {
 
   return (
     <header className="bg-[#fafafa] sticky top-0 z-50 border-b xl:hidden">
-      <div className="h-[env(safe-area-inset-top)]" />
+      <div className="h-[env(safe-area-inset-top)]" aria-hidden="true" />
       <Row className="w-full h-20 justify-between items-center px-4">
-        <SidebarTrigger className="!p-2 hover:bg-gray-100 rounded-md transition-colors shrink-0">
-          <MenuIcon className="!w-6 !h-6 text-gray-700" />
+        <SidebarTrigger
+          className="p-2! hover:bg-gray-100 rounded-md transition-colors shrink-0"
+          aria-label="Abrir menu de navegação"
+        >
+          <MenuIcon className="w-6! h-6! text-gray-700" aria-hidden="true" />
         </SidebarTrigger>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger
             asChild
             className="cursor-pointer hover:bg-gray-100 p-2 rounded-md transition-colors shrink-0"
           >
-            <button>
-              <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1" />
+            <button aria-label="Menu do usuário" type="button">
+              <User
+                className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
+                aria-hidden="true"
+              />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 p-1" align="end">
@@ -54,13 +60,13 @@ export function AppHeader() {
               <Link href="/perfil">
                 Perfil
                 <DropdownMenuShortcut>
-                  <User />
+                  <User aria-hidden="true" />
                 </DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="!text-red-600 cursor-pointer"
+              className="text-red-600! cursor-pointer"
               onClick={() => doLogout()}
             >
               Sair
@@ -68,10 +74,13 @@ export function AppHeader() {
                 <Show
                   when={!pendingDoLogout}
                   fallback={
-                    <Loader2Icon className="animate-spin text-red-600" />
+                    <Loader2Icon
+                      className="animate-spin text-red-600"
+                      aria-label="Saindo..."
+                    />
                   }
                 >
-                  <LogOut className="text-red-600" />
+                  <LogOut className="text-red-600" aria-hidden="true" />
                 </Show>
               </DropdownMenuShortcut>
             </DropdownMenuItem>

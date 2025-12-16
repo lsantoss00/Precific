@@ -7,18 +7,24 @@ import Column from "@/src/components/core/column";
 const OurCompaniesSection = () => {
   return (
     <Container
+      as="section"
       variant="section"
       className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-16 2xl:py-20"
+      aria-labelledby="companies-heading"
     >
       <Column className="space-y-6 sm:space-y-8">
         <FadeInOnScroll direction="up" offset={16}>
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight">
+          <h2
+            id="companies-heading"
+            className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight"
+          >
             Nossas Empresas
-          </h3>
+          </h2>
         </FadeInOnScroll>
-        <Column className="gap-4 sm:gap-6">
+        <Column as="ul" className="gap-4 sm:gap-6">
           {companiesInfo.map((company, index) => (
             <FadeInOnScroll
+              as="li"
               key={company.name}
               direction="up"
               offset={16}

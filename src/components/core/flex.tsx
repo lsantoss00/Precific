@@ -1,13 +1,15 @@
 import React, { forwardRef } from "react";
 
-type FlexProps = React.HTMLAttributes<HTMLDivElement>;
+type FlexProps = React.ComponentProps<"div"> & {
+  as?: React.ElementType;
+};
 
-const Flex = forwardRef<HTMLDivElement, FlexProps>(
-  ({ className, children, ...props }, ref) => {
+const Flex = forwardRef<HTMLElement, FlexProps>(
+  ({ as: Component = "div", className, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={`flex ${className}`} {...props}>
+      <Component ref={ref} className={`flex ${className}`} {...props}>
         {children}
-      </div>
+      </Component>
     );
   }
 );

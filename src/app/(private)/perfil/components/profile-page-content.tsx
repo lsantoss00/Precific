@@ -19,11 +19,17 @@ const ProfilePageContent = () => {
       <Show
         when={!isLoadingAuth}
         fallback={
-          <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />
+          <Loader2
+            className="text-primary animate-spin m-auto w-10 h-10"
+            aria-label="Carregando perfil"
+          />
         }
       >
-        <h2 className="text-3xl text-black font-bold">Perfil</h2>
-        <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4">
+        <h1 className="text-3xl text-black font-bold">Perfil</h1>
+        <Flex
+          className="flex-col lg:flex-row w-full flex-1 gap-4"
+          aria-label="Informações do perfil"
+        >
           <UserData />
           <CompanyData />
         </Flex>

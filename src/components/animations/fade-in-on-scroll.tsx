@@ -20,7 +20,10 @@ interface FadeInOnScrollProps {
     | "header"
     | "footer"
     | "main"
-    | "figure";
+    | "figure"
+    | "li"
+    | "nav"
+    | "span";
   offset?: number;
 }
 
@@ -107,6 +110,9 @@ const motionComponents = {
   footer: motion.footer,
   main: motion.main,
   figure: motion.figure,
+  li: motion.li,
+  nav: motion.nav,
+  span: motion.span,
 } as const;
 
 const FadeInOnScroll = ({

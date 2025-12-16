@@ -5,14 +5,19 @@ import Column from "@/src/components/core/column";
 const CompanyMissionStatementSection = () => {
   return (
     <Container
+      as="section"
       variant="section"
       className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-16 2xl:py-20 bg-white xl:min-h-72 w-full"
+      aria-labelledby="mission-statement-heading"
     >
       <FadeInOnScroll direction="up" offset={20} className="w-full">
         <Column className="space-y-4 sm:space-y-5 md:space-y-6 w-full xl:max-w-none">
-          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight text-center">
+          <h2
+            id="mission-statement-heading"
+            className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl leading-tight text-center"
+          >
             O Grupo Viriato leva as empresas à excelência.
-          </h3>
+          </h2>
           <p className="text-sm sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-lg text-muted-foreground leading-relaxed text-center">
             Há quatro décadas, transformamos desafios em estratégia e estratégia
             em crescimento real. Evoluímos de um escritório familiar para um

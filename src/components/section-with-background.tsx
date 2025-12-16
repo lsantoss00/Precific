@@ -1,19 +1,23 @@
 import backgroundSectionImage from "@/public/images/hero-section-background.webp";
-import Column from "@/src/components/core/column";
 import { cn } from "@/src/libs/shadcn-ui/utils";
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface SectionWithBackgroundProps extends HTMLAttributes<HTMLDivElement> {
+type SectionWithBackgroundProps = React.ComponentProps<"div"> & {
+  as?: React.ElementType;
   children: ReactNode;
-}
+};
 
 export default function SectionWithBackground({
   children,
   className,
+  as: Component = "section",
   ...props
 }: SectionWithBackgroundProps) {
   return (
-    <Column className={cn("relative bg-primary", className)} {...props}>
+    <Component
+      className={cn("relative bg-primary flex flex-col", className)}
+      {...props}
+    >
       <div
         className="absolute inset-0 w-full h-full"
         style={{
@@ -25,6 +29,6 @@ export default function SectionWithBackground({
         aria-hidden="true"
       />
       {children}
-    </Column>
+    </Component>
   );
 }

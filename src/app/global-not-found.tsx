@@ -38,20 +38,22 @@ export default function GlobalNotFound() {
   return (
     <html lang="pt-BR" className={poppins.className}>
       <body className="antialiased bg-background min-h-screen flex flex-col items-center justify-center space-y-4 m-4">
-        <Column className="gap-10">
+        <Column as="main" className="gap-10" aria-label="Página não encontrada">
           <Image
             src={notFoundImage}
-            alt="Erro 404"
+            alt="Página não encontrada"
             width={500}
             height={500}
             className="flex self-center"
+            aria-hidden="true"
           />
-          <Column className="gap-2">
-            <span className="text-2xl md:text-4xl font-medium text-center">
+          <Column as="header" className="gap-2">
+            <h1 className="text-2xl md:text-4xl font-medium text-center">
               Página não encontrada
-            </span>
+            </h1>
             <p className="text-xs md:text-sm text-center">
-              A página que você está tentando acessar não existe :(
+              A página que você está tentando acessar não existe{" "}
+              <span aria-label="emoji triste">:(</span>
             </p>
           </Column>
         </Column>
@@ -61,7 +63,7 @@ export default function GlobalNotFound() {
             variant="secondary"
             type="button"
           >
-            <ArrowLeft />
+            <ArrowLeft aria-hidden="true" />
             Voltar para o Precific
           </Button>
         </Link>

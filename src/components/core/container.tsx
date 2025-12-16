@@ -7,14 +7,18 @@ const variantClasses: Record<ContainerVariant, string> = {
   page: "p-6 xl:px-0",
 };
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+type ContainerProps = React.ComponentProps<"div"> & {
+  as?: React.ElementType;
   variant?: ContainerVariant;
-}
+};
 
-const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, variant = "section", ...props }, ref) => {
+const Container = forwardRef<HTMLElement, ContainerProps>(
+  (
+    { as: Component = "div", className, variant = "section", ...props },
+    ref
+  ) => {
     return (
-      <div
+      <Component
         ref={ref}
         className={`w-full ${variantClasses[variant]} ${className || ""}`}
         {...props}

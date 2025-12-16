@@ -11,6 +11,7 @@ const ContactSection = () => {
     <SectionWithBackground
       id="contato"
       className="w-full xl:min-h-200 2xl:h-220 overflow-hidden"
+      aria-labelledby="contact-heading"
     >
       <Flex className="flex-col lg:flex-row items-stretch justify-between">
         <Container
@@ -19,10 +20,16 @@ const ContactSection = () => {
         >
           <Column className="space-y-8 md:space-y-12 lg:space-y-31 xl:space-y-54 2xl:space-y-51">
             <FadeInOnScroll direction="left" offset={20}>
-              <Column className="space-y-4 md:space-y-5 py-12 md:py-16 xl:py-0">
-                <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl max-w-lg leading-tight">
+              <Column
+                as="header"
+                className="space-y-4 md:space-y-5 py-12 md:py-16 xl:py-0"
+              >
+                <h2
+                  id="contact-heading"
+                  className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl max-w-lg leading-tight"
+                >
                   Nossa equipe especializada está pronta para tirar suas dúvidas
-                </h3>
+                </h2>
                 <p className="text-sm md:text-base xl:text-base 2xl:text-lg max-w-xl text-muted-foreground">
                   Preencha o formulário{" "}
                   <span className="xl:inline hidden">ao lado</span>
@@ -40,6 +47,7 @@ const ContactSection = () => {
                 height={130}
                 className="hidden lg:block w-full max-w-sm"
                 loading="lazy"
+                aria-hidden="true"
               />
             </FadeInOnScroll>
           </Column>
