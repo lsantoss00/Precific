@@ -1,5 +1,6 @@
 "use client";
 
+import pageInConstructionImage from "@/public/images/page-in-construction-image.webp";
 import Column from "@/src/components/core/column";
 import Image from "next/image";
 
@@ -7,10 +8,11 @@ const PageInConstruction = () => {
   return (
     <Column className="gap-10 m-auto">
       <Image
-        src="/page-in-construction-image.webp"
+        src={pageInConstructionImage}
         alt="Página em construção"
         width={500}
         height={500}
+        loading="lazy"
         className="flex self-center"
       />
       <Column className="gap-2">
