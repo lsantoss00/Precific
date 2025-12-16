@@ -125,7 +125,7 @@ const FadeInOnScroll = ({
   as = "div",
   offset = 24,
 }: FadeInOnScrollProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -159,7 +159,7 @@ const FadeInOnScroll = ({
 
   return (
     <MotionComponent
-      ref={ref}
+      ref={ref as any}
       initial={isMounted ? "hidden" : false}
       animate={isMounted && isInView ? "visible" : "hidden"}
       variants={variants}
