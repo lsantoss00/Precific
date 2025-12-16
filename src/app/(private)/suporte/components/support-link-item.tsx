@@ -1,0 +1,33 @@
+import { SupportLinkItemType } from "@/src/app/(private)/suporte/types/support-link-item-type";
+import Column from "@/src/components/core/column";
+import { CircleQuestionMark } from "lucide-react";
+
+interface SupportLinkItemProps {
+  item: SupportLinkItemType;
+}
+
+const SupportLinkItem = ({ item }: SupportLinkItemProps) => {
+  return (
+    <a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Link para ${item.title}`}
+      className="flex flex-row items-center gap-4 transition-colors duration-300 p-2 cursor-pointer rounded-lg hover:bg-zinc-50"
+    >
+      <div
+        className={`h-12 w-12 rounded-lg flex items-center justify-center ${
+          item.backgroundIconColor || "bg-zinc-100"
+        }`}
+      >
+        {item.icon || <CircleQuestionMark className="h-5 w-5 text-zinc-500" />}
+      </div>
+      <Column>
+        <h3 className="font-medium text-sm">{item.title}</h3>
+        <p className="text-sm text-muted-foreground">{item.description}</p>
+      </Column>
+    </a>
+  );
+};
+
+export default SupportLinkItem;

@@ -1,17 +1,13 @@
 "use client";
 
 import WhatsAppIcon from "@/public/svgs/whatsapp-logo.svg";
+import { whatsAppHelpLink } from "@/src/constants/whatsapp-help-link";
 import { useState } from "react";
 import { Card } from "./core";
 import Row from "./core/row";
 
 const WhatsAppHelpLinkBalloon = () => {
   const [isHovered, setIsHovered] = useState(false);
-
-  const whatsAppNumber = "+552122929071";
-  const whatsAppMessage =
-    "Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20o%20Precific!";
-  const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}`;
 
   return (
     <Row className="fixed bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-3 z-50">
@@ -24,7 +20,7 @@ const WhatsAppHelpLinkBalloon = () => {
       </Card>
       <a
         className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transition-shadow"
-        href={whatsAppLink}
+        href={whatsAppHelpLink}
         target="_blank"
         rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
