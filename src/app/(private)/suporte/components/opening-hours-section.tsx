@@ -14,7 +14,7 @@ const OpeningHoursSection = () => {
   return (
     <Column className="gap-3">
       <Row className="items-center gap-2 text-sm font-medium text-card-foreground">
-        <Clock className="h-4 w-4 text-primary" />
+        <Clock className="h-4 w-4" />
         <span>Horário de Funcionamento</span>
       </Row>
       <Column className="gap-2">
