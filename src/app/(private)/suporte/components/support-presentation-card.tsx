@@ -7,7 +7,7 @@ import Image from "next/image";
 const SupportPresentationCard = () => {
   return (
     <Card className="overflow-hidden py-0 h-full flex flex-col">
-      <Column className="flex-1">
+      <Column>
         <div className="bg-linear-to-b from-primary/10 via-primary/5 to-transparent p-16 flex items-center justify-center">
           <Image
             src={precificLogoImage}
@@ -17,7 +17,7 @@ const SupportPresentationCard = () => {
             className="object-contain"
           />
         </div>
-        <CardContent className="flex-1 py-6 flex flex-col justify-between">
+        <CardContent className="py-6 flex flex-col justify-between">
           <Column className="gap-5">
             <Column className="gap-1">
               <h2 className="text-3xl font-semibold text-foreground">
