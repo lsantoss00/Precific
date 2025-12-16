@@ -1,4 +1,12 @@
-import PageInConstruction from "@/src/components/page-in-construction";
+import SocialMediasCard from "@/src/app/(private)/suporte/components/social-medias-card";
+import SupportLinkCard from "@/src/app/(private)/suporte/components/support-link-card";
+import SupportPresentationCard from "@/src/app/(private)/suporte/components/support-presentation-card";
+import {
+  supportContactChannelsLinks,
+  supportUsefulResourcesLinks,
+} from "@/src/app/(private)/suporte/constants/support-links";
+import { Container } from "@/src/components/core";
+import { Book, Megaphone } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,5 +20,36 @@ export const metadata: Metadata = {
 };
 
 export default function SupportPage() {
-  return <PageInConstruction />;
+  return (
+    <Container
+      variant="page"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] h-screen flex flex-col"
+    >
+      <h1 className="text-3xl text-foreground font-bold mb-4">
+        Central de Suporte
+      </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-0">
+        <SupportPresentationCard />
+        <div className="flex flex-col gap-4">
+          <SupportLinkCard
+            icon={<Megaphone className="h-5 w-5 text-primary" />}
+            backgroundIconColor="bg-primary/10"
+            title="Fale Conosco"
+            description="Escolha o canal de sua preferência."
+            links={supportContactChannelsLinks}
+          />
+          <SupportLinkCard
+            icon={<Book className="h-5 w-5 text-primary" />}
+            backgroundIconColor="bg-primary/10"
+            title="Recursos Úteis"
+            description="Informações e documentação do sistema."
+            links={supportUsefulResourcesLinks}
+          />
+        </div>
+        <div className="col-span-2 flex-1 min-h-0">
+          <SocialMediasCard />
+        </div>
+      </div>
+    </Container>
+  );
 }

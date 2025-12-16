@@ -12,8 +12,8 @@ const OpeningHoursSection = () => {
   const currentDay = getCurrentDay();
 
   return (
-    <Column as="section" className="gap-3">
-      <Row className="items-center gap-2 text-sm font-medium">
+    <Column className="gap-3">
+      <Row className="items-center gap-2 text-sm font-medium text-card-foreground">
         <Clock className="h-4 w-4 text-primary" />
         <span>Horário de Funcionamento</span>
       </Row>

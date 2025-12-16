@@ -2,11 +2,11 @@ import { SupportLinkItemType } from "@/src/app/(private)/suporte/types/support-l
 import Column from "@/src/components/core/column";
 import { CircleQuestionMark } from "lucide-react";
 
-interface SupportLinkItemProps {
+interface SupportLinkCardItemProps {
   item: SupportLinkItemType;
 }
 
-const SupportLinkItem = ({ item }: SupportLinkItemProps) => {
+const SupportLinkCardItem = ({ item }: SupportLinkCardItemProps) => {
   return (
     <a
       href={item.href}
@@ -23,11 +23,11 @@ const SupportLinkItem = ({ item }: SupportLinkItemProps) => {
         {item.icon || <CircleQuestionMark className="h-5 w-5 text-zinc-500" />}
       </div>
       <Column>
-        <h3 className="font-medium text-sm">{item.title}</h3>
+        <h3 className="font-medium text-sm text-foreground">{item.title}</h3>
         <p className="text-sm text-muted-foreground">{item.description}</p>
       </Column>
     </a>
   );
 };
 
-export default SupportLinkItem;
+export default SupportLinkCardItem;
