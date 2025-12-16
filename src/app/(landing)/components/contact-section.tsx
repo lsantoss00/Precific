@@ -34,7 +34,7 @@ const ContactSection = () => {
             </FadeInOnScroll>
             <FadeInOnScroll direction="left" delay={0.2} offset={16}>
               <Image
-                src="/landing-page/chevron-group.svg"
+                src="/svgs/chevron-group.svg"
                 alt="Sinalização de formulário"
                 width={400}
                 height={130}
