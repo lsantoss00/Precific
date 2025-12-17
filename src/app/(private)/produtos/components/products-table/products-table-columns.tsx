@@ -70,12 +70,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_today",
     accessorKey: "price_today",
-    size: 100,
+    size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>HOJE (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[110px]">
+      <div className="uppercase truncate text-ellipsis w-[80px]">
         {currencyFormatter(row.getValue("price_today"))}
       </div>
     ),
@@ -86,12 +86,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2026",
     accessorKey: "price_in_2026",
-    size: 100,
+    size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>2026 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[110px]">
+      <div className="uppercase truncate text-ellipsis w-[80px]">
         {currencyFormatter(row.getValue("price_in_2026"))}
       </div>
     ),
@@ -102,12 +102,12 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2027",
     accessorKey: "price_in_2027",
-    size: 100,
+    size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>2027 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[110px]">
+      <div className="uppercase truncate text-ellipsis w-[80px]">
         {currencyFormatter(row.getValue("price_in_2027"))}
       </div>
     ),
