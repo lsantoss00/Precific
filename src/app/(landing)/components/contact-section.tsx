@@ -10,13 +10,13 @@ const ContactSection = () => {
   return (
     <SectionWithBackground
       id="contato"
-      className="w-full xl:min-h-200 2xl:h-220 overflow-hidden"
+      className="w-full 2xl:h-220 overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <Flex className="flex-col lg:flex-row items-stretch justify-between">
+      <Flex className="flex-col lg:flex-row items-stretch justify-between h-full">
         <Container
           variant="section"
-          className="z-10 w-full xl:w-1/2 py-0 xl:py-16 2xl:py-27 bg-background"
+          className="z-10 w-full xl:w-1/2 py-0 xl:py-16 2xl:py-27 bg-background min-h-full"
         >
           <Column className="space-y-8 md:space-y-12 lg:space-y-31 xl:space-y-54 2xl:space-y-51">
             <FadeInOnScroll direction="left" offset={20}>
@@ -45,7 +45,7 @@ const ContactSection = () => {
                 alt="Sinalização de formulário"
                 width={400}
                 height={130}
-                className="hidden lg:block w-full max-w-sm"
+                className="hidden lg:block w-full max-w-xs"
                 loading="lazy"
                 aria-hidden="true"
               />
