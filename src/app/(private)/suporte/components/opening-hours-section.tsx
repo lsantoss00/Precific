@@ -1,9 +1,9 @@
 import { openingHours } from "@/src/app/(private)/suporte/constants/opening-hours";
-import { getCurrentDay } from "@/src/app/(private)/suporte/utils/date-utils";
+import { getCurrentDay } from "@/src/app/(private)/suporte/utils/get-current-day";
 import {
   getScheduleStatus,
   getScheduleStatusClassName,
-} from "@/src/app/(private)/suporte/utils/schedule-utils";
+} from "@/src/app/(private)/suporte/utils/get-schedule-status";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import { CircleAlert, Clock } from "lucide-react";

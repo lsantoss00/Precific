@@ -2,6 +2,18 @@ import { openingHours } from "@/src/app/(private)/suporte/constants/opening-hour
 
 type ScheduleStatusType = "open" | "closing" | "closed" | null;
 
+const parseClosingTime = (hoursString: string): number | null => {
+  // Captura o horário após o " - " (segunda parte) -- (definido em opening-hours.tsx)
+  const match = hoursString.match(/\d+h\d*\s*-\s*(\d+)h(\d+)?/);
+
+  if (!match) return null;
+
+  const closingHour = parseInt(match[1], 10);
+  const closingMinute = match[2] ? parseInt(match[2], 10) : 0;
+
+  return closingHour * 60 + closingMinute;
+};
+
 export const getScheduleStatus = (
   schedule: (typeof openingHours)[0],
   currentDay: string
@@ -17,8 +29,12 @@ export const getScheduleStatus = (
   const currentMinute = now.getMinutes();
   const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-  // TO-DO: Fix this - We need to get the closing time from the schedule
-  const closingTimeInMinutes = 18 * 60;
+  const closingTimeInMinutes = parseClosingTime(schedule.hours);
+
+  if (closingTimeInMinutes === null) {
+    return null;
+  }
+
   const oneHourBeforeClosing = closingTimeInMinutes - 60;
 
   if (currentTimeInMinutes >= closingTimeInMinutes) {
