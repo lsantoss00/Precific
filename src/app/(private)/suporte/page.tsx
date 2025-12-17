@@ -23,12 +23,12 @@ export default function SupportPage() {
   return (
     <Container
       variant="page"
-      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] h-screen flex flex-col"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] flex flex-col min-h-0"
     >
       <h1 className="text-3xl text-foreground font-bold mb-4">
         Central de Suporte
       </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 pb-4">
         <SupportPresentationCard />
         <div className="flex flex-col gap-4">
           <SupportLinkCard
@@ -46,7 +46,7 @@ export default function SupportPage() {
             links={supportUsefulResourcesLinks}
           />
         </div>
-        <div className="col-span-2 flex-1 min-h-0">
+        <div className="lg:col-span-2 flex-1 min-h-0">
           <SocialMediasCard />
         </div>
       </div>

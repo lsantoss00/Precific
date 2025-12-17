@@ -5,7 +5,7 @@ import { socialMediaLinks } from "@/src/constants/social-media-links";
 
 const SocialMediasCard = () => {
   return (
-    <Card className="h-full w-full flex flex-row items-center justify-between gap-4 p-6">
+    <Card className="h-full w-full flex flex-col md:flex-row md:items-center justify-between gap-4 p-6">
       <Column className="gap-1">
         <span className="text-lg font-semibold text-foreground">
           Siga o Grupo Viriato

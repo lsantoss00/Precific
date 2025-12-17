@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/src/components/core/card";
 import Column from "@/src/components/core/column";
-import Row from "@/src/components/core/row";
+import Flex from "@/src/components/core/flex";
 import { CircleQuestionMark } from "lucide-react";
 
 interface SupportLinkCardProps {
@@ -27,11 +27,11 @@ const SupportLinkCard = ({
   links,
 }: SupportLinkCardProps) => {
   return (
-    <Card className="flex-1 flex flex-col gap-4">
+    <Card className="flex flex-col flex-1 gap-4">
       <CardHeader>
-        <Row className="items-center gap-3">
+        <Flex className="flex-col md:flex-row md:items-center gap-3">
           <div
-            className={`h-10 w-10 rounded-lg flex items-center justify-center ${
+            className={`h-12 w-12 rounded-lg flex items-center justify-center shrink-0 ${
               backgroundIconColor || "bg-zinc-100"
             }`}
           >
@@ -41,7 +41,7 @@ const SupportLinkCard = ({
             <CardTitle className="text-foreground">{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </Column>
-        </Row>
+        </Flex>
       </CardHeader>
       <CardContent className="flex flex-col flex-1 justify-between px-6">
         {links.map((link) => (
