@@ -161,12 +161,12 @@ const ProductsTable = () => {
   const hasData = !isPending && table.getRowModel().rows?.length > 0;
 
   return (
-    <Column className="bg-white shadow-sm flex flex-col !h-[630.5px] overflow-hidden rounded-md">
+    <Column className="bg-white shadow-sm flex flex-col h-[630.5px]! overflow-hidden rounded-md">
       <div className="flex-1 overflow-hidden">
         <Table className="w-full table-fixed">
           <TableHeader className="sticky top-0 z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="hover:!bg-transparent">
+              <TableRow key={headerGroup.id} className="hover:bg-transparent!">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -191,7 +191,7 @@ const ProductsTable = () => {
             <Show
               when={hasData}
               fallback={
-                <TableRow className="hover:!bg-transparent">
+                <TableRow className="hover:bg-transparent!">
                   <TableCell
                     colSpan={table.getAllColumns().length}
                     className="h-[500px] text-center text-gray-500"

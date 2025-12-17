@@ -21,11 +21,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "sku",
     accessorKey: "sku",
-    size: 100,
+    size: 80,
     header: ({ column }) => (
-      <div className="w-[80px] sm:w-[100px]">
-        <SortableHeader column={column}>SKU</SortableHeader>
-      </div>
+      <SortableHeader column={column}>SKU</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-[80px] sm:w-[100px]">
@@ -33,38 +31,35 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       </div>
     ),
     meta: {
-      className: "table-cell",
+      className: "hidden md:table-cell",
     },
   },
   {
     id: "name",
     accessorKey: "name",
-    size: 300,
+    size: 200,
     header: ({ column }) => (
-      <div className="w-[200px] lg:w-[300px]">
-        <SortableHeader column={column}>NOME</SortableHeader>
-      </div>
+      <SortableHeader column={column}>NOME</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[200px] lg:w-[300px]">
+      <div className="uppercase truncate text-ellipsis w-full md:w-[180px] lg:w-[250px] xl:w-[300px] min-w-0">
         {row.getValue("name")}
       </div>
     ),
     meta: {
-      className: "hidden md:table-cell",
+      className:
+        "table-cell w-full max-w-[150px] md:max-w-[180px] lg:max-w-[250px] xl:max-w-[300px] truncate min-w-0",
     },
   },
   {
     id: "ncm",
     accessorKey: "ncm",
-    size: 120,
+    size: 80,
     header: ({ column }) => (
-      <div className="w-[120px]">
-        <SortableHeader column={column}>NCM</SortableHeader>
-      </div>
+      <SortableHeader column={column}>NCM</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[120px]">
+      <div className="uppercase truncate text-ellipsis">
         {row.getValue("ncm")}
       </div>
     ),
@@ -75,11 +70,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_today",
     accessorKey: "price_today",
-    size: 110,
+    size: 100,
     header: ({ column }) => (
-      <div className="w-[110px]">
-        <SortableHeader column={column}>HOJE (R$)</SortableHeader>
-      </div>
+      <SortableHeader column={column}>HOJE (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-[110px]">
@@ -93,11 +86,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2026",
     accessorKey: "price_in_2026",
-    size: 110,
+    size: 100,
     header: ({ column }) => (
-      <div className="w-[110px]">
-        <SortableHeader column={column}>2026 (R$)</SortableHeader>
-      </div>
+      <SortableHeader column={column}>2026 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-[110px]">
@@ -111,11 +102,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "price_in_2027",
     accessorKey: "price_in_2027",
-    size: 110,
+    size: 100,
     header: ({ column }) => (
-      <div className="w-[110px]">
-        <SortableHeader column={column}>2027 (R$)</SortableHeader>
-      </div>
+      <SortableHeader column={column}>2027 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-[110px]">
@@ -129,11 +118,9 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "status",
     accessorKey: "status",
-    size: 80,
+    size: 60,
     header: ({ column }) => (
-      <div className="w-[80px]">
-        <SortableHeader column={column}>STATUS</SortableHeader>
-      </div>
+      <SortableHeader column={column}>STATUS</SortableHeader>
     ),
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
@@ -164,8 +151,8 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
   {
     id: "actions",
     enableHiding: false,
-    size: 150,
-    header: () => <div className="w-[120px] sm:w-[150px]" />,
+    size: 120,
+    header: () => <div className="w-[100px] sm:w-[120px]" />,
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
