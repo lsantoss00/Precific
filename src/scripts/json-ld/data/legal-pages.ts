@@ -4,12 +4,12 @@ export const termsOfUseJsonLd = {
   name: "Termos de Uso",
   description:
     "Leia os termos de uso do Precific. Conheça as condições de utilização, direitos e responsabilidades ao usar nossa plataforma de precificação e gestão tributária.",
-  url: "https://www.precificapp.com/termos-de-uso",
+  url: "https://precificapp.com/termos-de-uso",
   inLanguage: "pt-BR",
   isPartOf: {
     "@type": "WebSite",
     name: "Precific",
-    url: "https://www.precificapp.com",
+    url: "https://precificapp.com",
   },
   about: {
     "@type": "Thing",
@@ -31,13 +31,13 @@ export const termsOfUseJsonLd = {
         "@type": "ListItem",
         position: 1,
         name: "Início",
-        item: "https://www.precificapp.com",
+        item: "https://precificapp.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Termos de Uso",
-        item: "https://www.precificapp.com/termos-de-uso",
+        item: "https://precificapp.com/termos-de-uso",
       },
     ],
   },
@@ -50,12 +50,12 @@ export const privacyPolicyJsonLd = {
   name: "Política de Privacidade",
   description:
     "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações no Precific.",
-  url: "https://www.precificapp.com/politica-de-privacidade",
+  url: "https://precificapp.com/politica-de-privacidade",
   inLanguage: "pt-BR",
   isPartOf: {
     "@type": "WebSite",
     name: "Precific",
-    url: "https://www.precificapp.com",
+    url: "https://precificapp.com",
   },
   about: {
     "@type": "Thing",
@@ -84,16 +84,15 @@ export const privacyPolicyJsonLd = {
         "@type": "ListItem",
         position: 1,
         name: "Início",
-        item: "https://www.precificapp.com",
+        item: "https://precificapp.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Política de Privacidade",
-        item: "https://www.precificapp.com/politica-de-privacidade",
+        item: "https://precificapp.com/politica-de-privacidade",
       },
     ],
   },
   lastReviewed: new Date().toISOString().split("T")[0],
 };
-

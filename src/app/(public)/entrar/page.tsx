@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Entrar | Precific",
     description:
       "Faça login na sua conta Precific e acesse ferramentas de precificação inteligente, gestão de custos e simulação tributária.",
-    url: "https://www.precificapp.com/entrar",
+    url: "https://precificapp.com/entrar",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com/entrar",
+    canonical: "https://precificapp.com/entrar",
   },
   robots: {
     index: true,

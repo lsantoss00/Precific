@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Política de Privacidade | Precific",
     description:
       "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações.",
-    url: "https://www.precificapp.com/politica-de-privacidade",
+    url: "https://precificapp.com/politica-de-privacidade",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com/politica-de-privacidade",
+    canonical: "https://precificapp.com/politica-de-privacidade",
   },
   robots: {
     index: true,

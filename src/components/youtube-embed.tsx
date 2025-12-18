@@ -20,7 +20,7 @@ const YouTubeEmbed: React.FC<Props> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const embedBase = `https://www.youtube-nocookie.com/embed/${videoId}`;
+  const embedBase = `https://youtube-nocookie.com/embed/${videoId}`;
   const embedParams = "rel=0&modestbranding=1&playsinline=1&controls=1";
 
   return (

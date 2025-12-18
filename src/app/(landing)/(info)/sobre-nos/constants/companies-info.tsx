@@ -12,7 +12,7 @@ export const companiesInfo: CompanyInfoType[] = [
     description:
       "Há mais de 40 anos no mercado, a Viriato Contabilidade oferece soluções completas em gestão contábil, fiscal e tributária para empresas de todos os portes. Com uma equipe altamente qualificada, garantimos compliance e eficiência na gestão financeira dos nossos clientes.",
     image: viriatoContabilidadeLogo,
-    externalLink: "https://www.viriato.com.br/",
+    externalLink: "https://viriato.com.br/",
     foundedYear: "1983",
   },
   {
@@ -20,7 +20,7 @@ export const companiesInfo: CompanyInfoType[] = [
     description:
       "Administradora de imóveis com expertise em gestão patrimonial completa. Oferecemos soluções personalizadas para proprietários e locatários, com transparência, tecnologia e atendimento diferenciado no mercado imobiliário.",
     image: viriatoImobiliariaLogo,
-    externalLink: "https://www.viriatoimobiliaria.com.br/",
+    externalLink: "https://viriatoimobiliaria.com.br/",
     foundedYear: "2003",
   },
   {
@@ -36,7 +36,7 @@ export const companiesInfo: CompanyInfoType[] = [
     description:
       "Escritório de advocacia empresarial com foco em direito tributário, corporativo e trabalhista. Nossa equipe oferece assessoria jurídica estratégica e personalizada, protegendo os interesses dos nossos clientes com excelência e comprometimento.",
     image: lopesAdvogadosLogo,
-    externalLink: "https://www.jalopesadvogados.com.br/",
+    externalLink: "https://jalopesadvogados.com.br/",
     foundedYear: "2010",
   },
   {
@@ -44,7 +44,7 @@ export const companiesInfo: CompanyInfoType[] = [
     description:
       "Corretora de seguros especializada em soluções personalizadas para pessoas físicas e jurídicas. Oferecemos consultoria completa em seguros patrimoniais, de vida, empresariais e muito mais, sempre buscando as melhores condições do mercado para nossos clientes.",
     image: viriatoCorretoraDeSegurosLogo,
-    externalLink: "https://www.viriatocorretoradeseguros.com.br/",
+    externalLink: "https://viriatocorretoradeseguros.com.br/",
     foundedYear: "2023",
   },
   {
@@ -52,7 +52,7 @@ export const companiesInfo: CompanyInfoType[] = [
     description:
       "Canal de conteúdo educacional e informativo do Grupo Viriato. Produzimos podcasts, vídeos e materiais sobre gestão empresarial, tributação, empreendedorismo e inovação, compartilhando conhecimento para impulsionar negócios.",
     image: viriatoCastLogo,
-    externalLink: "https://www.instagram.com/viriatocast/",
+    externalLink: "https://instagram.com/viriatocast/",
     foundedYear: "2020",
   },
 ];

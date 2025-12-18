@@ -23,6 +23,6 @@ export default function robots(): MetadataRoute.Robots {
         "/api/*",
       ],
     },
-    sitemap: "https://www.precificapp.com/sitemap.xml",
+    sitemap: "https://precificapp.com/sitemap.xml",
   };
 }

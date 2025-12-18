@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   description:
     "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
-  metadataBase: new URL("https://www.precificapp.com"),
+  metadataBase: new URL("https://precificapp.com"),
   keywords: [
     "precificação",
     "formação de preços",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "markup",
     "DRE",
   ],
-  authors: [{ name: "Grupo Viriato", url: "https://www.viriato.com.br/" }],
+  authors: [{ name: "Grupo Viriato", url: "https://viriato.com.br/" }],
   creator: "Grupo Viriato",
   publisher: "Precific",
   category: "Business Software",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Precific",
     description:
       "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
-    url: "https://www.precificapp.com",
+    url: "https://precificapp.com",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com",
+    canonical: "https://precificapp.com",
   },
 };
 
@@ -111,7 +111,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#66289B" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
+        <link rel="dns-prefetch" href="https://youtube-nocookie.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

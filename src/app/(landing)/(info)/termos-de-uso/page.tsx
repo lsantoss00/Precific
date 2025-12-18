@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Termos de Uso | Precific",
     description:
       "Leia os termos de uso do Precific. Conheça as condições de utilização, direitos e responsabilidades ao usar nossa plataforma.",
-    url: "https://www.precificapp.com/termos-de-uso",
+    url: "https://precificapp.com/termos-de-uso",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com/termos-de-uso",
+    canonical: "https://precificapp.com/termos-de-uso",
   },
   robots: {
     index: true,

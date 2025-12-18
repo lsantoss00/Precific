@@ -17,7 +17,7 @@ export const usefulLinks = [
     links: [
       {
         title: "Viriato Contabilidade",
-        href: "https://www.viriato.com.br/",
+        href: "https://viriato.com.br/",
       },
       {
         title: "Correa & Lopes",
@@ -25,19 +25,19 @@ export const usefulLinks = [
       },
       {
         title: "Viriato Gestão Imobiliária",
-        href: "https://www.viriatoimobiliaria.com.br/",
+        href: "https://viriatoimobiliaria.com.br/",
       },
       {
         title: "J.A Lopes Advogados",
-        href: "https://www.jalopesadvogados.com.br/",
+        href: "https://jalopesadvogados.com.br/",
       },
       {
         title: "Viriato Corretora de Seguros",
-        href: "https://www.viriatocorretoradeseguros.com.br/",
+        href: "https://viriatocorretoradeseguros.com.br/",
       },
       {
         title: "Viriato Cast",
-        href: "https://www.instagram.com/viriatocast/",
+        href: "https://instagram.com/viriatocast/",
       },
     ],
   },

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Sobre Nós | Precific",
     description:
       "Conheça o Precific, sistema inteligente de precificação e gestão tributária desenvolvido pelo Grupo Viriato. Nossa missão é simplificar a gestão financeira e tributária das empresas brasileiras.",
-    url: "https://www.precificapp.com/sobre-nos",
+    url: "https://precificapp.com/sobre-nos",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com/sobre-nos",
+    canonical: "https://precificapp.com/sobre-nos",
   },
   robots: {
     index: true,

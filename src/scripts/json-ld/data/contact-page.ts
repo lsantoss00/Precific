@@ -4,7 +4,7 @@ export const contactPageJsonLd = {
   name: "Fale Conosco",
   description:
     "Entre em contato com a equipe do Precific. Nossa equipe especializada está pronta para tirar suas dúvidas e agendar uma demonstração gratuita.",
-  url: "https://www.precificapp.com#contato",
+  url: "https://precificapp.com#contato",
   mainEntity: {
     "@type": "Organization",
     name: "Precific",
@@ -20,4 +20,3 @@ export const contactPageJsonLd = {
     },
   },
 };
-

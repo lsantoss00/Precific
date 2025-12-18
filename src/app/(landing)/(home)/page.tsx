@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Precific",
     description:
       "Simplifique a precificação dos seus produtos com a Precific. Calcule preços de forma rápida e precisa, otimize suas margens e tome decisões estratégicas com confiança.",
-    url: "https://www.precificapp.com",
+    url: "https://precificapp.com",
     images: [
       {
         url: "/opengraph-image.webp",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://www.precificapp.com",
+    canonical: "https://precificapp.com",
   },
   robots: {
     index: true,

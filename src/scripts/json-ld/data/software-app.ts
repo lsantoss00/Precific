@@ -24,20 +24,20 @@ export const softwareAppJsonLd = {
   },
   description:
     "Sistema completo de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços com precisão.",
-  url: "https://www.precificapp.com",
-  downloadUrl: "https://www.precificapp.com/entrar",
+  url: "https://precificapp.com",
+  downloadUrl: "https://precificapp.com/entrar",
   softwareVersion: "1.0",
   releaseNotes: "Versão inicial do sistema de precificação Precific.",
-  screenshot: "https://www.precificapp.com/opengraph-image.webp",
+  screenshot: "https://precificapp.com/opengraph-image.webp",
   provider: {
     "@type": "Organization",
     name: "Grupo Viriato",
-    url: "https://www.viriato.com.br/",
+    url: "https://viriato.com.br/",
   },
   creator: {
     "@type": "Organization",
     name: "Grupo Viriato",
-    url: "https://www.viriato.com.br/",
+    url: "https://viriato.com.br/",
   },
   featureList: [
     "Cálculo automático de preços de venda",
@@ -61,4 +61,3 @@ export const softwareAppJsonLd = {
   inLanguage: "pt-BR",
   isAccessibleForFree: false,
 };
-

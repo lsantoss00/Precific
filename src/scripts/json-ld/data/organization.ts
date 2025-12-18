@@ -3,15 +3,15 @@ export const organizationJsonLd = {
   "@type": "Organization",
   name: "Precific",
   legalName: "Grupo Viriato",
-  url: "https://www.precificapp.com",
+  url: "https://precificapp.com",
   logo: {
     "@type": "ImageObject",
-    url: "https://www.precificapp.com/images/precific-logo-image.webp",
+    url: "https://precificapp.com/images/precific-logo-image.webp",
     width: 200,
     height: 100,
     caption: "Precific",
   },
-  image: "https://www.precificapp.com/opengraph-image.webp",
+  image: "https://precificapp.com/opengraph-image.webp",
   description:
     "Sistema completo de precificação e gestão tributária para empresas. Desenvolvido pelo Grupo Viriato, líder em consultoria empresarial há mais de 40 anos.",
   slogan: "Precifique seus produtos com precisão",
@@ -40,10 +40,10 @@ export const organizationJsonLd = {
     },
   ],
   sameAs: [
-    "https://www.linkedin.com/company/grupo-viriato/",
-    "https://www.instagram.com/grupoviriato",
-    "https://www.youtube.com/@ViriatoCast",
-    "https://www.viriato.com.br/",
+    "https://linkedin.com/company/grupo-viriato/",
+    "https://instagram.com/grupoviriato",
+    "https://youtube.com/@ViriatoCast",
+    "https://viriato.com.br/",
   ],
   foundingDate: "1980",
   foundingLocation: {
@@ -59,7 +59,7 @@ export const organizationJsonLd = {
   parentOrganization: {
     "@type": "Organization",
     name: "Grupo Viriato",
-    url: "https://www.viriato.com.br/",
+    url: "https://viriato.com.br/",
   },
   knowsAbout: [
     "Precificação",

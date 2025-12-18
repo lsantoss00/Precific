@@ -4,7 +4,7 @@ export const aboutPageJsonLd = {
   name: "Sobre Nós",
   description:
     "Conheça o Precific, sistema inteligente de precificação e gestão tributária desenvolvido pelo Grupo Viriato. Nossa missão é simplificar a gestão financeira e tributária das empresas brasileiras.",
-  url: "https://www.precificapp.com/sobre-nos",
+  url: "https://precificapp.com/sobre-nos",
   mainEntity: {
     "@type": "Organization",
     name: "Grupo Viriato",
@@ -31,15 +31,14 @@ export const aboutPageJsonLd = {
         "@type": "ListItem",
         position: 1,
         name: "Início",
-        item: "https://www.precificapp.com",
+        item: "https://precificapp.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Sobre Nós",
-        item: "https://www.precificapp.com/sobre-nos",
+        item: "https://precificapp.com/sobre-nos",
       },
     ],
   },
 };
-

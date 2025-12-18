@@ -26,13 +26,13 @@ export function BreadcrumbScript() {
         "@type": "ListItem",
         position: 1,
         name: "Início",
-        item: "https://www.precificapp.com",
+        item: "https://precificapp.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: pageName,
-        item: `https://www.precificapp.com${pathname}`,
+        item: `https://precificapp.com${pathname}`,
       },
     ],
   };
