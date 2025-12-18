@@ -15,25 +15,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/sobre-nos`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/termos-de-uso`,
       lastModified: now,
       changeFrequency: "yearly",
-      priority: 0.5,
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/politica-de-privacidade`,
       lastModified: now,
       changeFrequency: "yearly",
-      priority: 0.5,
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/entrar`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/redefinir-senha`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/criar-senha`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
   ];
 }
