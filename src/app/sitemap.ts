@@ -35,17 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/redefinir-senha`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/criar-senha`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
   ];
 }
