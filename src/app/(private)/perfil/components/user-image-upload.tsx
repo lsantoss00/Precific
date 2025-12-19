@@ -43,7 +43,7 @@ const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
       <Column>
         <p className="text-base font-medium">Selecionar foto</p>
         <span className="text-sm text-neutral-500 mt-1 font-normal">
-          Selecione um arquivo com até 50mb.
+          Selecione um arquivo com até 5mb.
         </span>
       </Column>
       <Show when={preview}>
@@ -71,7 +71,7 @@ const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
             const file = fileList[0];
 
             if (file && onChange) {
-              if (file.size > 100 * 1024 * 1024) {
+              if (file.size > 5 * 1024 * 1024) {
                 e.target.value = "";
                 return;
               }
