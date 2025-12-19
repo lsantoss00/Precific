@@ -96,8 +96,12 @@ const ProductsTable = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+      await queryClient.invalidateQueries({
         queryKey: ["product-summaries"],
       });
+
       toast.success("Produto deletado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
@@ -153,6 +157,20 @@ const ProductsTable = () => {
     if (data?.totalPages !== undefined) setTotalPages(data.totalPages);
     if (data?.count !== undefined) setTotalCount(data.count);
   }, [data]);
+
+  useEffect(() => {
+    if (
+      !isPending &&
+      data?.data &&
+      data.data.length === 0 &&
+      page > 1 &&
+      totalPages > 0
+    ) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("pagina", String(page - 1));
+      router.push(`?${params.toString()}`);
+    }
+  }, [data, isPending, page, totalPages, searchParams, router]);
 
   useEffect(() => {
     setSorting([{ id: sortBy, desc: sortOrder === "desc" }]);
