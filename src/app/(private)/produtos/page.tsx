@@ -20,7 +20,7 @@ export default function ProductsPage() {
   return (
     <Container
       variant="page"
-      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-4"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-4 flex flex-col"
     >
       <Suspense
         fallback={
