@@ -18,9 +18,16 @@ const ProfilePageContent = () => {
   const { isLoadingAuth, profile } = useAuth();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isImageRemoved, setIsImageRemoved] = useState(false);
 
   const handleImageChange = (file: File | null) => {
     setSelectedFile(file);
+
+    if (file === null && profile?.profile_picture_url) {
+      setIsImageRemoved(true);
+    } else {
+      setIsImageRemoved(false);
+    }
   };
 
   const { mutate: updateProfilePicture, isPending: isSaving } = useMutation({
@@ -31,6 +38,7 @@ const ProfilePageContent = () => {
         className: "!bg-green-600 !text-white",
       });
       setSelectedFile(null);
+      setIsImageRemoved(false);
     },
     onError: (error: Error) => {
       toast.error(supabaseErrorsTranslator(error.message), {
@@ -46,6 +54,8 @@ const ProfilePageContent = () => {
       currentProfilePictureUrl: profile?.profile_picture_url || null,
     });
   };
+
+  const hasChanges = selectedFile !== null || isImageRemoved;
 
   return (
     <Container
@@ -72,7 +82,7 @@ const ProfilePageContent = () => {
         <Button
           className="w-full md:w-40 h-12 self-end"
           onClick={handleUpdateProfilePicture}
-          disabled={isSaving || !selectedFile}
+          disabled={isSaving || !hasChanges}
         >
           <Show
             when={!isSaving}
