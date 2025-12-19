@@ -9,6 +9,7 @@ import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/sim
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
@@ -350,122 +351,112 @@ const ProductResult = () => {
   const isSimpleNational = company?.tax_regime === "simple_national";
 
   return (
-    <div className="flex flex-col lg:flex-row w-full flex-1 gap-2">
-      <Show when={!isLoading}>
-        <Button
-          asChild
-          className="hidden lg:flex h-full w-20"
-          disabled={isLoading || pendingPostProduct}
-        >
-          <Link href={backPath}>
-            <ChevronLeft className="!w-12 !h-12" />
-          </Link>
-        </Button>
-      </Show>
-      <Show
-        when={!isLoading}
-        fallback={
-          <Card className="flex-1 w-full p-6 rounded-md">
-            <LoadingResultState onComplete={() => setIsLoading(false)} />
-          </Card>
-        }
-      >
-        <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
-          <Column className="space-y-4 w-full flex-1">
-            <h3 className="text-lg">
-              Pré-Reforma Tributária <strong>2025</strong>
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-              {metrics2025.slice(0, 5).map((metric, index) => (
-                <MetricCard
-                  key={`metric-2025-${index}`}
-                  title={metric.title}
-                  value={metric.value}
-                  variant={metric.variant}
-                />
-              ))}
-              <Show
-                when={
-                  companyRegime === "presumed_profit" ||
-                  companyRegime === "real_profit"
-                }
-              >
-                <MetricCard
-                  title="IRPJ + CSLL"
-                  value={
-                    companyRegime === "presumed_profit"
-                      ? presumedProfitIrpjCsll
-                      : realProfitIrpjCsll
-                  }
-                  variant="neutral"
-                />
-              </Show>
-              <Show when={isSimpleNational}>
-                <MetricCard title="DAS" value={das} variant="neutral" />
-              </Show>
-              <div className="col-span-1 md:!col-span-2">
-                <MetricCard
-                  title="Lucro líquido"
-                  value={netProfit}
-                  variant="success"
-                />
-              </div>
-              <div className="col-span-1 md:col-span-2">
-                <MetricCard
-                  title="Preço de venda final"
-                  value={finalSalePrice}
-                  variant="secondary"
-                />
-              </div>
-            </div>
-          </Column>
+    <Show
+      when={!isLoading}
+      fallback={
+        <Card className="flex-1 w-full p-6 rounded-md">
+          <LoadingResultState onComplete={() => setIsLoading(false)} />
         </Card>
-        <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
-          <Column className="space-y-4 flex-1">
-            <Row className="gap-1 items-center">
+      }
+    >
+      <Column className="h-full gap-4">
+        <Flex className="flex-col lg:flex-row w-full flex-1 gap-2">
+          <Button
+            asChild
+            className="hidden lg:flex h-full w-20"
+            disabled={isLoading || pendingPostProduct}
+          >
+            <Link href={backPath}>
+              <ChevronLeft className="w-12! h-12!" />
+            </Link>
+          </Button>
+          <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
+            <Column className="space-y-4 w-full flex-1">
               <h3 className="text-lg">
-                Transição Reforma Tributária <strong>2026</strong>
+                Pré-Reforma Tributária <strong>2025</strong>
               </h3>
-              <CustomTooltip
-                icon={<CircleAlert className="!w-4 !h-4" />}
-                message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
-              />
-            </Row>
-            <Column className="gap-4">
-              <MetricCard
-                title="Base de cálculo IBS/CBS"
-                value={firstBase}
-                variant="neutral"
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4">
-                {metrics2026.map((metric, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
+                {metrics2025.slice(0, 5).map((metric, index) => (
                   <MetricCard
-                    key={`metric-2026-${index}`}
+                    key={`metric-2025-${index}`}
                     title={metric.title}
                     value={metric.value}
                     variant={metric.variant}
                   />
                 ))}
+                <Show
+                  when={
+                    companyRegime === "presumed_profit" ||
+                    companyRegime === "real_profit"
+                  }
+                >
+                  <MetricCard
+                    title="IRPJ + CSLL"
+                    value={
+                      companyRegime === "presumed_profit"
+                        ? presumedProfitIrpjCsll
+                        : realProfitIrpjCsll
+                    }
+                    variant="neutral"
+                  />
+                </Show>
+                <Show when={isSimpleNational}>
+                  <MetricCard title="DAS" value={das} variant="neutral" />
+                </Show>
+                <div className="col-span-1 md:col-span-2!">
+                  <MetricCard
+                    title="Lucro líquido"
+                    value={netProfit}
+                    variant="success"
+                  />
+                </div>
+                <div className="col-span-1 md:col-span-2">
+                  <MetricCard
+                    title="Preço de venda final"
+                    value={finalSalePrice}
+                    variant="secondary"
+                  />
+                </div>
               </div>
             </Column>
-            <MetricCard
-              title="Preço de venda final"
-              value={finalSalePrice}
-              variant="secondary"
-            />
-          </Column>
-          <Button
-            className="hidden lg:flex md:w-40 h-12 self-end mt-4"
-            onClick={handleFinishForm}
-            disabled={pending}
-          >
-            <Show when={pending} fallback={<Check />}>
-              <Loader2Icon className="animate-spin" />
-            </Show>
-            Finalizar
-          </Button>
-        </Card>
-        <Row className="max-lg:mt-2 lg:hidden gap-2 md:w-fit md:self-end">
+          </Card>
+          <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
+            <Column className="space-y-4 flex-1">
+              <Row className="gap-1 items-center">
+                <h3 className="text-lg">
+                  Transição Reforma Tributária <strong>2026</strong>
+                </h3>
+                <CustomTooltip
+                  icon={<CircleAlert className="w-4! h-4!" />}
+                  message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
+                />
+              </Row>
+              <Column className="gap-4">
+                <MetricCard
+                  title="Base de cálculo IBS/CBS"
+                  value={firstBase}
+                  variant="neutral"
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-rows-3 gap-4">
+                  {metrics2026.map((metric, index) => (
+                    <MetricCard
+                      key={`metric-2026-${index}`}
+                      title={metric.title}
+                      value={metric.value}
+                      variant={metric.variant}
+                    />
+                  ))}
+                </div>
+              </Column>
+              <MetricCard
+                title="Preço de venda final"
+                value={finalSalePrice}
+                variant="secondary"
+              />
+            </Column>
+          </Card>
+        </Flex>
+        <Row className="max-lg:mt-2 gap-2 md:w-fit md:self-end">
           <Button
             asChild
             className="lg:hidden h-full"
@@ -473,7 +464,7 @@ const ProductResult = () => {
             disabled={isLoading || pendingPostProduct}
           >
             <Link href={backPath}>
-              <ChevronLeft className="!w-6 !h-6" />
+              <ChevronLeft className="w-6! h-6!" />
             </Link>
           </Button>
           <Button
@@ -487,8 +478,8 @@ const ProductResult = () => {
             Finalizar
           </Button>
         </Row>
-      </Show>
-    </div>
+      </Column>
+    </Show>
   );
 };
 
