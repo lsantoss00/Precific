@@ -6,6 +6,7 @@ import Show from "@/src/components/core/show";
 import { User, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
 type UserUploadProps = {
   initialPreview?: string | null;
@@ -65,20 +66,25 @@ const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
         type="file"
         accept="image/*"
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer pointer-events-none"
-        onChange={(e) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           const fileList = e.target.files || [];
           if (fileList.length > 0) {
             const file = fileList[0];
 
-            if (file && onChange) {
+            if (file) {
               if (file.size > 5 * 1024 * 1024) {
                 e.target.value = "";
+                toast.error("Arquivo muito grande. O tamanho máximo é 5MB.", {
+                  className: "!bg-red-600 !text-white",
+                });
                 return;
               }
 
-              const objectUrl = URL.createObjectURL(file);
-              setPreview(objectUrl);
-              onChange(file);
+              if (onChange) {
+                const objectUrl = URL.createObjectURL(file);
+                setPreview(objectUrl);
+                onChange(file);
+              }
             }
           }
           e.target.value = "";
