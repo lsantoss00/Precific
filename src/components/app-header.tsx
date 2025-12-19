@@ -3,6 +3,7 @@
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon, LogOut, Menu as MenuIcon, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logout } from "../app/(public)/entrar/services/logout";
@@ -44,10 +45,26 @@ export function AppHeader() {
             className="cursor-pointer hover:bg-gray-100 p-2 rounded-md transition-colors shrink-0"
           >
             <button aria-label="Menu do usuário" type="button">
-              <User
-                className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
-                aria-hidden="true"
-              />
+              <Show
+                when={profile?.profile_picture_url}
+                fallback={
+                  <User
+                    className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
+                    aria-hidden="true"
+                  />
+                }
+              >
+                <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
+                  <Image
+                    src={profile?.profile_picture_url || null}
+                    alt="Foto de perfil"
+                    fill
+                    sizes="32px"
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
+              </Show>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 p-1" align="end">
