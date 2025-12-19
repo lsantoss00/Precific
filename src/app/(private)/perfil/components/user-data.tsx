@@ -1,5 +1,6 @@
 "use client";
 
+import UserImageUpload from "@/src/app/(private)/perfil/components/user-image-upload";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { useAuth } from "@/src/providers/auth-provider";
@@ -11,13 +12,9 @@ const UserData = () => {
     <Card className="w-full p-6 rounded-md flex space-y-6">
       <h3>Dados do Usuário</h3>
       <div className="space-y-4">
-        {/* <Column className="space-y-2">
-          <Row className="gap-2 items-center w-full">
-            <Label htmlFor="profilePicture">Foto de Perfil</Label>
-            <ComingSoonBadge />
-          </Row>
+        <Column className="space-y-2">
+          <Label htmlFor="profile_picture">Foto de Perfil</Label>
           <UserImageUpload
-            disabled
             onChange={(file, preview) => {
               // form.setValue("avatarFile", file);
               // form.setValue("avatar", preview);
@@ -26,7 +23,7 @@ const UserData = () => {
             // initialPreview={values.avatar}
             // file={values.avatarFile}
           />
-        </Column> */}
+        </Column>
 
         <div className="space-y-4 flex flex-col justify-between">
           <Column className="space-y-2">

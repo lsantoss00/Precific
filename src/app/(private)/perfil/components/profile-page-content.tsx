@@ -2,7 +2,7 @@
 
 import CompanyData from "@/src/app/(private)/perfil/components/company-data";
 import UserData from "@/src/app/(private)/perfil/components/user-data";
-import { Container } from "@/src/components/core";
+import { Button, Container } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Show from "@/src/components/core/show";
 import { useAuth } from "@/src/providers/auth-provider";
@@ -14,7 +14,7 @@ const ProfilePageContent = () => {
   return (
     <Container
       variant="page"
-      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-3"
+      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-4 flex flex-col"
     >
       <Show
         when={!isLoadingAuth}
@@ -33,6 +33,16 @@ const ProfilePageContent = () => {
           <UserData />
           <CompanyData />
         </Flex>
+        <Button
+          className="w-full md:w-40 h-12 self-end"
+          // onClick={handleFinishForm}
+          // disabled={pending}
+        >
+          {/* <Show when={pending} fallback={<Check />}> */}
+          {/* <Loader2Icon className="animate-spin" /> */}
+          {/* </Show> */}
+          Salvar
+        </Button>
       </Show>
     </Container>
   );
