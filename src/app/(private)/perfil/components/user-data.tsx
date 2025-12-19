@@ -5,7 +5,11 @@ import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import { useAuth } from "@/src/providers/auth-provider";
 
-const UserData = () => {
+interface UserDataProps {
+  onImageChange?: (file: File | null) => void;
+}
+
+const UserData = ({ onImageChange }: UserDataProps) => {
   const { profile } = useAuth();
 
   return (
@@ -15,13 +19,8 @@ const UserData = () => {
         <Column className="space-y-2">
           <Label htmlFor="profile_picture">Foto de Perfil</Label>
           <UserImageUpload
-            onChange={(file, preview) => {
-              // form.setValue("avatarFile", file);
-              // form.setValue("avatar", preview);
-              // form.setValue("hasClearUrlImage", preview === "");
-            }}
-            // initialPreview={values.avatar}
-            // file={values.avatarFile}
+            onChange={onImageChange}
+            initialPreview={profile?.profile_picture_url || null}
           />
         </Column>
 

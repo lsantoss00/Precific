@@ -25,5 +25,20 @@ export async function getUserProfile({
 
   if (error) throw error;
 
+  if (data?.profile_picture_url) {
+    const isSignedUrl = data.profile_picture_url.includes("?token=");
+
+    if (!isSignedUrl) {
+      const { data: signedUrlData, error: signedUrlError } =
+        await supabase.storage
+          .from("profile-pictures")
+          .createSignedUrl(data.profile_picture_url, 3600);
+
+      if (signedUrlData && !signedUrlError) {
+        data.profile_picture_url = signedUrlData.signedUrl;
+      }
+    }
+  }
+
   return data;
 }

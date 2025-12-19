@@ -9,29 +9,21 @@ import { useEffect, useRef, useState } from "react";
 
 type UserUploadProps = {
   initialPreview?: string | null;
-  file?: File | null;
-  onChange?: (file: File | null, preview: string | null) => void;
+  onChange?: (file: File | null) => void;
 };
 
-const UserImageUpload = ({
-  file,
-  initialPreview,
-  onChange,
-}: UserUploadProps) => {
+const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
   const [preview, setPreview] = useState<string | null>(initialPreview || null);
-  const [_, setIsHovering] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setPreview(initialPreview || null);
-  }, [initialPreview, file]);
+  }, [initialPreview]);
 
   return (
     <Card
       className="p-4.5 w-full shadow-2xs transition-colors duration-200 border-neutral-100 flex flex-col md:flex-row md:items-center rounded-sm relative cursor-pointer hover:bg-gray-100 gap-4"
       onClick={() => ref.current?.click()}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
     >
       <div className="min-h-24 w-24 rounded-md flex border-2 border-primary relative overflow-hidden shrink-0">
         <Show
@@ -44,13 +36,14 @@ const UserImageUpload = ({
             fill
             sizes="96px"
             className="object-cover"
+            unoptimized={preview?.startsWith("blob:") ? false : true}
           />
         </Show>
       </div>
       <Column>
         <p className="text-base font-medium">Selecionar foto</p>
         <span className="text-sm text-neutral-500 mt-1 font-normal">
-          Selecione um arquivo com até 100mb.
+          Selecione um arquivo com até 50mb.
         </span>
       </Column>
       <Show when={preview}>
@@ -60,7 +53,7 @@ const UserImageUpload = ({
           onClick={(e) => {
             e.stopPropagation();
             setPreview(null);
-            if (onChange) onChange(null, "");
+            if (onChange) onChange(null);
           }}
           aria-label="Remover imagem"
         >
@@ -78,13 +71,17 @@ const UserImageUpload = ({
             const file = fileList[0];
 
             if (file && onChange) {
-              if (file.size > 100 * 1024 * 1024) return;
+              if (file.size > 100 * 1024 * 1024) {
+                e.target.value = "";
+                return;
+              }
 
               const objectUrl = URL.createObjectURL(file);
               setPreview(objectUrl);
-              onChange(file, objectUrl);
+              onChange(file);
             }
           }
+          e.target.value = "";
         }}
       />
     </Card>

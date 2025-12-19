@@ -6,6 +6,7 @@ import Row from "@/src/components/core/row";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon, LogOut, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logout } from "../app/(public)/entrar/services/logout";
@@ -44,7 +45,23 @@ const Menu = () => {
         }  p-2 h-12 rounded-md`}
       >
         <Row className="w-full items-center gap-2">
-          <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
+          <Show
+            when={profile?.profile_picture_url}
+            fallback={
+              <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
+            }
+          >
+            <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
+              <Image
+                src={profile?.profile_picture_url || null}
+                alt="Foto de perfil"
+                fill
+                sizes="32px"
+                className="object-cover"
+                unoptimized
+              />
+            </div>
+          </Show>
           <Show when={!isCollapsed}>
             <Column className="min-w-0 flex-1">
               <Show
