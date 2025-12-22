@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logout } from "../app/(public)/entrar/services/logout";
-import { SidebarTrigger } from "./core";
+import { SidebarTrigger, Skeleton } from "./core";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import Row from "./core/row";
 import Show from "./core/show";
 
 export function AppHeader() {
-  const { profile } = useAuth();
+  const { profile, isLoadingAuth } = useAuth();
   const router = useRouter();
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
@@ -46,24 +46,29 @@ export function AppHeader() {
           >
             <button aria-label="Menu do usuário" type="button">
               <Show
-                when={profile?.profile_picture_url}
-                fallback={
-                  <User
-                    className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
-                    aria-hidden="true"
-                  />
-                }
+                when={!isLoadingAuth}
+                fallback={<Skeleton className="w-8 h-8 rounded-md" />}
               >
-                <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
-                  <Image
-                    src={profile?.profile_picture_url || null}
-                    alt="Foto de perfil"
-                    fill
-                    sizes="32px"
-                    className="object-cover"
-                    unoptimized
-                  />
-                </div>
+                <Show
+                  when={profile?.profile_picture_url}
+                  fallback={
+                    <User
+                      className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
+                      aria-hidden="true"
+                    />
+                  }
+                >
+                  <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
+                    <Image
+                      src={profile?.profile_picture_url || null}
+                      alt="Foto de perfil"
+                      fill
+                      sizes="32px"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                </Show>
               </Show>
             </button>
           </DropdownMenuTrigger>
