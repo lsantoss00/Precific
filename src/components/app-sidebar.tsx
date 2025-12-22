@@ -3,7 +3,7 @@
 import logoImage from "@/public/images/precific-logo-image.webp";
 import shortLogoImage from "@/public/images/precific-short-logo-image.webp";
 import Menu from "@/src/components/menu";
-import { Inbox, Info, LayoutDashboard, Settings } from "lucide-react";
+import { Headset, LayoutDashboard, Package } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -139,7 +139,10 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="items-center mb-2 space-y-4">
         <Menu />
-        <span className="text-gray-500 text-xs font-medium" aria-label="Versão do aplicativo">
+        <span
+          className="text-gray-500 text-xs font-medium"
+          aria-label="Versão do aplicativo"
+        >
           v0.1.0
         </span>
       </SidebarFooter>
@@ -157,22 +160,16 @@ const mainItems = [
   {
     title: "Produtos",
     url: "/produtos",
-    icon: Inbox,
+    icon: Package,
     disabled: false,
   },
 ];
 
 const secondaryItems = [
   {
-    title: "Configurações",
-    url: "/configuracoes",
-    icon: Settings,
-    disabled: false,
-  },
-  {
     title: "Suporte",
     url: "/suporte",
-    icon: Info,
+    icon: Headset,
     disabled: false,
   },
 ];
