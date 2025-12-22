@@ -16,7 +16,9 @@ const InfoCard = ({ title, value, icon, pending }: InfoCardProps) => {
         <Show when={!pending} fallback={<Skeleton className="h-8 w-20 mb-1" />}>
           <p className="text-3xl font-semibold">{value}</p>
         </Show>
-        <span className="text-sm max-w-[100px] 2xl:max-w-none">{title}</span>
+        <span className="text-sm max-w-[100px] 2xl:max-w-none text-muted-foreground">
+          {title}
+        </span>
       </Column>
       {icon}
     </Card>

@@ -22,7 +22,7 @@ const ProductInfoCards = () => {
       ),
       value: summary?.registered_products || 0,
       icon: (
-        <Package className="w-16 h-16 p-4 text-[#66219B] bg-[#66218B]/20 rounded-full" />
+        <Package className="w-14 h-14 p-4 text-[#66219B] bg-[#66218B]/20 rounded-md" />
       ),
     },
     {
@@ -34,7 +34,7 @@ const ProductInfoCards = () => {
       ),
       value: summary?.precified_products || 0,
       icon: (
-        <Tag className="w-16 h-16 p-4 text-secondary bg-secondary/20 rounded-full" />
+        <Tag className="w-14 h-14 p-4 text-secondary bg-secondary/20 rounded-md" />
       ),
     },
     {
@@ -46,7 +46,7 @@ const ProductInfoCards = () => {
       ),
       value: summary?.active_products || 0,
       icon: (
-        <CheckCircle className="w-16 h-16 p-4 text-green-600 bg-green-100 rounded-full" />
+        <CheckCircle className="w-14 h-14 p-4 text-green-600 bg-green-100 rounded-md" />
       ),
     },
     {
@@ -58,7 +58,7 @@ const ProductInfoCards = () => {
       ),
       value: summary?.inactive_products || 0,
       icon: (
-        <XCircle className="w-16 h-16 p-4 text-red-600 bg-red-100 rounded-full" />
+        <XCircle className="w-14 h-14 p-4 text-red-600 bg-red-100 rounded-md" />
       ),
     },
   ];
