@@ -19,10 +19,9 @@ interface RadialChartProps {
   innerRadius?: number;
   outerRadius?: number;
   barBackground?: boolean;
-  className?: string;
 }
 
-export function RadialChart({
+const RadialChart = ({
   data,
   config,
   dataKey = "dataKey",
@@ -30,13 +29,9 @@ export function RadialChart({
   innerRadius = 30,
   outerRadius = 110,
   barBackground = true,
-  className,
-}: RadialChartProps) {
+}: RadialChartProps) => {
   return (
-    <ChartContainer
-      config={config}
-      className={"mx-auto aspect-square max-h-[250px] " + (className || "")}
-    >
+    <ChartContainer config={config}>
       <RERadialBarChart
         data={data}
         innerRadius={innerRadius}
@@ -50,4 +45,6 @@ export function RadialChart({
       </RERadialBarChart>
     </ChartContainer>
   );
-}
+};
+
+export default RadialChart;

@@ -22,7 +22,7 @@ interface StackedBarChartProps {
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
 }
 
-export function StackedBarChart({
+const StackedBarChart = ({
   data,
   config,
   xAxisKey,
@@ -30,7 +30,7 @@ export function StackedBarChart({
   stackId,
   barRadius = 4,
   margin,
-}: StackedBarChartProps) {
+}: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   return (
     <ChartContainer config={config}>
@@ -72,4 +72,6 @@ export function StackedBarChart({
       </REBarChart>
     </ChartContainer>
   );
-}
+};
+
+export default StackedBarChart;

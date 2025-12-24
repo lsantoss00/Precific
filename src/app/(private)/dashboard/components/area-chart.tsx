@@ -37,7 +37,7 @@ const AreaChart = ({
   const usedGradients = gradients || defaultGradients;
 
   return (
-    <ChartContainer config={config} className="w-full h-full">
+    <ChartContainer config={config}>
       <REAreaChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />
         <XAxis

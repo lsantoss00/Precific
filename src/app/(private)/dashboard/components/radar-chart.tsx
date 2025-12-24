@@ -22,21 +22,18 @@ interface RadarChartProps {
   strokeWidth?: number;
 }
 
-export function RadarChart({
+const RadarChart = ({
   data,
   config,
   angleAxisKey,
   radarKeys,
   strokeWidth = 2,
-}: RadarChartProps) {
+}: RadarChartProps) => {
   const keys =
     radarKeys && radarKeys.length > 0 ? radarKeys : Object.keys(config);
 
   return (
-    <ChartContainer
-      config={config}
-      className="mx-auto aspect-square max-h-[250px]"
-    >
+    <ChartContainer config={config}>
       <RERadarChart data={data}>
         <ChartTooltip
           cursor={false}
@@ -57,4 +54,6 @@ export function RadarChart({
       </RERadarChart>
     </ChartContainer>
   );
-}
+};
+
+export default RadarChart;

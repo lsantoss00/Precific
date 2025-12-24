@@ -33,7 +33,7 @@ interface BarChartProps {
   barRadius?: number;
 }
 
-export function BarChart({
+const BarChart = ({
   data,
   config,
   xAxisKey,
@@ -43,7 +43,7 @@ export function BarChart({
   layout = "vertical",
   margin,
   barRadius = 8,
-}: BarChartProps) {
+}: BarChartProps) => {
   const keys =
     barKeys && barKeys.length > 0
       ? barKeys
@@ -101,4 +101,6 @@ export function BarChart({
       </ReBarChart>
     </ChartContainer>
   );
-}
+};
+
+export default BarChart;

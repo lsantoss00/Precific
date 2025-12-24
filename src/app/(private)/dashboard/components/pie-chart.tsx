@@ -21,7 +21,7 @@ interface PieChartProps {
   strokeWidth?: number;
 }
 
-export function PieChart({
+const PieChart = ({
   data,
   config,
   centralText,
@@ -30,12 +30,9 @@ export function PieChart({
   nameKey,
   innerRadius,
   strokeWidth,
-}: PieChartProps) {
+}: PieChartProps) => {
   return (
-    <ChartContainer
-      config={config}
-      className="mx-auto aspect-square max-h-[250px]"
-    >
+    <ChartContainer config={config}>
       <REPieChart>
         <ChartTooltip
           cursor={false}
@@ -83,4 +80,6 @@ export function PieChart({
       </REPieChart>
     </ChartContainer>
   );
-}
+};
+
+export default PieChart;

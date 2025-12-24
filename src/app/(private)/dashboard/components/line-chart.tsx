@@ -45,7 +45,7 @@ interface LineChartProps {
   };
 }
 
-export function LineChart({
+const LineChart = ({
   data,
   config,
   xAxisKey,
@@ -56,7 +56,7 @@ export function LineChart({
     left: 12,
     right: 12,
   },
-}: LineChartProps) {
+}: LineChartProps) => {
   const lineKeys = Object.keys(config).filter(
     (key) => key !== xAxisKey && config[key]?.label
   );
@@ -98,4 +98,5 @@ export function LineChart({
       </RechartsLineChart>
     </ChartContainer>
   );
-}
+};
+export default LineChart;
