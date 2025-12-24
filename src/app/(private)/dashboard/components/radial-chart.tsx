@@ -25,8 +25,8 @@ interface RadialChartProps {
 export function RadialChart({
   data,
   config,
-  dataKey = "visitors",
-  nameKey = "browser",
+  dataKey = "dataKey",
+  nameKey,
   innerRadius = 30,
   outerRadius = 110,
   barBackground = true,

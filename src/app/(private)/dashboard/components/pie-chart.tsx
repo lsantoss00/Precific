@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import { Label, Pie, PieChart as REPieChart } from "recharts";
 
 interface PieChartProps {
@@ -47,7 +48,7 @@ export function PieChart({
           innerRadius={innerRadius}
           strokeWidth={strokeWidth}
         >
-          {centralText && (
+          <Show when={centralText}>
             <Label
               content={({ viewBox }) => {
                 if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -77,7 +78,7 @@ export function PieChart({
                 }
               }}
             />
-          )}
+          </Show>
         </Pie>
       </REPieChart>
     </ChartContainer>

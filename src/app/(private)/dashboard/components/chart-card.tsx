@@ -4,9 +4,11 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/src/components/core/card";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import { ReactNode } from "react";
 
 interface ChartCardProps {
@@ -16,23 +18,30 @@ interface ChartCardProps {
   className?: string;
   headerClassName?: string;
   contentClassName?: string;
+  footerContent?: ReactNode;
+  footerClassName?: string;
 }
 
 export function ChartCard({
   title,
   description,
   children,
+  footerContent,
   className = "",
   headerClassName = "",
   contentClassName = "",
+  footerClassName = "",
 }: ChartCardProps) {
   return (
-    <Card className={"rounded-md shadow-sm " + className}>
+    <Card className={cn("rounded-md shadow-sm", className)}>
       <CardHeader className={headerClassName}>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent className={contentClassName}>{children}</CardContent>
+      <CardFooter className={footerClassName}>
+        {footerContent && <div>{footerContent}</div>}
+      </CardFooter>
     </Card>
   );
 }

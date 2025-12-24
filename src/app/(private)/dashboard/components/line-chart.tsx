@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import {
   CartesianGrid,
   Line,
@@ -20,10 +21,19 @@ interface LineChartProps {
   xAxisKey?: string;
   xAxisTickFormatterType?: "short" | "full";
   lineType?:
-    | "natural"
-    | "monotone"
-    | "linear"
     | "step"
+    | "basis"
+    | "basisClosed"
+    | "basisOpen"
+    | "bumpX"
+    | "bumpY"
+    | "bump"
+    | "linear"
+    | "linearClosed"
+    | "natural"
+    | "monotoneX"
+    | "monotoneY"
+    | "monotone"
     | "stepBefore"
     | "stepAfter";
   strokeWidth?: number;
@@ -40,7 +50,7 @@ export function LineChart({
   config,
   xAxisKey,
   xAxisTickFormatterType,
-  lineType = "natural",
+  lineType,
   strokeWidth = 2,
   margin = {
     left: 12,
@@ -62,7 +72,7 @@ export function LineChart({
     <ChartContainer config={config}>
       <RechartsLineChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />
-        {xAxisKey && (
+        <Show when={xAxisKey}>
           <XAxis
             dataKey={xAxisKey}
             tickLine={false}
@@ -70,7 +80,7 @@ export function LineChart({
             tickMargin={8}
             tickFormatter={formatTick}
           />
-        )}
+        </Show>
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent hideLabel={lineKeys.length === 1} />}

@@ -19,18 +19,16 @@ interface StackedBarChartProps {
   barKeys?: string[];
   stackId?: string;
   barRadius?: number | [number, number, number, number];
-  legend?: boolean;
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
 }
 
 export function StackedBarChart({
   data,
   config,
-  xAxisKey = "month",
+  xAxisKey,
   barKeys,
-  stackId = "a",
+  stackId,
   barRadius = 4,
-  legend = true,
   margin,
 }: StackedBarChartProps) {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
@@ -46,9 +44,16 @@ export function StackedBarChart({
           tickFormatter={(value) => value.slice(0, 3)}
         />
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-        {legend && (
-          <ChartLegend content={<ChartLegendContent payload={[]} />} />
-        )}
+        <ChartLegend
+          content={
+            <ChartLegendContent
+              payload={keys.map((key) => ({
+                value: config[key]?.label || key,
+                color: config[key]?.color || "var(--color-desktop)",
+              }))}
+            />
+          }
+        />
         {keys.map((key, idx) => (
           <Bar
             key={key}

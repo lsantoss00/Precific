@@ -25,7 +25,7 @@ interface RadarChartProps {
 export function RadarChart({
   data,
   config,
-  angleAxisKey = "angleAxisKey",
+  angleAxisKey,
   radarKeys,
   strokeWidth = 2,
 }: RadarChartProps) {

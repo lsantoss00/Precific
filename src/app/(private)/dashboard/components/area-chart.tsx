@@ -16,18 +16,15 @@ interface AreaChartProps {
   areaKeys?: string[];
   gradients?: Record<string, { from: string; to: string }>;
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
-  height?: number | string;
-  footerContent?: React.ReactNode;
 }
 
 const AreaChart = ({
   data,
   config,
-  xAxisKey = "axisKey",
+  xAxisKey,
   areaKeys,
   gradients,
   margin = { left: 12, right: 12 },
-  height = 300,
 }: AreaChartProps) => {
   const keys = areaKeys && areaKeys.length > 0 ? areaKeys : Object.keys(config);
   const defaultGradients = keys.reduce((acc, key) => {
@@ -40,7 +37,7 @@ const AreaChart = ({
   const usedGradients = gradients || defaultGradients;
 
   return (
-    <ChartContainer config={config} className={`w-full`} style={{ height }}>
+    <ChartContainer config={config} className="w-full h-full">
       <REAreaChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />
         <XAxis

@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import {
   Bar,
   CartesianGrid,
@@ -35,9 +36,9 @@ interface BarChartProps {
 export function BarChart({
   data,
   config,
-  xAxisKey = "axisKey",
-  yAxisKey = "axisKey",
-  barKey = "barKey",
+  xAxisKey,
+  yAxisKey,
+  barKey,
   barKeys,
   layout = "vertical",
   margin,
@@ -55,10 +56,24 @@ export function BarChart({
       <ReBarChart
         accessibilityLayer
         data={data}
-        layout={layout === "horizontal" ? "vertical" : "horizontal"}
+        layout={layout === "horizontal" ? "horizontal" : "vertical"}
         margin={margin}
       >
-        {layout === "horizontal" ? (
+        <Show
+          when={layout === "horizontal"}
+          fallback={
+            <>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey={xAxisKey}
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value: string) => value.slice(0, 3)}
+              />
+            </>
+          }
+        >
           <>
             <XAxis type="number" dataKey={barKey} hide />
             <YAxis
@@ -70,18 +85,7 @@ export function BarChart({
               tickFormatter={(value: string) => value.slice(0, 3)}
             />
           </>
-        ) : (
-          <>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey={xAxisKey}
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value: string) => value.slice(0, 3)}
-            />
-          </>
-        )}
+        </Show>
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent hideLabel />}
