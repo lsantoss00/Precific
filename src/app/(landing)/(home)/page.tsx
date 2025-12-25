@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://precificapp.com",
+    canonical: "/",
   },
   robots: {
     index: true,

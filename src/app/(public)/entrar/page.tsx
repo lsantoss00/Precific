@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://precificapp.com/entrar",
+    canonical: "/entrar",
   },
   robots: {
     index: true,

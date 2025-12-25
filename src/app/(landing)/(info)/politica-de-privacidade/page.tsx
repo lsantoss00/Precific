@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://precificapp.com/politica-de-privacidade",
+    canonical: "/politica-de-privacidade",
   },
   robots: {
     index: true,

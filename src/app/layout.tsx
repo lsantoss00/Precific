@@ -91,9 +91,6 @@ export const metadata: Metadata = {
       "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
     images: ["/opengraph-image.webp"],
   },
-  alternates: {
-    canonical: "https://precificapp.com",
-  },
 };
 
 export default function RootLayout({
