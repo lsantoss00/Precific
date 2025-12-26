@@ -5,19 +5,19 @@ import { Button } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import { Play } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 
-type Props = {
+type YouTubeEmbedProps = {
   videoId: string;
   title?: string;
   className?: string;
 };
 
-const YouTubeEmbed: React.FC<Props> = ({
+const YouTubeEmbed = ({
   videoId,
   title = "Vídeo",
   className = "",
-}) => {
+}: YouTubeEmbedProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const embedBase = `https://www.youtube.com/embed/${videoId}`;

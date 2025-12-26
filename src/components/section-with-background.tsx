@@ -1,18 +1,18 @@
 import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import { cn } from "@/src/libs/shadcn-ui/utils";
-import { ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
 
-type SectionWithBackgroundProps = React.ComponentProps<"div"> & {
+type SectionWithBackgroundProps = ComponentProps<"div"> & {
   as?: React.ElementType;
   children: ReactNode;
 };
 
-export default function SectionWithBackground({
+const SectionWithBackground = ({
   children,
   className,
   as: Component = "section",
   ...props
-}: SectionWithBackgroundProps) {
+}: SectionWithBackgroundProps) => {
   return (
     <Component
       className={cn("relative bg-primary flex flex-col", className)}
@@ -31,4 +31,6 @@ export default function SectionWithBackground({
       {children}
     </Component>
   );
-}
+};
+
+export default SectionWithBackground;
