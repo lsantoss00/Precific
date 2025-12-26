@@ -33,7 +33,10 @@ const StackedBarChart = ({
 }: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   return (
-    <ChartContainer config={config}>
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <REBarChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />
         <XAxis

@@ -1,6 +1,10 @@
 "use client";
 
-import { RadialBar, RadialBarChart as RERadialBarChart } from "recharts";
+import {
+  LabelList,
+  RadialBar,
+  RadialBarChart as RERadialBarChart,
+} from "recharts";
 
 import {
   ChartContainer,
@@ -31,7 +35,10 @@ const RadialChart = ({
   barBackground = true,
 }: RadialChartProps) => {
   return (
-    <ChartContainer config={config}>
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <RERadialBarChart
         data={data}
         innerRadius={innerRadius}
@@ -41,7 +48,14 @@ const RadialChart = ({
           cursor={false}
           content={<ChartTooltipContent hideLabel nameKey={nameKey} />}
         />
-        <RadialBar dataKey={dataKey} background={barBackground} />
+        <RadialBar dataKey={dataKey} background={barBackground}>
+          <LabelList
+            position="insideStart"
+            dataKey={nameKey || dataKey}
+            className="fill-white capitalize mix-blend-luminosity"
+            fontSize={11}
+          />
+        </RadialBar>
       </RERadialBarChart>
     </ChartContainer>
   );

@@ -69,7 +69,10 @@ const LineChart = ({
   };
 
   return (
-    <ChartContainer config={config}>
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <RechartsLineChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />
         <Show when={xAxisKey}>

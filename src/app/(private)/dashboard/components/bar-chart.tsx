@@ -53,7 +53,10 @@ const BarChart = ({
   const isHorizontal = layout === "horizontal";
 
   return (
-    <ChartContainer config={config} className="min-h-[200px] w-full">
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <ReBarChart
         accessibilityLayer
         data={data}

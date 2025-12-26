@@ -33,7 +33,10 @@ const RadarChart = ({
     radarKeys && radarKeys.length > 0 ? radarKeys : Object.keys(config);
 
   return (
-    <ChartContainer config={config}>
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <RERadarChart data={data}>
         <ChartTooltip
           cursor={false}

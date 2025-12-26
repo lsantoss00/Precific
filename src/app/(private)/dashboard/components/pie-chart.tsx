@@ -32,7 +32,10 @@ const PieChart = ({
   strokeWidth,
 }: PieChartProps) => {
   return (
-    <ChartContainer config={config}>
+    <ChartContainer
+      config={config}
+      className="mx-auto aspect-square max-h-[250px] w-full"
+    >
       <REPieChart>
         <ChartTooltip
           cursor={false}
