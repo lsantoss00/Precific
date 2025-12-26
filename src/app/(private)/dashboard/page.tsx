@@ -6,9 +6,9 @@ import {
   RadialChart,
 } from "@/src/app/(private)/dashboard/components";
 import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
-import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
-
 import { ChartCard } from "@/src/app/(private)/dashboard/components/chart-card";
+import KpiCard from "@/src/app/(private)/dashboard/components/kpi-card";
+import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import {
   areaChartConfig,
   barChartConfig,
@@ -22,13 +22,14 @@ import {
 import {
   areaChartMockData,
   barChartMockData,
+  kpiCardsMockData,
   lineChartMultipleMockData,
   lineChartSingleMockData,
   pieChartMockData,
   radarChartMockData,
   radialChartMockData,
   stackedBarChartMockData,
-} from "@/src/app/(private)/dashboard/constants/chart-mock-data";
+} from "@/src/app/(private)/dashboard/constants/dashboard-mock-data";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import { Container } from "@/src/components/core";
 import Row from "@/src/components/core/row";
@@ -51,6 +52,18 @@ export default function DashboardPage() {
         <h1 className="text-3xl text-black font-bold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        {kpiCardsMockData.map((card) => (
+          <KpiCard
+            key={card.id}
+            title={card.title}
+            value={card.value}
+            icon={card.icon}
+            pending={false}
+            percentage={card.percentage}
+          />
+        ))}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4 relative">
         <ChartCard
           title="Bar Chart - Vertical"
@@ -196,7 +209,7 @@ export default function DashboardPage() {
           />
         </ChartCard>
       </div>
-      <div className="absolute inset-0 bg-white/50 flex flex-col items-center justify-center z-10 pointer-events-auto" />
+      <div className="absolute inset-0 bg-white/40 flex flex-col items-center justify-center z-10 pointer-events-auto" />
     </Container>
   );
 }

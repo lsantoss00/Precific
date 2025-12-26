@@ -1,4 +1,41 @@
 import { ChartDataType } from "@/src/app/(private)/dashboard/types/chart-data-type";
+import {
+  DollarSign,
+  ShoppingCart,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-react";
+
+export const kpiCardsMockData = [
+  {
+    id: "revenue",
+    title: "Receita Total",
+    value: "R$ 50.000",
+    icon: <DollarSign className="w-4 h-4 text-muted-foreground" />,
+    percentage: 8.5,
+  },
+  {
+    id: "growth",
+    title: "Crescimento",
+    value: "15%",
+    icon: <TrendingUp className="w-4 h-4 text-muted-foreground" />,
+    percentage: 2.1,
+  },
+  {
+    id: "loss",
+    title: "Perdas",
+    value: "R$ 2.500",
+    icon: <TrendingDown className="w-4 h-4 text-muted-foreground" />,
+    percentage: -1.2,
+  },
+  {
+    id: "orders",
+    title: "Pedidos",
+    value: 320,
+    icon: <ShoppingCart className="w-4 h-4 text-muted-foreground" />,
+    percentage: 10,
+  },
+];
 
 export const pieChartMockData: ChartDataType[] = [
   {
