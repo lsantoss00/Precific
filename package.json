@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "start": "next start --webpack"
+    "start": "next start --webpack",
+    "clean": "rm -rf .next node_modules yarn.lock && yarn cache clean && yarn install && yarn build && yarn dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
