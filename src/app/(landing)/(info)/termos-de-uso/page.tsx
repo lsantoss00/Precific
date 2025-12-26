@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "contrato",
     "responsabilidades",
     "direitos",
-    "Precific",
+    "precific",
   ],
   openGraph: {
     type: "website",

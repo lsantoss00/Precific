@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações no Precific.",
   keywords: [
     "política de privacidade",
-    "LGPD",
+    "lgpd",
     "proteção de dados",
     "privacidade",
     "dados pessoais",
     "segurança da informação",
-    "Precific",
+    "precific",
   ],
   openGraph: {
     type: "website",
