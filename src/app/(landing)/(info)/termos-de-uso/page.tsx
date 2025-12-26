@@ -1,6 +1,6 @@
-import InfoPageHeader from "@/src/app/(landing)/components/info-page-header";
-import InfoPageLayout from "@/src/app/(landing)/components/info-page-layout";
-import InfoPageTopics from "@/src/app/(landing)/components/info-page-topics";
+import InfoPageHeader from "@/src/app/(landing)/(info)/components/info-page-header";
+import InfoPageLayout from "@/src/app/(landing)/(info)/components/info-page-layout";
+import InfoPageTopics from "@/src/app/(landing)/(info)/components/info-page-topics";
 import { Metadata } from "next";
 import { termsOfUseTopics } from "./constants/terms-of-use-topics";
 
