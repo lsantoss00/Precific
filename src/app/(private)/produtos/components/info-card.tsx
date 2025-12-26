@@ -12,7 +12,7 @@ interface InfoCardProps {
 const InfoCard = ({ title, value, icon, pending }: InfoCardProps) => {
   return (
     <Card className="p-6 flex flex-row justify-between items-center w-full h-28 rounded-md shadow-sm">
-      <Column>
+      <Column className="h-full">
         <Show when={!pending} fallback={<Skeleton className="h-8 w-20 mb-1" />}>
           <p className="text-3xl font-semibold">{value}</p>
         </Show>
