@@ -18,6 +18,7 @@ const AboutUsHeroSection = () => {
       aria-labelledby="about-hero-heading"
     >
       <Container
+        as="section"
         variant="section"
         className="py-20 md:py-24 lg:py-0 lg:h-full lg:flex lg:flex-col lg:justify-center"
       >
@@ -29,7 +30,10 @@ const AboutUsHeroSection = () => {
           >
             <Column as="header" className="gap-4 md:gap-6">
               <Column className="gap-3 max-w-lg">
-                <Sparkle className="text-secondary w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                <Sparkle
+                  className="text-secondary w-5 h-5 sm:w-6 sm:h-6"
+                  aria-hidden="true"
+                />
                 <p className="text-zinc-200 text-sm sm:text-base md:text-lg">
                   Quatro décadas de experiência transformadas em estratégia,
                   controle e decisões empresariais seguras.

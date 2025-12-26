@@ -17,10 +17,13 @@ const FAQSection = () => {
       className="w-full overflow-hidden"
       aria-labelledby="faq-heading"
     >
-      <Container variant="section" className="py-12 md:py-16 xl:py-20">
+      <Container as="section" variant="section">
         <Flex className="flex-col xl:flex-row gap-8 xl:gap-12 justify-between">
           <FadeInOnScroll direction="left" offset={20}>
-            <Column as="header" className="relative z-10 w-full 2xl:w-140 space-y-6 md:space-y-8">
+            <Column
+              as="header"
+              className="relative z-10 w-full 2xl:w-140 space-y-6 md:space-y-8"
+            >
               <Column className="space-y-4 md:space-y-5">
                 <h2
                   id="faq-heading"

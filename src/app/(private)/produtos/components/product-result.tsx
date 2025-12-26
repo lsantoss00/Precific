@@ -360,7 +360,7 @@ const ProductResult = () => {
       }
     >
       <Column className="h-full gap-4">
-        <Flex className="flex-col lg:flex-row w-full flex-1 gap-2">
+        <Flex className="flex-col lg:flex-row w-full flex-1 gap-4">
           <Button
             asChild
             className="hidden lg:flex h-full w-20"
@@ -456,7 +456,7 @@ const ProductResult = () => {
             </Column>
           </Card>
         </Flex>
-        <Row className="max-lg:mt-2 gap-2 md:w-fit md:self-end">
+        <Row className="gap-2 md:w-fit md:self-end">
           <Button
             asChild
             className="lg:hidden h-full"

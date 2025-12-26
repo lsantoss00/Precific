@@ -24,10 +24,7 @@ const ValuePropositionSection = () => {
           offset={20}
           className="w-full xl:w-1/2"
         >
-          <Container
-            variant="section"
-            className="py-12 md:py-16 xl:py-16 2xl:py-20 relative z-10 w-full"
-          >
+          <Container as="section" variant="section" className="relative">
             <Flex className="flex-col lg:flex-row xl:flex-col space-y-8 md:space-y-12 xl:space-y-12 2xl:space-y-20 w-full">
               <Column className="space-y-4 md:space-y-5">
                 <h2

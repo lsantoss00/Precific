@@ -7,7 +7,7 @@ const CompanyMissionStatementSection = () => {
     <Container
       as="section"
       variant="section"
-      className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-16 2xl:py-20 bg-white xl:min-h-72 w-full"
+      className="bg-white"
       aria-labelledby="mission-statement-heading"
     >
       <FadeInOnScroll direction="up" offset={20} className="w-full">

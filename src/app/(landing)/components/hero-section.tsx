@@ -23,7 +23,11 @@ const HeroSection = () => {
       className="w-full min-h-[calc(100vh-80px)] xl:h-[calc(100vh-80px)] overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      <Container variant="section" className="py-20 md:py-24 xl:py-0 xl:h-full">
+      <Container
+        as="section"
+        variant="section"
+        className="py-20 md:py-24 xl:py-0 xl:h-full"
+      >
         <Flex className="flex-col xl:flex-row items-center justify-between xl:h-full gap-8 md:gap-12">
           <FadeInOnScroll
             direction="left"
