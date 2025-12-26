@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white w-full">
-      <Container variant="section" className="lg:px-20 xl:px-25 py-12 md:py-16">
+      <Container variant="section">
         <Flex className="flex-col lg:flex-row justify-between gap-8 md:gap-12 lg:gap-16">
           <Column className="flex-1 space-y-4 md:space-y-6 w-full md:w-auto">
             <Row className="items-center gap-4">

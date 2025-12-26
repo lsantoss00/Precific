@@ -18,10 +18,7 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <Container
-      variant="page"
-      className="max-w-7xl xl:max-w-5xl 2xl:max-w-[1500px] space-y-4 flex flex-col"
-    >
+    <Container variant="page">
       <Suspense
         fallback={
           <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />

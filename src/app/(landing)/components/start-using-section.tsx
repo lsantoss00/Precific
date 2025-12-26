@@ -12,7 +12,7 @@ const StartUsingSection = () => {
     <Container
       as="section"
       variant="section"
-      className="pt-12 md:pt-16 xl:pt-16 2xl:pt-20 pb-12 md:pb-16 xl:pb-20 2xl:pb-24 bg-white"
+      className="bg-white"
       aria-labelledby="start-using-heading"
     >
       <Column className="items-center">

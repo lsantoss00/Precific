@@ -14,11 +14,11 @@ const CompanyMissionAndValuesSection = () => {
   return (
     <SectionWithBackground className="w-full">
       <Container
+        as="section"
         variant="section"
-        className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24 py-12 sm:py-16 md:py-20 lg:py-24"
+        className="space-y-12 lg:space-y-16"
       >
         <Column
-          as="section"
           className="space-y-8 sm:space-y-10 md:space-y-12 xl:flex-row xl:space-y-0 xl:space-x-16 2xl:space-x-24 justify-between w-full"
           aria-labelledby="values-heading"
         >

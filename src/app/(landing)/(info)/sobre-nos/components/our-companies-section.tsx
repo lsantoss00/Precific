@@ -9,10 +9,9 @@ const OurCompaniesSection = () => {
     <Container
       as="section"
       variant="section"
-      className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-16 2xl:py-20"
       aria-labelledby="companies-heading"
     >
-      <Column className="space-y-6 sm:space-y-8">
+      <Column className="gap-6">
         <FadeInOnScroll direction="up" offset={16}>
           <h2
             id="companies-heading"

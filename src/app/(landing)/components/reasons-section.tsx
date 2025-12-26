@@ -8,9 +8,9 @@ const ReasonsSection = () => {
   return (
     <Container
       as="section"
-      id="descubra"
       variant="section"
-      className="pt-12 md:pt-16 xl:pt-16 2xl:pt-20 pb-12 md:pb-16 xl:pb-20 2xl:pb-24 bg-background"
+      id="descubra"
+      className="bg-background"
       aria-labelledby="reasons-heading"
     >
       <Column className="items-center">

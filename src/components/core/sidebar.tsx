@@ -9,7 +9,7 @@ import { Input } from "@/src/components/core/input";
 import { Separator } from "@/src/components/core/separator";
 
 import { Skeleton } from "@/src/components/core/skeleton";
-import { useIsMobile } from "@/src/hooks/use-mobile";
+import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { cn } from "../../libs/shadcn-ui/utils";
 import { Button } from "./button";
 import {
@@ -67,7 +67,7 @@ function SidebarProvider({
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
-  const isMobile = useIsMobile();
+  const isLg = useMediaQuery(`(max-width: 1280px)`);
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.
@@ -91,8 +91,8 @@ function SidebarProvider({
 
   // Helper to toggle the sidebar.
   const toggleSidebar = React.useCallback(() => {
-    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
-  }, [isMobile, setOpen, setOpenMobile]);
+    return isLg ? setOpenMobile((open) => !open) : setOpen((open) => !open);
+  }, [isLg, setOpen, setOpenMobile]);
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
@@ -119,12 +119,12 @@ function SidebarProvider({
       state,
       open,
       setOpen,
-      isMobile,
+      isMobile: isLg,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [state, open, setOpen, isLg, openMobile, setOpenMobile, toggleSidebar]
   );
 
   return (
