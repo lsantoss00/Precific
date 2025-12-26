@@ -1,6 +1,6 @@
-import InfoPageHeader from "@/src/app/(landing)/components/info-page-header";
-import InfoPageLayout from "@/src/app/(landing)/components/info-page-layout";
-import InfoPageTopics from "@/src/app/(landing)/components/info-page-topics";
+import InfoPageHeader from "@/src/app/(landing)/(info)/components/info-page-header";
+import InfoPageLayout from "@/src/app/(landing)/(info)/components/info-page-layout";
+import InfoPageTopics from "@/src/app/(landing)/(info)/components/info-page-topics";
 import { Metadata } from "next";
 import { privacyPolicyTopics } from "./constants/privacy-policy-topics";
 
@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações no Precific.",
   keywords: [
     "política de privacidade",
-    "LGPD",
+    "lgpd",
     "proteção de dados",
     "privacidade",
     "dados pessoais",
     "segurança da informação",
-    "Precific",
+    "precific",
   ],
   openGraph: {
     type: "website",

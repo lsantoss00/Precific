@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     "Conheça o Precific, sistema inteligente de precificação e gestão tributária desenvolvido pelo Grupo Viriato. Nossa missão é simplificar a gestão financeira e tributária das empresas brasileiras.",
   keywords: [
     "sobre nós",
-    "Precific",
-    "Grupo Viriato",
+    "precific",
+    "grupo viriato",
     "empresa",
     "missão",
     "visão",
