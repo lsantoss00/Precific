@@ -24,7 +24,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   const [importProgress, setImportProgress] = useState<number>(0);
 
   const handleDownloadSpreadsheetExample = async () => {
-    const res = await fetch("/planilha-exemplo-precific.csv");
+    const res = await fetch("/files/planilha-exemplo-precific.csv");
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
 
