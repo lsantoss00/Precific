@@ -63,6 +63,24 @@ export const radarChartMockData: ChartDataType[] = [
   { subject: "RH", A: 65, B: 85, fullMark: 150 },
 ];
 
+export const barChartMockData: ChartDataType[] = [
+  { Mes: "Jan", Valor: 400 },
+  { Mes: "Fev", Valor: 300 },
+  { Mes: "Mar", Valor: 500 },
+  { Mes: "Abr", Valor: 200 },
+  { Mes: "Mai", Valor: 600 },
+  { Mes: "Jun", Valor: 700 },
+];
+
+export const stackedBarChartMockData: ChartDataType[] = [
+  { Mes: "Jan", ProdutoA: 200, ProdutoB: 120, ProdutoC: 80 },
+  { Mes: "Fev", ProdutoA: 180, ProdutoB: 140, ProdutoC: 100 },
+  { Mes: "Mar", ProdutoA: 220, ProdutoB: 160, ProdutoC: 120 },
+  { Mes: "Abr", ProdutoA: 160, ProdutoB: 110, ProdutoC: 90 },
+  { Mes: "Mai", ProdutoA: 250, ProdutoB: 170, ProdutoC: 130 },
+  { Mes: "Jun", ProdutoA: 210, ProdutoB: 150, ProdutoC: 110 },
+];
+
 export const radialChartMockData: ChartDataType[] = [
   { name: "Categoria A", value: 400, fill: "var(--chart-1)" },
   { name: "Categoria B", value: 300, fill: "var(--chart-2)" },

@@ -5,24 +5,30 @@ import {
   RadarChart,
   RadialChart,
 } from "@/src/app/(private)/dashboard/components";
+import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
+import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
+
 import { ChartCard } from "@/src/app/(private)/dashboard/components/chart-card";
 import {
   areaChartConfig,
+  barChartConfig,
   lineChartMultipleConfig,
   lineChartSingleConfig,
   pieChartConfig,
   radarChartConfig,
   radialChartConfig,
+  stackedBarChartConfig,
 } from "@/src/app/(private)/dashboard/constants/chart-config";
 import {
   areaChartMockData,
+  barChartMockData,
   lineChartMultipleMockData,
   lineChartSingleMockData,
   pieChartMockData,
   radarChartMockData,
   radialChartMockData,
+  stackedBarChartMockData,
 } from "@/src/app/(private)/dashboard/constants/chart-mock-data";
-
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import { Container } from "@/src/components/core";
 import Row from "@/src/components/core/row";
@@ -45,11 +51,53 @@ export default function DashboardPage() {
         <h1 className="text-3xl text-black font-bold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
-      <div className="grid grid-cols-6 gap-4">
+      <div className="grid grid-cols-6 gap-4 relative">
         <ChartCard
-          title="Pie Chart - Variant 1 (Pizza)"
-          description="Pie Chart Basic"
-          className="col-span-2"
+          title="Bar Chart - Vertical"
+          description="Gráfico de Barras Verticais"
+          className="col-span-2 gap-y-4"
+        >
+          <BarChart
+            data={barChartMockData}
+            config={barChartConfig}
+            xAxisKey="Mes"
+            barKey="Valor"
+            layout="vertical"
+            barRadius={8}
+          />
+        </ChartCard>
+        <ChartCard
+          title="Bar Chart - Horizontal"
+          description="Gráfico de Barras Horizontais"
+          className="col-span-2 gap-y-4"
+        >
+          <BarChart
+            data={barChartMockData}
+            config={barChartConfig}
+            yAxisKey="Mes"
+            barKey="Valor"
+            layout="horizontal"
+            barRadius={8}
+          />
+        </ChartCard>
+        <ChartCard
+          title="Stacked Bar Chart"
+          description="Gráfico de Barras Empilhadas"
+          className="col-span-2 gap-y-4"
+        >
+          <StackedBarChart
+            data={stackedBarChartMockData}
+            config={stackedBarChartConfig}
+            xAxisKey="Mes"
+            barKeys={Object.keys(stackedBarChartConfig)}
+            stackId="a"
+            barRadius={8}
+          />
+        </ChartCard>
+        <ChartCard
+          title="Pie Chart - Variant 1"
+          description="Gráfico de Pizza"
+          className="col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -59,9 +107,9 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
-          title="Pie Chart - Variant 2 (Donut)"
-          description="Pie Chart InnerRadius"
-          className="col-span-2"
+          title="Pie Chart - Variant 2"
+          description="Gráfico de Pizza com Raio Interno (Donut)"
+          className="col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -73,9 +121,9 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
-          title="Pie Chart - Variant 3 (Donut)"
-          description="Pie Chart InnerRadius & Central Text"
-          className="col-span-2"
+          title="Pie Chart - Variant 3"
+          description="Gráfico de Pizza com Raio Interno e Texto Central (Donut)"
+          className="col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -90,8 +138,8 @@ export default function DashboardPage() {
         </ChartCard>
         <ChartCard
           title="Area Chart"
-          description="Area Chart with gradients"
-          className="col-span-2"
+          description="Gráfico de Área"
+          className="col-span-2 gap-y-4"
         >
           <AreaChart
             data={areaChartMockData}
@@ -100,9 +148,9 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
-          title="Line Chart - Variant 1 (Single)"
-          description="Line Chart with single line"
-          className="col-span-2"
+          title="Line Chart - Variant 1"
+          description="Gráfico de Linha Simples"
+          className="col-span-2 gap-y-4"
         >
           <LineChart
             data={lineChartSingleMockData}
@@ -114,9 +162,9 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
-          title="Line Chart - Variant 2 (Multiple)"
-          description="Line Chart with multiple lines"
-          className="col-span-2"
+          title="Line Chart - Variant 2"
+          description="Gráfico de Linha Múltipla"
+          className="col-span-2 gap-y-4"
         >
           <LineChart
             data={lineChartMultipleMockData}
@@ -127,10 +175,18 @@ export default function DashboardPage() {
             margin={{ top: 20 }}
           />
         </ChartCard>
-        <ChartCard title="Radar Chart" className="col-span-3">
+        <ChartCard
+          title="Radar Chart"
+          description="Gráfico de Radar"
+          className="col-span-3"
+        >
           <RadarChart data={radarChartMockData} config={radarChartConfig} />
         </ChartCard>
-        <ChartCard title="Radial Chart" className="col-span-3">
+        <ChartCard
+          title="Radial Chart"
+          description="Gráfico Radial"
+          className="col-span-3"
+        >
           <RadialChart
             data={radialChartMockData}
             config={radialChartConfig}
@@ -139,6 +195,7 @@ export default function DashboardPage() {
           />
         </ChartCard>
       </div>
+      <div className="absolute inset-0 bg-white/50 flex flex-col items-center justify-center z-10 pointer-events-auto" />
     </Container>
   );
 }

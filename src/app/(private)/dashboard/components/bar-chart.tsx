@@ -7,7 +7,6 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
-import Show from "@/src/components/core/show";
 import {
   Bar,
   CartesianGrid,
@@ -51,33 +50,22 @@ const BarChart = ({
       ? [barKey]
       : Object.keys(config);
 
+  const isHorizontal = layout === "horizontal";
+
   return (
-    <ChartContainer config={config}>
+    <ChartContainer config={config} className="min-h-[200px] w-full">
       <ReBarChart
         accessibilityLayer
         data={data}
-        layout={layout === "horizontal" ? "horizontal" : "vertical"}
+        layout={isHorizontal ? "vertical" : "horizontal"}
         margin={margin}
       >
-        <Show
-          when={layout === "horizontal"}
-          fallback={
-            <>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey={xAxisKey}
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value: string) => value.slice(0, 3)}
-              />
-            </>
-          }
-        >
+        <CartesianGrid vertical={false} />
+        {isHorizontal ? (
           <>
-            <XAxis type="number" dataKey={barKey} hide />
+            <XAxis type="number" dataKey={barKey || keys[0]} hide />
             <YAxis
-              dataKey={yAxisKey}
+              dataKey={yAxisKey || xAxisKey}
               type="category"
               tickLine={false}
               tickMargin={10}
@@ -85,7 +73,26 @@ const BarChart = ({
               tickFormatter={(value: string) => value.slice(0, 3)}
             />
           </>
-        </Show>
+        ) : (
+          <>
+            <XAxis
+              dataKey={xAxisKey}
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value: string) => value.slice(0, 3)}
+            />
+            <YAxis
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value: number) =>
+                value?.toLocaleString?.() ?? value
+              }
+              domain={[0, "dataMax"]}
+            />
+          </>
+        )}
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent hideLabel />}

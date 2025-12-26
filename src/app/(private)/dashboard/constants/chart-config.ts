@@ -37,3 +37,14 @@ export const radialChartConfig: ChartConfig = {
   value: { label: "Valor", color: "var(--chart-1)" },
   fill: { label: "Cor" },
 };
+
+export const barChartConfig: ChartConfig = {
+  Mes: { label: "Mês" },
+  Valor: { label: "Valor", color: "var(--chart-1)" },
+};
+
+export const stackedBarChartConfig: ChartConfig = {
+  ProdutoA: { label: "Produto A", color: "var(--chart-1)" },
+  ProdutoB: { label: "Produto B", color: "var(--chart-2)" },
+  ProdutoC: { label: "Produto C", color: "var(--chart-3)" },
+};

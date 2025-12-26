@@ -61,11 +61,11 @@ const StackedBarChart = ({
             stackId={stackId}
             fill={config[key]?.color || "var(--color-desktop)"}
             radius={
-              Array.isArray(barRadius)
-                ? barRadius[idx] || 0
-                : idx === 0
-                ? [0, 0, barRadius, barRadius]
-                : [barRadius, barRadius, 0, 0]
+              idx === keys.length - 1
+                ? Array.isArray(barRadius)
+                  ? barRadius
+                  : [barRadius, barRadius, 0, 0]
+                : 0
             }
           />
         ))}
