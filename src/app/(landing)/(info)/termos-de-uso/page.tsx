@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.webp"],
   },
   alternates: {
-    canonical: "https://precificapp.com/termos-de-uso",
+    canonical: "/termos-de-uso",
   },
   robots: {
     index: true,
