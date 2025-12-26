@@ -1,4 +1,3 @@
-import precificLogoImage from "@/public/images/precific-logo-image.webp";
 import OpeningHoursSection from "@/src/app/(private)/suporte/components/opening-hours-section";
 import { Card, CardContent } from "@/src/components/core/card";
 import Column from "@/src/components/core/column";
@@ -7,17 +6,16 @@ import Image from "next/image";
 const SupportPresentationCard = () => {
   return (
     <Card className="overflow-hidden py-0">
-      <Column>
-        <div className="bg-linear-to-b from-primary/10 via-primary/5 to-transparent p-16 flex items-center justify-center">
+      <Column className="h-full">
+        <div className="relative bg-linear-to-b from-primary/20 via-primary/15 to-transparent p-30 flex items-center justify-center">
           <Image
-            src={precificLogoImage}
+            src="/svgs/undraw_contact-us.svg"
             alt="Logo do Precific"
-            width={240}
-            height={120}
-            className="object-contain"
+            fill
+            className="object-center py-2 max-md:-ml-2"
           />
         </div>
-        <CardContent className="py-6 flex flex-col justify-between">
+        <CardContent className="py-6 pt-0! flex flex-1 flex-col justify-between">
           <Column className="gap-5">
             <Column className="gap-1">
               <h2 className="text-3xl font-semibold text-foreground">
