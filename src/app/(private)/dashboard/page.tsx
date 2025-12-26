@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <Container variant="page">
-      <Row className="items-center gap-4">
+      <Row className="items-center gap-4 z-20">
         <h1 className="text-3xl text-black font-bold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
