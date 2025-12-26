@@ -51,11 +51,11 @@ export default function DashboardPage() {
         <h1 className="text-3xl text-black font-bold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
-      <div className="grid grid-cols-6 gap-4 relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4 relative">
         <ChartCard
           title="Bar Chart - Vertical"
           description="Gráfico de Barras Verticais"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <BarChart
             data={barChartMockData}
@@ -69,7 +69,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Bar Chart - Horizontal"
           description="Gráfico de Barras Horizontais"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <BarChart
             data={barChartMockData}
@@ -83,7 +83,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Stacked Bar Chart"
           description="Gráfico de Barras Empilhadas"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <StackedBarChart
             data={stackedBarChartMockData}
@@ -97,7 +97,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Pie Chart - Variant 1"
           description="Gráfico de Pizza"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -109,7 +109,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Pie Chart - Variant 2"
           description="Gráfico de Pizza com Raio Interno (Donut)"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -123,7 +123,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Pie Chart - Variant 3"
           description="Gráfico de Pizza com Raio Interno e Texto Central (Donut)"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <PieChart
             data={pieChartMockData}
@@ -137,20 +137,9 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
-          title="Area Chart"
-          description="Gráfico de Área"
-          className="col-span-2 gap-y-4"
-        >
-          <AreaChart
-            data={areaChartMockData}
-            config={areaChartConfig}
-            xAxisKey="Mes"
-          />
-        </ChartCard>
-        <ChartCard
           title="Line Chart - Variant 1"
           description="Gráfico de Linha Simples"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <LineChart
             data={lineChartSingleMockData}
@@ -164,7 +153,7 @@ export default function DashboardPage() {
         <ChartCard
           title="Line Chart - Variant 2"
           description="Gráfico de Linha Múltipla"
-          className="col-span-2 gap-y-4"
+          className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 gap-y-4"
         >
           <LineChart
             data={lineChartMultipleMockData}
@@ -176,16 +165,27 @@ export default function DashboardPage() {
           />
         </ChartCard>
         <ChartCard
+          title="Area Chart"
+          description="Gráfico de Área"
+          className="col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2 gap-y-4"
+        >
+          <AreaChart
+            data={areaChartMockData}
+            config={areaChartConfig}
+            xAxisKey="Mes"
+          />
+        </ChartCard>
+        <ChartCard
           title="Radar Chart"
           description="Gráfico de Radar"
-          className="col-span-3"
+          className="col-span-1 md:col-span-1 lg:col-span-3"
         >
           <RadarChart data={radarChartMockData} config={radarChartConfig} />
         </ChartCard>
         <ChartCard
           title="Radial Chart"
           description="Gráfico Radial"
-          className="col-span-3"
+          className="col-span-1 md:col-span-1 lg:col-span-3 min-h-full gap-4"
         >
           <RadialChart
             data={radialChartMockData}
