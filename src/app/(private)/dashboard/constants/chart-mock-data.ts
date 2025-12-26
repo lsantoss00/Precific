@@ -73,12 +73,12 @@ export const barChartMockData: ChartDataType[] = [
 ];
 
 export const stackedBarChartMockData: ChartDataType[] = [
-  { Mes: "Jan", ProdutoA: 200, ProdutoB: 120, ProdutoC: 80 },
-  { Mes: "Fev", ProdutoA: 180, ProdutoB: 140, ProdutoC: 100 },
-  { Mes: "Mar", ProdutoA: 220, ProdutoB: 160, ProdutoC: 120 },
-  { Mes: "Abr", ProdutoA: 160, ProdutoB: 110, ProdutoC: 90 },
-  { Mes: "Mai", ProdutoA: 250, ProdutoB: 170, ProdutoC: 130 },
-  { Mes: "Jun", ProdutoA: 210, ProdutoB: 150, ProdutoC: 110 },
+  { Mes: "Jan", ProdutoA: 200, ProdutoB: 120 },
+  { Mes: "Fev", ProdutoA: 180, ProdutoB: 140 },
+  { Mes: "Mar", ProdutoA: 220, ProdutoB: 160 },
+  { Mes: "Abr", ProdutoA: 160, ProdutoB: 110 },
+  { Mes: "Mai", ProdutoA: 250, ProdutoB: 170 },
+  { Mes: "Jun", ProdutoA: 210, ProdutoB: 150 },
 ];
 
 export const radialChartMockData: ChartDataType[] = [

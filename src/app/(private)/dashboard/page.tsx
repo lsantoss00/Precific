@@ -77,6 +77,7 @@ export default function DashboardPage() {
             yAxisKey="Mes"
             barKey="Valor"
             layout="horizontal"
+            margin={{ left: -20 }}
             barRadius={8}
           />
         </ChartCard>

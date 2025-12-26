@@ -46,5 +46,4 @@ export const barChartConfig: ChartConfig = {
 export const stackedBarChartConfig: ChartConfig = {
   ProdutoA: { label: "Produto A", color: "var(--chart-1)" },
   ProdutoB: { label: "Produto B", color: "var(--chart-2)" },
-  ProdutoC: { label: "Produto C", color: "var(--chart-3)" },
 };
