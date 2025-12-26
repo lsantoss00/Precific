@@ -60,12 +60,12 @@ const BarChart = ({
         layout={isHorizontal ? "vertical" : "horizontal"}
         margin={margin}
       >
-        <CartesianGrid vertical={false} />
+        {!isHorizontal && <CartesianGrid vertical={false} />}
         {isHorizontal ? (
           <>
             <XAxis type="number" dataKey={barKey || keys[0]} hide />
             <YAxis
-              dataKey={yAxisKey || xAxisKey}
+              dataKey={yAxisKey}
               type="category"
               tickLine={false}
               tickMargin={10}
@@ -83,6 +83,8 @@ const BarChart = ({
               tickFormatter={(value: string) => value.slice(0, 3)}
             />
             <YAxis
+              dataKey={yAxisKey}
+              hide
               tickLine={false}
               tickMargin={10}
               axisLine={false}
