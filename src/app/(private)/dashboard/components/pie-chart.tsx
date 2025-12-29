@@ -8,6 +8,7 @@ import {
   type ChartConfig,
 } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import { Label, Pie, PieChart as REPieChart } from "recharts";
 
 interface PieChartProps {
@@ -19,6 +20,7 @@ interface PieChartProps {
   nameKey?: string;
   innerRadius?: number;
   strokeWidth?: number;
+  className?: string;
 }
 
 const PieChart = ({
@@ -30,11 +32,12 @@ const PieChart = ({
   nameKey,
   innerRadius,
   strokeWidth,
+  className = "",
 }: PieChartProps) => {
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <REPieChart>
         <ChartTooltip

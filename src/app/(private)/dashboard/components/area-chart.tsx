@@ -7,6 +7,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/src/components/core/chart";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import { Area, CartesianGrid, AreaChart as REAreaChart, XAxis } from "recharts";
 
 interface AreaChartProps {
@@ -16,6 +17,7 @@ interface AreaChartProps {
   areaKeys?: string[];
   gradients?: Record<string, { from: string; to: string }>;
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
+  className?: string;
 }
 
 const AreaChart = ({
@@ -25,6 +27,7 @@ const AreaChart = ({
   areaKeys,
   gradients,
   margin = { left: 12, right: 12 },
+  className = "",
 }: AreaChartProps) => {
   const keys = areaKeys && areaKeys.length > 0 ? areaKeys : Object.keys(config);
   const defaultGradients = keys.reduce((acc, key) => {
@@ -39,7 +42,7 @@ const AreaChart = ({
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <REAreaChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />

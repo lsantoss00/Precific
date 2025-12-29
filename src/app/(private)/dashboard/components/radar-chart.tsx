@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -20,6 +21,7 @@ interface RadarChartProps {
   angleAxisKey?: string;
   radarKeys?: string[];
   strokeWidth?: number;
+  className?: string;
 }
 
 const RadarChart = ({
@@ -28,6 +30,7 @@ const RadarChart = ({
   angleAxisKey,
   radarKeys,
   strokeWidth = 2,
+  className = "",
 }: RadarChartProps) => {
   const keys =
     radarKeys && radarKeys.length > 0 ? radarKeys : Object.keys(config);
@@ -35,7 +38,7 @@ const RadarChart = ({
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <RERadarChart data={data}>
         <ChartTooltip

@@ -8,6 +8,7 @@ import {
   type ChartConfig,
 } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import {
   CartesianGrid,
   Line,
@@ -43,6 +44,7 @@ interface LineChartProps {
     top?: number;
     bottom?: number;
   };
+  className?: string;
 }
 
 const LineChart = ({
@@ -53,9 +55,11 @@ const LineChart = ({
   lineType,
   strokeWidth = 2,
   margin = {
+    top: 12,
     left: 12,
     right: 12,
   },
+  className = "",
 }: LineChartProps) => {
   const lineKeys = Object.keys(config).filter(
     (key) => key !== xAxisKey && config[key]?.label
@@ -71,7 +75,7 @@ const LineChart = ({
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <RechartsLineChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />

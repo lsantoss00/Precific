@@ -14,6 +14,7 @@ import {
 } from "@/src/components/core/chart";
 
 import { ChartDataType } from "@/src/app/(private)/dashboard/types/chart-data-type";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 
 interface RadialChartProps {
   data: ChartDataType[];
@@ -23,6 +24,7 @@ interface RadialChartProps {
   innerRadius?: number;
   outerRadius?: number;
   barBackground?: boolean;
+  className?: string;
 }
 
 const RadialChart = ({
@@ -33,11 +35,12 @@ const RadialChart = ({
   innerRadius = 30,
   outerRadius = 110,
   barBackground = true,
+  className = "",
 }: RadialChartProps) => {
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <RERadialBarChart
         data={data}

@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 
 interface StackedBarChartProps {
   data: ChartDataType[];
@@ -20,6 +21,7 @@ interface StackedBarChartProps {
   stackId?: string;
   barRadius?: number | [number, number, number, number];
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
+  className?: string;
 }
 
 const StackedBarChart = ({
@@ -30,12 +32,13 @@ const StackedBarChart = ({
   stackId,
   barRadius = 4,
   margin,
+  className = "",
 }: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <REBarChart accessibilityLayer data={data} margin={margin}>
         <CartesianGrid vertical={false} />

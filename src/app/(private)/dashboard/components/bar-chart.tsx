@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import { cn } from "@/src/libs/shadcn-ui/utils";
 import {
   Bar,
   CartesianGrid,
@@ -30,6 +31,7 @@ interface BarChartProps {
     bottom?: number;
   };
   barRadius?: number;
+  className?: string;
 }
 
 const BarChart = ({
@@ -42,6 +44,7 @@ const BarChart = ({
   layout = "vertical",
   margin,
   barRadius = 8,
+  className = "",
 }: BarChartProps) => {
   const keys =
     barKeys && barKeys.length > 0
@@ -55,7 +58,7 @@ const BarChart = ({
   return (
     <ChartContainer
       config={config}
-      className="mx-auto aspect-square max-h-[250px] w-full"
+      className={cn("mx-auto w-full h-full", className)}
     >
       <ReBarChart
         accessibilityLayer

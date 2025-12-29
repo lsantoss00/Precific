@@ -20,7 +20,7 @@ const KpiCard = ({ title, value, icon, pending, percentage }: KpiCardProps) => {
       <Column className="justify-between h-full">
         <Row className="items-center gap-2">
           {icon}
-          <span className="text-sm max-w-[100px] 2xl:max-w-none text-muted-foreground">
+          <span className="text-sm max-w-25 2xl:max-w-none text-muted-foreground">
             {title}
           </span>
         </Row>
