@@ -1,5 +1,6 @@
 import { Card, Skeleton } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { ArrowDownLeft, ArrowUpRight } from "lucide-react";
@@ -16,7 +17,7 @@ const KpiCard = ({ title, value, icon, pending, percentage }: KpiCardProps) => {
   const isPositivePercentage = percentage !== undefined && percentage > 0;
 
   return (
-    <Card className="p-6 flex flex-row justify-between items-center w-full h-28 rounded-md shadow-sm">
+    <Card className="p-6 flex flex-row justify-between items-center w-full min-h-28 rounded-md shadow-sm">
       <Column className="justify-between h-full">
         <Row className="items-center gap-2">
           {icon}
@@ -25,7 +26,7 @@ const KpiCard = ({ title, value, icon, pending, percentage }: KpiCardProps) => {
           </span>
         </Row>
         <Show when={!pending} fallback={<Skeleton className="h-8 w-20 mb-1" />}>
-          <Row className="gap-2 items-center">
+          <Flex className="flex-col lg:flex-row xl:flex-col 2xl:flex-row lg:gap-2 xl:gap-0 2xl:gap-2 items-start lg:items-center xl:items-start 2xl:items-center">
             <p className="text-3xl font-semibold">{value}</p>
             <span className="text-xs font-semibold flex items-center gap-1">
               {typeof percentage === "number" && percentage !== 0 && (
@@ -50,7 +51,7 @@ const KpiCard = ({ title, value, icon, pending, percentage }: KpiCardProps) => {
                 </span>
               )}
             </span>
-          </Row>
+          </Flex>
         </Show>
       </Column>
     </Card>
