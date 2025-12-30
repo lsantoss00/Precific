@@ -9,7 +9,7 @@ import DateFormatter from "@/src/helpers/date-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { Crown } from "lucide-react";
 
-const CompanySubscriptionData = () => {
+const CompanySubscriptionDetails = () => {
   const { isPremium, expiresAt } = useAuth();
 
   return (
@@ -48,4 +48,4 @@ const CompanySubscriptionData = () => {
   );
 };
 
-export default CompanySubscriptionData;
+export default CompanySubscriptionDetails;
