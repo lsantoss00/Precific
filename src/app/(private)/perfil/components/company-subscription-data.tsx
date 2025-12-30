@@ -30,11 +30,18 @@ const CompanySubscriptionData = () => {
         </Flex>
         <Column>
           <p>{isPremium ? "Plano Pago" : "Plano Gratuito"}</p>
-          {isPremium && expiresAt && (
+          <Show
+            when={isPremium && expiresAt}
+            fallback={
+              <span className="text-sm text-muted-foreground">
+                Contate nosso suporte e assine o plano pago!
+              </span>
+            }
+          >
             <span className="text-sm text-muted-foreground">
-              Expira em: <DateFormatter showTime>{expiresAt}</DateFormatter>
+              Expira em: <DateFormatter showTime>{expiresAt!}</DateFormatter>
             </span>
-          )}
+          </Show>
         </Column>
       </Row>
     </Card>
