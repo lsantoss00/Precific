@@ -2,16 +2,19 @@ import { openingHours } from "@/src/app/(private)/suporte/constants/opening-hour
 
 type ScheduleStatusType = "open" | "closing" | "closed" | null;
 
-const parseClosingTime = (hoursString: string): number | null => {
-  // Captura o horário após o " - " (segunda parte) -- (definido em opening-hours.tsx)
-  const match = hoursString.match(/\d+h\d*\s*-\s*(\d+)h(\d+)?/);
-
-  if (!match) return null;
-
-  const closingHour = parseInt(match[1], 10);
-  const closingMinute = match[2] ? parseInt(match[2], 10) : 0;
-
-  return closingHour * 60 + closingMinute;
+const parseOpeningAndClosingTime = (
+  hoursString: string
+): { opening: number | null; closing: number | null } => {
+  const match = hoursString.match(/(\d+)h(\d+)?\s*-\s*(\d+)h(\d+)?/);
+  if (!match) return { opening: null, closing: null };
+  const openingHour = parseInt(match[1], 10);
+  const openingMinute = match[2] ? parseInt(match[2], 10) : 0;
+  const closingHour = parseInt(match[3], 10);
+  const closingMinute = match[4] ? parseInt(match[4], 10) : 0;
+  return {
+    opening: openingHour * 60 + openingMinute,
+    closing: closingHour * 60 + closingMinute,
+  };
 };
 
 export const getScheduleStatus = (
@@ -19,7 +22,6 @@ export const getScheduleStatus = (
   currentDay: string
 ): ScheduleStatusType => {
   const isToday = schedule.day === currentDay;
-
   if (!isToday || !schedule.isOpen) {
     return null;
   }
@@ -29,22 +31,26 @@ export const getScheduleStatus = (
   const currentMinute = now.getMinutes();
   const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-  const closingTimeInMinutes = parseClosingTime(schedule.hours);
+  const { opening: openingTimeInMinutes, closing: closingTimeInMinutes } =
+    parseOpeningAndClosingTime(schedule.hours);
 
-  if (closingTimeInMinutes === null) {
+  if (openingTimeInMinutes === null || closingTimeInMinutes === null) {
     return null;
   }
 
-  const oneHourBeforeClosing = closingTimeInMinutes - 60;
+  if (currentTimeInMinutes < openingTimeInMinutes) {
+    return "closed";
+  }
 
   if (currentTimeInMinutes >= closingTimeInMinutes) {
     return "closed";
   }
 
+  const oneHourBeforeClosing = closingTimeInMinutes - 60;
+
   if (currentTimeInMinutes >= oneHourBeforeClosing) {
     return "closing";
   }
-
   return "open";
 };
 
