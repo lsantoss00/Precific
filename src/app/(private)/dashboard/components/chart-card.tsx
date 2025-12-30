@@ -22,7 +22,7 @@ interface ChartCardProps {
   footerClassName?: string;
 }
 
-export function ChartCard({
+const ChartCard = ({
   title,
   description,
   children,
@@ -31,7 +31,7 @@ export function ChartCard({
   headerClassName = "",
   contentClassName = "",
   footerClassName = "",
-}: ChartCardProps) {
+}: ChartCardProps) => {
   return (
     <Card className={cn("rounded-md shadow-sm", className)}>
       <CardHeader className={headerClassName}>
@@ -44,4 +44,6 @@ export function ChartCard({
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default ChartCard;

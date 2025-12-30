@@ -25,9 +25,9 @@ function DatePicker({ value, onValueChange }: DatePickerProps) {
         <Button
           variant="outline"
           id="date-picker"
-          className="w-full justify-between font-normal text-base"
+          className="md:w-42 lg:w-43.5 justify-between font-normal text-base bg-white!"
         >
-          <Show when={value} fallback={"Selecione a data"}>
+          <Show when={value} fallback="Selecione">
             <DateFormatter>{transactionDateFormatted}</DateFormatter>
           </Show>
           <ChevronDownIcon />
