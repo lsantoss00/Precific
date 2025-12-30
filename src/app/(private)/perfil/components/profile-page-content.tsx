@@ -1,6 +1,7 @@
 "use client";
 
 import CompanyData from "@/src/app/(private)/perfil/components/company-data";
+import CompanySubscriptionData from "@/src/app/(private)/perfil/components/company-subscription-data";
 import UserData from "@/src/app/(private)/perfil/components/user-data";
 import { postProfilePicture } from "@/src/app/(private)/perfil/services/post-profile-picture";
 import { Button, Container } from "@/src/components/core";
@@ -74,7 +75,10 @@ const ProfilePageContent = () => {
           aria-label="Informações do perfil"
         >
           <UserData onImageChange={handleImageChange} />
-          <CompanyData />
+          <Flex className="flex-col w-full h-full gap-4">
+            <CompanySubscriptionData />
+            <CompanyData />
+          </Flex>
         </Flex>
         <Button
           className="w-full md:w-40 h-12 self-end"

@@ -13,7 +13,7 @@ const UserData = ({ onImageChange }: UserDataProps) => {
   const { profile } = useAuth();
 
   return (
-    <Card className="w-full p-6 rounded-md flex space-y-6">
+    <Card className="w-full p-6 rounded-md flex space-y-4">
       <h3>Dados do Usuário</h3>
       <div className="space-y-4">
         <Column className="space-y-2">
