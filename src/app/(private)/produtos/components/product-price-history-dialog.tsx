@@ -27,7 +27,7 @@ const ProductPriceHistoryDialog = ({
   const productPriceHistory = data || [];
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogTitle>Histórico de Preços</DialogTitle>

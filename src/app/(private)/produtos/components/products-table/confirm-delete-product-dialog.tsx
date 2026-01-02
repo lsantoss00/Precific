@@ -55,7 +55,7 @@ const ConfirmDeleteProductDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange} modal>
       <DialogContent
         showCloseButton={false}
         className="flex flex-col items-center"
