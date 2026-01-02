@@ -11,9 +11,9 @@ import SortableHeader from "../../../../../components/core/sortable-header";
 import { ProductResponseType } from "../../types/product-type";
 
 interface ProductTableMeta {
-  onDeleteProduct: (id: string) => void;
+  onDeleteProduct: (productId: string, productName: string) => void;
   pendingDeleteProduct: boolean;
-  onUpdateProductStatus: (id: string, status: string) => void;
+  onUpdateProductStatus: (productId: string, productStatus: string) => void;
   pendingUpdateProductStatus: boolean;
 }
 
@@ -177,7 +177,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           <Button
             variant="destructive"
             size="icon"
-            onClick={() => meta?.onDeleteProduct(product.id!)}
+            onClick={() => meta?.onDeleteProduct(product.id!, product.name!)}
             disabled={
               meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
             }

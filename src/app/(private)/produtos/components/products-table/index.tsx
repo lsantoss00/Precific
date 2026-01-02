@@ -1,5 +1,6 @@
 "use client";
 
+import ConfirmDeleteProductDialog from "@/src/app/(private)/produtos/components/products-table/confirm-delete-product-dialog";
 import {
   Table,
   TableBody,
@@ -23,7 +24,6 @@ import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { deleteProduct } from "../../services/delete-product";
 import { getProducts } from "../../services/get-products";
 import { updateProductStatus } from "../../services/update-product-status";
 import { ProductResponseType } from "../../types/product-type";
@@ -47,6 +47,12 @@ const ProductsTable = () => {
   const [sorting, setSorting] = useState<SortingState>([
     { id: sortBy, desc: sortOrder === "desc" },
   ]);
+  const [openConfirmDeleteDialog, setOpenConfirmDeleteDialog] =
+    useState<boolean>(false);
+  const [productToDelete, setProductToDelete] = useState<{
+    productId: string;
+    productName: string;
+  } | null>(null);
 
   const { data, isPending } = useQuery({
     queryFn: () => getProducts({ page, pageSize, search, sortBy, sortOrder }),
@@ -81,41 +87,6 @@ const ProductsTable = () => {
       },
     });
 
-  const { mutate: del, isPending: pendingDeleteProduct } = useMutation({
-    mutationFn: deleteProduct,
-    onMutate: async (variables) => {
-      await queryClient.cancelQueries({ queryKey: ["products"] });
-
-      const previousProducts = products;
-
-      setProducts((prev) =>
-        prev.filter((product) => product.id !== variables.productId)
-      );
-
-      return { previousProducts };
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
-      await queryClient.invalidateQueries({
-        queryKey: ["product-summaries"],
-      });
-
-      toast.success("Produto deletado com sucesso!", {
-        className: "!bg-green-600 !text-white",
-      });
-    },
-    onError: (error, variables, context) => {
-      if (context?.previousProducts) {
-        setProducts(context.previousProducts);
-      }
-      toast.error(error.message, {
-        className: "!bg-red-600 !text-white",
-      });
-    },
-  });
-
   const table = useReactTable({
     data: products,
     columns: productsTableColumns,
@@ -142,12 +113,14 @@ const ProductsTable = () => {
       router.push(`?${params.toString()}`);
     },
     meta: {
-      onDeleteProduct: (productId: string) => del({ productId }),
-      pendingDeleteProduct,
+      onDeleteProduct: (productId: string, productName: string) => {
+        setProductToDelete({ productId, productName });
+        setOpenConfirmDeleteDialog(true);
+      },
       onPriceProduct: (productId: string) =>
         router.push(`/produtos/${productId}`),
-      onUpdateProductStatus: (productId: string, status: string) =>
-        updateStatus({ productId, status }),
+      onUpdateProductStatus: (productId: string, productStatus: string) =>
+        updateStatus({ productId, status: productStatus }),
       pendingUpdateProductStatus,
     },
   });
@@ -212,7 +185,7 @@ const ProductsTable = () => {
                 <TableRow className="hover:bg-transparent!">
                   <TableCell
                     colSpan={table.getAllColumns().length}
-                    className="h-[500px] text-center text-gray-500"
+                    className="h-125 text-center text-gray-500"
                   >
                     <div className="flex items-center justify-center h-full">
                       <Show
@@ -254,6 +227,14 @@ const ProductsTable = () => {
       <Row className="bg-neutral-50 border-t h-13">
         <ProductsTablePagination currentPage={page} totalPages={totalPages} />
       </Row>
+      <ConfirmDeleteProductDialog
+        product={productToDelete!}
+        open={openConfirmDeleteDialog}
+        onOpenChange={() => {
+          setOpenConfirmDeleteDialog(false);
+          setProductToDelete(null);
+        }}
+      />
     </Column>
   );
 };
