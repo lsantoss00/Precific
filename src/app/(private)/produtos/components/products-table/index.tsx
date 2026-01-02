@@ -125,6 +125,11 @@ const ProductsTable = () => {
     },
   });
 
+  const handleOnOpenChange = () => {
+    setOpenConfirmDeleteDialog(false);
+    setProductToDelete(null);
+  };
+
   useEffect(() => {
     if (data?.data) setProducts(data.data);
     if (data?.totalPages !== undefined) setTotalPages(data.totalPages);
@@ -230,10 +235,7 @@ const ProductsTable = () => {
       <ConfirmDeleteProductDialog
         product={productToDelete!}
         open={openConfirmDeleteDialog}
-        onOpenChange={() => {
-          setOpenConfirmDeleteDialog(false);
-          setProductToDelete(null);
-        }}
+        onOpenChange={handleOnOpenChange}
       />
     </Column>
   );
