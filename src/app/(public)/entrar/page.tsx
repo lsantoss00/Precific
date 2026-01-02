@@ -1,5 +1,8 @@
 import LoginForm from "@/src/app/(public)/entrar/components/login-form";
+import { Button } from "@/src/components/core";
+import Column from "@/src/components/core/column";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Entrar",
@@ -40,5 +43,14 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <LoginForm />;
+  return (
+    <Column className="items-center justify-center h-screen w-screen px-2">
+      <LoginForm />
+      <Link href="/" className="flex self-center w-fit my-2" passHref>
+        <Button type="button" variant="link" className="text-xs sm:text-sm">
+          Caiu de paraquedas? Conheça a Precific!
+        </Button>
+      </Link>
+    </Column>
+  );
 }
