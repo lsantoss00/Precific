@@ -12,11 +12,11 @@ export default async function PrivateLayout({
     <>
       <CompanyFormDialog />
       <AppSidebar />
-      <SidebarInset className="flex flex-col min-h-screen h-full">
+      <SidebarInset className="flex flex-col min-h-screen">
         <AppHeader />
-        <main className="flex flex-1 w-full justify-center pb-28 md:pb-32 2xl:pb-0">
+        <div className="flex h-full w-full justify-center pb-28 2xl:pb-0">
           {children}
-        </main>
+        </div>
       </SidebarInset>
     </>
   );

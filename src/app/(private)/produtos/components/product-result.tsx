@@ -354,7 +354,7 @@ const ProductResult = () => {
     <Show
       when={!isLoading}
       fallback={
-        <Card className="flex-1 w-full p-6 rounded-md">
+        <Card className="flex-1 w-full h-full p-6 rounded-md">
           <LoadingResultState onComplete={() => setIsLoading(false)} />
         </Card>
       }
