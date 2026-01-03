@@ -69,7 +69,7 @@ const AboutUsHeroSection = () => {
           >
             <Flex
               as="figure"
-              className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[500px] xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-20"
+              className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[350px] xl:h-[350px] 2xl:w-[500px] 2xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-15 2xl:mb-20"
               aria-label="Equipe do Grupo Viriato"
             >
               <Image
