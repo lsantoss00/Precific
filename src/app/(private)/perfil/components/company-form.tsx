@@ -206,7 +206,7 @@ const CompanyForm = () => {
                   }}
                   options={sectorSelectOptions}
                   value={value}
-                  placeholder={"Selecione o setor de atuação"}
+                  placeholder="Selecione o setor de atuação"
                   onChange={onChange}
                   className={`${error && "border-red-600"}`}
                 />
@@ -234,7 +234,7 @@ const CompanyForm = () => {
                   triggerProps={{
                     id: "tax_regime",
                   }}
-                  placeholder={"Selecione o regime tributário"}
+                  placeholder="Selecione o regime tributário"
                   options={taxRegimeSelectOptions}
                   value={value}
                   onChange={onChange}

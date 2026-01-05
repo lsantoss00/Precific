@@ -41,8 +41,13 @@ const SelectInput = ({
     }
   };
 
+  const normalizedValue =
+    value === undefined || value === null || value === ""
+      ? undefined
+      : String(value);
+
   return (
-    <Select value={String(value)} onValueChange={handleChange}>
+    <Select value={normalizedValue} onValueChange={handleChange}>
       <SelectTrigger
         {...triggerProps}
         className={twMerge("w-full text-base", className)}
