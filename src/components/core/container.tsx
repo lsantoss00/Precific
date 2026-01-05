@@ -22,7 +22,7 @@ const Container = forwardRef<HTMLElement, ContainerProps>(
     return (
       <Component
         ref={ref}
-        className={cn("w-full h-full", variantClasses[variant], className)}
+        className={cn("w-full", variantClasses[variant], className)}
         {...props}
       />
     );
