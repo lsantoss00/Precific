@@ -293,7 +293,7 @@ const ProductResult = () => {
 
   const isCostumerTaxPayer = data?.costumer_taxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
-    ? priceToday
+    ? suggestedProductPrice + icmsSt
     : priceToday + priceTodayWithDifal;
 
   const business = company?.sector === "business";
@@ -350,9 +350,8 @@ const ProductResult = () => {
       title: "Markup",
       value: markup,
     },
-    // FIX PERCENTAGE LABEL (ESTÁ C R$)
     {
-      title: "Rentabilidade (%)",
+      title: "Rentabilidade",
       value: profitability,
       type: "percentage",
       variant: "success",
@@ -427,6 +426,7 @@ const ProductResult = () => {
                     title={metric.title}
                     value={metric.value}
                     variant={metric.variant}
+                    type={metric.type}
                   />
                 ))}
                 <Show when={isSimpleNational}>
@@ -473,6 +473,7 @@ const ProductResult = () => {
                       title={metric.title}
                       value={metric.value}
                       variant={metric.variant}
+                      type={metric.type}
                     />
                   ))}
                 </div>
