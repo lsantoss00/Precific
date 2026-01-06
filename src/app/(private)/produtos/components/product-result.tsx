@@ -6,6 +6,7 @@ import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
 import { icmsStCalc } from "@/src/app/(private)/produtos/utils/calcs/icms-st-calc";
 import { markupCalc } from "@/src/app/(private)/produtos/utils/calcs/markup-calc";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
+import { ProfitabilityCalc } from "@/src/app/(private)/produtos/utils/calcs/profitability-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
 import { suggestedProductPriceCalc } from "@/src/app/(private)/produtos/utils/calcs/suggested-product-price-calc";
@@ -217,17 +218,6 @@ const ProductResult = () => {
     othersCosts -
     icmsSt;
 
-  console.log("@@OIsuggestedProductPrice!", suggestedProductPrice);
-  console.log("@@OIunitPrice", unitPrice);
-  console.log("@@OIfixedCosts", fixedCosts);
-  console.log("@@OIsalesIcmsValue", salesIcmsValue);
-  console.log("@@OIsalesPisCofinsValue", salesPisCofinsValue);
-  console.log("@@OIshipping", shipping);
-  console.log("@@OIothersCosts", othersCosts);
-  console.log("@@OIicmsSt", icmsSt);
-
-  console.log("@@OI", bcIrpjCsll);
-
   const realProfitIrpjCsllCalc =
     bcIrpjCsll < 0
       ? 0
@@ -238,8 +228,8 @@ const ProductResult = () => {
 
   const netProfit = (() => {
     const baseCalcParams = {
-      priceToday: priceToday,
-      unitPrice: unitPrice,
+      suggestedProductPrice: suggestedProductPrice,
+      acquisitionCost: acquisitionCost,
       icms: icmsValue,
       pisCofins: pisCofinsValue,
       fixedCosts: fixedCosts,
@@ -255,7 +245,7 @@ const ProductResult = () => {
       "range_1") as keyof typeof revenueRangeData;
 
     const das = percentageValueCalc({
-      base: priceToday ?? 0,
+      base: suggestedProductPrice ?? 0,
       percentage: revenueRangeData[revenueRangeKey],
     });
 
@@ -317,23 +307,10 @@ const ProductResult = () => {
     percentage: revenueRangeData[revenueRangeKey],
   });
 
-  // console.log("@@ INICIO ---------------------------------");
-  // console.log("@@fixedCosts", fixedCosts);
-  // console.log("@@---------------------------------");
-  // console.log("@@othersCosts", othersCosts);
-  // console.log("@@---------------------------------");
-  // console.log("@@Profit", data?.profit ?? 0);
-  // console.log("@@---------------------------------");
-  // console.log("@@salesIcms", salesIcmsValue);
-  // console.log("@@---------------------------------");
-  // console.log("@@salesPisCofins", salesPisCofinsValue);
-  // console.log("@@---------------------------------");
-  // console.log("@@shipping", shipping);
-  // console.log("@@---------------------------------");
-  // console.log("@@@markupCalc", markup);
-  // console.log("@@---------------------------------");
-  // console.log("@@@suggestedProductPrice", suggestedProductPrice);
-  // console.log("@@---------------------------------");
+  const profitability = ProfitabilityCalc({
+    netProfit,
+    suggestedProductPrice,
+  });
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -349,12 +326,16 @@ const ProductResult = () => {
       value: suggestedProductPrice * ((data?.fixed_costs ?? 0) / 100),
     },
     {
+      title: "Frete",
+      value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
+    },
+    {
       title: "ICMS + PIS/COFINS",
       value: taxes,
     },
     {
-      title: "Frete",
-      value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
+      title: "ICMS ST",
+      value: icmsSt,
     },
     {
       title: "IRPJ + CSLL",
@@ -364,6 +345,17 @@ const ProductResult = () => {
           : companyRegime === "real_profit"
           ? realProfitIrpjCsllCalc
           : undefined,
+    },
+    {
+      title: "Markup",
+      value: markup,
+    },
+    // FIX PERCENTAGE LABEL (ESTÁ C R$)
+    {
+      title: "Rentabilidade (%)",
+      value: profitability,
+      type: "percentage",
+      variant: "success",
     },
   ];
 
@@ -429,7 +421,7 @@ const ProductResult = () => {
                 Pré-Reforma Tributária <strong>2025</strong>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-                {metrics2025.slice(0, 5).map((metric, index) => (
+                {metrics2025.slice(0, 9).map((metric, index) => (
                   <MetricCard
                     key={`metric-2025-${index}`}
                     title={metric.title}
@@ -437,26 +429,10 @@ const ProductResult = () => {
                     variant={metric.variant}
                   />
                 ))}
-                <Show
-                  when={
-                    companyRegime === "presumed_profit" ||
-                    companyRegime === "real_profit"
-                  }
-                >
-                  <MetricCard
-                    title="IRPJ + CSLL"
-                    value={
-                      companyRegime === "presumed_profit"
-                        ? presumedProfitIrpjCsll
-                        : realProfitIrpjCsllCalc
-                    }
-                    variant="neutral"
-                  />
-                </Show>
                 <Show when={isSimpleNational}>
                   <MetricCard title="DAS" value={das} variant="neutral" />
                 </Show>
-                <div className="col-span-1 md:col-span-2!">
+                <div className="col-span-1">
                   <MetricCard
                     title="Lucro líquido"
                     value={netProfit}

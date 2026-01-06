@@ -1,6 +1,6 @@
 interface PresumedProfitCalcProps {
-  priceToday: number;
-  unitPrice: number;
+  suggestedProductPrice: number;
+  acquisitionCost: number;
   icms: number;
   pisCofins: number;
   fixedCosts: number;
@@ -12,8 +12,8 @@ interface PresumedProfitCalcProps {
 }
 
 export function presumedProfitCalc({
-  priceToday,
-  unitPrice,
+  suggestedProductPrice,
+  acquisitionCost,
   icms,
   fixedCosts,
   salesIcms,
@@ -25,13 +25,13 @@ export function presumedProfitCalc({
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
   const result =
-    priceToday -
+    suggestedProductPrice -
     fixedCosts -
     icmsRec -
     salesPisCofins -
     shipping -
     othersCosts -
-    unitPrice -
+    acquisitionCost -
     irpjCsll;
 
   return result;

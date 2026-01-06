@@ -7,12 +7,20 @@ export interface MetricCardProps {
   title: string;
   value: string | number | undefined;
   variant?: VariantType;
+  type?: "percentage" | "currency";
 }
 
-const MetricCard = ({ title, value, variant = "neutral" }: MetricCardProps) => {
+const MetricCard = ({
+  title,
+  value,
+  variant = "neutral",
+  type = "currency",
+}: MetricCardProps) => {
   return (
     <Column className={`space-y-2 rounded-md p-4 ${variantStyles[variant]}`}>
-      <p className="text-2xl font-bold">{currencyFormatter(value)}</p>
+      <p className="text-2xl font-bold">
+        {type === "currency" ? currencyFormatter(value) : `${value}%`}
+      </p>
       <span className="text-sm">{title}</span>
     </Column>
   );

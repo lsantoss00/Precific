@@ -1,8 +1,8 @@
 import { RevenueRangeType } from "@/src/app/(private)/perfil/types/company-type";
 
 interface SimpleNationalCalcProps {
-  priceToday: number;
-  unitPrice: number;
+  suggestedProductPrice: number;
+  acquisitionCost: number;
   icms: number;
   pisCofins: number;
   fixedCosts: number;
@@ -15,8 +15,8 @@ interface SimpleNationalCalcProps {
 }
 
 export function simpleNationalCalc({
-  priceToday,
-  unitPrice,
+  suggestedProductPrice,
+  acquisitionCost,
   icms,
   fixedCosts,
   salesIcms,
@@ -29,12 +29,12 @@ export function simpleNationalCalc({
     range === "range_6" ? (salesIcms === 0 ? 0 : salesIcms - icms) : 0;
 
   const result =
-    priceToday -
+    suggestedProductPrice -
     fixedCosts -
     icmsRec -
     shipping -
     othersCosts -
-    unitPrice -
+    acquisitionCost -
     das;
 
   return result;

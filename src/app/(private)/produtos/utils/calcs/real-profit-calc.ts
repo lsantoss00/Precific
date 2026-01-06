@@ -1,6 +1,6 @@
 interface RealProfitCalcProps {
-  priceToday: number;
-  unitPrice: number;
+  suggestedProductPrice: number;
+  acquisitionCost: number;
   icms: number;
   pisCofins: number;
   fixedCosts: number;
@@ -12,8 +12,8 @@ interface RealProfitCalcProps {
 }
 
 export function realProfitCalc({
-  priceToday,
-  unitPrice,
+  suggestedProductPrice,
+  acquisitionCost,
   icms,
   pisCofins,
   fixedCosts,
@@ -28,8 +28,8 @@ export function realProfitCalc({
   const pisCofinsRec = salesPisCofins - pisCofins;
 
   const result =
-    priceToday -
-    unitPrice -
+    suggestedProductPrice -
+    acquisitionCost -
     fixedCosts -
     shipping -
     othersCosts -
