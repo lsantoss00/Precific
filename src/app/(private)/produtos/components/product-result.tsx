@@ -3,6 +3,7 @@
 import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
+import { icmsStCalc } from "@/src/app/(private)/produtos/utils/calcs/icms-st-calc";
 import { markupCalc } from "@/src/app/(private)/produtos/utils/calcs/markup-calc";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
@@ -133,16 +134,6 @@ const ProductResult = () => {
     salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
-  const salesIcmsValue = percentageValueCalc({
-    base: priceToday,
-    percentage: data?.sales_icms,
-  });
-
-  const salesPisCofinsValue = percentageValueCalc({
-    base: priceToday - salesIcmsValue,
-    percentage: data?.sales_pis_cofins,
-  });
-
   const markup = markupCalc({
     fixedCosts: data?.fixed_costs ?? 0,
     othersCosts: data?.other_costs ?? 0,
@@ -152,14 +143,26 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
   });
 
-  console.log("@@@ markup result", markup);
-
   const suggestedProductPrice = suggestedProductPriceCalc({
     acquisitionCost,
     markup,
   });
 
-  console.log("@@@ suggestedProductPrice", suggestedProductPrice);
+  const salesIcmsValue = percentageValueCalc({
+    base: suggestedProductPrice,
+    percentage: data?.sales_icms,
+  });
+
+  const salesPisCofinsValue = percentageValueCalc({
+    base: suggestedProductPrice - salesIcmsValue,
+    percentage: data?.sales_pis_cofins,
+  });
+
+  const icmsSt = icmsStCalc({
+    mva: data?.mva ?? 0,
+    suggestedProductPrice,
+    salesIcmsPercentage: data?.sales_icms ?? 0,
+  });
 
   const fixedCosts = percentageValueCalc({
     base: suggestedProductPrice,
@@ -205,13 +208,25 @@ const ProductResult = () => {
 
   // IRPJ + CSLL LUCRO REAL =======================
   const bcIrpjCsll =
-    priceToday -
+    suggestedProductPrice -
     unitPrice -
     fixedCosts -
     salesIcmsValue -
     salesPisCofinsValue -
     shipping -
-    othersCosts;
+    othersCosts -
+    icmsSt;
+
+  console.log("@@OIsuggestedProductPrice!", suggestedProductPrice);
+  console.log("@@OIunitPrice", unitPrice);
+  console.log("@@OIfixedCosts", fixedCosts);
+  console.log("@@OIsalesIcmsValue", salesIcmsValue);
+  console.log("@@OIsalesPisCofinsValue", salesPisCofinsValue);
+  console.log("@@OIshipping", shipping);
+  console.log("@@OIothersCosts", othersCosts);
+  console.log("@@OIicmsSt", icmsSt);
+
+  console.log("@@OI", bcIrpjCsll);
 
   const realProfitIrpjCsllCalc =
     bcIrpjCsll < 0
@@ -220,8 +235,6 @@ const ProductResult = () => {
           base: bcIrpjCsll,
           percentage: data?.irpj_percent,
         });
-
-  const realProfitIrpjCsll = realProfitIrpjCsllCalc;
 
   const netProfit = (() => {
     const baseCalcParams = {
@@ -266,7 +279,7 @@ const ProductResult = () => {
     }
     return realProfitCalc({
       ...baseCalcParams,
-      irpjCsll: realProfitIrpjCsll,
+      irpjCsll: realProfitIrpjCsllCalc,
     });
   })();
 
@@ -349,7 +362,7 @@ const ProductResult = () => {
         companyRegime === "presumed_profit"
           ? presumedProfitIrpjCsll
           : companyRegime === "real_profit"
-          ? realProfitIrpjCsll
+          ? realProfitIrpjCsllCalc
           : undefined,
     },
   ];
@@ -435,7 +448,7 @@ const ProductResult = () => {
                     value={
                       companyRegime === "presumed_profit"
                         ? presumedProfitIrpjCsll
-                        : realProfitIrpjCsll
+                        : realProfitIrpjCsllCalc
                     }
                     variant="neutral"
                   />
