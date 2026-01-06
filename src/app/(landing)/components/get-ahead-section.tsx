@@ -17,7 +17,7 @@ const GetAheadSection = () => {
               id="get-ahead-heading"
               className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center leading-tight"
             >
-              Esteja a frente da concorrência!
+              Esteja à frente da concorrência!
             </h2>
             <p className="text-center text-sm md:text-base xl:text-base 2xl:text-lg text-muted-foreground max-w-3xl">
               Empresas que não precificarem corretamente, não irão aproveitar os
