@@ -7,7 +7,7 @@ export function ProfitabilityCalc({
   netProfit,
   suggestedProductPrice,
 }: ProfitabilityCalcProps) {
-  const result = netProfit / suggestedProductPrice;
+  const result = (netProfit / suggestedProductPrice) * 100;
 
-  return Math.round(result * 100);
+  return result;
 }

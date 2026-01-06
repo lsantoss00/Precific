@@ -19,7 +19,9 @@ const MetricCard = ({
   return (
     <Column className={`space-y-2 rounded-md p-4 ${variantStyles[variant]}`}>
       <p className="text-2xl font-bold">
-        {type === "currency" ? currencyFormatter(value) : `${value}%`}
+        {type === "currency"
+          ? currencyFormatter(value)
+          : `${Math.round(Number(value))}%`}
       </p>
       <span className="text-sm">{title}</span>
     </Column>

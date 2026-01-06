@@ -7,5 +7,7 @@ export function suggestedProductPriceCalc({
   acquisitionCost,
   markup,
 }: SuggestedProductPriceCalcProps): number {
-  return (acquisitionCost / markup) * 100;
+  const result = (acquisitionCost / markup) * 100;
+
+  return result;
 }
