@@ -3,9 +3,11 @@
 import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
+import { markupCalc } from "@/src/app/(private)/produtos/utils/calcs/markup-calc";
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
+import { suggestedProductPriceCalc } from "@/src/app/(private)/produtos/utils/calcs/suggested-product-price-calc";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -141,18 +143,36 @@ const ProductResult = () => {
     percentage: data?.sales_pis_cofins,
   });
 
+  const markup = markupCalc({
+    fixedCosts: data?.fixed_costs ?? 0,
+    othersCosts: data?.other_costs ?? 0,
+    profit: data?.profit ?? 0,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    shipping: data?.shipping ?? 0,
+  });
+
+  console.log("@@@ markup result", markup);
+
+  const suggestedProductPrice = suggestedProductPriceCalc({
+    acquisitionCost,
+    markup,
+  });
+
+  console.log("@@@ suggestedProductPrice", suggestedProductPrice);
+
   const fixedCosts = percentageValueCalc({
-    base: acquisitionCost,
+    base: suggestedProductPrice,
     percentage: data?.fixed_costs ?? 0,
   });
 
   const othersCosts = percentageValueCalc({
-    base: acquisitionCost,
+    base: suggestedProductPrice,
     percentage: data?.other_costs ?? 0,
   });
 
   const shipping = percentageValueCalc({
-    base: acquisitionCost,
+    base: suggestedProductPrice,
     percentage: data?.shipping ?? 0,
   });
 
@@ -275,12 +295,32 @@ const ProductResult = () => {
 
   const business = company?.sector === "business";
   const revenueRangeData = getRevenueRangeDataPercentage({ business });
+
   const revenueRangeKey = (company?.revenue_range ??
     "range_1") as keyof typeof revenueRangeData;
+
   const das = percentageValueCalc({
     base: priceToday ?? 0,
     percentage: revenueRangeData[revenueRangeKey],
   });
+
+  // console.log("@@ INICIO ---------------------------------");
+  // console.log("@@fixedCosts", fixedCosts);
+  // console.log("@@---------------------------------");
+  // console.log("@@othersCosts", othersCosts);
+  // console.log("@@---------------------------------");
+  // console.log("@@Profit", data?.profit ?? 0);
+  // console.log("@@---------------------------------");
+  // console.log("@@salesIcms", salesIcmsValue);
+  // console.log("@@---------------------------------");
+  // console.log("@@salesPisCofins", salesPisCofinsValue);
+  // console.log("@@---------------------------------");
+  // console.log("@@shipping", shipping);
+  // console.log("@@---------------------------------");
+  // console.log("@@@markupCalc", markup);
+  // console.log("@@---------------------------------");
+  // console.log("@@@suggestedProductPrice", suggestedProductPrice);
+  // console.log("@@---------------------------------");
 
   const metrics2025: MetricCardProps[] = [
     {
@@ -289,11 +329,11 @@ const ProductResult = () => {
     },
     {
       title: "Outros custos",
-      value: acquisitionCost * ((data?.other_costs ?? 0) / 100),
+      value: suggestedProductPrice * ((data?.other_costs ?? 0) / 100),
     },
     {
       title: "Custos fixos",
-      value: acquisitionCost * ((data?.fixed_costs ?? 0) / 100),
+      value: suggestedProductPrice * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
@@ -301,7 +341,7 @@ const ProductResult = () => {
     },
     {
       title: "Frete",
-      value: acquisitionCost * ((data?.shipping ?? 0) / 100),
+      value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "IRPJ + CSLL",

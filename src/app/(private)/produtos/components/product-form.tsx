@@ -51,6 +51,7 @@ const ProductForm = ({ productId }: ProductFormProps) => {
         imported_product: product.imported_product,
         costumer_taxpayer: product.costumer_taxpayer,
         irpj_percent: product.irpj_percent,
+        mva: product.mva,
       });
     }
   }, [product, form, isEditMode]);

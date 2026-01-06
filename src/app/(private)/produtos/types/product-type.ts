@@ -24,6 +24,7 @@ export type ProductType = {
   state_destination: string | undefined;
   imported_product: boolean;
   costumer_taxpayer: boolean;
+  mva?: number;
 };
 
 export type ProductFormDataType = Omit<
