@@ -37,7 +37,6 @@ import { ProductType } from "../types/product-type";
 import { acquisitionCostCalc } from "../utils/calcs/acquisition-cost-calc";
 import { ibsCbsCalc } from "../utils/calcs/ibs-cbs-calc";
 import { percentageValueCalc } from "../utils/calcs/percentage-value-calc";
-import { priceTodayCalc } from "../utils/calcs/price-today-calc";
 import { taxCalc } from "../utils/calcs/tax-calc";
 import LoadingResultState from "./loading-result-state";
 import MetricCard, { MetricCardProps } from "./metric-card";
@@ -113,15 +112,7 @@ const ProductResult = () => {
   const firstBase = markupBase + markupBase * ((data?.profit ?? 0) / 100);
 
   const companyRegime = company?.tax_regime;
-
-  const priceToday = priceTodayCalc({
-    firstBase,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-    isSimpleNational: companyRegime === "simple_national",
-    range: company?.revenue_range,
-    sector: company?.sector,
-  });
+  const business = company?.sector === "business";
 
   const ibs = ibsCbsCalc({
     base1: firstBase,
@@ -131,12 +122,6 @@ const ProductResult = () => {
     base1: firstBase,
   }).cbs;
 
-  const taxes = taxCalc({
-    priceToday: priceToday,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
-  });
-
   const markup = markupCalc({
     fixedCosts: data?.fixed_costs ?? 0,
     othersCosts: data?.other_costs ?? 0,
@@ -144,11 +129,20 @@ const ProductResult = () => {
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
     shipping: data?.shipping ?? 0,
+    range: company?.revenue_range,
+    business,
+    isSimpleNational: companyRegime === "simple_national",
   });
 
   const suggestedProductPrice = suggestedProductPriceCalc({
     acquisitionCost,
     markup,
+  });
+
+  const taxes = taxCalc({
+    suggestedProductPrice: suggestedProductPrice,
+    salesIcms: data?.sales_icms ?? 0,
+    salesPisCofins: data?.sales_pis_cofins ?? 0,
   });
 
   const salesIcmsValue = percentageValueCalc({
@@ -197,12 +191,12 @@ const ProductResult = () => {
 
   // IRPJ + CSLL LUCRO PRESUMIDO =======================
   const calcBaseIrpj = percentageValueCalc({
-    base: priceToday,
+    base: suggestedProductPrice,
     percentage: 8,
   });
 
   const calcBaseCsll = percentageValueCalc({
-    base: priceToday,
+    base: suggestedProductPrice,
     percentage: 12,
   });
 
@@ -232,18 +226,17 @@ const ProductResult = () => {
 
   const netProfit = (() => {
     const baseCalcParams = {
-      suggestedProductPrice: suggestedProductPrice,
-      acquisitionCost: acquisitionCost,
+      suggestedProductPrice,
+      acquisitionCost,
       icms: icmsValue,
       pisCofins: pisCofinsValue,
-      fixedCosts: fixedCosts,
+      fixedCosts,
       salesIcms: salesIcmsValue,
       salesPisCofins: salesPisCofinsValue,
       shipping: shipping,
-      othersCosts: othersCosts,
+      othersCosts,
     };
 
-    const business = company?.sector === "business";
     const revenueRangeData = getRevenueRangeDataPercentage({ business });
     const revenueRangeKey = (company?.revenue_range ??
       "range_1") as keyof typeof revenueRangeData;
@@ -265,6 +258,7 @@ const ProductResult = () => {
       company?.revenue_range &&
       company?.sector
     ) {
+      console.log("@@to aqui?");
       return simpleNationalCalc({
         ...baseCalcParams,
         range: company.revenue_range,
@@ -289,8 +283,8 @@ const ProductResult = () => {
     ? getICMSRate(companyState, stateDestination)
     : 0;
 
-  const priceTodayWithDifal = difalCalc({
-    priceToday,
+  const suggestedProductPriceWithDifal = difalCalc({
+    suggestedProductPrice,
     internalTaxRate,
     interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
   });
@@ -298,16 +292,15 @@ const ProductResult = () => {
   const isCostumerTaxPayer = data?.costumer_taxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
     ? suggestedProductPrice + conditionalIcmsSt
-    : priceToday + priceTodayWithDifal;
+    : suggestedProductPrice + suggestedProductPriceWithDifal;
 
-  const business = company?.sector === "business";
   const revenueRangeData = getRevenueRangeDataPercentage({ business });
 
   const revenueRangeKey = (company?.revenue_range ??
     "range_1") as keyof typeof revenueRangeData;
 
   const das = percentageValueCalc({
-    base: priceToday ?? 0,
+    base: suggestedProductPrice ?? 0,
     percentage: revenueRangeData[revenueRangeKey],
   });
 
@@ -353,6 +346,7 @@ const ProductResult = () => {
     {
       title: "Markup",
       value: markup,
+      type: "percentage",
     },
     {
       title: "Rentabilidade",

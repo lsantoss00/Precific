@@ -30,12 +30,7 @@ export function simpleNationalCalc({
 
   const result =
     suggestedProductPrice -
-    fixedCosts -
-    icmsRec -
-    shipping -
-    othersCosts -
-    acquisitionCost -
-    das;
+    (fixedCosts + icmsRec + shipping + othersCosts + acquisitionCost + das);
 
   return result;
 }

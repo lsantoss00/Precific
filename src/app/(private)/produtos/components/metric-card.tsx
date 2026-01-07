@@ -21,7 +21,7 @@ const MetricCard = ({
       <p className="text-2xl font-bold">
         {type === "currency"
           ? currencyFormatter(value)
-          : `${Math.round(Number(value))}%`}
+          : `${Number(value).toFixed(2)}%`}
       </p>
       <span className="text-sm">{title}</span>
     </Column>

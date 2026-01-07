@@ -1,22 +1,22 @@
 import { percentageValueCalc } from "./percentage-value-calc";
 
 interface TaxCalcProps {
-  priceToday: number;
+  suggestedProductPrice: number;
   salesIcms: number;
   salesPisCofins: number;
 }
 
 export function taxCalc({
-  priceToday,
+  suggestedProductPrice,
   salesIcms,
   salesPisCofins,
 }: TaxCalcProps): number {
   const salesIcmsValue = percentageValueCalc({
-    base: priceToday,
+    base: suggestedProductPrice,
     percentage: salesIcms,
   });
 
-  const baseForPisCofins = priceToday - salesIcmsValue;
+  const baseForPisCofins = suggestedProductPrice - salesIcmsValue;
 
   const salesPisCofinsValue = percentageValueCalc({
     base: baseForPisCofins,

@@ -1,13 +1,13 @@
 interface ProfitMarginCalc {
   liquidProfit: number;
-  priceToday: number;
+  suggestedProductPrice: number;
 }
 
 export function profitMarginCalc({
   liquidProfit,
-  priceToday,
+  suggestedProductPrice,
 }: ProfitMarginCalc): number {
-  const result = liquidProfit / priceToday;
+  const result = liquidProfit / suggestedProductPrice;
 
   return result;
 }
