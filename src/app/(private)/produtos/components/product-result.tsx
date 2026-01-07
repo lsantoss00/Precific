@@ -95,6 +95,8 @@ const ProductResult = () => {
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
+  const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
+
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
     icms: data.icms ?? 0,
@@ -191,6 +193,8 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
+  const conditionalIcmsSt = icmsStInputExists ? 0 : icmsSt;
+
   // IRPJ + CSLL LUCRO PRESUMIDO =======================
   const calcBaseIrpj = percentageValueCalc({
     base: priceToday,
@@ -216,7 +220,7 @@ const ProductResult = () => {
     salesPisCofinsValue -
     shipping -
     othersCosts -
-    icmsSt;
+    conditionalIcmsSt;
 
   const realProfitIrpjCsllCalc =
     bcIrpjCsll < 0
@@ -293,7 +297,7 @@ const ProductResult = () => {
 
   const isCostumerTaxPayer = data?.costumer_taxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
-    ? suggestedProductPrice + icmsSt
+    ? suggestedProductPrice + conditionalIcmsSt
     : priceToday + priceTodayWithDifal;
 
   const business = company?.sector === "business";
