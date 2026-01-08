@@ -18,7 +18,7 @@ const FAQSection = () => {
       aria-labelledby="faq-heading"
     >
       <Container as="section" variant="section">
-        <Flex className="flex-col lg:flex-row gap-8 xl:gap-12 justify-between">
+        <Flex className="flex-col xl:flex-row gap-8 xl:gap-12 justify-between">
           <FadeInOnScroll direction="left" offset={20}>
             <Column
               as="header"
@@ -43,8 +43,12 @@ const FAQSection = () => {
               </Column>
             </Column>
           </FadeInOnScroll>
-          <FadeInOnScroll direction="right" offset={20}>
-            <Column className="relative z-10 bg-white h-fit w-full xl:w-180 2xl:w-240 rounded-md">
+          <FadeInOnScroll
+            direction="right"
+            offset={20}
+            className="w-full flex-1"
+          >
+            <Column className="relative z-10 bg-white h-fit w-full xl:max-w-180 2xl:max-w-240 rounded-md xl:ml-auto">
               <FAQAccordion />
             </Column>
           </FadeInOnScroll>
