@@ -36,13 +36,7 @@ export function markupCalc({
       business,
     });
 
-    console.log("@fixedCostsPercent", fixedCostsPercent);
-    console.log("@shippingPercent", shippingPercent);
-    console.log("@othersCostsPercent", othersCostsPercent);
-    console.log("@profitPercent", profitPercent);
-
     const rangeRatePercent = revenueRangeData[range!] / 100;
-    console.log("@rangeRatePercent", rangeRatePercent);
     const isHighestRange = range === "range_6";
 
     const firstCalc =
@@ -66,9 +60,6 @@ export function markupCalc({
 
     const result = isHighestRange ? secondCalc : firstCalc;
 
-    console.log("@isHighestRange", isHighestRange);
-
-    console.log("@result", result);
     return result;
   }
 

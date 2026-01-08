@@ -24,17 +24,6 @@ export function presumedProfitCalc({
 }: PresumedProfitCalcProps): number {
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
 
-  console.log("suggestedProductPrice", suggestedProductPrice);
-  console.log("acquisitionCost", acquisitionCost);
-  console.log("icms", icms);
-  console.log("fixedCosts", fixedCosts);
-  console.log("salesIcms", salesIcms);
-  console.log("salesPisCofins", salesPisCofins);
-  console.log("shipping", shipping);
-  console.log("othersCosts", othersCosts);
-  console.log("irpjCsll", irpjCsll);
-  console.log("icmsRec", icmsRec);
-
   const result =
     suggestedProductPrice -
     (fixedCosts +
