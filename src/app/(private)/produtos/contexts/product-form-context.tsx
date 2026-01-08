@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/src/providers/auth-provider";
 import { createContext, ReactNode, useContext } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { ProductFormDataType } from "../types/product-type";
@@ -32,9 +31,6 @@ export const ProductFormProvider = ({
   isEditMode = false,
   productId,
 }: ProductFormProviderProps) => {
-  const { company } = useAuth();
-  const isRealProfit = company?.tax_regime === "real_profit";
-
   const form = useForm<ProductFormDataType>({
     mode: "onChange",
     defaultValues: {
@@ -59,6 +55,7 @@ export const ProductFormProvider = ({
       state_destination: undefined,
       imported_product: false,
       costumer_taxpayer: false,
+      has_icms_st: false,
     },
   });
 

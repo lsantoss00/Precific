@@ -3,22 +3,22 @@ import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/pe
 interface IcmsStCalcProps {
   suggestedProductPrice: number;
   mva: number;
-  salesIcmsPercentage: number;
+  salesIcmsInput: number;
 }
 
 export function icmsStCalc({
   suggestedProductPrice,
   mva,
-  salesIcmsPercentage,
+  salesIcmsInput,
 }: IcmsStCalcProps) {
   const base = suggestedProductPrice + (suggestedProductPrice * mva) / 100;
 
   const salesIcms = percentageValueCalc({
     base: suggestedProductPrice,
-    percentage: salesIcmsPercentage,
+    percentage: salesIcmsInput,
   });
 
-  const result = base * (salesIcmsPercentage / 100) - salesIcms;
+  const result = base * (salesIcmsInput / 100) - salesIcms;
 
   return result;
 }

@@ -137,6 +137,22 @@ const ProductDetailsForm = () => {
         </Show>
         <Row className="gap-2 items-center">
           <Controller
+            name="has_icms_st"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Checkbox
+                id="has_icms_st"
+                checked={value}
+                onCheckedChange={onChange}
+              />
+            )}
+          />
+          <Label htmlFor="has_icms_st" className="cursor-pointer">
+            A venda incide ICMS ST?
+          </Label>
+        </Row>
+        <Row className="gap-2 items-center">
+          <Controller
             name="imported_product"
             control={control}
             render={({ field: { onChange, value } }) => (

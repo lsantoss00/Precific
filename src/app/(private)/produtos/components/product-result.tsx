@@ -95,6 +95,12 @@ const ProductResult = () => {
   const pending = pendingPostProduct || pendingUpdateProduct;
 
   const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
+  const companyRegime = company?.tax_regime;
+  const business = company?.sector === "business";
+  const hasIcmsSt = data?.has_icms_st === true;
+  const salesIcmsInput = hasIcmsSt
+    ? getICMSRate(data.state_destination!, data.state_destination!)
+    : data?.sales_icms;
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
@@ -108,11 +114,9 @@ const ProductResult = () => {
   const percentSum =
     ((data.fixed_costs ?? 0) + (data.shipping ?? 0) + (data.other_costs ?? 0)) /
     100;
+
   const markupBase = acquisitionCost + acquisitionCost * percentSum;
   const firstBase = markupBase + markupBase * ((data?.profit ?? 0) / 100);
-
-  const companyRegime = company?.tax_regime;
-  const business = company?.sector === "business";
 
   const ibs = ibsCbsCalc({
     base1: firstBase,
@@ -158,7 +162,7 @@ const ProductResult = () => {
   const icmsSt = icmsStCalc({
     mva: data?.mva ?? 0,
     suggestedProductPrice,
-    salesIcmsPercentage: data?.sales_icms ?? 0,
+    salesIcmsInput,
   });
 
   const fixedCosts = percentageValueCalc({
@@ -258,7 +262,6 @@ const ProductResult = () => {
       company?.revenue_range &&
       company?.sector
     ) {
-      console.log("@@to aqui?");
       return simpleNationalCalc({
         ...baseCalcParams,
         range: company.revenue_range,
