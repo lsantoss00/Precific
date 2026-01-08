@@ -18,7 +18,7 @@ const FAQSection = () => {
       aria-labelledby="faq-heading"
     >
       <Container as="section" variant="section">
-        <Flex className="flex-col xl:flex-row gap-8 xl:gap-12 justify-between">
+        <Flex className="flex-col lg:flex-row gap-8 xl:gap-12 justify-between">
           <FadeInOnScroll direction="left" offset={20}>
             <Column
               as="header"
