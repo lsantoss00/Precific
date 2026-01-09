@@ -271,43 +271,45 @@ const PricingForm = () => {
             </Column>
           </Column>
         </Show>
-        <Column className="space-y-2">
-          <Label htmlFor="mva">MVA (%)</Label>
-          <Column className="gap-2">
-            <Row className="items-center gap-2">
-              <Controller
-                name="mva"
-                control={control}
-                rules={{
-                  min: { value: 0, message: "Valor mínimo é 0" },
-                  max: { value: 100, message: "Valor máximo é 100" },
-                }}
-                render={({ field }) => (
-                  <Input
-                    id="mva"
-                    type="number"
-                    placeholder="0,00%"
-                    min="0"
-                    max="100"
-                    {...field}
-                    value={field.value ?? ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    error={errors.mva?.message}
-                  />
-                )}
-              />
-              <CustomTooltip message="Informe o valor MVA (Margem de Valor Agregado) caso incida ICMS ST" />
-            </Row>
-            <Show when={errors.mva?.message}>
-              <span className="text-xs text-red-500 -mt-1">
-                {errors.mva?.message}
-              </span>
-            </Show>
+        <Show when={!isSimpleNational}>
+          <Column className="space-y-2">
+            <Label htmlFor="mva">MVA (%)</Label>
+            <Column className="gap-2">
+              <Row className="items-center gap-2">
+                <Controller
+                  name="mva"
+                  control={control}
+                  rules={{
+                    min: { value: 0, message: "Valor mínimo é 0" },
+                    max: { value: 100, message: "Valor máximo é 100" },
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      id="mva"
+                      type="number"
+                      placeholder="0,00%"
+                      min="0"
+                      max="100"
+                      {...field}
+                      value={field.value ?? ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value === "" ? "" : Number(value));
+                      }}
+                      error={errors.mva?.message}
+                    />
+                  )}
+                />
+                <CustomTooltip message="Informe o valor MVA (Margem de Valor Agregado) caso incida ICMS ST" />
+              </Row>
+              <Show when={errors.mva?.message}>
+                <span className="text-xs text-red-500 -mt-1">
+                  {errors.mva?.message}
+                </span>
+              </Show>
+            </Column>
           </Column>
-        </Column>
+        </Show>
         <Column className="space-y-2">
           <Label htmlFor="shipping">Frete (%)</Label>
           <Column className="gap-2">
