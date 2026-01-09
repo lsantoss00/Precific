@@ -69,35 +69,55 @@ const AboutUsHeroSection = () => {
           >
             <Flex
               as="figure"
-              className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] lg:w-[280px] lg:h-[280px] xl:w-[350px] xl:h-[350px] 2xl:w-[500px] 2xl:h-[500px] relative xl:mr-14 mx-auto xl:mx-none xl:mb-15 2xl:mb-20"
+              className="relative mx-auto xl:mx-none"
+              style={{
+                width: "clamp(15.625rem, 18.75rem, 31.25rem)",
+                height: "clamp(15.625rem, 18.75rem, 31.25rem)",
+              }}
               aria-label="Equipe do Grupo Viriato"
             >
-              <Image
-                src={people1}
-                alt="Membro da equipe Grupo Viriato"
-                fill
-                priority
-                sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 280px, 500px"
-                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
-              />
-              <Image
-                src={people2}
-                alt="Membro da equipe Grupo Viriato"
-                width={250}
-                height={250}
-                priority
-                sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 200px, 250px"
-                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-4 lg:-right-4 xl:-bottom-10 xl:-right-[54px] w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px] lg:w-[140px] lg:h-[140px] xl:w-[250px] xl:h-[250px] shadow-2xl"
-              />
-              <Image
-                src={people3}
-                alt="Membro da equipe Grupo Viriato"
-                width={125}
-                height={125}
-                priority
-                sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 100px, 125px"
-                className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-10 lg:-bottom-8 xl:-bottom-16 xl:left-40 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[85px] md:h-[85px] lg:w-[70px] lg:h-[70px] xl:w-[125px] xl:h-[125px] shadow-2xl"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={people1}
+                  alt="Membro da equipe Grupo Viriato"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 280px, 500px"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
+                />
+              </div>
+              <div
+                className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-4 lg:-right-4 xl:-bottom-10 xl:-right-[3.375rem]"
+                style={{
+                  width: "clamp(7.5rem, 9.375rem, 15.625rem)",
+                  height: "clamp(7.5rem, 9.375rem, 15.625rem)",
+                }}
+              >
+                <Image
+                  src={people2}
+                  alt="Membro da equipe Grupo Viriato"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 200px, 250px"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
+                />
+              </div>
+              <div
+                className="absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-10 lg:-bottom-8 xl:-bottom-16 xl:left-40"
+                style={{
+                  width: "clamp(3.75rem, 5rem, 7.8125rem)",
+                  height: "clamp(3.75rem, 5rem, 7.8125rem)",
+                }}
+              >
+                <Image
+                  src={people3}
+                  alt="Membro da equipe Grupo Viriato"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 100px, 125px"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
+                />
+              </div>
             </Flex>
           </FadeInOnScroll>
         </Flex>
