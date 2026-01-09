@@ -20,13 +20,7 @@ import CustomTooltip from "@/src/components/custom-tooltip";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
-import {
-  Check,
-  ChevronLeft,
-  CircleAlert,
-  Loader2,
-  Loader2Icon,
-} from "lucide-react";
+import { Check, ChevronLeft, CircleAlert, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -96,6 +90,7 @@ const ProductResult = () => {
 
   const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
   const companyRegime = company?.tax_regime;
+  const isSimpleNational = company?.tax_regime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.has_icms_st === true;
 
@@ -132,7 +127,7 @@ const ProductResult = () => {
     shipping: data?.shipping ?? 0,
     range: company?.revenue_range,
     business,
-    isSimpleNational: companyRegime === "simple_national",
+    isSimpleNational,
   });
 
   const suggestedProductPrice = suggestedProductPriceCalc({
@@ -311,7 +306,7 @@ const ProductResult = () => {
     suggestedProductPrice,
   });
 
-  const metrics2025: MetricCardProps[] = [
+  const metrics2025 = [
     {
       title: "Valor de aquisição",
       value: acquisitionCost || 0,
@@ -337,6 +332,12 @@ const ProductResult = () => {
       value: icmsSt,
     },
     {
+      title: "DAS",
+      value: das,
+      variant: "neutral" as const,
+      condition: isSimpleNational,
+    },
+    {
       title: "IRPJ + CSLL",
       value:
         companyRegime === "presumed_profit"
@@ -344,17 +345,30 @@ const ProductResult = () => {
           : companyRegime === "real_profit"
           ? realProfitIrpjCsllCalc
           : undefined,
+      condition: !isSimpleNational,
     },
     {
       title: "Markup",
       value: markup,
-      type: "percentage",
+      type: "percentage" as const,
     },
     {
       title: "Rentabilidade",
       value: profitability,
-      type: "percentage",
-      variant: "success",
+      type: "percentage" as const,
+      variant: "success" as const,
+    },
+    {
+      title: "Lucro líquido",
+      value: netProfit,
+      variant: "success" as const,
+      colSpan: "col-span-1",
+    },
+    {
+      title: "Preço de venda final",
+      value: finalSalePrice,
+      variant: "secondary" as const,
+      colSpan: "col-span-1 md:col-span-2",
     },
   ];
 
@@ -392,8 +406,6 @@ const ProductResult = () => {
   const backPath =
     isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
 
-  const isSimpleNational = company?.tax_regime === "simple_national";
-
   return (
     <Show
       when={!isLoading}
@@ -411,7 +423,7 @@ const ProductResult = () => {
             disabled={isLoading || pendingPostProduct}
           >
             <Link href={backPath}>
-              <ChevronLeft className="w-12! h-12!" />
+              <ChevronLeft className="w-12 h-12" />
             </Link>
           </Button>
           <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
@@ -420,32 +432,24 @@ const ProductResult = () => {
                 Pré-Reforma Tributária <strong>2025</strong>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
-                {metrics2025.slice(0, 9).map((metric, index) => (
-                  <MetricCard
-                    key={`metric-2025-${index}`}
-                    title={metric.title}
-                    value={metric.value}
-                    variant={metric.variant}
-                    type={metric.type}
-                  />
-                ))}
-                <Show when={isSimpleNational}>
-                  <MetricCard title="DAS" value={das} variant="neutral" />
-                </Show>
-                <div className="col-span-1">
-                  <MetricCard
-                    title="Lucro líquido"
-                    value={netProfit}
-                    variant="success"
-                  />
-                </div>
-                <div className="col-span-1 md:col-span-2">
-                  <MetricCard
-                    title="Preço de venda final"
-                    value={finalSalePrice}
-                    variant="secondary"
-                  />
-                </div>
+                {metrics2025
+                  .filter(
+                    (metric) =>
+                      metric.condition === undefined || metric.condition
+                  )
+                  .map((metric, index) => (
+                    <div
+                      key={`metric-2025-${index}`}
+                      className={metric.colSpan}
+                    >
+                      <MetricCard
+                        title={metric.title}
+                        value={metric.value}
+                        variant={metric.variant}
+                        type={metric.type}
+                      />
+                    </div>
+                  ))}
               </div>
             </Column>
           </Card>
@@ -456,7 +460,7 @@ const ProductResult = () => {
                   Transição Reforma Tributária <strong>2026</strong>
                 </h3>
                 <CustomTooltip
-                  icon={<CircleAlert className="w-4! h-4!" />}
+                  icon={<CircleAlert className="w-4 h-4" />}
                   message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
                 />
               </Row>
@@ -494,7 +498,7 @@ const ProductResult = () => {
             disabled={isLoading || pendingPostProduct}
           >
             <Link href={backPath}>
-              <ChevronLeft className="w-6! h-6!" />
+              <ChevronLeft className="w-6 h-6" />
             </Link>
           </Button>
           <Button
@@ -503,7 +507,7 @@ const ProductResult = () => {
             disabled={pending}
           >
             <Show when={pending} fallback={<Check />}>
-              <Loader2Icon className="animate-spin" />
+              <Loader2 className="animate-spin" />
             </Show>
             Finalizar
           </Button>

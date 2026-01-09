@@ -302,7 +302,7 @@ const PricingForm = () => {
                     />
                   )}
                 />
-                <CustomTooltip message="Informe o valor MVA (Margem de Valor Agregado) caso incida ICMS ST" />
+                <CustomTooltip message="A MVA é utilizada no cálculo do ICMS por Substituição Tributária. O preenchimento é obrigatório apenas quando o produto estiver sujeito à ST. Para operações internas, utilize a MVA original. Para operações interestaduais, utilize a MVA ajustada, conforme legislação vigente." />
               </Row>
               <Show when={errors.mva?.message}>
                 <span className="text-xs text-red-500 -mt-1">
