@@ -1,15 +1,20 @@
+import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/percentage-value-calc";
 
 interface IcmsStCalcProps {
   suggestedProductPrice: number;
   mva: number;
   salesIcmsInput: number;
+  stateDestination?: string;
+  hasIcmsSt: boolean;
 }
 
 export function icmsStCalc({
   suggestedProductPrice,
   mva,
   salesIcmsInput,
+  stateDestination,
+  hasIcmsSt,
 }: IcmsStCalcProps) {
   const base = suggestedProductPrice + (suggestedProductPrice * mva) / 100;
 
@@ -18,7 +23,11 @@ export function icmsStCalc({
     percentage: salesIcmsInput,
   });
 
-  const result = base * (salesIcmsInput / 100) - salesIcms;
+  const icmsStAliquot = hasIcmsSt
+    ? getICMSRate(stateDestination!, stateDestination!)
+    : salesIcmsInput;
+
+  const result = base * (icmsStAliquot / 100) - salesIcms;
 
   return result;
 }

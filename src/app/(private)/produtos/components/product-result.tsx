@@ -98,9 +98,6 @@ const ProductResult = () => {
   const companyRegime = company?.tax_regime;
   const business = company?.sector === "business";
   const hasIcmsSt = data?.has_icms_st === true;
-  const salesIcmsInput = hasIcmsSt
-    ? getICMSRate(data.state_destination!, data.state_destination!)
-    : data?.sales_icms;
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
@@ -162,7 +159,9 @@ const ProductResult = () => {
   const icmsSt = icmsStCalc({
     mva: data?.mva ?? 0,
     suggestedProductPrice,
-    salesIcmsInput,
+    salesIcmsInput: data?.sales_icms,
+    stateDestination: data?.state_destination,
+    hasIcmsSt,
   });
 
   const fixedCosts = percentageValueCalc({
@@ -191,7 +190,7 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  const conditionalIcmsSt = icmsStInputExists ? 0 : icmsSt;
+  const conditionalIcmsSt = icmsStInputExists || hasIcmsSt ? 0 : icmsSt;
 
   // IRPJ + CSLL LUCRO PRESUMIDO =======================
   const calcBaseIrpj = percentageValueCalc({

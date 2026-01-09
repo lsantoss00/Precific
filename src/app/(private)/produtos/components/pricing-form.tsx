@@ -29,6 +29,7 @@ const PricingForm = () => {
   const isImportedProduct = !!form.watch("imported_product");
   const isInterstateSale = !!form.watch("interstate_sale");
   const stateDestination = form.watch("state_destination");
+  const hasIcmsSt = !!form.watch("has_icms_st");
 
   const isSixthRevenueRange = company?.revenue_range === "range_6";
 
@@ -297,6 +298,7 @@ const PricingForm = () => {
                         field.onChange(value === "" ? "" : Number(value));
                       }}
                       error={errors.mva?.message}
+                      disabled={hasIcmsSt}
                     />
                   )}
                 />
@@ -430,8 +432,8 @@ export default PricingForm;
 
 const presumedProfitIrpjPercentOptions = [
   { value: 0, label: "0%" },
-  { value: 0.15, label: "15%" },
-  { value: 0.25, label: "25%" },
+  { value: 0.15, label: "24%" },
+  { value: 0.25, label: "34%" },
 ];
 
 const realProfitIrpjPercentOptions = [
