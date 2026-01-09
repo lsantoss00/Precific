@@ -8,7 +8,7 @@ interface InfoPageLayoutProps {
 
 export default function InfoPageLayout({ children }: InfoPageLayoutProps) {
   return (
-    <SectionWithBackground as="article" className="py-16">
+    <SectionWithBackground as="article">
       <Container variant="section" className="lg:px-20 xl:px-25 z-10">
         {children}
       </Container>
