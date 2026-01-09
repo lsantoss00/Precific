@@ -26,10 +26,10 @@ const PricingForm = () => {
 
   const icmsSt = form.watch("icms_st") ?? 0;
 
-  const isImportedProduct = !!form.watch("imported_product");
-  const isInterstateSale = !!form.watch("interstate_sale");
+  const isImportedProduct = form.watch("imported_product");
+  const isInterstateSale = form.watch("interstate_sale");
   const stateDestination = form.watch("state_destination");
-  const hasIcmsSt = !!form.watch("has_icms_st");
+  const hasIcmsSt = form.watch("has_icms_st");
 
   const isSixthRevenueRange = company?.revenue_range === "range_6";
 
@@ -298,7 +298,7 @@ const PricingForm = () => {
                         field.onChange(value === "" ? "" : Number(value));
                       }}
                       error={errors.mva?.message}
-                      disabled={hasIcmsSt}
+                      disabled={!hasIcmsSt}
                     />
                   )}
                 />
