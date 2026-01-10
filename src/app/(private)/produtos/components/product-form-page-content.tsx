@@ -1,0 +1,36 @@
+"use client";
+
+import { Button, Container } from "@/src/components/core";
+import Flex from "@/src/components/core/flex";
+import Show from "@/src/components/core/show";
+import { ScrollText } from "lucide-react";
+import { useProductForm } from "../contexts/product-form-context";
+import ProductForm from "./product-form";
+import ProductPriceHistoryDialog from "./product-price-history-dialog";
+
+const ProductFormPageContent = () => {
+  const { isEditMode, productId } = useProductForm();
+  return (
+    <Container variant="page">
+      <Flex className="flex-col md:flex-row gap-2 justify-between">
+        <h2 className="text-3xl text-black font-bold">
+          {isEditMode ? "Editar Produto" : "Novo Produto"}
+        </h2>
+        <Show when={isEditMode}>
+          <ProductPriceHistoryDialog
+            productId={productId!}
+            trigger={
+              <Button className="cursor-pointer h-12" variant="secondary">
+                <ScrollText className="w-5! h-5!" />
+                <span>Histórico de Preço</span>
+              </Button>
+            }
+          />
+        </Show>
+      </Flex>
+      <ProductForm productId={productId} />
+    </Container>
+  );
+};
+
+export default ProductFormPageContent;

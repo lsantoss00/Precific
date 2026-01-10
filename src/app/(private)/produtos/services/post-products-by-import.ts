@@ -1,0 +1,29 @@
+import { createClient } from "@/src/libs/supabase/client";
+
+interface ProductImportData {
+  sku: string | null;
+  name: string | null;
+  ncm: string | null;
+  price_today: number;
+  price_in_2026: number;
+  price_in_2027: number;
+  status: string;
+}
+
+export async function importProducts(products: ProductImportData[]) {
+  const supabase = createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) throw new Error("Usuário não autenticado");
+
+  const { data, error } = await supabase.rpc("bulk_import_products", {
+    products_data: products,
+  });
+
+  if (error) throw error;
+
+  return { count: data?.length || 0, data };
+}

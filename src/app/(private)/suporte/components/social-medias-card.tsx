@@ -1,0 +1,35 @@
+import { Card } from "@/src/components/core";
+import Column from "@/src/components/core/column";
+import Row from "@/src/components/core/row";
+import { socialMediaLinks } from "@/src/constants/social-media-links";
+
+const SocialMediasCard = () => {
+  return (
+    <Card className="h-full w-full flex flex-col md:flex-row md:items-center justify-between gap-4 p-6">
+      <Column className="gap-1">
+        <span className="text-lg font-semibold text-foreground">
+          Siga o Grupo Viriato
+        </span>
+        <span className="text-muted-foreground text-sm">
+          Acompanhe novidades e conteúdos sobre gestão empresarial!
+        </span>
+      </Column>
+      <Row className="gap-3">
+        {socialMediaLinks.map((socialMedia) => (
+          <a
+            key={socialMedia.label}
+            href={socialMedia.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-12 w-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+            aria-label={socialMedia.label}
+          >
+            {socialMedia.icon}
+          </a>
+        ))}
+      </Row>
+    </Card>
+  );
+};
+
+export default SocialMediasCard;
