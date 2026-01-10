@@ -50,7 +50,7 @@ const HeroSection = () => {
                   seus produtos com precisão.
                 </h1>
                 <p className="text-zinc-200 text-base md:text-lg max-w-2xl">
-                  A Precific automatiza o cálculo de preços com base em custos,
+                  o Precific automatiza o cálculo de preços com base em custos,
                   impostos e margens, simulando cenários futuros da Reforma
                   Tributária.
                 </p>

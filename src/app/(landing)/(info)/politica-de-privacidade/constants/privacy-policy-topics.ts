@@ -4,7 +4,7 @@ export const privacyPolicyTopics: InfoTopicType[] = [
   {
     title: "1. Informações coletadas",
     content:
-      "A Precific pode coletar as seguintes informações pessoais dos usuários:",
+      "o Precific pode coletar as seguintes informações pessoais dos usuários:",
     items: [
       "Informações de cadastro: Nome completo, endereço de e-mail, senha (criptografada), telefone e informações da empresa.",
       "Informações de produtos: Dados de custos, margens de lucro, preços e demais informações inseridas na plataforma para cálculo de precificação.",
@@ -14,7 +14,7 @@ export const privacyPolicyTopics: InfoTopicType[] = [
   {
     title: "2. Uso das informações",
     content:
-      "A Precific utiliza as informações coletadas para as seguintes finalidades:",
+      "o Precific utiliza as informações coletadas para as seguintes finalidades:",
     items: [
       "Fornecer e operar a plataforma: Processar cálculos de precificação, armazenar dados de produtos e gerenciar sua conta.",
       "Melhorar nossos serviços: Analisar o uso da plataforma para desenvolver novos recursos e aprimorar a experiência do usuário.",
@@ -26,7 +26,7 @@ export const privacyPolicyTopics: InfoTopicType[] = [
   {
     title: "3. Compartilhamento de informações",
     content:
-      "A Precific não vende suas informações pessoais. Podemos compartilhar informações apenas nas seguintes situações:",
+      "o Precific não vende suas informações pessoais. Podemos compartilhar informações apenas nas seguintes situações:",
     items: [
       "Provedores de serviços: Com parceiros que auxiliam na operação da plataforma (hospedagem, processamento de pagamentos, análise de dados), todos sujeitos a acordos de confidencialidade.",
       "Requisitos legais: Quando exigido por lei, ordem judicial ou para proteger direitos, propriedade ou segurança da Precific e seus usuários.",
@@ -37,12 +37,12 @@ export const privacyPolicyTopics: InfoTopicType[] = [
   {
     title: "4. Armazenamento e segurança de dados",
     content:
-      "A Precific emprega medidas de segurança adequadas para proteger as informações pessoais dos usuários contra acesso não autorizado, alteração, divulgação ou destruição. Utilizamos criptografia de dados, protocolos HTTPS, autenticação segura e acesso restrito aos dados apenas para funcionários autorizados que necessitam das informações para desempenhar suas funções.",
+      "o Precific emprega medidas de segurança adequadas para proteger as informações pessoais dos usuários contra acesso não autorizado, alteração, divulgação ou destruição. Utilizamos criptografia de dados, protocolos HTTPS, autenticação segura e acesso restrito aos dados apenas para funcionários autorizados que necessitam das informações para desempenhar suas funções.",
   },
   {
     title: "5. Cookies e tecnologias similares",
     content:
-      "A Precific utiliza cookies e tecnologias similares para melhorar a experiência do usuário, manter sessões ativas, personalizar conteúdo e analisar o uso da plataforma. Os usuários podem controlar o uso de cookies através das configurações do navegador, mas a desativação pode limitar funcionalidades essenciais como autenticação e salvamento de preferências.",
+      "o Precific utiliza cookies e tecnologias similares para melhorar a experiência do usuário, manter sessões ativas, personalizar conteúdo e analisar o uso da plataforma. Os usuários podem controlar o uso de cookies através das configurações do navegador, mas a desativação pode limitar funcionalidades essenciais como autenticação e salvamento de preferências.",
   },
   {
     title: "6. Alterações nesta política",

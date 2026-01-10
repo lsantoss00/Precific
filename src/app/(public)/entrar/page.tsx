@@ -48,7 +48,7 @@ export default function LoginPage() {
       <LoginForm />
       <Link href="/" className="flex self-center w-fit my-2" passHref>
         <Button type="button" variant="link" className="text-xs sm:text-sm">
-          Caiu de paraquedas? Conheça a Precific!
+          Caiu de paraquedas? Conheça o Precific!
         </Button>
       </Link>
     </Column>

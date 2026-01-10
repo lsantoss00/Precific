@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
     <InfoPageLayout>
       <InfoPageHeader
         title="Política de Privacidade"
-        description="Esta Política de Privacidade descreve como a Precific coleta, usa,
+        description="Esta Política de Privacidade descreve como o Precific coleta, usa,
         armazena e protege as informações pessoais dos usuários da nossa
         plataforma de precificação. <br /> É importante ler atentamente esta
         política antes de utilizar nossos serviços ou fornecer quaisquer

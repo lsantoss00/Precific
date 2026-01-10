@@ -22,7 +22,7 @@ const StartUsingSection = () => {
               id="start-using-heading"
               className="font-bold text-2xl sm:text-3xl md:text-4xl xl:text-4xl 2xl:text-5xl text-center leading-tight"
             >
-              Comece a usar a Precific agora!
+              Comece a usar o Precific agora!
             </h2>
             <p className="text-center text-sm md:text-base xl:text-base 2xl:text-lg max-w-155 text-muted-foreground">
               Enquanto você pensa, seu concorrente já já vai começar a{" "}
