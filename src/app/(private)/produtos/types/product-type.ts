@@ -26,6 +26,7 @@ export type ProductType = {
   costumer_taxpayer: boolean;
   mva?: number;
   has_icms_st: boolean;
+  user_product_price?: number;
 };
 
 export type ProductFormDataType = Omit<

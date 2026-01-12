@@ -10,7 +10,7 @@ interface IcmsStCalcProps {
 }
 
 export function icmsStCalc({
-  suggestedProductPrice,
+  suggestedProductPrice, // To-do: alterar para um nome generico;
   mva,
   salesIcmsInput,
   stateDestination,

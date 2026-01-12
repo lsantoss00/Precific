@@ -56,6 +56,7 @@ export const ProductFormProvider = ({
       imported_product: false,
       costumer_taxpayer: false,
       has_icms_st: false,
+      user_product_price: 0,
     },
   });
 

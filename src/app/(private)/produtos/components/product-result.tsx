@@ -8,6 +8,7 @@ import { markupCalc } from "@/src/app/(private)/produtos/utils/calcs/markup-calc
 import { presumedProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/presumed-profit-calc";
 import { ProfitabilityCalc } from "@/src/app/(private)/produtos/utils/calcs/profitability-calc";
 import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-calc";
+import { realProfitInverseCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-inverse-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
 import { suggestedProductPriceCalc } from "@/src/app/(private)/produtos/utils/calcs/suggested-product-price-calc";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
@@ -89,6 +90,8 @@ const ProductResult = () => {
   const pending = pendingPostProduct || pendingUpdateProduct;
 
   const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
+  const userProductPriceExists =
+    data?.user_product_price !== 0 && data?.user_product_price !== undefined;
   const companyRegime = company?.tax_regime;
   const isSimpleNational = company?.tax_regime === "simple_national";
   const business = company?.sector === "business";
@@ -204,7 +207,7 @@ const ProductResult = () => {
   const presumedProfitIrpjCsll = irpj + csll;
 
   // IRPJ + CSLL LUCRO REAL =======================
-  const bcIrpjCsll =
+  const baseIrpjCsll =
     suggestedProductPrice -
     unitPrice -
     fixedCosts -
@@ -215,10 +218,10 @@ const ProductResult = () => {
     conditionalIcmsSt;
 
   const realProfitIrpjCsllCalc =
-    bcIrpjCsll < 0
+    baseIrpjCsll < 0
       ? 0
       : percentageValueCalc({
-          base: bcIrpjCsll,
+          base: baseIrpjCsll,
           percentage: data?.irpj_percent,
         });
 
@@ -305,6 +308,74 @@ const ProductResult = () => {
     netProfit,
     suggestedProductPrice,
   });
+
+  if (userProductPriceExists) {
+    const realProfitInverse = realProfitInverseCalc({
+      userProductPrice: data?.user_product_price!,
+      fixedCosts: data?.fixed_costs ?? 0,
+      othersCosts: data?.other_costs ?? 0,
+      salesIcms: data?.sales_icms ?? 0,
+      salesPisCofins: data?.sales_pis_cofins ?? 0,
+      shipping: data?.shipping ?? 0,
+    });
+
+    const realProfitInverseIcmsSt = icmsStCalc({
+      mva: data?.mva ?? 0,
+      suggestedProductPrice: data.user_product_price!,
+      salesIcmsInput: data?.sales_icms,
+      stateDestination: data?.state_destination,
+      hasIcmsSt,
+    });
+
+    const userProductPriceFixedCosts = percentageValueCalc({
+      base: data.user_product_price!,
+      percentage: data?.fixed_costs ?? 0,
+    });
+
+    const userProductPriceOthersCosts = percentageValueCalc({
+      base: data.user_product_price!,
+      percentage: data?.other_costs ?? 0,
+    });
+
+    const userProductPriceShipping = percentageValueCalc({
+      base: data?.user_product_price!,
+      percentage: data?.shipping ?? 0,
+    });
+
+    const userProductPriceSalesPisCofins = percentageValueCalc({
+      base: data?.user_product_price!,
+      percentage: data?.sales_pis_cofins ?? 0,
+    });
+
+    const userProductPriceSalesIcms = percentageValueCalc({
+      base: data?.user_product_price!,
+      percentage: data?.sales_icms ?? 0,
+    });
+
+    const baseInverseIrpjCsll =
+      data?.user_product_price! -
+      unitPrice -
+      userProductPriceFixedCosts -
+      userProductPriceSalesIcms -
+      userProductPriceSalesPisCofins -
+      userProductPriceShipping -
+      userProductPriceOthersCosts -
+      conditionalIcmsSt;
+
+    const realProfitInverseIrpjCsllCalc =
+      baseIrpjCsll < 0
+        ? 0
+        : percentageValueCalc({
+            base: baseInverseIrpjCsll,
+            percentage: data?.irpj_percent,
+          });
+
+    return {
+      realProfitInverse,
+      realProfitInverseIcmsSt,
+      inverseIrpjCsll: realProfitInverseIrpjCsllCalc,
+    };
+  }
 
   const metrics2025 = [
     {
