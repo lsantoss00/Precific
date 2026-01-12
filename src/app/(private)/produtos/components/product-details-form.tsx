@@ -94,6 +94,23 @@ const ProductDetailsForm = () => {
             {...register("observations")}
           />
         </Column>
+
+        <Row className="gap-2 items-center">
+          <Controller
+            name="has_icms_st"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Checkbox
+                id="has_icms_st"
+                checked={value}
+                onCheckedChange={onChange}
+              />
+            )}
+          />
+          <Label htmlFor="has_icms_st" className="cursor-pointer">
+            A venda incide ICMS ST?
+          </Label>
+        </Row>
         <Row className="gap-2 items-center">
           <Controller
             name="interstate_sale"
@@ -137,22 +154,6 @@ const ProductDetailsForm = () => {
         </Show>
         <Row className="gap-2 items-center">
           <Controller
-            name="has_icms_st"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                id="has_icms_st"
-                checked={value}
-                onCheckedChange={onChange}
-              />
-            )}
-          />
-          <Label htmlFor="has_icms_st" className="cursor-pointer">
-            A venda incide ICMS ST?
-          </Label>
-        </Row>
-        <Row className="gap-2 items-center">
-          <Controller
             name="imported_product"
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -182,7 +183,8 @@ const ProductDetailsForm = () => {
                 onCheckedChange={onChange}
                 disabled={
                   !form.watch("interstate_sale") ||
-                  !form.watch("state_destination")
+                  !form.watch("state_destination") ||
+                  form.watch("has_icms_st")
                 }
               />
             )}
