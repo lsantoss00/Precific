@@ -96,21 +96,21 @@ const ProductDetailsForm = () => {
         </Column>
         <Row className="gap-2 items-center">
           <Controller
-            name="user_product_price"
+            name="has_user_product_price"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="user_product_price"
+                id="has_user_product_price"
                 checked={Boolean(value)}
                 onCheckedChange={onChange}
               />
             )}
           />
-          <Label htmlFor="user_product_price" className="cursor-pointer">
+          <Label htmlFor="has_user_product_price" className="cursor-pointer">
             O seu produto já possui um valor de venda?
           </Label>
         </Row>
-        <Show when={Boolean(form.watch("user_product_price"))}>
+        <Show when={Boolean(form.watch("has_user_product_price"))}>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
@@ -131,9 +131,9 @@ const ProductDetailsForm = () => {
                 )}
               />
             </Row>
-            <Show when={errors.unit_price?.message}>
+            <Show when={errors.user_product_price?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.unit_price?.message}
+                {errors.user_product_price?.message}
               </span>
             </Show>
           </Column>

@@ -26,6 +26,7 @@ export type ProductType = {
   costumer_taxpayer: boolean;
   mva?: number;
   has_icms_st: boolean;
+  has_user_product_price: boolean;
   user_product_price?: number;
 };
 
