@@ -70,10 +70,11 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
               <div className="overflow-x-auto">
                 <Image
                   src={spreadsheetExampleImage}
-                  alt="Ilustração de exemplo de planilha"
+                  alt="Exemplo de preenchimento correto da planilha de importação de produtos"
                   width={1040}
                   height={150}
-                  className="min-w-[550px]"
+                  className="min-w-137.5"
+                  priority
                 />
               </div>
             </div>
