@@ -12,7 +12,7 @@ interface PresumedProfitCalcProps {
 }
 
 export function presumedProfitCalc({
-  suggestedProductPrice,
+  suggestedProductPrice, // TO-DO: GENERICO
   acquisitionCost,
   icms,
   fixedCosts,

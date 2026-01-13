@@ -1,5 +1,6 @@
 "use client";
 
+import { TaxRegimeType } from "@/src/app/(private)/perfil/types/company-type";
 import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
@@ -309,6 +310,204 @@ const ProductResult = () => {
     suggestedProductPrice,
   });
 
+  const inverseTaxRegimeCalculators = {
+    real_profit: () => {
+      const realProfitInverse = realProfitInverseCalc({
+        userProductPrice: data?.user_product_price!,
+        fixedCosts: data?.fixed_costs ?? 0,
+        othersCosts: data?.other_costs ?? 0,
+        salesIcms: data?.sales_icms ?? 0,
+        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        shipping: data?.shipping ?? 0,
+      });
+
+      const realProfitInverseIcmsSt = icmsStCalc({
+        mva: data?.mva ?? 0,
+        suggestedProductPrice: data.user_product_price!,
+        salesIcmsInput: data?.sales_icms,
+        stateDestination: data?.state_destination,
+        hasIcmsSt,
+      });
+
+      const userProductPriceFixedCosts = percentageValueCalc({
+        base: data.user_product_price!,
+        percentage: data?.fixed_costs ?? 0,
+      });
+
+      const userProductPriceOthersCosts = percentageValueCalc({
+        base: data.user_product_price!,
+        percentage: data?.other_costs ?? 0,
+      });
+
+      const userProductPriceShipping = percentageValueCalc({
+        base: data?.user_product_price!,
+        percentage: data?.shipping ?? 0,
+      });
+
+      const userProductPriceSalesIcms = percentageValueCalc({
+        base: data?.user_product_price!,
+        percentage: data?.sales_icms ?? 0,
+      });
+
+      const userProductPriceSalesPisCofins = percentageValueCalc({
+        base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
+        percentage: data?.sales_pis_cofins ?? 0,
+      });
+
+      const baseInverseIrpjCsll =
+        data?.user_product_price! -
+        unitPrice -
+        userProductPriceFixedCosts -
+        userProductPriceSalesIcms -
+        userProductPriceSalesPisCofins -
+        userProductPriceShipping -
+        userProductPriceOthersCosts -
+        conditionalIcmsSt;
+
+      const realProfitInverseIrpjCsllCalc =
+        baseInverseIrpjCsll < 0
+          ? 0
+          : percentageValueCalc({
+              base: baseInverseIrpjCsll,
+              percentage: data?.irpj_percent,
+            });
+
+      const userRealNetProfit = realProfitCalc({
+        suggestedProductPrice: data.user_product_price ?? 0,
+        acquisitionCost,
+        icms: icmsValue,
+        pisCofins: pisCofinsValue,
+        fixedCosts: userProductPriceFixedCosts,
+        salesIcms: userProductPriceSalesIcms,
+        salesPisCofins: userProductPriceSalesPisCofins,
+        shipping: userProductPriceShipping,
+        othersCosts: userProductPriceOthersCosts,
+        irpjCsll: realProfitInverseIrpjCsllCalc,
+      });
+
+      const inverseProfitability = ProfitabilityCalc({
+        netProfit: userRealNetProfit,
+        suggestedProductPrice: data?.user_product_price ?? 0,
+      });
+
+      const userFinalSalePrice =
+        (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
+
+      const inverseTaxes = taxCalc({
+        suggestedProductPrice: data?.user_product_price ?? 0,
+        salesIcms: data?.sales_icms ?? 0,
+        salesPisCofins: data?.sales_pis_cofins ?? 0,
+      });
+
+      return {
+        realProfitInverse,
+        realProfitInverseIcmsSt,
+        realProfitInverseIrpjCsllCalc,
+        userRealNetProfit,
+        inverseProfitability,
+        userFinalSalePrice,
+        inverseTaxes,
+      };
+    },
+
+    presumed_profit: () => {
+      const realProfitInverse = realProfitInverseCalc({
+        userProductPrice: data?.user_product_price!,
+        fixedCosts: data?.fixed_costs ?? 0,
+        othersCosts: data?.other_costs ?? 0,
+        salesIcms: data?.sales_icms ?? 0,
+        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        shipping: data?.shipping ?? 0,
+      });
+
+      const realProfitInverseIcmsSt = icmsStCalc({
+        mva: data?.mva ?? 0,
+        suggestedProductPrice: data.user_product_price!,
+        salesIcmsInput: data?.sales_icms,
+        stateDestination: data?.state_destination,
+        hasIcmsSt,
+      });
+
+      const userProductPriceFixedCosts = percentageValueCalc({
+        base: data.user_product_price!,
+        percentage: data?.fixed_costs ?? 0,
+      });
+
+      const userProductPriceOthersCosts = percentageValueCalc({
+        base: data.user_product_price!,
+        percentage: data?.other_costs ?? 0,
+      });
+
+      const userProductPriceShipping = percentageValueCalc({
+        base: data?.user_product_price!,
+        percentage: data?.shipping ?? 0,
+      });
+
+      const userProductPriceSalesIcms = percentageValueCalc({
+        base: data?.user_product_price!,
+        percentage: data?.sales_icms ?? 0,
+      });
+
+      const userProductPriceSalesPisCofins = percentageValueCalc({
+        base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
+        percentage: data?.sales_pis_cofins ?? 0,
+      });
+
+      const calcBaseIrpj = percentageValueCalc({
+        base: realProfitInverse,
+        percentage: 8,
+      });
+
+      const calcBaseCsll = percentageValueCalc({
+        base: realProfitInverse,
+        percentage: 12,
+      });
+
+      const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpj_percent;
+      const csll = calcBaseCsll < 0 ? 0 : calcBaseCsll * 0.09;
+
+      const presumedProfitIrpjCsll = irpj + csll;
+
+      const userPresumedNetProfit = presumedProfitCalc({
+        suggestedProductPrice: data.user_product_price ?? 0,
+        acquisitionCost,
+        icms: icmsValue,
+        pisCofins: pisCofinsValue,
+        fixedCosts: userProductPriceFixedCosts,
+        salesIcms: userProductPriceSalesIcms,
+        salesPisCofins: userProductPriceSalesPisCofins,
+        shipping: userProductPriceShipping,
+        othersCosts: userProductPriceOthersCosts,
+        irpjCsll: presumedProfitIrpjCsll,
+      });
+
+      const inverseProfitability = ProfitabilityCalc({
+        netProfit: userPresumedNetProfit,
+        suggestedProductPrice: data?.user_product_price ?? 0,
+      });
+
+      const userFinalSalePrice =
+        (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
+
+      const inverseTaxes = taxCalc({
+        suggestedProductPrice: data?.user_product_price ?? 0,
+        salesIcms: data?.sales_icms ?? 0,
+        salesPisCofins: data?.sales_pis_cofins ?? 0,
+      });
+
+      return {
+        realProfitInverse,
+        realProfitInverseIcmsSt,
+        realProfitInverseIrpjCsllCalc: presumedProfitIrpjCsll,
+        userRealNetProfit: userPresumedNetProfit,
+        inverseProfitability,
+        userFinalSalePrice,
+        inverseTaxes,
+      };
+    },
+    simple_national: () => undefined,
+  };
+
   const inverseCalculations = (() => {
     if (!userProductPriceExists) {
       return {
@@ -318,105 +517,11 @@ const ProductResult = () => {
         userRealNetProfit: undefined,
         inverseProfitability: undefined,
         userFinalSalePrice: undefined,
+        inverseTaxes: undefined,
       };
     }
 
-    const realProfitInverse = realProfitInverseCalc({
-      userProductPrice: data?.user_product_price!,
-      fixedCosts: data?.fixed_costs ?? 0,
-      othersCosts: data?.other_costs ?? 0,
-      salesIcms: data?.sales_icms ?? 0,
-      salesPisCofins: data?.sales_pis_cofins ?? 0,
-      shipping: data?.shipping ?? 0,
-    });
-
-    const realProfitInverseIcmsSt = icmsStCalc({
-      mva: data?.mva ?? 0,
-      suggestedProductPrice: data.user_product_price!,
-      salesIcmsInput: data?.sales_icms,
-      stateDestination: data?.state_destination,
-      hasIcmsSt,
-    });
-
-    const userProductPriceFixedCosts = percentageValueCalc({
-      base: data.user_product_price!,
-      percentage: data?.fixed_costs ?? 0,
-    });
-
-    const userProductPriceOthersCosts = percentageValueCalc({
-      base: data.user_product_price!,
-      percentage: data?.other_costs ?? 0,
-    });
-
-    const userProductPriceShipping = percentageValueCalc({
-      base: data?.user_product_price!,
-      percentage: data?.shipping ?? 0,
-    });
-
-    const userProductPriceSalesIcms = percentageValueCalc({
-      base: data?.user_product_price!,
-      percentage: data?.sales_icms ?? 0,
-    });
-
-    const userProductPriceSalesPisCofins = percentageValueCalc({
-      base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
-      percentage: data?.sales_pis_cofins ?? 0,
-    });
-
-    const baseInverseIrpjCsll =
-      data?.user_product_price! -
-      unitPrice -
-      userProductPriceFixedCosts -
-      userProductPriceSalesIcms -
-      userProductPriceSalesPisCofins -
-      userProductPriceShipping -
-      userProductPriceOthersCosts -
-      conditionalIcmsSt;
-
-    const realProfitInverseIrpjCsllCalc =
-      baseInverseIrpjCsll < 0
-        ? 0
-        : percentageValueCalc({
-            base: baseInverseIrpjCsll,
-            percentage: data?.irpj_percent,
-          });
-
-    const userRealNetProfit = realProfitCalc({
-      suggestedProductPrice: data.user_product_price ?? 0,
-      acquisitionCost,
-      icms: icmsValue,
-      pisCofins: pisCofinsValue,
-      fixedCosts: userProductPriceFixedCosts,
-      salesIcms: userProductPriceSalesIcms,
-      salesPisCofins: userProductPriceSalesPisCofins,
-      shipping: userProductPriceShipping,
-      othersCosts: userProductPriceOthersCosts,
-      irpjCsll: realProfitInverseIrpjCsllCalc,
-    });
-
-    const inverseProfitability = ProfitabilityCalc({
-      netProfit: userRealNetProfit,
-      suggestedProductPrice: data?.user_product_price ?? 0,
-    });
-
-    const userFinalSalePrice =
-      (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
-
-    const inverseTaxes = taxCalc({
-      suggestedProductPrice: data?.user_product_price ?? 0,
-      salesIcms: data?.sales_icms ?? 0,
-      salesPisCofins: data?.sales_pis_cofins ?? 0,
-    });
-
-    return {
-      realProfitInverse,
-      realProfitInverseIcmsSt,
-      realProfitInverseIrpjCsllCalc,
-      userRealNetProfit,
-      inverseProfitability,
-      userFinalSalePrice,
-      inverseTaxes,
-    };
+    return inverseTaxRegimeCalculators[companyRegime as TaxRegimeType]();
   })();
 
   const metrics2025: (MetricCardProps & {

@@ -24,10 +24,10 @@ export function realProfitInverseCalc({
   const userProductAcquisitonCost =
     userProductPrice -
     userProductPrice *
-      (fixedCostsPercentage -
-        salesIcmsPercentage -
-        salesPisCofinsPercentage -
-        shippingPercentage -
+      (fixedCostsPercentage +
+        salesIcmsPercentage +
+        salesPisCofinsPercentage +
+        shippingPercentage +
         othersCostsPercentage);
 
   return userProductAcquisitonCost;
