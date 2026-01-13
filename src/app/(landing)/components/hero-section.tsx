@@ -23,11 +23,7 @@ const HeroSection = () => {
       className="w-full min-h-[calc(100vh-80px)] xl:h-[calc(100vh-80px)] overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      <Container
-        as="section"
-        variant="section"
-        className="py-20 md:py-24 xl:py-0 xl:h-full"
-      >
+      <Container as="section" variant="section" className="xl:h-full">
         <Flex className="flex-col xl:flex-row items-center justify-between xl:h-full gap-8 md:gap-12">
           <FadeInOnScroll
             direction="left"
@@ -50,7 +46,7 @@ const HeroSection = () => {
                   seus produtos com precisão.
                 </h1>
                 <p className="text-zinc-200 text-base md:text-lg max-w-2xl">
-                  o Precific automatiza o cálculo de preços com base em custos,
+                  O Precific automatiza o cálculo de preços com base em custos,
                   impostos e margens, simulando cenários futuros da Reforma
                   Tributária.
                 </p>
