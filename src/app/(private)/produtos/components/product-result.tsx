@@ -535,30 +535,30 @@ const ProductResult = () => {
     {
       title: "Outros custos",
       value: suggestedProductPrice * ((data?.other_costs ?? 0) / 100),
-      userValue:
+      secondValue:
         (data?.user_product_price ?? 0) * ((data?.other_costs ?? 0) / 100),
     },
     {
       title: "Custos fixos",
       value: suggestedProductPrice * ((data?.fixed_costs ?? 0) / 100),
-      userValue:
+      secondValue:
         (data?.user_product_price ?? 0) * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "Frete",
       value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
-      userValue:
+      secondValue:
         (data?.user_product_price ?? 0) * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
       value: taxes,
-      userValue: inverseCalculations?.inverseTaxes,
+      secondValue: inverseCalculations?.inverseTaxes,
     },
     {
       title: "ICMS ST",
       value: icmsSt,
-      userValue: inverseCalculations?.realProfitInverseIcmsSt,
+      secondValue: inverseCalculations?.realProfitInverseIcmsSt,
     },
     {
       title: "DAS",
@@ -574,7 +574,7 @@ const ProductResult = () => {
           : companyRegime === "real_profit"
           ? realProfitIrpjCsllCalc
           : undefined,
-      userValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
+      secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
       condition: !isSimpleNational,
     },
     {
@@ -585,21 +585,21 @@ const ProductResult = () => {
     {
       title: "Rentabilidade",
       value: profitability,
-      userValue: inverseCalculations?.inverseProfitability,
+      secondValue: inverseCalculations?.inverseProfitability,
       type: "percentage" as const,
       variant: "success" as const,
     },
     {
       title: "Lucro líquido",
       value: netProfit,
-      userValue: inverseCalculations?.userRealNetProfit,
+      secondValue: inverseCalculations?.userRealNetProfit,
       variant: "success" as const,
       colSpan: "col-span-1",
     },
     {
       title: "Preço de venda final",
       value: finalSalePrice,
-      userValue: inverseCalculations?.userFinalSalePrice,
+      secondValue: inverseCalculations?.userFinalSalePrice,
       variant: "secondary" as const,
       colSpan: "col-span-1 md:col-span-2",
     },
@@ -678,7 +678,7 @@ const ProductResult = () => {
                       <MetricCard
                         title={metric.title}
                         value={metric.value}
-                        userValue={metric.userValue}
+                        secondValue={metric.secondValue}
                         variant={metric.variant}
                         type={metric.type}
                       />
