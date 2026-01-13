@@ -525,7 +525,7 @@ const ProductResult = () => {
   })();
 
   const metrics2025: (MetricCardProps & {
-    colSpan?: string;
+    gridSpan?: string;
     condition?: boolean;
   })[] = [
     {
@@ -594,18 +594,26 @@ const ProductResult = () => {
       value: netProfit,
       secondValue: inverseCalculations?.userRealNetProfit,
       variant: "success" as const,
-      colSpan: "col-span-1",
+      gridSpan: "col-span-1",
     },
     {
       title: "Preço de venda final",
       value: finalSalePrice,
       secondValue: inverseCalculations?.userFinalSalePrice,
       variant: "secondary" as const,
-      colSpan: "col-span-1 md:col-span-2",
+      gridSpan: "col-span-1 md:col-span-2",
     },
   ];
 
-  const metrics2026: MetricCardProps[] = [
+  const metrics2026: (MetricCardProps & {
+    gridSpan?: string;
+    condition?: boolean;
+  })[] = [
+    {
+      title: "Base de cálculo IBS/CBS",
+      value: firstBase,
+      gridSpan: "col-span-1 md:col-span-2",
+    },
     {
       title: "IBS (0.1%)",
       value: ibs,
@@ -613,6 +621,12 @@ const ProductResult = () => {
     {
       title: "CBS (0.9%)",
       value: cbs,
+    },
+    {
+      title: "Preço de venda final",
+      value: finalSalePrice,
+      variant: "secondary" as const,
+      gridSpan: "col-span-1 md:col-span-2 row-6",
     },
   ];
 
@@ -664,7 +678,7 @@ const ProductResult = () => {
               <h3 className="text-lg">
                 Pré-Reforma Tributária <strong>2025</strong>
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 w-full h-fit gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full auto-rows-fr gap-4">
                 {metrics2025
                   .filter(
                     (metric) =>
@@ -673,7 +687,7 @@ const ProductResult = () => {
                   .map((metric, index) => (
                     <div
                       key={`metric-2025-${index}`}
-                      className={metric.colSpan}
+                      className={metric.gridSpan}
                     >
                       <MetricCard
                         title={metric.title}
@@ -698,29 +712,22 @@ const ProductResult = () => {
                   message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
                 />
               </Row>
-              <Column className="gap-4">
-                <MetricCard
-                  title="Base de cálculo IBS/CBS"
-                  value={firstBase}
-                  variant="neutral"
-                />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-rows-4 gap-4">
-                  {metrics2026.map((metric, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-rows-5! gap-4">
+                {metrics2026.map((metric, index) => (
+                  <div
+                    key={`metric-2026-${index}`}
+                    className={`h-30 ${metric.gridSpan}`}
+                  >
                     <MetricCard
-                      key={`metric-2026-${index}`}
                       title={metric.title}
                       value={metric.value}
+                      secondValue={metric.secondValue}
                       variant={metric.variant}
                       type={metric.type}
                     />
-                  ))}
-                </div>
-              </Column>
-              <MetricCard
-                title="Preço de venda final"
-                value={finalSalePrice}
-                variant="secondary"
-              />
+                  </div>
+                ))}
+              </div>
             </Column>
           </Card>
         </Flex>
