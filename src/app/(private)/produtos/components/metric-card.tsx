@@ -12,6 +12,7 @@ export interface MetricCardProps {
   secondValue?: string | number | undefined;
   variant?: VariantType;
   type?: "percentage" | "currency";
+  className?: string;
 }
 
 const MetricCard = ({
@@ -20,6 +21,7 @@ const MetricCard = ({
   secondValue,
   variant = "neutral",
   type = "currency",
+  className,
 }: MetricCardProps) => {
   const formatValue = (value: string | number | undefined): string => {
     if (value === undefined) return "";
@@ -31,7 +33,7 @@ const MetricCard = ({
 
   return (
     <Column
-      className={`space-y-2 rounded-md p-4 h-full justify-center ${variantStyles[variant]}`}
+      className={`${className} ${variantStyles[variant]} space-y-2 rounded-md p-4 h-full justify-center`}
     >
       <span className="text-sm">{title}</span>
       <Column>

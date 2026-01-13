@@ -298,7 +298,11 @@ const AcquisitionCostForm = () => {
           </Column>
         </Column>
       </form>
-      <MetricCard title="Valor de Aquisição" value={acquisitionCost || 0} />
+      <MetricCard
+        title="Valor de Aquisição"
+        value={acquisitionCost || 0}
+        className="max-h-30"
+      />
     </Card>
   );
 };
