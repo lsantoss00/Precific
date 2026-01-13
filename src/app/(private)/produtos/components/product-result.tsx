@@ -188,7 +188,7 @@ const ProductResult = () => {
     percentage: data?.pis_cofins ?? 0,
   });
 
-  const conditionalIcmsSt = icmsStInputExists || hasIcmsSt ? 0 : icmsSt;
+  const conditionalIcmsSt = icmsStInputExists && hasIcmsSt ? 0 : icmsSt;
 
   // IRPJ + CSLL LUCRO PRESUMIDO =======================
   const calcBaseIrpj = percentageValueCalc({
