@@ -1,5 +1,7 @@
 import Column from "@/src/components/core/column";
+import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import currencyFormatter from "@/src/helpers/currency-formatter";
 
 type VariantType = "primary" | "secondary" | "neutral" | "success" | "error";
@@ -33,11 +35,17 @@ const MetricCard = ({
     >
       <span className="text-sm">{title}</span>
       <Column>
-        <p className="text-2xl font-bold">{formatValue(value)}</p>
+        <p className="text-2xl font-semibold">{formatValue(value)}</p>
         <Show when={secondValue}>
-          <p className="text-sm font-semibold bg-primary/20 rounded-md min-w-fit w-20 text-center px-1">
-            {formatValue(secondValue)}
-          </p>
+          <Row className="items-center bg-primary/20 min-w-fit w-20 pl-1.5 rounded-md">
+            <p className="text-sm font-semibold text-center">
+              {formatValue(secondValue)}
+            </p>
+            <CustomTooltip
+              message="Este é o valor que o seu produto possui hoje."
+              className={`${variantStyles[variant]}!`}
+            />
+          </Row>
         </Show>
       </Column>
     </Column>

@@ -3,15 +3,19 @@ import { useState } from "react";
 import { Button } from "./core";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./core/tooltip";
 
-interface FormFieldsTooltipProps {
-  message: string | any;
+interface CustomTooltipProps {
+  message: string | React.ReactNode;
   icon?: React.ReactNode;
+  className?: string;
+  tooltipClassName?: string;
 }
 
 const CustomTooltip = ({
   message,
   icon = <CircleQuestionMark size={24} />,
-}: FormFieldsTooltipProps) => {
+  className,
+  tooltipClassName,
+}: CustomTooltipProps) => {
   const [openTooltip, setOpenTooltip] = useState<boolean>(false);
 
   return (
@@ -20,21 +24,22 @@ const CustomTooltip = ({
         <Button
           type="button"
           tabIndex={-1}
-          className="bg-transparent shadow-none text-black hover:bg-transparent !p-1.5 h-fit !w-fit cursor-default"
+          className={`${className} bg-transparent shadow-none text-foreground hover:bg-transparent p-1.5! h-fit w-fit! cursor-default`}
           onClick={() => setOpenTooltip(!openTooltip)}
           onMouseEnter={() => setOpenTooltip(true)}
           onMouseLeave={() => setOpenTooltip(false)}
           onTouchStart={() => setOpenTooltip(!openTooltip)}
           onKeyDown={(event) => {
             event.preventDefault();
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             event.key === "Enter" && setOpenTooltip(!openTooltip);
           }}
         >
           {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="bg-black max-w-[220px] md:max-w-[420px] p-2">
+      <TooltipContent
+        className={`${tooltipClassName} bg-black max-w-55 md:max-w-105 p-2`}
+      >
         <p className="text-base text-white">{message}</p>
       </TooltipContent>
     </Tooltip>
