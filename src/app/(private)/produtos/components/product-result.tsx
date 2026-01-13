@@ -309,7 +309,18 @@ const ProductResult = () => {
     suggestedProductPrice,
   });
 
-  if (userProductPriceExists) {
+  const inverseCalculations = (() => {
+    if (!userProductPriceExists) {
+      return {
+        realProfitInverse: undefined,
+        realProfitInverseIcmsSt: undefined,
+        realProfitInverseIrpjCsllCalc: undefined,
+        userRealNetProfit: undefined,
+        inverseProfitability: undefined,
+        userFinalSalePrice: undefined,
+      };
+    }
+
     const realProfitInverse = realProfitInverseCalc({
       userProductPrice: data?.user_product_price!,
       fixedCosts: data?.fixed_costs ?? 0,
@@ -342,14 +353,14 @@ const ProductResult = () => {
       percentage: data?.shipping ?? 0,
     });
 
-    const userProductPriceSalesPisCofins = percentageValueCalc({
-      base: data?.user_product_price!,
-      percentage: data?.sales_pis_cofins ?? 0,
-    });
-
     const userProductPriceSalesIcms = percentageValueCalc({
       base: data?.user_product_price!,
       percentage: data?.sales_icms ?? 0,
+    });
+
+    const userProductPriceSalesPisCofins = percentageValueCalc({
+      base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
+      percentage: data?.sales_pis_cofins ?? 0,
     });
 
     const baseInverseIrpjCsll =
@@ -363,21 +374,55 @@ const ProductResult = () => {
       conditionalIcmsSt;
 
     const realProfitInverseIrpjCsllCalc =
-      baseIrpjCsll < 0
+      baseInverseIrpjCsll < 0
         ? 0
         : percentageValueCalc({
             base: baseInverseIrpjCsll,
             percentage: data?.irpj_percent,
           });
 
+    const userRealNetProfit = realProfitCalc({
+      suggestedProductPrice: data.user_product_price ?? 0,
+      acquisitionCost,
+      icms: icmsValue,
+      pisCofins: pisCofinsValue,
+      fixedCosts: userProductPriceFixedCosts,
+      salesIcms: userProductPriceSalesIcms,
+      salesPisCofins: userProductPriceSalesPisCofins,
+      shipping: userProductPriceShipping,
+      othersCosts: userProductPriceOthersCosts,
+      irpjCsll: realProfitInverseIrpjCsllCalc,
+    });
+
+    const inverseProfitability = ProfitabilityCalc({
+      netProfit: userRealNetProfit,
+      suggestedProductPrice: data?.user_product_price ?? 0,
+    });
+
+    const userFinalSalePrice =
+      (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
+
+    const inverseTaxes = taxCalc({
+      suggestedProductPrice: data?.user_product_price ?? 0,
+      salesIcms: data?.sales_icms ?? 0,
+      salesPisCofins: data?.sales_pis_cofins ?? 0,
+    });
+
     return {
       realProfitInverse,
       realProfitInverseIcmsSt,
-      inverseIrpjCsll: realProfitInverseIrpjCsllCalc,
+      realProfitInverseIrpjCsllCalc,
+      userRealNetProfit,
+      inverseProfitability,
+      userFinalSalePrice,
+      inverseTaxes,
     };
-  }
+  })();
 
-  const metrics2025 = [
+  const metrics2025: (MetricCardProps & {
+    colSpan?: string;
+    condition?: boolean;
+  })[] = [
     {
       title: "Valor de aquisição",
       value: acquisitionCost || 0,
@@ -385,22 +430,30 @@ const ProductResult = () => {
     {
       title: "Outros custos",
       value: suggestedProductPrice * ((data?.other_costs ?? 0) / 100),
+      userValue:
+        (data?.user_product_price ?? 0) * ((data?.other_costs ?? 0) / 100),
     },
     {
       title: "Custos fixos",
       value: suggestedProductPrice * ((data?.fixed_costs ?? 0) / 100),
+      userValue:
+        (data?.user_product_price ?? 0) * ((data?.fixed_costs ?? 0) / 100),
     },
     {
       title: "Frete",
       value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
+      userValue:
+        (data?.user_product_price ?? 0) * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
       value: taxes,
+      userValue: inverseCalculations?.inverseTaxes,
     },
     {
       title: "ICMS ST",
       value: icmsSt,
+      userValue: inverseCalculations?.realProfitInverseIcmsSt,
     },
     {
       title: "DAS",
@@ -416,6 +469,7 @@ const ProductResult = () => {
           : companyRegime === "real_profit"
           ? realProfitIrpjCsllCalc
           : undefined,
+      userValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
       condition: !isSimpleNational,
     },
     {
@@ -426,18 +480,21 @@ const ProductResult = () => {
     {
       title: "Rentabilidade",
       value: profitability,
+      userValue: inverseCalculations?.inverseProfitability,
       type: "percentage" as const,
       variant: "success" as const,
     },
     {
       title: "Lucro líquido",
       value: netProfit,
+      userValue: inverseCalculations?.userRealNetProfit,
       variant: "success" as const,
       colSpan: "col-span-1",
     },
     {
       title: "Preço de venda final",
       value: finalSalePrice,
+      userValue: inverseCalculations?.userFinalSalePrice,
       variant: "secondary" as const,
       colSpan: "col-span-1 md:col-span-2",
     },
@@ -516,6 +573,7 @@ const ProductResult = () => {
                       <MetricCard
                         title={metric.title}
                         value={metric.value}
+                        userValue={metric.userValue}
                         variant={metric.variant}
                         type={metric.type}
                       />

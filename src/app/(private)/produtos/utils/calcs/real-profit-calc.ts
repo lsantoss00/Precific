@@ -12,7 +12,7 @@ interface RealProfitCalcProps {
 }
 
 export function realProfitCalc({
-  suggestedProductPrice,
+  suggestedProductPrice, // TO-DO: NOMEAR GENÉRICO
   acquisitionCost,
   icms,
   pisCofins,

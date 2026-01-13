@@ -5,7 +5,7 @@ interface ProfitabilityCalcProps {
 
 export function ProfitabilityCalc({
   netProfit,
-  suggestedProductPrice,
+  suggestedProductPrice, // TO-DO: GENERICO
 }: ProfitabilityCalcProps) {
   const result = (netProfit / suggestedProductPrice) * 100;
 
