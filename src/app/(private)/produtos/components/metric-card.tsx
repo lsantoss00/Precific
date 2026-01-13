@@ -45,7 +45,7 @@ const MetricCard = ({
             </p>
             <CustomTooltip
               message="Este é o valor que o seu produto possui hoje."
-              className={`${variantStyles[variant]}!`}
+              className={`${variantStyles[variant]}`}
             />
           </Row>
         </Show>
@@ -57,9 +57,9 @@ const MetricCard = ({
 export default MetricCard;
 
 const variantStyles: Record<VariantType, string> = {
-  primary: "bg-primary text-white",
-  secondary: "bg-secondary text-white",
-  neutral: "bg-gray-200 text-black",
-  success: "bg-green-600 text-white",
-  error: "bg-red-600 text-white",
+  primary: "bg-primary text-white!",
+  secondary: "bg-secondary text-white!",
+  neutral: "bg-gray-200 text-black!",
+  success: "bg-green-600 text-white!",
+  error: "bg-red-600 text-white!",
 };
