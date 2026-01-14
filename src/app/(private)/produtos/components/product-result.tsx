@@ -609,7 +609,7 @@ const ProductResult = () => {
           ? presumedProfitIrpjCsll
           : companyRegime === "real_profit"
           ? realProfitIrpjCsllCalc
-          : undefined,
+          : 0,
       secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
       condition: !isSimpleNational,
     },
