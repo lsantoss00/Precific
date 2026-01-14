@@ -27,7 +27,7 @@ const SupportLinkCard = ({
   links,
 }: SupportLinkCardProps) => {
   return (
-    <Card className="flex flex-col flex-1 gap-4">
+    <Card className="flex flex-col gap-4 rounded-md h-full">
       <CardHeader>
         <Flex className="flex-col md:flex-row md:items-center gap-3">
           <div
@@ -43,7 +43,7 @@ const SupportLinkCard = ({
           </Column>
         </Flex>
       </CardHeader>
-      <CardContent className="flex flex-col flex-1 justify-between px-6">
+      <CardContent className="flex flex-col gap-4 justify-between px-6">
         {links.map((link) => (
           <SupportLinkCardItem key={link.title} item={link} />
         ))}
