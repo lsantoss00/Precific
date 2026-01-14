@@ -423,7 +423,7 @@ const ProductResult = () => {
             disabled={isLoading || pendingPostProduct}
           >
             <Link href={backPath}>
-              <ChevronLeft className="w-12 h-12" />
+              <ChevronLeft className="w-12! h-12!" />
             </Link>
           </Button>
           <Card className="flex-1 w-full p-6 rounded-md flex flex-col">
