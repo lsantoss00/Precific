@@ -1,3 +1,4 @@
+import { ProfileType } from "@/src/app/(private)/perfil/types/profile-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { User } from "@supabase/supabase-js";
 
@@ -7,8 +8,7 @@ interface GetUserProfileProps {
 
 export async function getUserProfile({
   userId,
-}: GetUserProfileProps): Promise<any> {
-  // TO-DO: Criar uma tipagem para o retorno de perfil de usuário
+}: GetUserProfileProps): Promise<ProfileType> {
   const supabase = createClient();
 
   const {
