@@ -1,14 +1,13 @@
 interface IbsCbsCalcProps {
-  base1: number;
+  base: number;
 }
 
-export function ibsCbsCalc({ base1 }: IbsCbsCalcProps): {
+export function ibsCbsCalc({ base }: IbsCbsCalcProps): {
   ibs: number;
   cbs: number;
 } {
-  const ibsResult = base1 * 0.001;
-
-  const cbsResult = base1 * 0.009;
+  const ibsResult = base * 0.001;
+  const cbsResult = base * 0.009;
 
   return {
     ibs: ibsResult,

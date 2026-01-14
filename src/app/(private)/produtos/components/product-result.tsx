@@ -111,16 +111,7 @@ const ProductResult = () => {
     ((data.fixed_costs ?? 0) + (data.shipping ?? 0) + (data.other_costs ?? 0)) /
     100;
 
-  const markupBase = acquisitionCost + acquisitionCost * percentSum;
-  const firstBase = markupBase + markupBase * ((data?.profit ?? 0) / 100);
-
-  const ibs = ibsCbsCalc({
-    base1: firstBase,
-  }).ibs;
-
-  const cbs = ibsCbsCalc({
-    base1: firstBase,
-  }).cbs;
+  // const markupBase = acquisitionCost + acquisitionCost * percentSum;
 
   const markup = markupCalc({
     fixedCosts: data?.fixed_costs ?? 0,
@@ -154,6 +145,17 @@ const ProductResult = () => {
     base: suggestedProductPrice - salesIcmsValue,
     percentage: data?.sales_pis_cofins,
   });
+
+  const suggestedProductPriceIbsCbsBase =
+    suggestedProductPrice - salesIcmsValue - salesPisCofinsValue;
+
+  const ibs = ibsCbsCalc({
+    base: suggestedProductPriceIbsCbsBase,
+  }).ibs;
+
+  const cbs = ibsCbsCalc({
+    base: suggestedProductPriceIbsCbsBase,
+  }).cbs;
 
   const icmsSt = icmsStCalc({
     mva: data?.mva ?? 0,
@@ -399,6 +401,19 @@ const ProductResult = () => {
         salesPisCofins: data?.sales_pis_cofins ?? 0,
       });
 
+      const userProductPriceIbsCbsBase =
+        (data?.user_product_price ?? 0) -
+        userProductPriceSalesIcms -
+        userProductPriceSalesPisCofins;
+
+      const userProductIbs = ibsCbsCalc({
+        base: userProductPriceIbsCbsBase,
+      }).ibs;
+
+      const userProductCbs = ibsCbsCalc({
+        base: userProductPriceIbsCbsBase,
+      }).cbs;
+
       return {
         realProfitInverse,
         realProfitInverseIcmsSt,
@@ -407,9 +422,11 @@ const ProductResult = () => {
         inverseProfitability,
         userFinalSalePrice,
         inverseTaxes,
+        userProductPriceIbsCbsBase,
+        userProductIbs,
+        userProductCbs,
       };
     },
-
     presumed_profit: () => {
       const realProfitInverse = realProfitInverseCalc({
         userProductPrice: data?.user_product_price!,
@@ -495,6 +512,19 @@ const ProductResult = () => {
         salesPisCofins: data?.sales_pis_cofins ?? 0,
       });
 
+      const userProductPriceIbsCbsBase =
+        (data?.user_product_price ?? 0) -
+        userProductPriceSalesIcms -
+        userProductPriceSalesPisCofins;
+
+      const userProductIbs = ibsCbsCalc({
+        base: userProductPriceIbsCbsBase,
+      }).ibs;
+
+      const userProductCbs = ibsCbsCalc({
+        base: userProductPriceIbsCbsBase,
+      }).cbs;
+
       return {
         realProfitInverse,
         realProfitInverseIcmsSt,
@@ -503,6 +533,9 @@ const ProductResult = () => {
         inverseProfitability,
         userFinalSalePrice,
         inverseTaxes,
+        userProductPriceIbsCbsBase,
+        userProductIbs,
+        userProductCbs,
       };
     },
     simple_national: () => undefined,
@@ -518,6 +551,9 @@ const ProductResult = () => {
         inverseProfitability: undefined,
         userFinalSalePrice: undefined,
         inverseTaxes: undefined,
+        userProductPriceIbsCbsBase: undefined,
+        userProductIbs: undefined,
+        userProductCbs: undefined,
       };
     }
 
@@ -611,16 +647,19 @@ const ProductResult = () => {
   })[] = [
     {
       title: "Base de cálculo IBS/CBS",
-      value: firstBase,
+      value: suggestedProductPriceIbsCbsBase,
+      secondValue: inverseCalculations?.userProductPriceIbsCbsBase,
       gridSpan: "col-span-1 md:col-span-2",
     },
     {
       title: "IBS (0.1%)",
       value: ibs,
+      secondValue: inverseCalculations?.userProductIbs,
     },
     {
       title: "CBS (0.9%)",
       value: cbs,
+      secondValue: inverseCalculations?.userProductCbs,
     },
     {
       title: "Preço de venda final",
