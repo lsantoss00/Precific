@@ -283,7 +283,7 @@ const ProductResult = () => {
     : 0;
 
   const interstateTaxRate = stateDestination
-    ? getICMSRate(companyState, stateDestination)
+    ? getICMSRate(companyState!, stateDestination)
     : 0;
 
   const suggestedProductPriceWithDifal = difalCalc({
