@@ -18,7 +18,7 @@ const MetricCard = ({
 }: MetricCardProps) => {
   return (
     <Column className={`space-y-2 rounded-md p-4 ${variantStyles[variant]}`}>
-      <p className="text-2xl font-bold">
+      <p className="text-2xl font-semibold">
         {type === "currency"
           ? currencyFormatter(value)
           : `${Number(value).toFixed(2)}%`}

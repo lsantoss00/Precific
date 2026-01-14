@@ -20,7 +20,7 @@ const CustomTooltip = ({
         <Button
           type="button"
           tabIndex={-1}
-          className="bg-transparent shadow-none text-black hover:bg-transparent !p-1.5 h-fit !w-fit cursor-default"
+          className="bg-transparent shadow-none text-foreground hover:bg-transparent p-1.5! h-fit w-fit! cursor-default"
           onClick={() => setOpenTooltip(!openTooltip)}
           onMouseEnter={() => setOpenTooltip(true)}
           onMouseLeave={() => setOpenTooltip(false)}
@@ -34,7 +34,7 @@ const CustomTooltip = ({
           {icon}
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="bg-black max-w-[220px] md:max-w-[420px] p-2">
+      <TooltipContent className="bg-black max-w-55 md:max-w-105 p-2">
         <p className="text-base text-white">{message}</p>
       </TooltipContent>
     </Tooltip>

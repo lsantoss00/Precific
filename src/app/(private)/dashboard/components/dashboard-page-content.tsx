@@ -42,7 +42,7 @@ const DashboardPageContent = () => {
   return (
     <Column className="gap-4 relative">
       <Row className="items-center gap-4 z-20">
-        <h1 className="text-3xl text-black font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-semibold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
       <Row className="gap-1 sm:gap-4">

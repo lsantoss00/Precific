@@ -69,7 +69,7 @@ const ProfilePageContent = () => {
           />
         }
       >
-        <h1 className="text-3xl text-black font-bold">Perfil</h1>
+        <h1 className="text-3xl font-semibold">Perfil</h1>
         <Flex
           className="flex-col lg:flex-row w-full flex-1 gap-4"
           aria-label="Informações do perfil"
