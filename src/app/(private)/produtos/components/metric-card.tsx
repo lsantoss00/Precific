@@ -27,7 +27,7 @@ const MetricCard = ({
     if (value === undefined) return 0;
 
     return type === "currency"
-      ? currencyFormatter(value)
+      ? currencyFormatter(value * 100)
       : `${value.toFixed(2)}%`;
   };
 
