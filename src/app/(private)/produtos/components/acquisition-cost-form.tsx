@@ -7,6 +7,7 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import CustomTooltip from "@/src/components/custom-tooltip";
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { Controller } from "react-hook-form";
 import MetricCard from "./metric-card";
@@ -48,22 +49,30 @@ const AcquisitionCostForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  min: {
+                    value: 0.01,
+                    message: "O valor deve ser maior que zero.",
+                  },
                 }}
-                render={({ field }) => (
-                  <Input
-                    id="unit_price"
-                    type="number"
-                    placeholder="R$ 0,00"
-                    {...field}
-                    value={field.value ?? ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    error={errors.unit_price?.message}
-                  />
-                )}
+                render={({ field }) => {
+                  const numericValue = field.value ?? 0;
+                  return (
+                    <Input
+                      id="unit_price"
+                      placeholder="R$ 0,00"
+                      type="numeric"
+                      {...field}
+                      value={currencyFormatter(numericValue * 100)}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/\D/g, "");
+                        const numberValue = Number(raw) / 100;
+
+                        field.onChange(numberValue);
+                      }}
+                      error={errors.unit_price?.message}
+                    />
+                  );
+                }}
               />
               <CustomTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
             </Row>

@@ -6,7 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/core/table";
-import currencyFormatter from "@/src/helpers/currency-formatter";
+
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { dateFormatter } from "@/src/helpers/date-formatter";
 import { ProductHistoryType } from "../types/product-type";
 

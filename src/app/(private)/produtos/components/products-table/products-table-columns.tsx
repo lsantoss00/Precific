@@ -3,7 +3,7 @@
 import { Button, Switch } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import currencyFormatter from "@/src/helpers/currency-formatter";
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Tag, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       <SortableHeader column={column}>SKU</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[80px] sm:w-[100px]">
+      <div className="uppercase truncate text-ellipsis w-20 sm:w-25">
         {row.getValue("sku")}
       </div>
     ),
@@ -42,7 +42,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       <SortableHeader column={column}>NOME</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-full md:w-[180px] lg:w-[250px] xl:w-[300px] min-w-0">
+      <div className="uppercase truncate text-ellipsis w-full md:w-45 lg:w-62.5 xl:w-75 min-w-0">
         {row.getValue("name")}
       </div>
     ),
@@ -75,7 +75,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       <SortableHeader column={column}>HOJE (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[80px]">
+      <div className="uppercase truncate text-ellipsis w-20">
         {currencyFormatter(row.getValue("price_today"))}
       </div>
     ),
@@ -91,7 +91,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       <SortableHeader column={column}>2026 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[80px]">
+      <div className="uppercase truncate text-ellipsis w-20">
         {currencyFormatter(row.getValue("price_in_2026"))}
       </div>
     ),
@@ -107,7 +107,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       <SortableHeader column={column}>2027 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-[80px]">
+      <div className="uppercase truncate text-ellipsis w-20">
         {currencyFormatter(row.getValue("price_in_2027"))}
       </div>
     ),
@@ -152,7 +152,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     id: "actions",
     enableHiding: false,
     size: 120,
-    header: () => <div className="w-[100px] sm:w-[120px]" />,
+    header: () => <div className="w-25 sm:w-30" />,
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;

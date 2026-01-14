@@ -1,11 +1,11 @@
 "use client";
 
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useQuery } from "@tanstack/react-query";
 import { Download, Loader2Icon } from "lucide-react";
 import Papa from "papaparse";
 import { toast } from "sonner";
 import { getProductsForExport } from "../app/(private)/produtos/services/get-products-for-export";
-import currencyFormatter from "../helpers/currency-formatter";
 import { Button } from "./core";
 import Show from "./core/show";
 
@@ -36,9 +36,11 @@ const ExportDataButton = ({ search }: ExportDataButtonProps) => {
         SKU: product.sku || "-",
         Nome: product.name || "-",
         NCM: product.ncm || "-",
-        Preço: currencyFormatter(product.price_today) || "-",
-        "Preço em 2026": currencyFormatter(product.price_in_2026) || "-",
-        "Preço em 2027": currencyFormatter(product.price_in_2027) || "-",
+        Preço: currencyFormatter(Number(product.price_today)) || "-",
+        "Preço em 2026":
+          currencyFormatter(Number(product.price_in_2026)) || "-",
+        "Preço em 2027":
+          currencyFormatter(Number(product.price_in_2027)) || "-",
         Status: product.status === "INACTIVE" ? "Inativo" : "Ativo",
       }));
 

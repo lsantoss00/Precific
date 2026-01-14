@@ -8,6 +8,7 @@ import Column from "@/src/components/core/column";
 import { MaskedInput } from "@/src/components/core/masked-input";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 
@@ -119,19 +120,24 @@ const ProductDetailsForm = () => {
               <Controller
                 name="user_product_price"
                 control={control}
-                render={({ field }) => (
-                  <Input
-                    id="user_product_price"
-                    type="number"
-                    placeholder="R$ 0,00"
-                    {...field}
-                    value={field.value ?? ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                  />
-                )}
+                render={({ field }) => {
+                  const numericValue = field.value ?? 0;
+
+                  return (
+                    <Input
+                      id="user_product_price"
+                      placeholder="R$ 0,00"
+                      type="numeric"
+                      value={currencyFormatter(numericValue * 100)}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/\D/g, "");
+                        const numberValue = Number(raw) / 100;
+
+                        field.onChange(numberValue);
+                      }}
+                    />
+                  );
+                }}
               />
             </Row>
             <Show when={errors.user_product_price?.message}>
