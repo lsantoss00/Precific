@@ -20,13 +20,13 @@ const AboutUsHeroSection = () => {
       <Container
         as="section"
         variant="section"
-        className="py-20 md:py-24 lg:py-0 lg:h-full lg:flex lg:flex-col lg:justify-center"
+        className="h-full lg:flex lg:flex-col lg:justify-center"
       >
         <Flex className="flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
           <FadeInOnScroll
             direction="left"
             offset={20}
-            className="w-full xl:max-w-[600px] 2xl:max-w-[680px] z-10"
+            className="w-full xl:max-w-150 2xl:max-w-170 z-10"
           >
             <Column as="header" className="gap-4 md:gap-6">
               <Column className="gap-3 max-w-lg">
@@ -69,10 +69,10 @@ const AboutUsHeroSection = () => {
           >
             <Flex
               as="figure"
-              className="relative mx-auto xl:mx-none"
+              className="relative lg:mr-4 xl:mr-13"
               style={{
-                width: "clamp(15.625rem, 18.75rem, 31.25rem)",
-                height: "clamp(15.625rem, 18.75rem, 31.25rem)",
+                width: "clamp(15.625rem, 28vw, 30rem)",
+                height: "clamp(15.625rem, 28vw, 30rem)",
               }}
               aria-label="Equipe do Grupo Viriato"
             >
@@ -82,15 +82,15 @@ const AboutUsHeroSection = () => {
                   alt="Membro da equipe Grupo Viriato"
                   fill
                   priority
-                  sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 280px, 500px"
+                  sizes="(max-width: 640px) 250px, (max-width: 768px) 340px, (max-width: 1024px) 340px, (max-width: 1280px) 380px, 448px"
                   className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
                 />
               </div>
               <div
-                className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-4 lg:-right-4 xl:-bottom-10 xl:-right-[3.375rem]"
+                className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 lg:-bottom-4 lg:-right-4 xl:-bottom-10 xl:-right-13.5"
                 style={{
-                  width: "clamp(7.5rem, 9.375rem, 15.625rem)",
-                  height: "clamp(7.5rem, 9.375rem, 15.625rem)",
+                  width: "clamp(7.5rem, 14vw, 15rem)",
+                  height: "clamp(7.5rem, 14vw, 15rem)",
                 }}
               >
                 <Image
@@ -98,15 +98,15 @@ const AboutUsHeroSection = () => {
                   alt="Membro da equipe Grupo Viriato"
                   fill
                   priority
-                  sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 200px, 250px"
+                  sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 200px, (max-width: 1280px) 210px, 224px"
                   className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
                 />
               </div>
               <div
                 className="absolute -bottom-4 left-16 sm:-bottom-6 sm:left-20 md:-bottom-10 lg:-bottom-8 xl:-bottom-16 xl:left-40"
                 style={{
-                  width: "clamp(3.75rem, 5rem, 7.8125rem)",
-                  height: "clamp(3.75rem, 5rem, 7.8125rem)",
+                  width: "clamp(3.75rem, 7vw, 7.5rem)",
+                  height: "clamp(3.75rem, 7vw, 7.5rem)",
                 }}
               >
                 <Image
@@ -114,7 +114,7 @@ const AboutUsHeroSection = () => {
                   alt="Membro da equipe Grupo Viriato"
                   fill
                   priority
-                  sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 100px, 125px"
+                  sizes="(max-width: 640px) 60px, (max-width: 768px) 80px, (max-width: 1024px) 100px, (max-width: 1280px) 105px, 112px"
                   className="object-cover object-center hover:scale-105 transition-transform duration-500 rounded-full shadow-2xl"
                 />
               </div>

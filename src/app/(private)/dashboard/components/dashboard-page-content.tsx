@@ -42,7 +42,7 @@ const DashboardPageContent = () => {
   return (
     <Column className="gap-4 relative">
       <Row className="items-center gap-4 z-20">
-        <h1 className="text-3xl text-black font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-semibold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
       <Row className="gap-1 sm:gap-4">
@@ -191,7 +191,6 @@ const DashboardPageContent = () => {
           />
         </ChartCard>
       </div>
-      <div className="absolute inset-0 bg-white/40 flex flex-col items-center justify-center z-10 pointer-events-auto" />
     </Column>
   );
 };

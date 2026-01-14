@@ -16,6 +16,7 @@ export default function DashboardPage() {
   return (
     <Container variant="page">
       <DashboardPageContent />
+      <div className="absolute inset-0 bg-white/50 flex flex-col items-center justify-center z-10 pointer-events-auto" />
     </Container>
   );
 }

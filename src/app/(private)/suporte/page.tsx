@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <Container variant="page">
-      <h1 className="text-3xl text-foreground font-bold">Suporte</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 pb-4">
+      <h1 className="text-3xl text-foreground font-semibold">Suporte</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
         <SupportPresentationCard />
         <div className="flex flex-col gap-4">
           <SupportLinkCard
@@ -36,7 +36,7 @@ export default function SupportPage() {
           <SupportLinkCard
             icon={<Book className="h-5 w-5 text-primary" />}
             backgroundIconColor="bg-primary/10"
-            title="Recursos Úteis"
+            title="Links Úteis"
             description="Informações e documentação do sistema."
             links={supportUsefulResourcesLinks}
           />

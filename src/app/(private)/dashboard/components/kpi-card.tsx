@@ -31,7 +31,7 @@ const KpiCard = ({ title, value, icon, pending, percentage }: KpiCardProps) => {
             <span className="text-xs font-semibold flex items-center gap-1">
               {typeof percentage === "number" && percentage !== 0 && (
                 <span
-                  className={`px-1.5 py-0.5 rounded-md font-bold ${
+                  className={`px-1.5 py-0.5 rounded-md font-semibold ${
                     isPositivePercentage
                       ? "bg-green-100 text-green-700"
                       : "bg-red-100 text-red-700"

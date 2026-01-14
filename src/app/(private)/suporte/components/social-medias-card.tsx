@@ -5,7 +5,7 @@ import { socialMediaLinks } from "@/src/constants/social-media-links";
 
 const SocialMediasCard = () => {
   return (
-    <Card className="h-full w-full flex flex-col md:flex-row md:items-center justify-between gap-4 p-6">
+    <Card className="h-full w-full flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-md">
       <Column className="gap-1">
         <span className="text-lg font-semibold text-foreground">
           Siga o Grupo Viriato
@@ -21,7 +21,7 @@ const SocialMediasCard = () => {
             href={socialMedia.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 w-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+            className="h-12 w-12 rounded-md bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
             aria-label={socialMedia.label}
           >
             {socialMedia.icon}

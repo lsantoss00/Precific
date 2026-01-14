@@ -37,7 +37,7 @@ const ProductsHeaderSection = () => {
 
   return (
     <Column as="header" className="space-y-3 w-full">
-      <h1 className="text-3xl text-black font-bold">Produtos</h1>
+      <h1 className="text-3xl font-semibold">Produtos</h1>
       <Flex className="flex-col lg:flex-row justify-between lg:items-center w-full gap-4">
         <div className="w-full lg:max-w-120">
           <Label htmlFor="search-products" className="sr-only">
@@ -52,7 +52,11 @@ const ProductsHeaderSection = () => {
             aria-label="Buscar produtos por SKU, Nome ou NCM"
           />
         </div>
-        <Row as="nav" className="space-x-2 w-full lg:w-fit lg:justify-end" aria-label="Ações de produtos">
+        <Row
+          as="nav"
+          className="space-x-2 w-full lg:w-fit lg:justify-end"
+          aria-label="Ações de produtos"
+        >
           <Button
             asChild
             className="hover:cursor-pointer w-fit h-12"

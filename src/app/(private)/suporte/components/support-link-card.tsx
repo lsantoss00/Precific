@@ -27,11 +27,11 @@ const SupportLinkCard = ({
   links,
 }: SupportLinkCardProps) => {
   return (
-    <Card className="flex flex-col flex-1 gap-4">
+    <Card className="flex flex-col gap-4 rounded-md h-full">
       <CardHeader>
         <Flex className="flex-col md:flex-row md:items-center gap-3">
           <div
-            className={`h-12 w-12 rounded-lg flex items-center justify-center shrink-0 ${
+            className={`h-12 w-12 rounded-md flex items-center justify-center shrink-0 ${
               backgroundIconColor || "bg-zinc-100"
             }`}
           >
@@ -43,7 +43,7 @@ const SupportLinkCard = ({
           </Column>
         </Flex>
       </CardHeader>
-      <CardContent className="flex flex-col flex-1 justify-between px-6">
+      <CardContent className="flex flex-col gap-4 justify-between px-6">
         {links.map((link) => (
           <SupportLinkCardItem key={link.title} item={link} />
         ))}

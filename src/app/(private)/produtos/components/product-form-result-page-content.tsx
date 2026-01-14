@@ -6,7 +6,7 @@ import ProductResult from "./product-result";
 const ProductFormResultPageContent = () => {
   return (
     <Container variant="page">
-      <h2 className="text-3xl text-black font-bold">Resultado</h2>
+      <h2 className="text-3xl font-semibold">Resultado</h2>
       <ProductResult />
     </Container>
   );
