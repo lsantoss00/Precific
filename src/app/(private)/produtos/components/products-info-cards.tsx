@@ -1,6 +1,6 @@
 "use client";
 
-import pluralize from "@/src/helpers/pluralize";
+import { pluralize } from "@/src/helpers/pluralize";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle, Package, Tag, XCircle } from "lucide-react";
 import { getProductSummaries } from "../services/get-summary-products";
