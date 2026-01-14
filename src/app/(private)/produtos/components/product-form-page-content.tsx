@@ -12,7 +12,7 @@ const ProductFormPageContent = () => {
   const { isEditMode, productId } = useProductForm();
   return (
     <Container variant="page">
-      <Flex className="flex-col md:flex-row gap-2 justify-between">
+      <Flex className="flex-col md:flex-row gap-2 justify-between md:items-center">
         <h2 className="text-3xl text-black font-bold">
           {isEditMode ? "Editar Produto" : "Novo Produto"}
         </h2>
