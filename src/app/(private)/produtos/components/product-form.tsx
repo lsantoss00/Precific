@@ -52,8 +52,9 @@ const ProductForm = ({ productId }: ProductFormProps) => {
         costumer_taxpayer: product.costumer_taxpayer,
         irpj_percent: product.irpj_percent,
         mva: product.mva,
-        has_icms_st: product.has_icms_st,
+        has_user_product_price: product.has_user_product_price,
         user_product_price: product.user_product_price,
+        has_icms_st: product.has_icms_st,
       });
     }
   }, [product, form, isEditMode]);
