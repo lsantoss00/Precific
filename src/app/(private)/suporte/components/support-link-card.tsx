@@ -31,7 +31,7 @@ const SupportLinkCard = ({
       <CardHeader>
         <Flex className="flex-col md:flex-row md:items-center gap-3">
           <div
-            className={`h-12 w-12 rounded-lg flex items-center justify-center shrink-0 ${
+            className={`h-12 w-12 rounded-md flex items-center justify-center shrink-0 ${
               backgroundIconColor || "bg-zinc-100"
             }`}
           >

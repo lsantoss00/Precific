@@ -80,7 +80,7 @@ const MobileMenu = () => {
                 <Button
                   variant="ghost"
                   onClick={handleScrollToTop}
-                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-md group"
                 >
                   <Home
                     className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
@@ -96,7 +96,7 @@ const MobileMenu = () => {
                 <Button
                   variant="ghost"
                   onClick={() => handleScrollToSection("descubra")}
-                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-md group"
                 >
                   <Compass
                     className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
@@ -112,7 +112,7 @@ const MobileMenu = () => {
                 <Button
                   variant="ghost"
                   onClick={() => handleScrollToSection("contato")}
-                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-lg group"
+                  className="flex w-full items-center justify-start gap-4 text-base text-zinc-800 hover:text-primary hover:bg-primary/5 font-medium h-auto px-4 py-3.5 rounded-md group"
                 >
                   <MessageCircle
                     className="h-5 w-5 text-zinc-800 group-hover:text-primary transition-colors"
