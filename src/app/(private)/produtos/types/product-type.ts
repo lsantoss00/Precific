@@ -64,7 +64,6 @@ export type ProductExportType = Pick<
   | "status"
 >;
 
-// TO-DO: Atualizar esse type aqui
 export type ProductHistoryType = {
   id: string;
   price_today: number;
