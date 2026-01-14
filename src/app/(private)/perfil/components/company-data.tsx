@@ -52,7 +52,7 @@ const CompanyData = () => {
           <Input
             id="sector"
             disabled
-            value={SECTOR_LABELS[company.sector as keyof typeof SECTOR_LABELS]}
+            value={SECTOR_LABELS[company?.sector as keyof typeof SECTOR_LABELS]}
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
@@ -62,7 +62,7 @@ const CompanyData = () => {
             disabled
             value={
               TAX_REGIME_LABELS[
-                company.tax_regime as keyof typeof TAX_REGIME_LABELS
+                company?.tax_regime as keyof typeof TAX_REGIME_LABELS
               ]
             }
           />
@@ -75,7 +75,7 @@ const CompanyData = () => {
               disabled
               value={
                 REVENUE_RANGE_LABELS[
-                  company.revenue_range as keyof typeof REVENUE_RANGE_LABELS
+                  company?.revenue_range as keyof typeof REVENUE_RANGE_LABELS
                 ]
               }
             />
