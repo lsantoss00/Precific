@@ -50,14 +50,17 @@ const Menu = () => {
             fallback={<Skeleton className="w-8 h-8 rounded-md" />}
           >
             <Show
-              when={profile?.profile_picture_url}
+              when={
+                Boolean(profile?.profile_picture_url) ||
+                profile?.profile_picture_url !== ""
+              }
               fallback={
                 <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
               }
             >
               <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
                 <Image
-                  src={profile?.profile_picture_url || null}
+                  src={profile?.profile_picture_url!}
                   alt="Foto de perfil"
                   fill
                   sizes="32px"
