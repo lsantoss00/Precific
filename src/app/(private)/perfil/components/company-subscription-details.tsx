@@ -5,7 +5,7 @@ import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import DateFormatter from "@/src/helpers/date-formatter";
+import { dateFormatter } from "@/src/helpers/date-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { Crown } from "lucide-react";
 
@@ -39,7 +39,7 @@ const CompanySubscriptionDetails = () => {
             }
           >
             <span className="text-sm text-muted-foreground">
-              Expira em: <DateFormatter showTime>{expiresAt!}</DateFormatter>
+              Expira em: {dateFormatter(expiresAt!, true)}
             </span>
           </Show>
         </Column>

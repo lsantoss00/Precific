@@ -1,11 +1,11 @@
 "use client";
-import DateFormatter from "@/src/helpers/date-formatter";
+
+import { dateFormatter } from "@/src/helpers/date-formatter";
 import { ChevronDownIcon } from "lucide-react";
 import { useState } from "react";
 import { pt } from "react-day-picker/locale";
 import { Button } from "./button";
 import { Calendar } from "./calendar";
-
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import Show from "./show";
 
@@ -28,7 +28,7 @@ function DatePicker({ value, onValueChange }: DatePickerProps) {
           className="md:w-42 lg:w-43.5 justify-between font-normal text-base bg-white!"
         >
           <Show when={value} fallback="Selecione">
-            <DateFormatter>{transactionDateFormatted}</DateFormatter>
+            {dateFormatter(transactionDateFormatted!)}
           </Show>
           <ChevronDownIcon />
         </Button>

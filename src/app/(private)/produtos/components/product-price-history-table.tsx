@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/src/components/core/table";
 import currencyFormatter from "@/src/helpers/currency-formatter";
-import DateFormatter from "@/src/helpers/date-formatter";
+import { dateFormatter } from "@/src/helpers/date-formatter";
 import { ProductHistoryType } from "../types/product-type";
 
 interface ProductPriceHistoryTableProps {
@@ -34,7 +34,7 @@ const ProductPriceHistoryTable = ({
             </TableCell>
             <TableCell> {currencyFormatter(product.price_in_2026)}</TableCell>
             <TableCell className="text-right">
-              <DateFormatter>{product.changed_at}</DateFormatter>
+              {dateFormatter(product.changed_at)}
             </TableCell>
           </TableRow>
         ))}
