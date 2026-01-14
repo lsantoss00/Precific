@@ -35,7 +35,7 @@ const AcquisitionCostForm = () => {
 
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
-      <h3>Custo de Aquisição</h3>
+      <h3 className="text-lg">Custo de Aquisição</h3>
       <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-4">
         <Column className="space-y-2">
           <Label htmlFor="unit_price" required>

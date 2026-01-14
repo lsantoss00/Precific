@@ -32,7 +32,7 @@ const ProductDetailsForm = () => {
 
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
-      <h3>Detalhes do Produto</h3>
+      <h3 className="text-lg">Detalhes do Produto</h3>
       <form className="flex flex-col space-y-4">
         <Column className="space-y-2">
           <Label htmlFor="name" required>
