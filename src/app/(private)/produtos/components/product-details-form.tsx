@@ -112,6 +112,9 @@ const ProductDetailsForm = () => {
         </Row>
         <Show when={Boolean(form.watch("has_user_product_price"))}>
           <Column className="gap-2">
+            <Label htmlFor="user_product_price" required>
+              Valor (R$)
+            </Label>
             <Row className="items-center gap-2">
               <Controller
                 name="user_product_price"
