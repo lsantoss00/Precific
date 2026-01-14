@@ -51,7 +51,7 @@ const ProfilePageContent = () => {
   const handleUpdateProfilePicture = () => {
     updateProfilePicture({
       file: selectedFile,
-      userId: profile.id,
+      userId: profile?.id!,
       currentProfilePictureUrl: profile?.profile_picture_url || null,
     });
   };
