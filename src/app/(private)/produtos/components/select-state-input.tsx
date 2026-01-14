@@ -1,4 +1,7 @@
+"use client";
+
 import SelectInput from "@/src/components/core/select-input";
+import { useAuth } from "@/src/providers/auth-provider";
 
 interface SelectStateInputProps {
   id: string;
@@ -15,12 +18,19 @@ const SelectStateInput = ({
   onChange,
   error,
 }: SelectStateInputProps) => {
+  const { company } = useAuth();
+
+  const companyState = company?.state;
+  const filteredOptions = stateSelectOptions.filter(
+    (option) => option.value !== companyState
+  );
+
   return (
     <SelectInput
       triggerProps={{
         id,
       }}
-      options={stateSelectOptions}
+      options={filteredOptions}
       value={value}
       placeholder={placeholder}
       onChange={onChange}
