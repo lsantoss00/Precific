@@ -1,4 +1,5 @@
-import { TermsOfUseScripts } from "@/src/scripts/json-ld";
+import { termosOfUseJsonLd } from "@/src/scripts/json-ld/data";
+import Script from "next/script";
 
 export default function TermsOfUseLayout({
   children,
@@ -7,9 +8,15 @@ export default function TermsOfUseLayout({
 }) {
   return (
     <>
-      <TermsOfUseScripts />
+      <Script
+        id="termos-of-use-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(termosOfUseJsonLd),
+        }}
+      />
       {children}
     </>
   );
 }
-

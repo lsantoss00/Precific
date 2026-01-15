@@ -1,7 +1,8 @@
 import Footer from "@/src/app/(landing)/components/footer";
 import Header from "@/src/app/(landing)/components/header";
 import Column from "@/src/components/core/column";
-import { GlobalLandingScripts } from "@/src/scripts/json-ld";
+import { websiteJsonLd } from "@/src/scripts/json-ld/data";
+import Script from "next/script";
 
 export default function LandingPageLayout({
   children,
@@ -10,7 +11,14 @@ export default function LandingPageLayout({
 }) {
   return (
     <Column className="w-full min-h-screen">
-      <GlobalLandingScripts />
+      <Script
+        id="website-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd),
+        }}
+      />
       <Header />
       <main className="flex-1 pt-20">{children}</main>
       <Footer />
