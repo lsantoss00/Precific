@@ -1,6 +1,13 @@
 export const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": "https://precificapp.com/#faq",
+  isPartOf: {
+    "@id": "https://precificapp.com/#website",
+  },
+  about: {
+    "@id": "https://precificapp.com/#organization",
+  },
   mainEntity: [
     {
       "@type": "Question",
@@ -52,4 +59,3 @@ export const faqJsonLd = {
     },
   ],
 };
-

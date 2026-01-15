@@ -1,20 +1,19 @@
-export const organizationJsonLd = {
+export const OrganizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://precificapp.com/#organization",
   name: "Precific",
-  legalName: "Grupo Viriato",
+  alternateName: "Precific App",
   url: "https://precificapp.com",
-  logo: {
-    "@type": "ImageObject",
-    url: "https://precificapp.com/images/precific-logo-image.webp",
-    width: 200,
-    height: 100,
-    caption: "Precific",
-  },
-  image: "https://precificapp.com/opengraph-image.webp",
+  logo: "https://precificapp.com/images/precific-logo-image.webp",
   description:
-    "Sistema completo de precificação e gestão tributária para empresas. Desenvolvido pelo Grupo Viriato, líder em consultoria empresarial há mais de 40 anos.",
-  slogan: "Precifique seus produtos com precisão",
+    "Precific é uma plataforma de precificação que automatiza o cálculo de preços com base em custos, impostos e margens, simulando cenários futuros da Reforma Tributária no Brasil.",
+  foundingDate: "2025",
+  parentOrganization: {
+    "@type": "Organization",
+    name: "Grupo Viriato",
+    url: "https://viriato.com.br",
+  },
   contactPoint: [
     {
       "@type": "ContactPoint",
@@ -23,51 +22,6 @@ export const organizationJsonLd = {
       telephone: "+552122929071",
       availableLanguage: ["Portuguese"],
       areaServed: "BR",
-      hoursAvailable: {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "18:00",
-      },
     },
-    {
-      "@type": "ContactPoint",
-      contactType: "sales",
-      email: "contato@precificapp.com",
-      telephone: "+552122929071",
-      availableLanguage: ["Portuguese"],
-      areaServed: "BR",
-    },
-  ],
-  sameAs: [
-    "https://linkedin.com/company/grupo-viriato/",
-    "https://instagram.com/grupoviriato",
-    "https://youtube.com/@ViriatoCast",
-    "https://viriato.com.br/",
-  ],
-  foundingDate: "1980",
-  foundingLocation: {
-    "@type": "Place",
-    name: "Rio de Janeiro, Brasil",
-  },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Rio de Janeiro",
-    addressRegion: "RJ",
-    addressCountry: "BR",
-  },
-  parentOrganization: {
-    "@type": "Organization",
-    name: "Grupo Viriato",
-    url: "https://viriato.com.br/",
-  },
-  knowsAbout: [
-    "Precificação",
-    "Gestão Tributária",
-    "Reforma Tributária",
-    "IBS",
-    "CBS",
-    "Contabilidade",
-    "Consultoria Empresarial",
   ],
 };

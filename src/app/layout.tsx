@@ -1,7 +1,9 @@
 import AtlasLinkBalloon from "@/src/components/atlas-link-balloon";
 import WhatsAppHelpLinkBalloon from "@/src/components/whatsapp-help-link-balloon";
+import { OrganizationJsonLd } from "@/src/scripts/json-ld/data";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "../components/core/sonner";
 import Providers from "../providers";
@@ -119,6 +121,14 @@ export default function RootLayout({
         className={`${poppins.className} antialiased bg-background`}
         suppressHydrationWarning
       >
+        <Script
+          id="organization-jsonld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(OrganizationJsonLd),
+          }}
+        />
         <Providers>
           <NextTopLoader
             color="#66289B"
