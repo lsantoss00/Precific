@@ -1,4 +1,4 @@
-import { privacyPolicyJsonLd } from "@/src/scripts/json-ld/data";
+import { privacyPolicyJsonLd } from "@/src/scripts/json-ld/";
 import Script from "next/script";
 
 export default function PrivacyPolicyLayout({

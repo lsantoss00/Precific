@@ -1,7 +1,7 @@
 import Footer from "@/src/app/(landing)/components/footer";
 import Header from "@/src/app/(landing)/components/header";
 import Column from "@/src/components/core/column";
-import { websiteJsonLd } from "@/src/scripts/json-ld/data";
+import { websiteJsonLd } from "@/src/scripts/json-ld/";
 import Script from "next/script";
 
 export default function LandingPageLayout({

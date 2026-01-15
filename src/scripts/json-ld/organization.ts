@@ -13,6 +13,7 @@ export const OrganizationJsonLd = {
     "@type": "Organization",
     name: "Grupo Viriato",
     url: "https://viriato.com.br",
+    foundingDate: "1980",
   },
   contactPoint: [
     {

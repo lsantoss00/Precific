@@ -1,4 +1,4 @@
-import { termosOfUseJsonLd } from "@/src/scripts/json-ld/data";
+import { termosOfUseJsonLd } from "@/src/scripts/json-ld/";
 import Script from "next/script";
 
 export default function TermsOfUseLayout({

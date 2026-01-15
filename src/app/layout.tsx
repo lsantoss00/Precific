@@ -1,6 +1,6 @@
 import AtlasLinkBalloon from "@/src/components/atlas-link-balloon";
 import WhatsAppHelpLinkBalloon from "@/src/components/whatsapp-help-link-balloon";
-import { OrganizationJsonLd } from "@/src/scripts/json-ld/data";
+import { OrganizationJsonLd } from "@/src/scripts/json-ld/";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     "dre",
   ],
   authors: [{ name: "Grupo Viriato", url: "https://viriato.com.br/" }],
-  creator: "Grupo Viriato",
-  publisher: "Precific",
+  applicationName: "Precific",
+  publisher: "Grupo Viriato",
   category: "Business Software",
   robots: {
     index: true,
