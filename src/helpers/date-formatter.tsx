@@ -1,6 +1,8 @@
 import { format, isValid, parseISO } from "date-fns";
 
 export const dateFormatter = (dateAsString: string, showTime?: boolean) => {
+  if (!dateAsString) return undefined;
+
   const date = parseISO(dateAsString);
   if (!isValid(date)) return undefined;
   return showTime
