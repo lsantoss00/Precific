@@ -728,7 +728,7 @@ const ProductResult = () => {
                   .map((metric, index) => (
                     <div
                       key={`metric-2025-${index}`}
-                      className={metric.gridSpan}
+                      className={`h-30 ${metric.gridSpan}`}
                     >
                       <MetricCard
                         title={metric.title}
