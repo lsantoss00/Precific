@@ -24,7 +24,7 @@ const ProfilePageContent = () => {
   const handleImageChange = (file: File | null) => {
     setSelectedFile(file);
 
-    if (file === null && profile?.profile_picture_url) {
+    if (file === null && profile?.profilePictureUrl) {
       setIsImageRemoved(true);
     } else {
       setIsImageRemoved(false);
@@ -52,7 +52,7 @@ const ProfilePageContent = () => {
     updateProfilePicture({
       file: selectedFile,
       userId: profile?.id!,
-      currentProfilePictureUrl: profile?.profile_picture_url || null,
+      currentProfilePictureUrl: profile?.profilePictureUrl || null,
     });
   };
 

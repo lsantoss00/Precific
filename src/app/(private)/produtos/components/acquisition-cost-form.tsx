@@ -32,7 +32,7 @@ const AcquisitionCostForm = () => {
     others: data.others ?? 0,
   });
 
-  const ísPresumedProfit = company?.tax_regime === "presumed_profit";
+  const ísPresumedProfit = company?.taxRegime === "presumed_profit";
 
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">

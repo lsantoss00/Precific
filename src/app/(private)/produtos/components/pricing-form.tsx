@@ -20,9 +20,9 @@ const PricingForm = () => {
     formState: { errors },
   } = form;
 
-  const isRealProfit = company?.tax_regime === "real_profit";
-  const isPresumedProfit = company?.tax_regime === "presumed_profit";
-  const isSimpleNational = company?.tax_regime === "simple_national";
+  const isRealProfit = company?.taxRegime === "real_profit";
+  const isPresumedProfit = company?.taxRegime === "presumed_profit";
+  const isSimpleNational = company?.taxRegime === "simple_national";
 
   const icmsSt = form.watch("icms_st") ?? 0;
 
@@ -31,7 +31,7 @@ const PricingForm = () => {
   const stateDestination = form.watch("state_destination");
   const hasIcmsSt = form.watch("has_icms_st");
 
-  const isSixthRevenueRange = company?.revenue_range === "range_6";
+  const isSixthRevenueRange = company?.revenueRange === "range_6";
 
   useEffect(() => {
     if (icmsSt > 0) {

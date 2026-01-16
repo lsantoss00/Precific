@@ -58,9 +58,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const { data: company, isLoading: isLoadingCompany } =
     useQuery<CompanyType | null>({
-      queryFn: () => getCompanyById({ companyId: profile!.company_id! }),
-      queryKey: ["company", profile?.company_id],
-      enabled: !!profile?.company_id,
+      queryFn: () => getCompanyById({ companyId: profile!.companyId! }),
+      queryKey: ["company", profile?.companyId],
+      enabled: !!profile?.companyId,
       staleTime: Infinity,
       gcTime: Infinity,
       refetchOnMount: false,
@@ -70,11 +70,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const { data: subscription, isLoading: isLoadingSubscription } = useQuery({
     queryFn: () => {
-      if (!profile?.company_id) return null;
-      return getCompanySubscriptionStatus({ companyId: profile.company_id });
+      if (!profile?.companyId) return null;
+      return getCompanySubscriptionStatus({ companyId: profile.companyId });
     },
-    queryKey: ["company-subscription", profile?.company_id],
-    enabled: !!profile?.company_id,
+    queryKey: ["company-subscription", profile?.companyId],
+    enabled: !!profile?.companyId,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     refetchOnMount: false,
@@ -107,7 +107,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase]);
 
   useEffect(() => {
-    if (!profile?.company_id) return;
+    if (!profile?.companyId) return;
 
     const channel = supabase
       .channel("company-subscription-changes")
@@ -117,11 +117,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           event: "*",
           schema: "public",
           table: "company_subscriptions",
-          filter: `company_id=eq.${profile.company_id}`,
+          filter: `company_id=eq.${profile.companyId}`,
         },
         () => {
           queryClient.invalidateQueries({
-            queryKey: ["company-subscription", profile.company_id],
+            queryKey: ["company-subscription", profile.companyId],
           });
         }
       )
@@ -130,12 +130,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [profile?.company_id, supabase]);
+  }, [profile?.companyId, supabase]);
 
   const isLoadingAuth =
     isLoadingUser ||
     (!!user && isLoadingProfile) ||
-    (!!profile?.company_id && isLoadingCompany) ||
+    (!!profile?.companyId && isLoadingCompany) ||
     (!!company && isLoadingSubscription);
 
   const isPremium = subscription?.hasActiveSubscription ?? false;

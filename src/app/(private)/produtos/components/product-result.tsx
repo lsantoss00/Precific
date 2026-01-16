@@ -93,8 +93,8 @@ const ProductResult = () => {
   const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
   const userProductPriceExists =
     data?.user_product_price !== 0 && data?.user_product_price !== undefined;
-  const companyRegime = company?.tax_regime;
-  const isSimpleNational = company?.tax_regime === "simple_national";
+  const companyRegime = company?.taxRegime;
+  const isSimpleNational = company?.taxRegime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.has_icms_st === true;
 
@@ -120,7 +120,7 @@ const ProductResult = () => {
     salesIcms: data?.sales_icms ?? 0,
     salesPisCofins: data?.sales_pis_cofins ?? 0,
     shipping: data?.shipping ?? 0,
-    range: company?.revenue_range,
+    range: company?.revenueRange,
     business,
     isSimpleNational,
   });
@@ -242,7 +242,7 @@ const ProductResult = () => {
     };
 
     const revenueRangeData = getRevenueRangeDataPercentage({ business });
-    const revenueRangeKey = (company?.revenue_range ??
+    const revenueRangeKey = (company?.revenueRange ??
       "range_1") as keyof typeof revenueRangeData;
 
     const das = percentageValueCalc({
@@ -259,12 +259,12 @@ const ProductResult = () => {
 
     if (
       companyRegime === "simple_national" &&
-      company?.revenue_range &&
+      company?.revenueRange &&
       company?.sector
     ) {
       return simpleNationalCalc({
         ...baseCalcParams,
-        range: company.revenue_range,
+        range: company.revenueRange,
         das,
       });
     }
@@ -299,7 +299,7 @@ const ProductResult = () => {
 
   const revenueRangeData = getRevenueRangeDataPercentage({ business });
 
-  const revenueRangeKey = (company?.revenue_range ??
+  const revenueRangeKey = (company?.revenueRange ??
     "range_1") as keyof typeof revenueRangeData;
 
   const das = percentageValueCalc({

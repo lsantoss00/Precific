@@ -1,5 +1,6 @@
 import { CompanyType } from "@/src/app/(private)/perfil/types/company-type";
 import { createClient } from "@/src/libs/supabase/client";
+import { decamelizeKeys } from "humps";
 
 interface PostCompanyProps {
   company: CompanyType;
@@ -14,7 +15,9 @@ export async function postCompany({ company }: PostCompanyProps) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { error } = await supabase.from("companies").insert(company).select();
+  const data = decamelizeKeys(company);
+
+  const { error } = await supabase.from("companies").insert(data).select();
 
   if (error) throw error;
 

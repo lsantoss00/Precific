@@ -21,7 +21,7 @@ import z from "zod";
 
 const CompanyFormSchema = z
   .object({
-    company_name: z.string().min(1, "O campo nome é obrigatório."),
+    companyName: z.string().min(1, "O campo nome é obrigatório."),
     cnpj: z
       .string()
       .min(14, "O campo CNPJ é obrigatório.")
@@ -29,10 +29,10 @@ const CompanyFormSchema = z
     sector: z.enum(["business", "industry"], {
       message: "O campo setor é obrigatório.",
     }),
-    tax_regime: z.enum(["real_profit", "presumed_profit", "simple_national"], {
+    taxRegime: z.enum(["realProfit", "presumedProfit", "simpleNational"], {
       message: "O campo regime tributário é obrigatório.",
     }),
-    revenue_range: z
+    revenueRange: z
       .enum(["range_1", "range_2", "range_3", "range_4", "range_5", "range_6"])
       .optional(),
     state: z
@@ -40,18 +40,18 @@ const CompanyFormSchema = z
       .min(2, "O campo estado é obrigatório.")
       .max(2, "Estado inválido.")
       .toUpperCase(),
-    postal_code: z
+    postalCode: z
       .string()
       .min(8, "O campo CEP é obrigatório.")
       .length(8, "CEP inválido."),
-    street_address: z.string().min(1, "O campo endereço é obrigatório."),
-    street_number: z.string().min(1, "O campo número é obrigatório."),
-    address_complement: z.string().optional(),
+    streetAddress: z.string().min(1, "O campo endereço é obrigatório."),
+    streetNumber: z.string().min(1, "O campo número é obrigatório."),
+    addressComplement: z.string().optional(),
   })
   .refine(
     (data) => {
-      if (data.tax_regime === "simple_national") {
-        return data.revenue_range && data.revenue_range.length > 0;
+      if (data.taxRegime === "simpleNational") {
+        return data.revenueRange && data.revenueRange.length > 0;
       }
       return true;
     },
@@ -67,16 +67,16 @@ const CompanyForm = () => {
   const { handleSubmit, control, watch } = useForm<CompanyFormSchemaType>({
     resolver: zodResolver(CompanyFormSchema),
     defaultValues: {
-      company_name: "",
+      companyName: "",
       cnpj: "",
       sector: undefined,
-      tax_regime: undefined,
-      revenue_range: undefined,
+      taxRegime: undefined,
+      revenueRange: undefined,
       state: "",
-      postal_code: "",
-      street_address: "",
-      street_number: "",
-      address_complement: "",
+      postalCode: "",
+      streetAddress: "",
+      streetNumber: "",
+      addressComplement: "",
     },
   });
 
@@ -100,30 +100,30 @@ const CompanyForm = () => {
   };
 
   const {
-    company_name,
+    companyName,
     cnpj,
     sector,
-    tax_regime,
-    revenue_range,
+    taxRegime,
+    revenueRange,
     state,
-    postal_code,
-    street_address,
-    street_number,
+    postalCode,
+    streetAddress,
+    streetNumber,
   } = watch();
 
   const requiredFields = [
-    company_name,
+    companyName,
     cnpj,
     sector,
-    tax_regime,
+    taxRegime,
     state,
-    postal_code,
-    street_address,
-    street_number,
+    postalCode,
+    streetAddress,
+    streetNumber,
   ];
 
-  if (tax_regime === "simple_national") {
-    requiredFields.push(revenue_range || "");
+  if (taxRegime === "simpleNational") {
+    requiredFields.push(revenueRange || "");
   }
 
   const formInputFieldIsBlank = requiredFields.some((value) => value === "");
@@ -136,16 +136,16 @@ const CompanyForm = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Column className="space-y-2 col-span-2">
-          <Label htmlFor="company_name" required>
+          <Label htmlFor="companyName" required>
             Nome da Empresa
           </Label>
           <Controller
-            name="company_name"
+            name="companyName"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <Input
-                  id="company_name"
+                  id="companyName"
                   placeholder="Informe o nome da empresa"
                   value={value}
                   onChange={onChange}
@@ -222,17 +222,17 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="tax_regime" required>
+          <Label htmlFor="taxRegime" required>
             Regime Tributário
           </Label>
           <Controller
-            name="tax_regime"
+            name="taxRegime"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <SelectInput
                   triggerProps={{
-                    id: "tax_regime",
+                    id: "taxRegime",
                   }}
                   placeholder="Selecione o regime tributário"
                   options={taxRegimeSelectOptions}
@@ -251,13 +251,13 @@ const CompanyForm = () => {
             )}
           />
         </Column>
-        <Show when={tax_regime === "simple_national"}>
+        <Show when={taxRegime === "simpleNational"}>
           <Column className="space-y-2 col-span-2">
-            <Label htmlFor="revenue_range" required>
+            <Label htmlFor="revenueRange" required>
               Faixa de Faturamento
             </Label>
             <Controller
-              name="revenue_range"
+              name="revenueRange"
               control={control}
               render={({
                 field: { onChange, value },
@@ -266,7 +266,7 @@ const CompanyForm = () => {
                 <Column>
                   <SelectInput
                     triggerProps={{
-                      id: "revenue_range",
+                      id: "revenueRange",
                     }}
                     options={revenueRangeSelectOptions}
                     value={value || ""}
@@ -314,16 +314,16 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="postal_code" required>
+          <Label htmlFor="postalCode" required>
             CEP
           </Label>
           <Controller
-            name="postal_code"
+            name="postalCode"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <MaskedInput
-                  id="postal_code"
+                  id="postalCode"
                   mask="00000-000"
                   placeholder="00000-000"
                   value={value}
@@ -343,16 +343,16 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2">
-          <Label htmlFor="street_address" required>
+          <Label htmlFor="streetAddress" required>
             Endereço
           </Label>
           <Controller
-            name="street_address"
+            name="streetAddress"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <Input
-                  id="street_address"
+                  id="streetAddress"
                   placeholder="Informe o endereço"
                   value={value}
                   onChange={onChange}
@@ -370,16 +370,16 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="street_number" required>
+          <Label htmlFor="streetNumber" required>
             Número
           </Label>
           <Controller
-            name="street_number"
+            name="streetNumber"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <Input
-                  id="street_number"
+                  id="streetNumber"
                   placeholder="Nº"
                   value={value}
                   onChange={onChange}
@@ -397,14 +397,14 @@ const CompanyForm = () => {
           />
         </Column>
         <Column className="space-y-2 col-span-2 md:col-span-1">
-          <Label htmlFor="address_complement">Complemento</Label>
+          <Label htmlFor="addressComplement">Complemento</Label>
           <Controller
-            name="address_complement"
+            name="addressComplement"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column>
                 <Input
-                  id="address_complement"
+                  id="addressComplement"
                   placeholder="Apto, bloco, torre, loja"
                   value={value}
                   onChange={onChange}
@@ -444,9 +444,9 @@ const sectorSelectOptions = [
 ];
 
 const taxRegimeSelectOptions = [
-  { value: "real_profit", label: TAX_REGIME_LABELS.real_profit },
-  { value: "presumed_profit", label: TAX_REGIME_LABELS.presumed_profit },
-  { value: "simple_national", label: TAX_REGIME_LABELS.simple_national },
+  { value: "realProfit", label: TAX_REGIME_LABELS.realProfit },
+  { value: "presumedProfit", label: TAX_REGIME_LABELS.presumedProfit },
+  { value: "simpleNational", label: TAX_REGIME_LABELS.simpleNational },
 ];
 
 const revenueRangeSelectOptions = [
