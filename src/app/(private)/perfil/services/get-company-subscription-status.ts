@@ -1,4 +1,5 @@
 import { createClient } from "@/src/libs/supabase/client";
+import { camelizeKeys } from "humps";
 
 interface GetCompanySubscriptionStatusParams {
   companyId: string;
@@ -18,6 +19,8 @@ export async function getCompanySubscriptionStatus({
     .limit(1)
     .maybeSingle();
 
+  const data = camelizeKeys(subscription);
+
   if (error) {
     console.error("Erro ao buscar assinatura da empresa:", error);
     return {
@@ -26,12 +29,10 @@ export async function getCompanySubscriptionStatus({
     };
   }
 
-  const isActive = subscription
-    ? new Date(subscription.expires_at) > new Date()
-    : false;
+  const isActive = data ? new Date(data.expiresAt) > new Date() : false;
 
   return {
     hasActiveSubscription: isActive,
-    expiresAt: subscription?.expires_at ?? null,
+    expiresAt: data?.expiresAt ?? null,
   };
 }

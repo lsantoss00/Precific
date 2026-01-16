@@ -10,9 +10,9 @@ export const SECTOR_LABELS: Record<SectorType, string> = {
 };
 
 export const TAX_REGIME_LABELS: Record<TaxRegimeType, string> = {
-  real_profit: "Lucro Real",
-  presumed_profit: "Lucro Presumido",
-  simple_national: "Simples Nacional",
+  realProfit: "Lucro Real",
+  presumedProfit: "Lucro Presumido",
+  simpleNational: "Simples Nacional",
 };
 
 export const REVENUE_RANGE_LABELS: Record<RevenueRangeType, string> = {

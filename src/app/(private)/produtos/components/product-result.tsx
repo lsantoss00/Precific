@@ -44,7 +44,7 @@ const ProductResult = () => {
   const { form, isEditMode, productId } = useProductForm();
   const data = form.watch();
 
-  const unitPrice = data?.unit_price ?? 0;
+  const unitPrice = data?.unitPrice ?? 0;
 
   const hasEssentialData = unitPrice !== undefined && unitPrice > 0;
 
@@ -90,37 +90,37 @@ const ProductResult = () => {
 
   const pending = pendingPostProduct || pendingUpdateProduct;
 
-  const icmsStInputExists = data?.icms_st !== 0 && data?.icms_st !== undefined;
+  const icmsStInputExists = data?.icmsSt !== 0 && data?.icmsSt !== undefined;
   const userProductPriceExists =
-    data?.user_product_price !== 0 && data?.user_product_price !== undefined;
-  const companyRegime = company?.tax_regime;
-  const isSimpleNational = company?.tax_regime === "simple_national";
+    data?.userProductPrice !== 0 && data?.userProductPrice !== undefined;
+  const companyRegime = company?.taxRegime;
+  const isSimpleNational = company?.taxRegime === "simpleNational";
   const business = company?.sector === "business";
-  const hasIcmsSt = data?.has_icms_st === true;
+  const hasIcmsSt = data?.hasIcmsSt === true;
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
     icms: data.icms ?? 0,
-    pisCofins: data?.pis_cofins ?? 0,
-    icmsSt: data.icms_st ?? 0,
+    pisCofins: data?.pisCofins ?? 0,
+    icmsSt: data.icmsSt ?? 0,
     ipi: data.ipi ?? 0,
     others: data.others ?? 0,
   });
 
   const percentSum =
-    ((data.fixed_costs ?? 0) + (data.shipping ?? 0) + (data.other_costs ?? 0)) /
+    ((data.fixedCosts ?? 0) + (data.shipping ?? 0) + (data.otherCosts ?? 0)) /
     100;
 
   // const markupBase = acquisitionCost + acquisitionCost * percentSum;
 
   const markup = markupCalc({
-    fixedCosts: data?.fixed_costs ?? 0,
-    othersCosts: data?.other_costs ?? 0,
+    fixedCosts: data?.fixedCosts ?? 0,
+    othersCosts: data?.otherCosts ?? 0,
     profit: data?.profit ?? 0,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    salesIcms: data?.salesIcms ?? 0,
+    salesPisCofins: data?.salesPisCofins ?? 0,
     shipping: data?.shipping ?? 0,
-    range: company?.revenue_range,
+    range: company?.revenueRange,
     business,
     isSimpleNational,
   });
@@ -132,18 +132,18 @@ const ProductResult = () => {
 
   const taxes = taxCalc({
     suggestedProductPrice: suggestedProductPrice,
-    salesIcms: data?.sales_icms ?? 0,
-    salesPisCofins: data?.sales_pis_cofins ?? 0,
+    salesIcms: data?.salesIcms ?? 0,
+    salesPisCofins: data?.salesPisCofins ?? 0,
   });
 
   const salesIcmsValue = percentageValueCalc({
     base: suggestedProductPrice,
-    percentage: data?.sales_icms,
+    percentage: data?.salesIcms,
   });
 
   const salesPisCofinsValue = percentageValueCalc({
     base: suggestedProductPrice - salesIcmsValue,
-    percentage: data?.sales_pis_cofins,
+    percentage: data?.salesPisCofins,
   });
 
   const suggestedProductPriceIbsCbsBase =
@@ -160,19 +160,19 @@ const ProductResult = () => {
   const icmsSt = icmsStCalc({
     mva: data?.mva ?? 0,
     suggestedProductPrice,
-    salesIcmsInput: data?.sales_icms,
-    stateDestination: data?.state_destination,
+    salesIcmsInput: data?.salesIcms,
+    stateDestination: data?.stateDestination,
     hasIcmsSt,
   });
 
   const fixedCosts = percentageValueCalc({
     base: suggestedProductPrice,
-    percentage: data?.fixed_costs ?? 0,
+    percentage: data?.fixedCosts ?? 0,
   });
 
   const othersCosts = percentageValueCalc({
     base: suggestedProductPrice,
-    percentage: data?.other_costs ?? 0,
+    percentage: data?.otherCosts ?? 0,
   });
 
   const shipping = percentageValueCalc({
@@ -188,7 +188,7 @@ const ProductResult = () => {
   const pisCofinsBase = unitPrice - icmsValue;
   const pisCofinsValue = percentageValueCalc({
     base: pisCofinsBase,
-    percentage: data?.pis_cofins ?? 0,
+    percentage: data?.pisCofins ?? 0,
   });
 
   const conditionalIcmsSt = icmsStInputExists && hasIcmsSt ? 0 : icmsSt;
@@ -204,7 +204,7 @@ const ProductResult = () => {
     percentage: 12,
   });
 
-  const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpj_percent;
+  const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpjPercent;
   const csll = calcBaseCsll < 0 ? 0 : calcBaseCsll * 0.09;
 
   const presumedProfitIrpjCsll = irpj + csll;
@@ -225,7 +225,7 @@ const ProductResult = () => {
       ? 0
       : percentageValueCalc({
           base: baseIrpjCsll,
-          percentage: data?.irpj_percent,
+          percentage: data?.irpjPercent,
         });
 
   const netProfit = (() => {
@@ -242,7 +242,7 @@ const ProductResult = () => {
     };
 
     const revenueRangeData = getRevenueRangeDataPercentage({ business });
-    const revenueRangeKey = (company?.revenue_range ??
+    const revenueRangeKey = (company?.revenueRange ??
       "range_1") as keyof typeof revenueRangeData;
 
     const das = percentageValueCalc({
@@ -250,7 +250,7 @@ const ProductResult = () => {
       percentage: revenueRangeData[revenueRangeKey],
     });
 
-    if (companyRegime === "presumed_profit") {
+    if (companyRegime === "presumedProfit") {
       return presumedProfitCalc({
         ...baseCalcParams,
         irpjCsll: presumedProfitIrpjCsll,
@@ -258,13 +258,13 @@ const ProductResult = () => {
     }
 
     if (
-      companyRegime === "simple_national" &&
-      company?.revenue_range &&
+      companyRegime === "simpleNational" &&
+      company?.revenueRange &&
       company?.sector
     ) {
       return simpleNationalCalc({
         ...baseCalcParams,
-        range: company.revenue_range,
+        range: company.revenueRange,
         das,
       });
     }
@@ -275,8 +275,8 @@ const ProductResult = () => {
   })();
 
   const companyState = company?.state;
-  const stateDestination = data?.state_destination;
-  const isImportedProduct = data?.imported_product === true;
+  const stateDestination = data?.stateDestination;
+  const isImportedProduct = data?.importedProduct === true;
 
   const internalTaxRate = companyState
     ? getICMSRate(stateDestination!, stateDestination!)
@@ -292,14 +292,14 @@ const ProductResult = () => {
     interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
   });
 
-  const isCostumerTaxPayer = data?.costumer_taxpayer === true;
+  const isCostumerTaxPayer = data?.costumerTaxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
     ? suggestedProductPrice + conditionalIcmsSt
     : suggestedProductPrice + suggestedProductPriceWithDifal;
 
   const revenueRangeData = getRevenueRangeDataPercentage({ business });
 
-  const revenueRangeKey = (company?.revenue_range ??
+  const revenueRangeKey = (company?.revenueRange ??
     "range_1") as keyof typeof revenueRangeData;
 
   const das = percentageValueCalc({
@@ -313,51 +313,51 @@ const ProductResult = () => {
   });
 
   const inverseTaxRegimeCalculators = {
-    real_profit: () => {
+    realProfit: () => {
       const realProfitInverse = realProfitInverseCalc({
-        userProductPrice: data?.user_product_price!,
-        fixedCosts: data?.fixed_costs ?? 0,
-        othersCosts: data?.other_costs ?? 0,
-        salesIcms: data?.sales_icms ?? 0,
-        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        userProductPrice: data?.userProductPrice!,
+        fixedCosts: data?.fixedCosts ?? 0,
+        othersCosts: data?.otherCosts ?? 0,
+        salesIcms: data?.salesIcms ?? 0,
+        salesPisCofins: data?.salesPisCofins ?? 0,
         shipping: data?.shipping ?? 0,
       });
 
       const realProfitInverseIcmsSt = icmsStCalc({
         mva: data?.mva ?? 0,
-        suggestedProductPrice: data.user_product_price!,
-        salesIcmsInput: data?.sales_icms,
-        stateDestination: data?.state_destination,
+        suggestedProductPrice: data.userProductPrice!,
+        salesIcmsInput: data?.salesIcms,
+        stateDestination: data?.stateDestination,
         hasIcmsSt,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
-        base: data.user_product_price!,
-        percentage: data?.fixed_costs ?? 0,
+        base: data.userProductPrice!,
+        percentage: data?.fixedCosts ?? 0,
       });
 
       const userProductPriceOthersCosts = percentageValueCalc({
-        base: data.user_product_price!,
-        percentage: data?.other_costs ?? 0,
+        base: data.userProductPrice!,
+        percentage: data?.otherCosts ?? 0,
       });
 
       const userProductPriceShipping = percentageValueCalc({
-        base: data?.user_product_price!,
+        base: data?.userProductPrice!,
         percentage: data?.shipping ?? 0,
       });
 
       const userProductPriceSalesIcms = percentageValueCalc({
-        base: data?.user_product_price!,
-        percentage: data?.sales_icms ?? 0,
+        base: data?.userProductPrice!,
+        percentage: data?.salesIcms ?? 0,
       });
 
       const userProductPriceSalesPisCofins = percentageValueCalc({
-        base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
-        percentage: data?.sales_pis_cofins ?? 0,
+        base: (data?.userProductPrice ?? 0) - userProductPriceSalesIcms,
+        percentage: data?.salesPisCofins ?? 0,
       });
 
       const baseInverseIrpjCsll =
-        data?.user_product_price! -
+        data?.userProductPrice! -
         unitPrice -
         userProductPriceFixedCosts -
         userProductPriceSalesIcms -
@@ -371,11 +371,11 @@ const ProductResult = () => {
           ? 0
           : percentageValueCalc({
               base: baseInverseIrpjCsll,
-              percentage: data?.irpj_percent,
+              percentage: data?.irpjPercent,
             });
 
       const userRealNetProfit = realProfitCalc({
-        suggestedProductPrice: data.user_product_price ?? 0,
+        suggestedProductPrice: data.userProductPrice ?? 0,
         acquisitionCost,
         icms: icmsValue,
         pisCofins: pisCofinsValue,
@@ -389,20 +389,20 @@ const ProductResult = () => {
 
       const inverseProfitability = ProfitabilityCalc({
         netProfit: userRealNetProfit,
-        suggestedProductPrice: data?.user_product_price ?? 0,
+        suggestedProductPrice: data?.userProductPrice ?? 0,
       });
 
       const userFinalSalePrice =
-        (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
+        (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt;
 
       const inverseTaxes = taxCalc({
-        suggestedProductPrice: data?.user_product_price ?? 0,
-        salesIcms: data?.sales_icms ?? 0,
-        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        suggestedProductPrice: data?.userProductPrice ?? 0,
+        salesIcms: data?.salesIcms ?? 0,
+        salesPisCofins: data?.salesPisCofins ?? 0,
       });
 
       const userProductPriceIbsCbsBase =
-        (data?.user_product_price ?? 0) -
+        (data?.userProductPrice ?? 0) -
         userProductPriceSalesIcms -
         userProductPriceSalesPisCofins;
 
@@ -427,47 +427,47 @@ const ProductResult = () => {
         userProductCbs,
       };
     },
-    presumed_profit: () => {
+    presumedProfit: () => {
       const realProfitInverse = realProfitInverseCalc({
-        userProductPrice: data?.user_product_price!,
-        fixedCosts: data?.fixed_costs ?? 0,
-        othersCosts: data?.other_costs ?? 0,
-        salesIcms: data?.sales_icms ?? 0,
-        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        userProductPrice: data?.userProductPrice!,
+        fixedCosts: data?.fixedCosts ?? 0,
+        othersCosts: data?.otherCosts ?? 0,
+        salesIcms: data?.salesIcms ?? 0,
+        salesPisCofins: data?.salesPisCofins ?? 0,
         shipping: data?.shipping ?? 0,
       });
 
       const realProfitInverseIcmsSt = icmsStCalc({
         mva: data?.mva ?? 0,
-        suggestedProductPrice: data.user_product_price!,
-        salesIcmsInput: data?.sales_icms,
-        stateDestination: data?.state_destination,
+        suggestedProductPrice: data.userProductPrice!,
+        salesIcmsInput: data?.salesIcms,
+        stateDestination: data?.stateDestination,
         hasIcmsSt,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
-        base: data.user_product_price!,
-        percentage: data?.fixed_costs ?? 0,
+        base: data.userProductPrice!,
+        percentage: data?.fixedCosts ?? 0,
       });
 
       const userProductPriceOthersCosts = percentageValueCalc({
-        base: data.user_product_price!,
-        percentage: data?.other_costs ?? 0,
+        base: data.userProductPrice!,
+        percentage: data?.otherCosts ?? 0,
       });
 
       const userProductPriceShipping = percentageValueCalc({
-        base: data?.user_product_price!,
+        base: data?.userProductPrice!,
         percentage: data?.shipping ?? 0,
       });
 
       const userProductPriceSalesIcms = percentageValueCalc({
-        base: data?.user_product_price!,
-        percentage: data?.sales_icms ?? 0,
+        base: data?.userProductPrice!,
+        percentage: data?.salesIcms ?? 0,
       });
 
       const userProductPriceSalesPisCofins = percentageValueCalc({
-        base: (data?.user_product_price ?? 0) - userProductPriceSalesIcms,
-        percentage: data?.sales_pis_cofins ?? 0,
+        base: (data?.userProductPrice ?? 0) - userProductPriceSalesIcms,
+        percentage: data?.salesPisCofins ?? 0,
       });
 
       const calcBaseIrpj = percentageValueCalc({
@@ -480,13 +480,13 @@ const ProductResult = () => {
         percentage: 12,
       });
 
-      const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpj_percent;
+      const irpj = calcBaseIrpj < 0 ? 0 : calcBaseIrpj * data?.irpjPercent;
       const csll = calcBaseCsll < 0 ? 0 : calcBaseCsll * 0.09;
 
       const presumedProfitIrpjCsll = irpj + csll;
 
       const userPresumedNetProfit = presumedProfitCalc({
-        suggestedProductPrice: data.user_product_price ?? 0,
+        suggestedProductPrice: data.userProductPrice ?? 0,
         acquisitionCost,
         icms: icmsValue,
         pisCofins: pisCofinsValue,
@@ -500,20 +500,20 @@ const ProductResult = () => {
 
       const inverseProfitability = ProfitabilityCalc({
         netProfit: userPresumedNetProfit,
-        suggestedProductPrice: data?.user_product_price ?? 0,
+        suggestedProductPrice: data?.userProductPrice ?? 0,
       });
 
       const userFinalSalePrice =
-        (data?.user_product_price ?? 0) + realProfitInverseIcmsSt;
+        (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt;
 
       const inverseTaxes = taxCalc({
-        suggestedProductPrice: data?.user_product_price ?? 0,
-        salesIcms: data?.sales_icms ?? 0,
-        salesPisCofins: data?.sales_pis_cofins ?? 0,
+        suggestedProductPrice: data?.userProductPrice ?? 0,
+        salesIcms: data?.salesIcms ?? 0,
+        salesPisCofins: data?.salesPisCofins ?? 0,
       });
 
       const userProductPriceIbsCbsBase =
-        (data?.user_product_price ?? 0) -
+        (data?.userProductPrice ?? 0) -
         userProductPriceSalesIcms -
         userProductPriceSalesPisCofins;
 
@@ -538,11 +538,11 @@ const ProductResult = () => {
         userProductCbs,
       };
     },
-    simple_national: () => undefined,
+    simpleNational: () => undefined,
   };
 
   const inverseCalculations = (() => {
-    if (!userProductPriceExists) {
+    if (!userProductPriceExists || !companyRegime) {
       return {
         realProfitInverse: undefined,
         realProfitInverseIcmsSt: undefined,
@@ -560,6 +560,8 @@ const ProductResult = () => {
     return inverseTaxRegimeCalculators[companyRegime as TaxRegimeType]();
   })();
 
+  console.log(form?.getValues());
+
   const metrics2025: (MetricCardProps & {
     gridSpan?: string;
     condition?: boolean;
@@ -570,21 +572,21 @@ const ProductResult = () => {
     },
     {
       title: "Outros custos",
-      value: suggestedProductPrice * ((data?.other_costs ?? 0) / 100),
+      value: suggestedProductPrice * ((data?.otherCosts ?? 0) / 100),
       secondValue:
-        (data?.user_product_price ?? 0) * ((data?.other_costs ?? 0) / 100),
+        (data?.userProductPrice ?? 0) * ((data?.otherCosts ?? 0) / 100),
     },
     {
       title: "Custos fixos",
-      value: suggestedProductPrice * ((data?.fixed_costs ?? 0) / 100),
+      value: suggestedProductPrice * ((data?.fixedCosts ?? 0) / 100),
       secondValue:
-        (data?.user_product_price ?? 0) * ((data?.fixed_costs ?? 0) / 100),
+        (data?.userProductPrice ?? 0) * ((data?.fixedCosts ?? 0) / 100),
     },
     {
       title: "Frete",
       value: suggestedProductPrice * ((data?.shipping ?? 0) / 100),
       secondValue:
-        (data?.user_product_price ?? 0) * ((data?.shipping ?? 0) / 100),
+        (data?.userProductPrice ?? 0) * ((data?.shipping ?? 0) / 100),
     },
     {
       title: "ICMS + PIS/COFINS",
@@ -605,9 +607,9 @@ const ProductResult = () => {
     {
       title: "IRPJ + CSLL",
       value:
-        companyRegime === "presumed_profit"
+        companyRegime === "presumedProfit"
           ? presumedProfitIrpjCsll
-          : companyRegime === "real_profit"
+          : companyRegime === "realProfit"
           ? realProfitIrpjCsllCalc
           : 0,
       secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
@@ -673,8 +675,8 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...data,
       status: "ACTIVE",
-      price_today: finalSalePrice,
-      price_in_2026: finalSalePrice,
+      priceToday: finalSalePrice,
+      priceIn2026: finalSalePrice,
     };
 
     if (isEditMode && productId) {
@@ -726,7 +728,7 @@ const ProductResult = () => {
                   .map((metric, index) => (
                     <div
                       key={`metric-2025-${index}`}
-                      className={metric.gridSpan}
+                      className={`h-30 ${metric.gridSpan}`}
                     >
                       <MetricCard
                         title={metric.title}

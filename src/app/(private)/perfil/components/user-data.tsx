@@ -17,10 +17,10 @@ const UserData = ({ onImageChange }: UserDataProps) => {
       <h3>Dados do Usuário</h3>
       <div className="space-y-4">
         <Column className="space-y-2">
-          <Label htmlFor="profile_picture">Foto de Perfil</Label>
+          <Label htmlFor="profilePicture">Foto de Perfil</Label>
           <UserImageUpload
             onChange={onImageChange}
-            initialPreview={profile?.profile_picture_url || null}
+            initialPreview={profile?.profilePictureUrl || null}
           />
         </Column>
 

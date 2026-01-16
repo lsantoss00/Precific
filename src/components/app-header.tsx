@@ -51,8 +51,8 @@ export function AppHeader() {
               >
                 <Show
                   when={
-                    Boolean(profile?.profile_picture_url) ||
-                    profile?.profile_picture_url !== ""
+                    Boolean(profile?.profilePictureUrl) ||
+                    profile?.profilePictureUrl !== ""
                   }
                   fallback={
                     <User
@@ -63,7 +63,7 @@ export function AppHeader() {
                 >
                   <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
                     <Image
-                      src={profile?.profile_picture_url!}
+                      src={profile?.profilePictureUrl!}
                       alt="Foto de perfil"
                       fill
                       sizes="32px"

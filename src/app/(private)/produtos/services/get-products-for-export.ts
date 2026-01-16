@@ -1,4 +1,5 @@
 import { createClient } from "@/src/libs/supabase/client";
+import { camelizeKeys } from "humps";
 import { ProductExportType } from "../types/product-type";
 
 interface GetProductsForExport {
@@ -28,7 +29,9 @@ export async function getProductsForExport({
     );
   }
 
-  const { data, error } = await query;
+  const { data: products, error } = await query;
+
+  const data = camelizeKeys(products) as ProductExportType[];
 
   if (error) throw error;
 

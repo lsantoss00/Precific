@@ -3,6 +3,7 @@ import {
   PaginatedResponseType,
   PaginationType,
 } from "@/src/types/pagination-type";
+import { camelizeKeys } from "humps";
 import { ProductResponseType } from "../types/product-type";
 
 interface GetProductsProps extends PaginationType {
@@ -43,7 +44,9 @@ export async function getProducts({
     );
   }
 
-  const { data, error, count } = await query.range(from, to);
+  const { data: products, error, count } = await query.range(from, to);
+
+  const data = camelizeKeys(products) as ProductResponseType[];
 
   if (error) throw error;
 
