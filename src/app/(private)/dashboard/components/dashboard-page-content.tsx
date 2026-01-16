@@ -7,7 +7,7 @@ import {
   pieChartConfig,
   radarChartConfig,
   stackedBarChartConfig,
-} from "@/src/app/(private)/dashboard/constants/chart-config";
+} from "@/src/app/(private)/dashboard/mock/chart-config";
 import {
   areaChartMockData,
   barChartMockData,
@@ -16,7 +16,7 @@ import {
   pieChartMockData,
   radarChartMockData,
   stackedBarChartMockData,
-} from "@/src/app/(private)/dashboard/constants/dashboard-mock-data";
+} from "@/src/app/(private)/dashboard/mock/dashboard-mock-data";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import Column from "@/src/components/core/column";
 import DatePicker from "@/src/components/core/date-picker";

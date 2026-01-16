@@ -1,7 +1,6 @@
 "use client";
 
 import { TaxRegimeType } from "@/src/app/(private)/perfil/types/company-type";
-import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
 import { difalCalc } from "@/src/app/(private)/produtos/utils/calcs/difal-calc";
 import { icmsStCalc } from "@/src/app/(private)/produtos/utils/calcs/icms-st-calc";
@@ -12,6 +11,7 @@ import { realProfitCalc } from "@/src/app/(private)/produtos/utils/calcs/real-pr
 import { realProfitInverseCalc } from "@/src/app/(private)/produtos/utils/calcs/real-profit-inverse-calc";
 import { simpleNationalCalc } from "@/src/app/(private)/produtos/utils/calcs/simple-national-calc";
 import { suggestedProductPriceCalc } from "@/src/app/(private)/produtos/utils/calcs/suggested-product-price-calc";
+import { getICMSRate } from "@/src/app/(private)/produtos/utils/icms-table";
 import { getRevenueRangeDataPercentage } from "@/src/app/(private)/produtos/utils/revenue-range-data-percentage";
 import { Button, Card } from "@/src/components/core";
 import Column from "@/src/components/core/column";

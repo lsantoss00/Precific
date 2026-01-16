@@ -4,7 +4,7 @@ import {
   REVENUE_RANGE_LABELS,
   SECTOR_LABELS,
   TAX_REGIME_LABELS,
-} from "@/src/app/(private)/perfil/constants/company-labels";
+} from "@/src/app/(private)/perfil/utils/company-labels";
 import { stateSelectOptions } from "@/src/app/(private)/produtos/components/select-state-input";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";

@@ -4,7 +4,7 @@ import SupportPresentationCard from "@/src/app/(private)/suporte/components/supp
 import {
   supportContactChannelsLinks,
   supportUsefulResourcesLinks,
-} from "@/src/app/(private)/suporte/constants/support-links";
+} from "@/src/app/(private)/suporte/utils/support-links";
 import { Container } from "@/src/components/core";
 import { Book, Megaphone } from "lucide-react";
 import { Metadata } from "next";

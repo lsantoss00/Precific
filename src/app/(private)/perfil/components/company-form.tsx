@@ -1,9 +1,9 @@
+import { postCompany } from "@/src/app/(private)/perfil/services/post-company";
 import {
   REVENUE_RANGE_LABELS,
   SECTOR_LABELS,
   TAX_REGIME_LABELS,
-} from "@/src/app/(private)/perfil/constants/company-labels";
-import { postCompany } from "@/src/app/(private)/perfil/services/post-company";
+} from "@/src/app/(private)/perfil/utils/company-labels";
 import SelectStateInput from "@/src/app/(private)/produtos/components/select-state-input";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";

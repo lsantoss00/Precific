@@ -1,7 +1,7 @@
 "use client";
 
-import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { getICMSRate } from "@/src/app/(private)/produtos/utils/icms-table";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
