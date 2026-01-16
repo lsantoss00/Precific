@@ -15,7 +15,14 @@ export async function updateProduct({ product }: UpdateProductProps) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const data = decamelizeKeys(product);
+  // WORKAROUND: humps is returning price_in2027 instead price_in_2027
+  const { priceIn2026, priceIn2027, ...rest } = product;
+
+  const data = {
+    price_in_2026: priceIn2026,
+    price_in_2027: priceIn2027,
+    ...decamelizeKeys(rest),
+  };
 
   const { data: products, error } = await supabase
     .from("products")

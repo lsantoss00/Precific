@@ -50,11 +50,11 @@ export default function ImportSpreadsheetArea({
         sku: row.sku === "-" || !row.sku ? "-" : row.sku,
         name: row.nome === "-" || !row.nome ? "-" : row.nome,
         ncm: row.ncm === "-" || !row.ncm ? "-" : row.ncm,
-        price_today: row.preço ? parseCurrency(row.preço) : 0,
-        price_in_2026: row["preço em 2026"]
+        priceToday: row.preço ? parseCurrency(row.preço) : 0,
+        priceIn2026: row["preço em 2026"]
           ? parseCurrency(row["preço em 2026"])
           : 0,
-        price_in_2027: row["preço em 2027"]
+        priceIn2027: row["preço em 2027"]
           ? parseCurrency(row["preço em 2027"])
           : 0,
         status: "ACTIVE",

@@ -542,7 +542,7 @@ const ProductResult = () => {
   };
 
   const inverseCalculations = (() => {
-    if (!userProductPriceExists) {
+    if (!userProductPriceExists || !companyRegime) {
       return {
         realProfitInverse: undefined,
         realProfitInverseIcmsSt: undefined,
@@ -559,6 +559,8 @@ const ProductResult = () => {
 
     return inverseTaxRegimeCalculators[companyRegime as TaxRegimeType]();
   })();
+
+  console.log(form?.getValues());
 
   const metrics2025: (MetricCardProps & {
     gridSpan?: string;
