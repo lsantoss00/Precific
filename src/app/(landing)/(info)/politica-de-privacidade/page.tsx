@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    locale: "pt_BR",
+    locale: "pt-BR",
     siteName: "Precific",
     title: "Política de Privacidade | Precific",
     description:

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Simplifique a precificação dos seus produtos com o Precific. Calcule preços de forma rápida e precisa, otimize suas margens e tome decisões estratégicas com confiança. Automatize cálculos de custos, impostos e simule a Reforma Tributária (IBS/CBS).",
   openGraph: {
     type: "website",
-    locale: "pt_BR",
+    locale: "pt-BR",
     siteName: "Precific",
     title: "Precific",
     description:

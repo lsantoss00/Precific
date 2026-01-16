@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   keywords: ["login", "entrar", "acessar conta", "área do cliente", "precific"],
   openGraph: {
     type: "website",
-    locale: "pt_BR",
+    locale: "pt-BR",
     siteName: "Precific",
     title: "Entrar | Precific",
     description:
