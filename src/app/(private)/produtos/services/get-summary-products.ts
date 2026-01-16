@@ -2,9 +2,7 @@ import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 import { ProductSummariesResponseType } from "../types/product-type";
 
-export async function getProductSummaries(): Promise<
-  ProductSummariesResponseType[]
-> {
+export async function getProductSummaries(): Promise<ProductSummariesResponseType> {
   const supabase = createClient();
 
   const {
@@ -17,7 +15,7 @@ export async function getProductSummaries(): Promise<
     "get_dashboard_stats"
   );
 
-  const data = camelizeKeys(productsSummary) as ProductSummariesResponseType[];
+  const data = camelizeKeys(productsSummary) as ProductSummariesResponseType;
 
   if (error) throw error;
 
