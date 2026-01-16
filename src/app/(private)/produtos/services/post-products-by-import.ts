@@ -1,16 +1,8 @@
+import { ProductToImportType } from "@/src/app/(private)/produtos/types/product-type";
 import { createClient } from "@/src/libs/supabase/client";
+import { decamelizeKeys } from "humps";
 
-interface ProductImportData {
-  sku: string | null;
-  name: string | null;
-  ncm: string | null;
-  price_today: number;
-  price_in_2026: number;
-  price_in_2027: number;
-  status: string;
-}
-
-export async function importProducts(products: ProductImportData[]) {
+export async function importProducts(products: ProductToImportType[]) {
   const supabase = createClient();
 
   const {
@@ -19,11 +11,16 @@ export async function importProducts(products: ProductImportData[]) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabase.rpc("bulk_import_products", {
-    products_data: products,
-  });
+  const data = decamelizeKeys(products);
+
+  const { data: productsImported, error } = await supabase.rpc(
+    "bulk_import_products",
+    {
+      products_data: data,
+    }
+  );
 
   if (error) throw error;
 
-  return { count: data?.length || 0, data };
+  return { count: productsImported?.length || 0, productsImported };
 }

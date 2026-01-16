@@ -1,4 +1,5 @@
 import { createClient } from "@/src/libs/supabase/client";
+import { camelizeKeys } from "humps";
 import { ProductRequestType, ProductResponseType } from "../types/product-type";
 
 interface GetProductByIdProps {
@@ -16,11 +17,13 @@ export async function getProductById({
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabase
+  const { data: products, error } = await supabase
     .from("products")
     .select("*")
     .eq("id", productId)
     .single();
+
+  const data = camelizeKeys(products) as ProductResponseType;
 
   if (error) throw error;
 

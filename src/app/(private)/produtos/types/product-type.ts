@@ -3,43 +3,43 @@ export type ProductType = {
   sku?: string;
   ncm?: string;
   observations?: string;
-  unit_price: number;
+  unitPrice: number;
   icms: number;
-  pis_cofins: number;
-  icms_st?: number;
+  pisCofins: number;
+  icmsSt?: number;
   ipi?: number;
   others?: number;
-  fixed_costs?: number;
-  sales_icms: number;
-  sales_pis_cofins: number;
+  fixedCosts?: number;
+  salesIcms: number;
+  salesPisCofins: number;
   shipping?: number;
-  other_costs?: number;
+  otherCosts?: number;
   profit: number;
   status: "ACTIVE" | "INACTIVE";
-  price_today: number;
-  price_in_2026: number;
-  price_in_2027?: number;
-  irpj_percent: number;
-  interstate_sale: boolean;
-  state_destination: string | undefined;
-  imported_product: boolean;
-  costumer_taxpayer: boolean;
+  priceToday: number;
+  priceIn2026: number;
+  priceIn2027?: number;
+  irpjPercent: number;
+  interstateSale: boolean;
+  stateDestination: string | undefined;
+  importedProduct: boolean;
+  costumerTaxpayer: boolean;
   mva?: number;
-  has_icms_st: boolean;
-  has_user_product_price: boolean;
-  user_product_price?: number;
+  hasIcmsSt: boolean;
+  hasUserProductPrice: boolean;
+  userProductPrice?: number;
 };
 
 export type ProductFormDataType = Omit<
   ProductType,
-  "price_today" | "price_in_2026" | "price_in_2027"
+  "priceToday" | "priceIn2026" | "priceIn2027"
 >;
 
 export type ProductResponseType = ProductType & {
   id: string;
-  user_id: string;
-  created_at: string;
-  updated_at: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ProductRequestType = Partial<ProductType> & {
@@ -47,10 +47,10 @@ export type ProductRequestType = Partial<ProductType> & {
 };
 
 export type ProductSummariesResponseType = {
-  registered_products: number;
-  precified_products: number;
-  active_products: number;
-  inactive_products: number;
+  registeredProducts: number;
+  precifiedProducts: number;
+  activeProducts: number;
+  inactiveProducts: number;
 };
 
 export type ProductExportType = Pick<
@@ -58,15 +58,25 @@ export type ProductExportType = Pick<
   | "sku"
   | "name"
   | "ncm"
-  | "price_today"
-  | "price_in_2026"
-  | "price_in_2027"
+  | "priceToday"
+  | "priceIn2026"
+  | "priceIn2027"
   | "status"
 >;
 
 export type ProductHistoryType = {
   id: string;
-  price_today: number;
-  price_in_2026: number;
-  changed_at: string;
+  priceToday: number;
+  priceIn2026: number;
+  changedAt: string;
+};
+
+export type ProductToImportType = {
+  sku: string | null;
+  name: string | null;
+  ncm: string | null;
+  priceToday: number;
+  priceIn2026: number;
+  priceIn2027: number;
+  status: string;
 };

@@ -1,4 +1,5 @@
 import { createClient } from "@/src/libs/supabase/client";
+import { decamelizeKeys } from "humps";
 import { ProductType } from "../types/product-type";
 
 interface PostProductProps {
@@ -14,7 +15,9 @@ export async function postProduct({ product }: PostProductProps) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { error } = await supabase.from("products").insert(product).select();
+  const data = decamelizeKeys(product);
+
+  const { error } = await supabase.from("products").insert(data).select();
 
   if (error) throw error;
 

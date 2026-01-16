@@ -16,11 +16,11 @@ const ProductInfoCards = () => {
     {
       id: 1,
       title: pluralize(
-        summary?.registered_products || 0,
+        summary?.registeredProducts || 0,
         "Produto Cadastrado",
         "Produtos Cadastrados"
       ),
-      value: summary?.registered_products || 0,
+      value: summary?.registeredProducts || 0,
       icon: (
         <Package className="w-12 h-12 p-2.5 text-[#66219B] bg-[#66218B]/20 rounded-md" />
       ),
@@ -28,11 +28,11 @@ const ProductInfoCards = () => {
     {
       id: 2,
       title: pluralize(
-        summary?.precified_products || 0,
+        summary?.precifiedProducts || 0,
         "Produto Precificado",
         "Produtos Precificados"
       ),
-      value: summary?.precified_products || 0,
+      value: summary?.precifiedProducts || 0,
       icon: (
         <Tag className="w-12 h-12 p-2.5 text-secondary bg-secondary/20 rounded-md" />
       ),
@@ -40,11 +40,11 @@ const ProductInfoCards = () => {
     {
       id: 3,
       title: pluralize(
-        summary?.active_products || 0,
+        summary?.activeProducts || 0,
         "Produto Ativo",
         "Produtos Ativos"
       ),
-      value: summary?.active_products || 0,
+      value: summary?.activeProducts || 0,
       icon: (
         <CheckCircle className="w-12 h-12 p-2.5 text-green-600 bg-green-100 rounded-md" />
       ),
@@ -52,11 +52,11 @@ const ProductInfoCards = () => {
     {
       id: 4,
       title: pluralize(
-        summary?.inactive_products || 0,
+        summary?.inactiveProducts || 0,
         "Produto Inativo",
         "Produtos Inativos"
       ),
-      value: summary?.inactive_products || 0,
+      value: summary?.inactiveProducts || 0,
       icon: (
         <XCircle className="w-12 h-12 p-2.5 text-red-600 bg-red-100 rounded-md" />
       ),

@@ -24,28 +24,28 @@ const AcquisitionCostForm = () => {
   const data = form.watch();
 
   const acquisitionCost = acquisitionCostCalc({
-    unitPrice: data?.unit_price ?? 0,
+    unitPrice: data?.unitPrice ?? 0,
     icms: data.icms ?? 0,
-    pisCofins: data?.pis_cofins ?? 0,
-    icmsSt: data.icms_st ?? 0,
+    pisCofins: data?.pisCofins ?? 0,
+    icmsSt: data.icmsSt ?? 0,
     ipi: data.ipi ?? 0,
     others: data.others ?? 0,
   });
 
-  const ísPresumedProfit = company?.taxRegime === "presumed_profit";
+  const ísPresumedProfit = company?.taxRegime === "presumedProfit";
 
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
       <h3 className="text-lg">Custo de Aquisição</h3>
       <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-4">
         <Column className="space-y-2">
-          <Label htmlFor="unit_price" required>
+          <Label htmlFor="unitPrice" required>
             Preço Unitário NF-e (R$)
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="unit_price"
+                name="unitPrice"
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
@@ -58,7 +58,7 @@ const AcquisitionCostForm = () => {
                   const numericValue = field.value ?? 0;
                   return (
                     <Input
-                      id="unit_price"
+                      id="unitPrice"
                       placeholder="R$ 0,00"
                       type="numeric"
                       {...field}
@@ -69,16 +69,16 @@ const AcquisitionCostForm = () => {
 
                         field.onChange(numberValue);
                       }}
-                      error={errors.unit_price?.message}
+                      error={errors.unitPrice?.message}
                     />
                   );
                 }}
               />
               <CustomTooltip message="Informe o valor do produto conforme destacado na Nota Fiscal de compra." />
             </Row>
-            <Show when={errors.unit_price?.message}>
+            <Show when={errors.unitPrice?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.unit_price?.message}
+                {errors.unitPrice?.message}
               </span>
             </Show>
           </Column>
@@ -114,10 +114,7 @@ const AcquisitionCostForm = () => {
                   />
                 )}
               />
-              <CustomTooltip
-                message="Insira a alíquota de ICMS (Imposto sobre Circulação de Mercadorias e Serviços) que veio na nota fiscal de compra. 
-                                        Se sua empresa tiver direito, este valor será usado como crédito."
-              />
+              <CustomTooltip message="Insira a alíquota de ICMS (Imposto sobre Circulação de Mercadorias e Serviços) que veio na nota fiscal de compra. Se sua empresa tiver direito, este valor será usado como crédito." />
             </Row>
             <Show when={errors.icms?.message}>
               <span className="text-xs text-red-500 -mt-1">
@@ -127,13 +124,13 @@ const AcquisitionCostForm = () => {
           </Column>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="pis_cofins" required>
+          <Label htmlFor="pisCofins" required>
             PIS/COFINS (%)
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="pis_cofins"
+                name="pisCofins"
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
@@ -142,7 +139,7 @@ const AcquisitionCostForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="pis_cofins"
+                    id="pisCofins"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -153,30 +150,27 @@ const AcquisitionCostForm = () => {
                       const value = e.target.value;
                       field.onChange(value === "" ? "" : Number(value));
                     }}
-                    error={errors.pis_cofins?.message}
+                    error={errors.pisCofins?.message}
                     disabled={ísPresumedProfit}
                   />
                 )}
               />
-              <CustomTooltip
-                message="Informe a alíquota de PIS/COFINS da compra. 
-                                        Relevante para empresas do regime Lucro Real que podem se creditar deste imposto para abater no cálculo da venda"
-              />
+              <CustomTooltip message="Informe a alíquota de PIS/COFINS da compra. Relevante para empresas do regime Lucro Real que podem se creditar deste imposto para abater no cálculo da venda" />
             </Row>
-            <Show when={errors.pis_cofins?.message}>
+            <Show when={errors.pisCofins?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.pis_cofins?.message}
+                {errors.pisCofins?.message}
               </span>
             </Show>
           </Column>
         </Column>
 
         <Column className="space-y-2">
-          <Label htmlFor="icms_st">ICMS ST (%)</Label>
+          <Label htmlFor="icmsSt">ICMS ST (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="icms_st"
+                name="icmsSt"
                 control={control}
                 rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -184,7 +178,7 @@ const AcquisitionCostForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="icms_st"
+                    id="icmsSt"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -202,15 +196,15 @@ const AcquisitionCostForm = () => {
                       }
                       field.onBlur();
                     }}
-                    error={errors.icms_st?.message}
+                    error={errors.icmsSt?.message}
                   />
                 )}
               />
               <CustomTooltip message="Informe a alíquota ou valor do ICMS por Substituição Tributária (ST) pago na entrada." />
             </Row>
-            <Show when={errors.icms_st?.message}>
+            <Show when={errors.icmsSt?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.icms_st?.message}
+                {errors.icmsSt?.message}
               </span>
             </Show>
           </Column>
@@ -294,10 +288,7 @@ const AcquisitionCostForm = () => {
                   />
                 )}
               />
-              <CustomTooltip
-                message="Adicione outras despesas que incidiram diretamente na compra, como frete de compra (FOB), 
-                                        seguros ou taxas, em percentual sobre o preço unitário."
-              />
+              <CustomTooltip message="Adicione outras despesas que incidiram diretamente na compra, como frete de compra (FOB), seguros ou taxas, em percentual sobre o preço unitário." />
             </Row>
             <Show when={errors.others?.message}>
               <span className="text-xs text-red-500 -mt-1">

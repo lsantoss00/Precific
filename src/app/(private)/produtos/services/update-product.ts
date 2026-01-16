@@ -1,4 +1,5 @@
 import { createClient } from "@/src/libs/supabase/client";
+import { decamelizeKeys } from "humps";
 import { ProductRequestType } from "../types/product-type";
 
 interface UpdateProductProps {
@@ -14,14 +15,16 @@ export async function updateProduct({ product }: UpdateProductProps) {
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabase
+  const data = decamelizeKeys(product);
+
+  const { data: products, error } = await supabase
     .from("products")
-    .update(product)
+    .update(data)
     .eq("id", product?.id)
     .select()
     .single();
 
   if (error) throw error;
 
-  return data;
+  return products;
 }

@@ -31,11 +31,11 @@ const ProductPriceHistoryTable = ({
         {productPriceHistory.map((product) => (
           <TableRow key={product.id}>
             <TableCell className="font-medium">
-              {currencyFormatter(product.price_today)}
+              {currencyFormatter(product.priceToday)}
             </TableCell>
-            <TableCell> {currencyFormatter(product.price_in_2026)}</TableCell>
+            <TableCell> {currencyFormatter(product.priceIn2026)}</TableCell>
             <TableCell className="text-right">
-              {dateFormatter(product.changed_at)}
+              {dateFormatter(product.changedAt)}
             </TableCell>
           </TableRow>
         ))}
