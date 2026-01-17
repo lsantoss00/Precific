@@ -9,7 +9,7 @@ import ExportDataButton from "@/src/components/export-data-button";
 import MultipleImportDialog from "@/src/components/multiple-import-dialog";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useQuery } from "@tanstack/react-query";
-import { Plus, Upload } from "lucide-react";
+import { Package, Plus, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Papa from "papaparse";
@@ -90,7 +90,10 @@ const ProductsHeaderSection = () => {
 
   return (
     <Column as="header" className="space-y-3 w-full">
-      <h1 className="text-3xl font-semibold">Produtos</h1>
+      <Row className="items-center gap-2">
+        <Package size={26} />
+        <h1 className="text-3xl font-semibold">Produtos</h1>
+      </Row>
       <Flex className="flex-col lg:flex-row justify-between lg:items-center w-full gap-4">
         <div className="w-full lg:max-w-120">
           <Label htmlFor="search-products" className="sr-only">

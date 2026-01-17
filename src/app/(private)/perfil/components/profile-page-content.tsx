@@ -6,12 +6,13 @@ import UserData from "@/src/app/(private)/perfil/components/user-data";
 import { postProfilePicture } from "@/src/app/(private)/perfil/services/post-profile-picture";
 import { Button, Container } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
+import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { useMutation } from "@tanstack/react-query";
-import { Check, Loader2, Loader2Icon } from "lucide-react";
+import { Check, CircleUserRound, Loader2, Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -69,7 +70,10 @@ const ProfilePageContent = () => {
           />
         }
       >
-        <h1 className="text-3xl font-semibold">Perfil</h1>
+        <Row className="items-center gap-2">
+          <CircleUserRound size={26} />
+          <h1 className="text-3xl font-semibold">Perfil</h1>
+        </Row>
         <Flex
           className="flex-col lg:flex-row w-full flex-1 gap-4"
           aria-label="Informações do perfil"

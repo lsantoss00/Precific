@@ -33,6 +33,7 @@ import {
 } from "../components";
 
 import { Label } from "@/src/components/core";
+import { LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 
 const DashboardPageContent = () => {
@@ -41,7 +42,8 @@ const DashboardPageContent = () => {
 
   return (
     <Column className="gap-4 relative">
-      <Row className="items-center gap-4 z-20">
+      <Row className="items-center gap-2 z-20">
+        <LayoutDashboard size={26} />
         <h1 className="text-3xl font-semibold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>

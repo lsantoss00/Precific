@@ -6,7 +6,8 @@ import {
   supportUsefulResourcesLinks,
 } from "@/src/app/(private)/suporte/utils/support-links";
 import { Container } from "@/src/components/core";
-import { Book, Megaphone } from "lucide-react";
+import Row from "@/src/components/core/row";
+import { Book, Headset, Megaphone } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,7 +23,10 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <Container variant="page">
-      <h1 className="text-3xl text-foreground font-semibold">Suporte</h1>
+      <Row className="items-center gap-2">
+        <Headset size={26} />
+        <h1 className="text-3xl font-semibold">Suporte</h1>
+      </Row>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
         <SupportPresentationCard />
         <div className="flex flex-col gap-4">
