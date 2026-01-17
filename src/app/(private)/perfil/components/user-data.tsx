@@ -14,7 +14,7 @@ const UserData = ({ onImageChange }: UserDataProps) => {
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-4">
-      <h3>Dados do Usuário</h3>
+      <h3 className="text-lg">Dados do Usuário</h3>
       <div className="space-y-4">
         <Column className="space-y-2">
           <Label htmlFor="profilePicture">Foto de Perfil</Label>

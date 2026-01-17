@@ -23,7 +23,7 @@ const CompanyData = () => {
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-4 flex-1">
-      <h3>Dados da Empresa</h3>
+      <h3 className="text-lg">Dados da Empresa</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Column className="space-y-2 col-span-2">
           <Label htmlFor="companyName">Nome da Empresa</Label>

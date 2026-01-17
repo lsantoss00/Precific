@@ -14,7 +14,7 @@ const CompanySubscriptionDetails = () => {
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-4">
-      <h3>Assinatura</h3>
+      <h3 className="text-lg">Assinatura</h3>
       <Row className="items-center gap-2">
         <Flex
           className={`w-12 h-12 rounded-full  items-center justify-center border-2 shrink-0 ${
