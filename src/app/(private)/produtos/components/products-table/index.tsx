@@ -70,8 +70,8 @@ const ProductsTable = () => {
                   ...product,
                   status: variables.status as "ACTIVE" | "INACTIVE",
                 }
-              : product
-          )
+              : product,
+          ),
         );
         await queryClient.invalidateQueries({
           queryKey: ["product-summaries"],
@@ -175,7 +175,7 @@ const ProductsTable = () => {
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -219,7 +219,7 @@ const ProductsTable = () => {
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -229,7 +229,7 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </div>
-      <Row className="bg-neutral-50 border-t h-13">
+      <Row className="bg-neutral-50 border-t h-13 md:pr-2">
         <ProductsTablePagination currentPage={page} totalPages={totalPages} />
       </Row>
       <ConfirmDeleteProductDialog
