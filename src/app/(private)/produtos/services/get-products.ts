@@ -3,7 +3,7 @@ import {
   PaginatedResponseType,
   PaginationType,
 } from "@/src/types/pagination-type";
-import { camelizeKeys } from "humps";
+import { camelizeKeys, decamelize } from "humps";
 import { ProductResponseType } from "../types/product-type";
 
 interface GetProductsProps extends PaginationType {
@@ -30,17 +30,19 @@ export async function getProducts({
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
+  const productsTableSortBy = decamelize(sortBy);
+
   let query = supabase
     .from("products")
     .select("*", { count: "exact" })
-    .order(sortBy, { ascending: sortOrder === "asc" })
+    .order(productsTableSortBy, { ascending: sortOrder === "asc" })
     .order("id", { ascending: false });
 
   if (search && search.trim()) {
     const searchTerm = search.trim();
 
     query = query.or(
-      `sku.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%,ncm.ilike.%${searchTerm}%`
+      `sku.ilike.%${searchTerm}%,name.ilike.%${searchTerm}%,ncm.ilike.%${searchTerm}%`,
     );
   }
 
