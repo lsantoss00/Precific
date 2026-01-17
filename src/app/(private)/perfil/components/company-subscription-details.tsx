@@ -17,8 +17,10 @@ const CompanySubscriptionDetails = () => {
       <h3>Assinatura</h3>
       <Row className="items-center gap-2">
         <Flex
-          className={`w-12 h-12 rounded-full bg-zinc-100 items-center justify-center border-2 shrink-0 ${
-            isPremium ? "border-secondary" : "border-muted-foreground"
+          className={`w-12 h-12 rounded-full  items-center justify-center border-2 shrink-0 ${
+            isPremium
+              ? "border-secondary bg-secondary/20"
+              : "border-muted-foreground bg-zinc-100"
           } shadow-md`}
         >
           <Show
