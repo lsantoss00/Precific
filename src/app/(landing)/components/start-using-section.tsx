@@ -32,8 +32,7 @@ const StartUsingSection = () => {
               >
                 PRECIFIC
               </span>
-              ar... Vai deixar ele sair na frente?{" "}
-              <span aria-label="emoji sorrindo">😏</span>
+              ar... Vai deixar ele sair na frente?
             </p>
             <Button
               className="h-12 md:h-14 w-full sm:w-fit px-6 md:px-8 text-sm md:text-base"
