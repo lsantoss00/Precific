@@ -4,7 +4,7 @@ import { Button, Container } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
-import { Plus, ScrollText, Tag } from "lucide-react";
+import { ScrollText, Tag } from "lucide-react";
 import { useProductForm } from "../contexts/product-form-context";
 import ProductForm from "./product-form";
 import ProductPriceHistoryDialog from "./product-price-history-dialog";
@@ -15,16 +15,9 @@ const ProductFormPageContent = () => {
     <Container variant="page">
       <Flex className="flex-col md:flex-row gap-2 justify-between md:items-center">
         <Row className="items-center gap-2">
-          <Show when={!isEditMode} fallback={<Tag size={26} />}>
-            <Plus size={26} />
-          </Show>
-          <h1 className="text-3xl font-semibold">
-            <Show when={!isEditMode} fallback={"Editar Produto"}>
-              Novo Produto
-            </Show>
-          </h1>
+          <Tag size={26} />
+          <h1 className="text-3xl font-semibold">Precificar</h1>
         </Row>
-
         <Show when={isEditMode}>
           <ProductPriceHistoryDialog
             productId={productId!}

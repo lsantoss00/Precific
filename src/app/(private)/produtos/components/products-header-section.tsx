@@ -9,7 +9,7 @@ import ExportDataButton from "@/src/components/export-data-button";
 import MultipleImportDialog from "@/src/components/multiple-import-dialog";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useQuery } from "@tanstack/react-query";
-import { Package, Plus, Upload } from "lucide-react";
+import { Package, PlusCircle, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Papa from "papaparse";
@@ -120,7 +120,7 @@ const ProductsHeaderSection = () => {
             variant="secondary"
           >
             <Link href="/produtos/novo">
-              <Plus aria-hidden="true" />
+              <PlusCircle aria-hidden="true" />
               <span>Novo Produto</span>
             </Link>
           </Button>

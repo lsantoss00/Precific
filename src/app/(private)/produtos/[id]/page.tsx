@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import ProductFormPageContent from "../components/product-form-page-content";
 
 export const metadata: Metadata = {
-  title: "Formulário de Produto",
+  title: "Precificar",
   description:
-    "Cadastre ou edite informações de produtos. Insira custos, despesas, impostos e calcule preços de venda com precisão.",
+    "Precifique seu produto. Insira custos, despesas, impostos e calcule preços de venda com precisão.",
   robots: {
     index: false,
     follow: false,
