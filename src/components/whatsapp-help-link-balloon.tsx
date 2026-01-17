@@ -19,7 +19,7 @@ const WhatsAppHelpLinkBalloon = () => {
         <span className="text-sm font-medium">Precisa de ajuda?</span>
       </Card>
       <a
-        className="bg-[#25D366] h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transition-shadow"
+        className="bg-[#25D366] hover:bg-[#25D366]/80 h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl duration-300 transition-colors"
         href={whatsAppHelpLink}
         target="_blank"
         rel="noopener noreferrer"
