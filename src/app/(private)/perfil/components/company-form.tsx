@@ -58,7 +58,7 @@ const CompanyFormSchema = z
     {
       message: "O campo faixa de faturamento é obrigatório.",
       path: ["revenue_range"],
-    }
+    },
   );
 
 type CompanyFormSchemaType = z.infer<typeof CompanyFormSchema>;
@@ -444,9 +444,9 @@ const sectorSelectOptions = [
 ];
 
 const taxRegimeSelectOptions = [
-  { value: "realProfit", label: TAX_REGIME_LABELS.realProfit },
-  { value: "presumedProfit", label: TAX_REGIME_LABELS.presumedProfit },
-  { value: "simpleNational", label: TAX_REGIME_LABELS.simpleNational },
+  { value: "realProfit", label: TAX_REGIME_LABELS.real_profit },
+  { value: "presumedProfit", label: TAX_REGIME_LABELS.presumed_profit },
+  { value: "simpleNational", label: TAX_REGIME_LABELS.simple_national },
 ];
 
 const revenueRangeSelectOptions = [
