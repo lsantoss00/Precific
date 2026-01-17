@@ -20,7 +20,7 @@ const ProductsHeaderSection = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(
-    searchParams.get("filtro") || ""
+    searchParams.get("filtro") || "",
   );
 
   const { refetch, isFetching } = useQuery({
@@ -103,6 +103,7 @@ const ProductsHeaderSection = () => {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             aria-label="Buscar produtos por SKU, Nome ou NCM"
+            isSearchInput
           />
         </div>
         <Row
