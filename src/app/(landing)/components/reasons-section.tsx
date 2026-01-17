@@ -50,7 +50,7 @@ const reasonsMap = [
   },
   {
     icon: <Brain />,
-    title: "o Precific faz os cálculos",
+    title: "O Precific faz os cálculos",
     description:
       "Nossa I.A realiza os cálculos para você! Seu único trabalho é fornecer os dados necessários.",
   },
