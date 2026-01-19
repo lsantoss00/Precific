@@ -8,6 +8,7 @@ import Row from "@/src/components/core/row";
 import ExportDataButton from "@/src/components/export-data-button";
 import MultipleImportDialog from "@/src/components/multiple-import-dialog";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
+import { useDebounce } from "@/src/hooks/use-debounce";
 import { useQuery } from "@tanstack/react-query";
 import { Package, PlusCircle, Upload } from "lucide-react";
 import Link from "next/link";
@@ -22,6 +23,8 @@ const ProductsHeaderSection = () => {
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get("filtro") || "",
   );
+
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   const { refetch, isFetching } = useQuery({
     queryFn: () => getProductsForExport({ search: searchTerm }),
@@ -72,21 +75,17 @@ const ProductsHeaderSection = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString());
 
-      if (searchTerm) {
-        params.set("pagina", "1");
-        params.set("filtro", searchTerm);
-      } else {
-        params.delete("filtro");
-      }
+    if (debouncedSearchTerm) {
+      params.set("pagina", "1");
+      params.set("filtro", debouncedSearchTerm);
+    } else {
+      params.delete("filtro");
+    }
 
-      router.push(`?${params.toString()}`);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    router.push(`?${params.toString()}`);
+  }, [debouncedSearchTerm]);
 
   return (
     <Column as="header" className="space-y-3 w-full">
