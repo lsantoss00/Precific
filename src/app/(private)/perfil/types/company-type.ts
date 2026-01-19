@@ -1,6 +1,9 @@
 export type SectorType = "business" | "industry";
 
-export type TaxRegimeType = "realProfit" | "presumedProfit" | "simpleNational";
+export type TaxRegimeType =
+  | "real_profit"
+  | "presumed_profit"
+  | "simple_national";
 
 export type RevenueRangeType =
   | "range_1"

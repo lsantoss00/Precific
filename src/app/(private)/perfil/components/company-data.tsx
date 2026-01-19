@@ -15,7 +15,7 @@ import { useAuth } from "@/src/providers/auth-provider";
 const CompanyData = () => {
   const { company } = useAuth();
 
-  const isSimpleNational = company?.taxRegime === "simpleNational";
+  const isSimpleNational = company?.taxRegime === "simple_national";
 
   const stateLabel =
     stateSelectOptions.find((state) => state.value === company?.state)?.label ??
