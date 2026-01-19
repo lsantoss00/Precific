@@ -48,7 +48,7 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
           onValueChange={setSelectedFrameworks}
           commandInputPlaceholder="Busque produtos..."
           maxCount={2}
-          className="w-full max-w-90.5! h-10.5!"
+          className="w-full max-w-90.5!"
         />
       </Column>
     </Row>

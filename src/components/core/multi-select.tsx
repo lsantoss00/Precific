@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/src/components/core/popover";
 import { Separator } from "@/src/components/core/separator";
-import { useMediaQuery } from "@/src/hooks/use-media-query"; // Ajuste o caminho conforme necessário
+import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { cn } from "@/src/libs/shadcn-ui/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Command } from "cmdk";
@@ -543,7 +543,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 getAllOptions().length
               } opções selecionadas. ${placeholder}`}
               className={cn(
-                "flex p-1 rounded-md border min-h-10 h-auto items-center justify-between bg-white! [&_svg]:pointer-events-auto shadow-xs",
+                "flex p-1 rounded-md border min-h-12 h-auto items-center justify-between bg-white! [&_svg]:pointer-events-auto shadow-xs",
                 autoSize ? "w-auto" : "w-full",
                 responsiveSettings.compactMode && "min-h-8 text-sm",
                 screenSize === "mobile" && "min-h-12 text-base",
@@ -559,7 +559,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 <div className="flex justify-between items-center w-full">
                   <div
                     className={cn(
-                      "flex items-center",
+                      "flex items-center flex-nowrap!",
                       singleLine
                         ? "overflow-x-auto multiselect-singleline-scroll"
                         : "flex-wrap",
@@ -796,12 +796,14 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                           isSelected ? ", selecionado" : ", não selecionado"
                         }${option.disabled ? ", desabilitado" : ""}`}
                         className={cn(
-                          "cursor-pointer h-10 hover:bg-primary! hover:text-white! group",
+                          "cursor-pointer h-12 hover:bg-primary! hover:text-white! group",
                           option.disabled && "opacity-50 cursor-not-allowed",
                         )}
                         disabled={option.disabled}
                       >
-                        <span className="flex-1">{option.label}</span>
+                        <span className="flex-1 truncate max-w-[90%]">
+                          {option.label}
+                        </span>
                         {isSelected && (
                           <CheckIcon className="h-4 w-4 text-primary ml-auto group-hover:text-white" />
                         )}
