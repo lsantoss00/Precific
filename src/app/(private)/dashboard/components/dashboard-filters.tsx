@@ -3,7 +3,10 @@ import { Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import DatePicker from "@/src/components/core/date-picker";
 import Flex from "@/src/components/core/flex";
-import { MultiSelect } from "@/src/components/core/multi-select";
+import {
+  MultiSelect,
+  MultiSelectOption,
+} from "@/src/components/core/multi-select";
 import Row from "@/src/components/core/row";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
@@ -21,11 +24,13 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
 
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [_, setSelectedProducts] = useState<string[]>([]);
+
+  const [selectedProducts, setSelectedProducts] = useState<MultiSelectOption[]>(
+    [],
+  );
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const debouncedSearched = useDebounce(searchTerm, 300);
-
   const isDebouncing = searchTerm !== debouncedSearched;
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
@@ -55,10 +60,28 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
     );
   }, [data]);
 
+  const options = useMemo(() => {
+    const map = new Map<string, MultiSelectOption>();
+
+    selectedProducts.forEach((option) => map.set(option.value, option));
+
+    products.forEach((option) => map.set(option.value, option));
+
+    return Array.from(map.values());
+  }, [products, selectedProducts]);
+
   const handleLoadMore = () => {
     if (hasNextPage && !isFetching) {
       fetchNextPage();
     }
+  };
+
+  const handleValueChange = (values: string[]) => {
+    const newSelection = values
+      .map((value) => options.find((opt) => opt.value === value))
+      .filter(Boolean) as MultiSelectOption[];
+
+    setSelectedProducts(newSelection);
   };
 
   const multiSelectMaxCount = maxIsXs
@@ -88,8 +111,9 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
       <Column className="gap-2 w-full">
         <Label>Produtos:</Label>
         <MultiSelect
-          options={products}
-          onValueChange={setSelectedProducts}
+          options={options}
+          defaultValue={selectedProducts.map((p) => p.value)}
+          onValueChange={handleValueChange}
           commandInputPlaceholder="Busque produtos..."
           maxCount={multiSelectMaxCount}
           className="w-full 2xl:max-w-90.5!"
