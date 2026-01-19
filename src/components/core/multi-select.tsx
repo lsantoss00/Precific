@@ -13,17 +13,12 @@ import {
   PopoverTrigger,
 } from "@/src/components/core/popover";
 import { Separator } from "@/src/components/core/separator";
+import Show from "@/src/components/core/show";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { cn } from "@/src/libs/shadcn-ui/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Command } from "cmdk";
-import {
-  CheckIcon,
-  ChevronDown,
-  WandSparkles,
-  XCircle,
-  XIcon,
-} from "lucide-react";
+import { Command, CommandLoading } from "cmdk";
+import { CheckIcon, ChevronDown, Loader2, XCircle, XIcon } from "lucide-react";
 import * as React from "react";
 
 export interface AnimationConfig {
@@ -52,10 +47,6 @@ interface MultiSelectOption {
   label: string;
   value: string;
   disabled?: boolean;
-  style?: {
-    badgeColor?: string;
-    gradient?: string;
-  };
 }
 
 interface MultiSelectProps
@@ -74,7 +65,6 @@ interface MultiSelectProps
   className?: string;
   hideSelectAll?: boolean;
   searchable?: boolean;
-  emptyIndicator?: React.ReactNode;
   autoSize?: boolean;
   singleLine?: boolean;
   popoverClassName?: string;
@@ -104,6 +94,10 @@ interface MultiSelectProps
   resetOnDefaultValueChange?: boolean;
   closeOnSelect?: boolean;
   commandInputPlaceholder?: string;
+  onScrollEnd?: () => void;
+  isLoadingMore?: boolean;
+  onSearch?: (value: string) => void;
+  onSearchValue?: string;
 }
 
 export interface MultiSelectRef {
@@ -130,7 +124,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       className,
       hideSelectAll = false,
       searchable = true,
-      emptyIndicator,
       autoSize = false,
       singleLine = false,
       popoverClassName,
@@ -142,6 +135,10 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       resetOnDefaultValueChange = true,
       closeOnSelect = false,
       commandInputPlaceholder = "Busque opções...",
+      onScrollEnd,
+      isLoadingMore = false,
+      onSearch,
+      onSearchValue,
       ...props
     },
     ref,
@@ -150,13 +147,15 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);
-    const [searchValue, setSearchValue] = React.useState("");
+    const [internalSearchValue, setInternalSearchValue] = React.useState("");
 
     const [politeMessage, setPoliteMessage] = React.useState("");
     const [assertiveMessage, setAssertiveMessage] = React.useState("");
     const prevSelectedCount = React.useRef(selectedValues.length);
     const prevIsOpen = React.useRef(isPopoverOpen);
-    const prevSearchValue = React.useRef(searchValue);
+    const prevSearchValue = React.useRef(internalSearchValue);
+
+    const searchValue = onSearch ? onSearchValue : internalSearchValue;
 
     const announce = React.useCallback(
       (message: string, priority: "polite" | "assertive" = "polite") => {
@@ -191,7 +190,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     const resetToDefault = React.useCallback(() => {
       setSelectedValues(defaultValue);
       setIsPopoverOpen(false);
-      setSearchValue("");
       onValueChange(defaultValue);
     }, [defaultValue, onValueChange]);
 
@@ -229,7 +227,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       [resetToDefault, selectedValues, onValueChange],
     );
 
-    // Usando useMediaQuery para detectar tamanhos de tela
     const isMobile = useMediaQuery("(max-width: 639px)");
     const isTablet = useMediaQuery(
       "(min-width: 640px) and (max-width: 1023px)",
@@ -343,16 +340,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       [getAllOptions],
     );
 
-    const filteredOptions = React.useMemo(() => {
-      if (!searchable || !searchValue) return options;
-      if (options.length === 0) return [];
-
-      return options.filter(
-        (option) =>
-          option.label.toLowerCase().includes(searchValue.toLowerCase()) ||
-          option.value.toLowerCase().includes(searchValue.toLowerCase()),
-      );
-    }, [options, searchValue, searchable]);
+    const filteredOptions = getAllOptions().filter((option) =>
+      option.label.toLowerCase().includes((searchValue || "").toLowerCase()),
+    );
 
     const handleInputKeyDown = (
       event: React.KeyboardEvent<HTMLInputElement>,
@@ -402,6 +392,25 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       onValueChange(newSelectedValues);
     };
 
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+      if (!onScrollEnd || isLoadingMore) return;
+
+      const target = e.currentTarget;
+      const isAtBottom =
+        target.scrollHeight - target.scrollTop <= target.clientHeight + 50;
+
+      if (isAtBottom) {
+        onScrollEnd();
+      }
+    };
+
+    const handleSearchValueChange = (value: string) => {
+      if (onSearch) {
+        return onSearch?.(value);
+      }
+      return setInternalSearchValue(value);
+    };
+
     React.useEffect(() => {
       if (!resetOnDefaultValueChange) return;
       const prevDefaultValue = prevDefaultValueRef.current;
@@ -428,9 +437,10 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 
     React.useEffect(() => {
       if (!isPopoverOpen) {
-        setSearchValue("");
+        setInternalSearchValue("");
+        onSearch?.("");
       }
-    }, [isPopoverOpen]);
+    }, [isPopoverOpen, onSearch]);
 
     React.useEffect(() => {
       const selectedCount = selectedValues.length;
@@ -577,16 +587,11 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                       .slice(0, responsiveSettings.maxCount)
                       .map((value) => {
                         const option = getOptionByValue(value);
-                        const customStyle = option?.style;
                         if (!option) {
                           return null;
                         }
                         const badgeStyle: React.CSSProperties = {
                           animationDuration: `${animation}s`,
-                          ...(customStyle?.gradient && {
-                            background: customStyle.gradient,
-                            color: "white",
-                          }),
                         };
                         return (
                           <Badge
@@ -594,8 +599,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                             className={cn(
                               "text-sm w-full max-w-24",
                               multiSelectVariants({ variant }),
-                              customStyle?.gradient &&
-                                "text-white border-transparent",
                               responsiveSettings.compactMode &&
                                 "text-xs py-0.5",
                               singleLine && "shrink-0 whitespace-nowrap",
@@ -753,13 +756,13 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
             side="bottom"
             onEscapeKeyDown={() => setIsPopoverOpen(false)}
           >
-            <Command>
+            <Command shouldFilter={!onSearch}>
               {searchable && (
                 <CommandInput
                   placeholder={commandInputPlaceholder}
                   onKeyDown={handleInputKeyDown}
                   value={searchValue}
-                  onValueChange={setSearchValue}
+                  onValueChange={handleSearchValueChange}
                   aria-label="Buscar entre as opções disponíveis"
                   aria-describedby={`${multiSelectId}-search-help`}
                 />
@@ -771,15 +774,13 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 </div>
               )}
               <CommandList
+                onScroll={handleScroll}
                 className={cn(
                   "max-h-[40vh] overflow-y-auto multiselect-scrollbar",
                   screenSize === "mobile" && "max-h-[50vh]",
                   "overscroll-behavior-y-contain",
                 )}
               >
-                <CommandEmpty>
-                  {emptyIndicator || "Nenhum resultado encontrado."}
-                </CommandEmpty>
                 <CommandGroup>
                   {filteredOptions.map((option) => {
                     const isSelected = selectedValues.includes(option.value);
@@ -809,18 +810,17 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                     );
                   })}
                 </CommandGroup>
+                <Show when={isLoadingMore}>
+                  <CommandLoading>
+                    <Loader2 className="text-primary animate-spin m-auto mb-2" />
+                  </CommandLoading>
+                </Show>
+                <Show when={!isLoadingMore && filteredOptions.length === 0}>
+                  <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
+                </Show>
               </CommandList>
             </Command>
           </PopoverContent>
-          {animation > 0 && selectedValues.length > 0 && (
-            <WandSparkles
-              className={cn(
-                "cursor-pointer my-2 text-foreground bg-background w-3 h-3",
-                isAnimating ? "" : "text-muted-foreground",
-              )}
-              onClick={() => setIsAnimating(!isAnimating)}
-            />
-          )}
         </Popover>
       </>
     );
