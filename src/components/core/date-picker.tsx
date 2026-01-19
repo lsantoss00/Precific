@@ -25,7 +25,7 @@ function DatePicker({ value, onValueChange }: DatePickerProps) {
         <Button
           variant="outline"
           id="date-picker"
-          className="md:w-42 lg:w-43.5 h-12 justify-between font-normal text-base bg-white!"
+          className="w-full h-12 justify-between font-normal text-base bg-white!"
         >
           <Show
             when={value}

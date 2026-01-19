@@ -738,21 +738,19 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
             aria-multiselectable="true"
             aria-label="Opções disponíveis"
             className={cn(
-              "w-auto p-0",
+              "w-full p-0",
               getPopoverAnimationClass(),
-              screenSize === "mobile" && "w-[85vw] max-w-70",
-              screenSize === "tablet" && "w-[70vw] max-w-md",
-              screenSize === "desktop" && "w-90.5",
               popoverClassName,
             )}
             style={{
+              width: "var(--radix-popover-trigger-width)",
               animationDuration: `${animationConfig?.duration || animation}s`,
               animationDelay: `${animationConfig?.delay || 0}s`,
-              maxWidth: `min(${widthConstraints.maxWidth}, 85vw)`,
               maxHeight: screenSize === "mobile" ? "70vh" : "60vh",
               touchAction: "manipulation",
             }}
             align="start"
+            side="bottom"
             onEscapeKeyDown={() => setIsPopoverOpen(false)}
           >
             <Command>
