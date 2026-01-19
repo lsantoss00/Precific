@@ -3,41 +3,63 @@ import { Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import DatePicker from "@/src/components/core/date-picker";
 import Flex from "@/src/components/core/flex";
-import {
-  MultiSelect,
-  MultiSelectOption,
-} from "@/src/components/core/multi-select";
+import { MultiSelect } from "@/src/components/core/multi-select";
 import Row from "@/src/components/core/row";
+import { useDebounce } from "@/src/hooks/use-debounce";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 
 interface DashboardFiltersProps {}
 
 const DashboardFilters = ({}: DashboardFiltersProps) => {
-  const maxIsXs = useMediaQuery(`(max-width: 480px)`);
-  const maxIsSm = useMediaQuery(`(max-width: 640px)`);
-  const maxIsMd = useMediaQuery(`(max-width: 768px)`);
-  const minIsXl = useMediaQuery(`(min-width: 1280px)`);
-  const minIs2Xl = useMediaQuery(`(min-width: 1536px)`);
+  const maxIsXs = useMediaQuery("(max-width: 480px)");
+  const maxIsSm = useMediaQuery("(max-width: 640px)");
+  const maxIsMd = useMediaQuery("(max-width: 768px)");
+  const minIsXl = useMediaQuery("(min-width: 1280px)");
+  const minIs2Xl = useMediaQuery("(min-width: 1536px)");
 
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>([]);
+  const [_, setSelectedProducts] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const { data, isPending } = useQuery({
-    queryFn: () => getProducts({}),
-    queryKey: ["products"],
+  const debouncedSearched = useDebounce(searchTerm, 300);
+
+  const isDebouncing = searchTerm !== debouncedSearched;
+
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ["products", debouncedSearched],
+    queryFn: ({ pageParam = 1 }) =>
+      getProducts({
+        page: pageParam,
+        pageSize: 10,
+        search: debouncedSearched,
+      }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.currentPage < lastPage.totalPages
+        ? lastPage.currentPage + 1
+        : undefined;
+    },
+    initialPageParam: 1,
   });
 
-  const productOptions = useMemo<MultiSelectOption[]>(() => {
-    if (!data?.data) return [];
+  const products = useMemo(() => {
+    if (!data?.pages) return [];
 
-    return data.data.map((product) => ({
-      label: product.name,
-      value: product.id,
-    }));
+    return data.pages.flatMap((page) =>
+      page.data.map((product) => ({
+        label: product.name,
+        value: product.id,
+      })),
+    );
   }, [data]);
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  };
 
   const multiSelectMaxCount = maxIsXs
     ? 1
@@ -66,11 +88,15 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
       <Column className="gap-2 w-full">
         <Label>Produtos:</Label>
         <MultiSelect
-          options={productOptions}
-          onValueChange={setSelectedFrameworks}
+          options={products}
+          onValueChange={setSelectedProducts}
           commandInputPlaceholder="Busque produtos..."
           maxCount={multiSelectMaxCount}
           className="w-full 2xl:max-w-90.5!"
+          onScrollEnd={handleLoadMore}
+          isLoadingMore={isFetching || isDebouncing}
+          onSearch={setSearchTerm}
+          onSearchValue={searchTerm}
         />
       </Column>
     </Flex>
