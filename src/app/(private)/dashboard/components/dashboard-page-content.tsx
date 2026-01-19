@@ -19,7 +19,6 @@ import {
 } from "@/src/app/(private)/dashboard/mock/dashboard-mock-data";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import Column from "@/src/components/core/column";
-import DatePicker from "@/src/components/core/date-picker";
 import Row from "@/src/components/core/row";
 import {
   AreaChart,
@@ -32,14 +31,10 @@ import {
   StackedBarChart,
 } from "../components";
 
-import { Label } from "@/src/components/core";
+import DashboardFilters from "@/src/app/(private)/dashboard/components/dashboard-filters";
 import { LayoutDashboard } from "lucide-react";
-import { useState } from "react";
 
 const DashboardPageContent = () => {
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-
   return (
     <Column className="gap-4 relative">
       <Row className="items-center gap-2 z-20">
@@ -47,16 +42,7 @@ const DashboardPageContent = () => {
         <h1 className="text-3xl font-semibold">Dashboard</h1>
         <ComingSoonBadge />
       </Row>
-      <Row className="gap-1 sm:gap-4">
-        <Column className="gap-2">
-          <Label>De:</Label>
-          <DatePicker value={startDate} onValueChange={setStartDate} />
-        </Column>
-        <Column className="gap-2">
-          <Label>Até:</Label>
-          <DatePicker value={endDate} onValueChange={setEndDate} />
-        </Column>
-      </Row>
+      <DashboardFilters />
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {kpiCardsMockData.map((card) => (
           <KpiCard
