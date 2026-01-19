@@ -94,7 +94,9 @@ const ProductResult = () => {
   const userProductPriceExists =
     data?.userProductPrice !== 0 && data?.userProductPrice !== undefined;
   const companyRegime = company?.taxRegime;
-  const isSimpleNational = company?.taxRegime === "simpleNational";
+  const isRealProfit = company?.taxRegime === "real_profit";
+  const isPresumedProfit = company?.taxRegime === "presumed_profit";
+  const isSimpleNational = company?.taxRegime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.hasIcmsSt === true;
 
@@ -250,18 +252,14 @@ const ProductResult = () => {
       percentage: revenueRangeData[revenueRangeKey],
     });
 
-    if (companyRegime === "presumedProfit") {
+    if (isPresumedProfit) {
       return presumedProfitCalc({
         ...baseCalcParams,
         irpjCsll: presumedProfitIrpjCsll,
       });
     }
 
-    if (
-      companyRegime === "simpleNational" &&
-      company?.revenueRange &&
-      company?.sector
-    ) {
+    if (isSimpleNational && company?.revenueRange && company?.sector) {
       return simpleNationalCalc({
         ...baseCalcParams,
         range: company.revenueRange,
@@ -313,7 +311,7 @@ const ProductResult = () => {
   });
 
   const inverseTaxRegimeCalculators = {
-    realProfit: () => {
+    real_profit: () => {
       const realProfitInverse = realProfitInverseCalc({
         userProductPrice: data?.userProductPrice!,
         fixedCosts: data?.fixedCosts ?? 0,
@@ -427,7 +425,7 @@ const ProductResult = () => {
         userProductCbs,
       };
     },
-    presumedProfit: () => {
+    presumed_profit: () => {
       const realProfitInverse = realProfitInverseCalc({
         userProductPrice: data?.userProductPrice!,
         fixedCosts: data?.fixedCosts ?? 0,
@@ -538,7 +536,7 @@ const ProductResult = () => {
         userProductCbs,
       };
     },
-    simpleNational: () => undefined,
+    simple_national: () => undefined,
   };
 
   const inverseCalculations = (() => {
@@ -606,10 +604,9 @@ const ProductResult = () => {
     },
     {
       title: "IRPJ + CSLL",
-      value:
-        companyRegime === "presumedProfit"
-          ? presumedProfitIrpjCsll
-          : companyRegime === "realProfit"
+      value: isPresumedProfit
+        ? presumedProfitIrpjCsll
+        : isRealProfit
           ? realProfitIrpjCsllCalc
           : 0,
       secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
@@ -723,7 +720,7 @@ const ProductResult = () => {
                 {metrics2025
                   .filter(
                     (metric) =>
-                      metric.condition === undefined || metric.condition
+                      metric.condition === undefined || metric.condition,
                   )
                   .map((metric, index) => (
                     <div

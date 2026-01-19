@@ -29,7 +29,7 @@ const CompanyFormSchema = z
     sector: z.enum(["business", "industry"], {
       message: "O campo setor é obrigatório.",
     }),
-    taxRegime: z.enum(["realProfit", "presumedProfit", "simpleNational"], {
+    taxRegime: z.enum(["real_profit", "presumed_profit", "simple_national"], {
       message: "O campo regime tributário é obrigatório.",
     }),
     revenueRange: z
@@ -50,7 +50,7 @@ const CompanyFormSchema = z
   })
   .refine(
     (data) => {
-      if (data.taxRegime === "simpleNational") {
+      if (data.taxRegime === "simple_national") {
         return data.revenueRange && data.revenueRange.length > 0;
       }
       return true;
@@ -122,7 +122,7 @@ const CompanyForm = () => {
     streetNumber,
   ];
 
-  if (taxRegime === "simpleNational") {
+  if (taxRegime === "simple_national") {
     requiredFields.push(revenueRange || "");
   }
 
@@ -251,7 +251,7 @@ const CompanyForm = () => {
             )}
           />
         </Column>
-        <Show when={taxRegime === "simpleNational"}>
+        <Show when={taxRegime === "simple_national"}>
           <Column className="space-y-2 col-span-2">
             <Label htmlFor="revenueRange" required>
               Faixa de Faturamento

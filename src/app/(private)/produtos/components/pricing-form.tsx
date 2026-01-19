@@ -20,9 +20,11 @@ const PricingForm = () => {
     formState: { errors },
   } = form;
 
-  const isRealProfit = company?.taxRegime === "realProfit";
-  const isPresumedProfit = company?.taxRegime === "presumedProfit";
-  const isSimpleNational = company?.taxRegime === "simpleNational";
+  const isRealProfit = company?.taxRegime === "real_profit";
+  const isPresumedProfit = company?.taxRegime === "presumed_profit";
+  const isSimpleNational = company?.taxRegime === "simple_national";
+
+  console.log("@@@@Oi", company?.taxRegime);
 
   const icmsSt = form.watch("icmsSt") ?? 0;
 
