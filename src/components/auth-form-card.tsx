@@ -16,7 +16,7 @@ const AuthFormCard = ({ children }: AuthFormCardProps) => {
       <Flex as="figure" className="mb-10">
         <Image
           src={logoImage}
-          alt="Logo do Precific"
+          alt="Precific | Plataforma de Precificação Inteligente"
           width={300}
           height={80}
           priority
