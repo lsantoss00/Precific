@@ -68,7 +68,7 @@ const HeroSection = () => {
             <Flex as="figure" className="aspect-video shrink-0">
               <YouTubeEmbed
                 videoId="9gNKBYR-rhg"
-                title="Precific — Demonstração do sistema de precificação"
+                title="Precific — Demonstração do sistema de precificação inteligente"
               />
             </Flex>
           </FadeInOnScroll>
