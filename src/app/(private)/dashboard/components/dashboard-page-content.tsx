@@ -1,16 +1,18 @@
 "use client";
 
+import CustomLineChartTooltip from "@/src/app/(private)/dashboard/components/custom-line-chart-tooltip";
 import DashboardFilters from "@/src/app/(private)/dashboard/components/dashboard-filters";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { transformProductsPriceHistoryToChartData } from "@/src/app/(private)/dashboard/utils/transformData";
+import { createChartConfig } from "@/src/app/(private)/dashboard/utils/create-chart-config";
+import { normalizeLineChartData } from "@/src/app/(private)/dashboard/utils/normalize-line-chart-data";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import { useQuery } from "@tanstack/react-query";
 import { subMonths } from "date-fns";
 import { LayoutDashboard } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ChartCard, LineChart } from "../components";
 
 const DashboardPageContent = () => {
@@ -30,10 +32,13 @@ const DashboardPageContent = () => {
     queryFn: () => getProductsPriceHistory({ filters }),
   });
 
-  const { data: priceChartData, config: priceChartConfig } = useMemo(
-    () => transformProductsPriceHistoryToChartData(productsPriceHistory),
-    [productsPriceHistory],
-  );
+  const data = productsPriceHistory || [];
+
+  const chartData = normalizeLineChartData(data);
+  const chartConfig = createChartConfig(data, {
+    getId: (product) => product.productId,
+    getLabel: (product) => product.productName,
+  });
 
   return (
     <Column className="gap-4 relative">
@@ -50,12 +55,14 @@ const DashboardPageContent = () => {
         contentClassName="h-100 w-full"
       >
         <LineChart
-          data={priceChartData}
-          config={priceChartConfig}
-          xAxisKey="Data"
+          data={chartData}
+          config={chartConfig}
+          xAxisKey="date"
           lineType="monotone"
           strokeWidth={3}
           className="aspect-square"
+          margin={{ top: 32, left: 32, right: 32 }}
+          tooltip={<CustomLineChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
     </Column>
