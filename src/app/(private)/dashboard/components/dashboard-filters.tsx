@@ -43,36 +43,6 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
   const isDebouncing = searchTerm !== debouncedSearched;
 
-  useEffect(() => {
-    setSelectedProducts(products);
-  }, [products]);
-
-  useEffect(() => {
-    setSelectedFromDate(dateFrom);
-  }, [dateFrom]);
-
-  useEffect(() => {
-    setSelectedToDate(dateTo);
-  }, [dateTo]);
-
-  useEffect(() => {
-    if (JSON.stringify(debouncedProducts) !== JSON.stringify(products)) {
-      onChange({ ...value, productIds: debouncedProducts });
-    }
-  }, [debouncedProducts]);
-
-  useEffect(() => {
-    if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
-      onChange({ ...value, fromDate: debouncedFromDate });
-    }
-  }, [debouncedFromDate]);
-
-  useEffect(() => {
-    if (debouncedToDate.getTime() !== dateTo.getTime()) {
-      onChange({ ...value, toDate: debouncedToDate });
-    }
-  }, [debouncedToDate]);
-
   const handleStartDateChange = (dateFrom?: Date) => {
     if (!dateFrom) return;
     setSelectedFromDate(dateFrom);
@@ -163,6 +133,36 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
           : minIsXl
             ? 3
             : 2;
+
+  useEffect(() => {
+    setSelectedProducts(products);
+  }, [products]);
+
+  useEffect(() => {
+    setSelectedFromDate(dateFrom);
+  }, [dateFrom]);
+
+  useEffect(() => {
+    setSelectedToDate(dateTo);
+  }, [dateTo]);
+
+  useEffect(() => {
+    if (JSON.stringify(debouncedProducts) !== JSON.stringify(products)) {
+      onChange({ ...value, productIds: debouncedProducts });
+    }
+  }, [debouncedProducts]);
+
+  useEffect(() => {
+    if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
+      onChange({ ...value, fromDate: debouncedFromDate });
+    }
+  }, [debouncedFromDate]);
+
+  useEffect(() => {
+    if (debouncedToDate.getTime() !== dateTo.getTime()) {
+      onChange({ ...value, toDate: debouncedToDate });
+    }
+  }, [debouncedToDate]);
 
   return (
     <Flex className="flex-col sm:flex-row gap-4">
