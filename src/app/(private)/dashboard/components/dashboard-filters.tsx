@@ -30,12 +30,17 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<string[]>(products);
+  const [selectedFromDate, setSelectedFromDate] = useState<Date>(dateFrom);
+  const [selectedToDate, setSelectedToDate] = useState<Date>(dateTo);
   const [selectedProductsMap, setSelectedProductsMap] = useState<
     Map<string, string>
   >(new Map());
 
   const debouncedSearched = useDebounce(searchTerm);
   const debouncedProducts = useDebounce(selectedProducts, 500);
+  const debouncedFromDate = useDebounce(selectedFromDate, 500);
+  const debouncedToDate = useDebounce(selectedToDate, 500);
+
   const isDebouncing = searchTerm !== debouncedSearched;
 
   useEffect(() => {
@@ -43,19 +48,39 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [products]);
 
   useEffect(() => {
+    setSelectedFromDate(dateFrom);
+  }, [dateFrom]);
+
+  useEffect(() => {
+    setSelectedToDate(dateTo);
+  }, [dateTo]);
+
+  useEffect(() => {
     if (JSON.stringify(debouncedProducts) !== JSON.stringify(products)) {
       onChange({ ...value, productIds: debouncedProducts });
     }
   }, [debouncedProducts]);
 
+  useEffect(() => {
+    if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
+      onChange({ ...value, fromDate: debouncedFromDate });
+    }
+  }, [debouncedFromDate]);
+
+  useEffect(() => {
+    if (debouncedToDate.getTime() !== dateTo.getTime()) {
+      onChange({ ...value, toDate: debouncedToDate });
+    }
+  }, [debouncedToDate]);
+
   const handleStartDateChange = (dateFrom?: Date) => {
     if (!dateFrom) return;
-    onChange({ ...value, fromDate: dateFrom });
+    setSelectedFromDate(dateFrom);
   };
 
   const handleEndDateChange = (dateTo?: Date) => {
     if (!dateTo) return;
-    onChange({ ...value, toDate: dateTo });
+    setSelectedToDate(dateTo);
   };
 
   const handleProductsChange = (products: string[]) => {
@@ -144,11 +169,17 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
       <Row className="w-full 2xl:w-fit gap-4">
         <Column className="gap-2 w-full 2xl:w-43.5">
           <Label>De:</Label>
-          <DatePicker value={dateFrom} onValueChange={handleStartDateChange} />
+          <DatePicker
+            value={selectedFromDate}
+            onValueChange={handleStartDateChange}
+          />
         </Column>
         <Column className="gap-2 w-full 2xl:w-43.5">
           <Label>Até:</Label>
-          <DatePicker value={dateTo} onValueChange={handleEndDateChange} />
+          <DatePicker
+            value={selectedToDate}
+            onValueChange={handleEndDateChange}
+          />
         </Column>
       </Row>
       <Column className="gap-2 w-full">
