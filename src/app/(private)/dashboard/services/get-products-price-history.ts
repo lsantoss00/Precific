@@ -24,7 +24,7 @@ export async function getProductsPriceHistory({
   const data = camelizeKeys(products) as ProductPriceHistoryType[];
 
   if (error) {
-    throw new Error("Erro ao buscar histórico de preços");
+    throw new Error("Erro ao buscar histórico de preços dos produtos");
   }
 
   return data;

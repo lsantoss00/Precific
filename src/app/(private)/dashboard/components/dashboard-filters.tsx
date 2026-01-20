@@ -32,8 +32,8 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<string[]>(products);
-  const [selectedFromDate, setSelectedFromDate] = useState<Date>(dateFrom);
-  const [selectedToDate, setSelectedToDate] = useState<Date>(dateTo);
+  const [selectedFromDate, setSelectedFromDate] = useState<Date>(dateFrom!);
+  const [selectedToDate, setSelectedToDate] = useState<Date>(dateTo!);
   const [selectedProductsMap, setSelectedProductsMap] = useState<
     Map<string, string>
   >(new Map());
@@ -141,11 +141,11 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [products]);
 
   useEffect(() => {
-    setSelectedFromDate(dateFrom);
+    setSelectedFromDate(dateFrom!);
   }, [dateFrom]);
 
   useEffect(() => {
-    setSelectedToDate(dateTo);
+    setSelectedToDate(dateTo!);
   }, [dateTo]);
 
   useEffect(() => {
@@ -155,13 +155,13 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedProducts]);
 
   useEffect(() => {
-    if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
+    if (debouncedFromDate.getTime() !== dateFrom!.getTime()) {
       onChange({ ...value, fromDate: debouncedFromDate });
     }
   }, [debouncedFromDate]);
 
   useEffect(() => {
-    if (debouncedToDate.getTime() !== dateTo.getTime()) {
+    if (debouncedToDate.getTime() !== dateTo!.getTime()) {
       onChange({ ...value, toDate: debouncedToDate });
     }
   }, [debouncedToDate]);

@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
 
 interface StackedBarChartProps {
@@ -22,6 +23,7 @@ interface StackedBarChartProps {
   barRadius?: number | [number, number, number, number];
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
   className?: string;
+  legend?: boolean;
 }
 
 const StackedBarChart = ({
@@ -33,6 +35,7 @@ const StackedBarChart = ({
   barRadius = 4,
   margin,
   className = "",
+  legend = false,
 }: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   return (
@@ -47,19 +50,21 @@ const StackedBarChart = ({
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tickFormatter={(value) => value.slice(0, 10)}
         />
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-        <ChartLegend
-          content={
-            <ChartLegendContent
-              payload={keys.map((key) => ({
-                value: config[key]?.label || key,
-                color: config[key]?.color || "var(--color-desktop)",
-              }))}
-            />
-          }
-        />
+        <Show when={legend === true}>
+          <ChartLegend
+            content={
+              <ChartLegendContent
+                payload={keys.map((key) => ({
+                  value: config[key]?.label || key,
+                  color: config[key]?.color || "var(--color-desktop)",
+                }))}
+              />
+            }
+          />
+        </Show>
         {keys.map((key, idx) => (
           <Bar
             key={key}

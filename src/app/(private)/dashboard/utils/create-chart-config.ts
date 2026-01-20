@@ -6,10 +6,13 @@ export const createChartConfig = <T>(
     getId: (item: T) => string | undefined;
     getLabel?: (item: T) => string | undefined;
   },
+  includeDate: boolean = true,
 ): ChartConfig => {
-  const config: ChartConfig = {
-    date: { label: "Data" },
-  };
+  const config: ChartConfig = {};
+
+  if (includeDate) {
+    config.date = { label: "Data" };
+  }
 
   products.forEach((product, index) => {
     const id = options.getId(product);
@@ -17,7 +20,7 @@ export const createChartConfig = <T>(
 
     config[id] = {
       label: options.getLabel?.(product) ?? "Produto",
-      color: `var(--chart-${index + 1})`,
+      color: `var(--chart-${(index % 8) + 1})`,
     };
   });
 

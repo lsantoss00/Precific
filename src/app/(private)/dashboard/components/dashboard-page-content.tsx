@@ -1,10 +1,16 @@
 "use client";
 
+import { getProductsPriceComposition } from "@/src/app/(private)/dashboard/services/get-products-price-composition";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { createChartConfig } from "@/src/app/(private)/dashboard/utils/create-chart-config";
 import { normalizeLineChartData } from "@/src/app/(private)/dashboard/utils/normalize-line-chart-data";
+import {
+  getMetricNames,
+  normalizeStackedBarChartData,
+} from "@/src/app/(private)/dashboard/utils/normalize-stacked-bar-chart-data";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
+import { ChartConfig } from "@/src/components/core/chart";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
@@ -17,6 +23,7 @@ import {
   CustomLineChartTooltip,
   DashboardFilters,
   LineChart,
+  StackedBarChart,
 } from ".";
 
 const DashboardPageContent = () => {
@@ -44,6 +51,25 @@ const DashboardPageContent = () => {
     getLabel: (product) => product.productName,
   });
 
+  const { data: productsPriceComposition } = useQuery({
+    queryKey: ["products-price-composition", filters.productIds],
+    queryFn: () => getProductsPriceComposition({ filters }),
+  });
+
+  const data2 = productsPriceComposition || [];
+
+  const chartData2 = normalizeStackedBarChartData(data2);
+  const chartConfig2: ChartConfig = {
+    "Custos Fixos": { label: "Custos Fixos", color: "var(--chart-1)" },
+    Frete: { label: "Frete", color: "var(--chart-2)" },
+    "Outros Custos": { label: "Outros Custos", color: "var(--chart-3)" },
+    ICMS: { label: "ICMS", color: "var(--chart-4)" },
+    "ICMS ST": { label: "ICMS ST", color: "var(--chart-5)" },
+    IPI: { label: "IPI", color: "var(--chart-6)" },
+    "PIS/COFINS": { label: "PIS/COFINS", color: "var(--chart-7)" },
+    Lucro: { label: "Lucro", color: "var(--chart-8)" },
+  };
+
   return (
     <Column className="gap-4 relative">
       <Row className="items-center gap-2 z-20">
@@ -52,6 +78,22 @@ const DashboardPageContent = () => {
         <ComingSoonBadge />
       </Row>
       <DashboardFilters value={filters} onChange={setFilters} />
+      <ChartCard
+        title="Stacked Bar Chart"
+        description="Gráfico de Barras Empilhadas"
+        className="sm:col-span-3 lg:col-span-2 md:row-span-1"
+        contentClassName="h-full"
+      >
+        <StackedBarChart
+          data={chartData2}
+          config={chartConfig2}
+          xAxisKey="productName"
+          barKeys={getMetricNames()}
+          stackId="a"
+          barRadius={8}
+          className="aspect-square"
+        />
+      </ChartCard>
       <div className="relative">
         <ChartCard
           title="Histórico de Preços"
