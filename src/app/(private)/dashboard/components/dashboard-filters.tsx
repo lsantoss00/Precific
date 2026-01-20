@@ -12,7 +12,7 @@ import Row from "@/src/components/core/row";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface DashboardFiltersProps {
   value: ChartFiltersType;
@@ -29,12 +29,24 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedProducts, setSelectedProducts] = useState<string[]>(products);
   const [selectedProductsMap, setSelectedProductsMap] = useState<
     Map<string, string>
   >(new Map());
 
-  const debouncedSearched = useDebounce(searchTerm, 300);
+  const debouncedSearched = useDebounce(searchTerm);
+  const debouncedProducts = useDebounce(selectedProducts, 500);
   const isDebouncing = searchTerm !== debouncedSearched;
+
+  useEffect(() => {
+    setSelectedProducts(products);
+  }, [products]);
+
+  useEffect(() => {
+    if (JSON.stringify(debouncedProducts) !== JSON.stringify(products)) {
+      onChange({ ...value, productIds: debouncedProducts });
+    }
+  }, [debouncedProducts]);
 
   const handleStartDateChange = (dateFrom?: Date) => {
     if (!dateFrom) return;
@@ -47,7 +59,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   };
 
   const handleProductsChange = (products: string[]) => {
-    onChange({ ...value, productIds: products });
+    setSelectedProducts(products);
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
@@ -95,7 +107,10 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
     let hasChanges = false;
 
     fetchedOptions.forEach((option) => {
-      if (products.includes(option.value) && !newMap.has(option.value)) {
+      if (
+        selectedProducts.includes(option.value) &&
+        !newMap.has(option.value)
+      ) {
         newMap.set(option.value, option.label);
         hasChanges = true;
       }
@@ -104,7 +119,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
     if (hasChanges) {
       setSelectedProductsMap(newMap);
     }
-  }, [fetchedOptions, products]);
+  }, [fetchedOptions, selectedProducts]);
 
   const handleLoadMore = () => {
     if (hasNextPage && !isFetching) {
@@ -140,7 +155,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
         <Label>Produtos:</Label>
         <MultiSelect
           options={options}
-          value={products}
+          value={selectedProducts}
           onValueChange={handleProductsChange}
           commandInputPlaceholder="Busque produtos..."
           maxCount={multiSelectMaxCount}
