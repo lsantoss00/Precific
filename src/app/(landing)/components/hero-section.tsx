@@ -32,10 +32,10 @@ const HeroSection = () => {
           >
             <Column className="space-y-6 md:space-y-8">
               <Column as="header" className="space-y-4 md:space-y-5">
-                <h1
-                  id="hero-heading"
-                  className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight"
-                >
+                <h1 className="sr-only">
+                  Precific | Plataforma de Precificação Inteligente
+                </h1>
+                <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight">
                   <span className="relative inline-block">
                     Precifique
                     <span
@@ -44,11 +44,11 @@ const HeroSection = () => {
                     />
                   </span>{" "}
                   seus produtos com precisão.
-                </h1>
+                </h2>
                 <p className="text-zinc-200 text-base md:text-lg max-w-2xl">
-                  O Precific automatiza o cálculo de preços com base em custos,
-                  impostos e margens, simulando cenários futuros da Reforma
-                  Tributária.
+                  O <strong className="font-normal">Precific</strong> automatiza
+                  o cálculo de preços com base em custos, impostos e margens,
+                  simulando cenários futuros da Reforma Tributária.
                 </p>
               </Column>
               <Button
@@ -68,7 +68,7 @@ const HeroSection = () => {
             <Flex as="figure" className="aspect-video shrink-0">
               <YouTubeEmbed
                 videoId="9gNKBYR-rhg"
-                title="Precific — Demonstração do sistema de precificação"
+                title="Precific — Demonstração do sistema de precificação inteligente"
               />
             </Flex>
           </FadeInOnScroll>

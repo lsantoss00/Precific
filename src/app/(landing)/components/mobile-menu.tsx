@@ -55,7 +55,7 @@ const MobileMenu = () => {
           >
             <Image
               src={shortLogoImage}
-              alt="Logo do Precific"
+              alt="Precific | Plataforma de Precificação Inteligente"
               width={48}
               height={48}
               sizes="48px"

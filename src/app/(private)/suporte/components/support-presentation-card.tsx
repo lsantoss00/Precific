@@ -10,7 +10,7 @@ const SupportPresentationCard = () => {
         <div className="relative bg-linear-to-b from-primary/20 via-primary/15 to-transparent p-30 flex items-center justify-center">
           <Image
             src="/svgs/undraw_contact-us.svg"
-            alt="Logo do Precific"
+            alt="Imagem ilustrativa de contato"
             fill
             className="object-center py-2 max-md:-ml-2"
             priority

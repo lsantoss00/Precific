@@ -39,7 +39,7 @@ export function AppSidebar() {
             >
               <Image
                 src={shortLogoImage}
-                alt="Logo do Precific"
+                alt="Precific | Plataforma de Precificação Inteligente"
                 width={48}
                 height={48}
                 priority
@@ -49,7 +49,7 @@ export function AppSidebar() {
               />
               <Image
                 src={logoImage}
-                alt="Logo do Precific"
+                alt="Precific | Plataforma de Precificação Inteligente"
                 width={200}
                 height={40}
                 priority
