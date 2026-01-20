@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Precific",
+    absolute: "Precific | Plataforma de Precificação Inteligente",
   },
   description:
     "Simplifique a precificação dos seus produtos com o Precific. Calcule preços de forma rápida e precisa, otimize suas margens e tome decisões estratégicas com confiança. Automatize cálculos de custos, impostos e simule a Reforma Tributária (IBS/CBS).",

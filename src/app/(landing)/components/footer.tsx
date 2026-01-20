@@ -27,7 +27,7 @@ const Footer = () => {
               <Flex as="figure" className="relative">
                 <Image
                   src={grupoViriatoLogoImage}
-                  alt="Logo do Grupo Viriato - Empresa de contabilidade e consultoria tributária"
+                  alt="Grupo Viriato - Empresa de contabilidade e consultoria tributária"
                   width={100}
                   height={100}
                   sizes="100px"
@@ -39,7 +39,7 @@ const Footer = () => {
               <Flex as="figure" className="relative">
                 <Image
                   src={precificLogoImage}
-                  alt="Logo do Precific"
+                  alt="Precific | Plataforma de Precificação Inteligente"
                   width={100}
                   height={50}
                   sizes="100px"
