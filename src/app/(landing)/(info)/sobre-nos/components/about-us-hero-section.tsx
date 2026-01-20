@@ -29,6 +29,7 @@ const AboutUsHeroSection = () => {
             className="w-full xl:max-w-150 2xl:max-w-170 z-10"
           >
             <Column as="header" className="gap-4 md:gap-6">
+              <h1 className="sr-only">Sobre o Precific e o Grupo Viriato</h1>
               <Column className="gap-3 max-w-lg">
                 <Sparkle
                   className="text-secondary w-5 h-5 sm:w-6 sm:h-6"
@@ -39,10 +40,7 @@ const AboutUsHeroSection = () => {
                   controle e decisões empresariais seguras.
                 </p>
               </Column>
-              <h1
-                id="about-hero-heading"
-                className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight max-w-2xl"
-              >
+              <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl xl:text-5xl 2xl:text-6xl text-white leading-tight max-w-2xl">
                 Nós{" "}
                 <span className="relative inline-block">
                   impulsionamos
@@ -59,7 +57,7 @@ const AboutUsHeroSection = () => {
                     aria-hidden="true"
                   />
                 </span>{" "}
-              </h1>
+              </h2>
             </Column>
           </FadeInOnScroll>
           <FadeInOnScroll

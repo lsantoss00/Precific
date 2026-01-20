@@ -20,7 +20,7 @@ const Header = () => {
         <nav className="flex items-center space-x-4 md:space-x-8">
           <Image
             src={shortLogoImage}
-            alt="Precific Logo"
+            alt="Precific | Plataforma de Precificação Inteligente"
             width={48}
             height={48}
             sizes="48px"
