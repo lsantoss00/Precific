@@ -76,7 +76,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("priceToday"))}
+        {currencyFormatter(row.getValue<number>("priceToday") * 100)}
       </div>
     ),
     meta: {
@@ -92,7 +92,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("priceIn2026"))}
+        {currencyFormatter(row.getValue<number>("priceIn2026") * 100)}
       </div>
     ),
     meta: {
@@ -108,7 +108,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("priceIn2027"))}
+        {currencyFormatter(row.getValue<number>("priceIn2027") * 100)}
       </div>
     ),
     meta: {
@@ -134,7 +134,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
             onCheckedChange={(checked) => {
               meta?.onUpdateProductStatus?.(
                 product.id!,
-                checked ? "ACTIVE" : "INACTIVE"
+                checked ? "ACTIVE" : "INACTIVE",
               );
             }}
             disabled={
