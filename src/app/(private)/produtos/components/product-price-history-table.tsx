@@ -9,10 +9,10 @@ import {
 
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { dateFormatter } from "@/src/helpers/date-formatter";
-import { ProductHistoryType } from "../types/product-type";
+import { ProductHistoryTableType } from "../types/product-type";
 
 interface ProductPriceHistoryTableProps {
-  productPriceHistory: ProductHistoryType[];
+  productPriceHistory: ProductHistoryTableType[];
 }
 
 const ProductPriceHistoryTable = ({

@@ -64,7 +64,7 @@ export type ProductExportType = Pick<
   | "status"
 >;
 
-export type ProductHistoryType = {
+export type ProductHistoryTableType = {
   id: string;
   priceToday: number;
   priceIn2026: number;

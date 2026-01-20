@@ -1,6 +1,9 @@
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
-import { ProductHistoryType, ProductRequestType } from "../types/product-type";
+import {
+  ProductHistoryTableType,
+  ProductRequestType,
+} from "../types/product-type";
 
 interface GetProductPriceHistoryProps {
   productId: ProductRequestType["id"];
@@ -8,7 +11,7 @@ interface GetProductPriceHistoryProps {
 
 export async function getProductPriceHistory({
   productId,
-}: GetProductPriceHistoryProps): Promise<ProductHistoryType[]> {
+}: GetProductPriceHistoryProps): Promise<ProductHistoryTableType[]> {
   const supabase = createClient();
 
   const {
@@ -25,7 +28,7 @@ export async function getProductPriceHistory({
       ascending: false,
     });
 
-  const data = camelizeKeys(products) as ProductHistoryType[];
+  const data = camelizeKeys(products) as ProductHistoryTableType[];
 
   if (error) throw error;
 
