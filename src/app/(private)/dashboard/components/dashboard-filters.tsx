@@ -1,3 +1,4 @@
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { getProducts } from "@/src/app/(private)/produtos/services/get-products";
 import { Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
@@ -13,25 +14,41 @@ import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 
-interface DashboardFiltersProps {}
+interface DashboardFiltersProps {
+  value: ChartFiltersType;
+  onChange: (filters: ChartFiltersType) => void;
+}
 
-const DashboardFilters = ({}: DashboardFiltersProps) => {
+const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   const maxIsXs = useMediaQuery("(max-width: 480px)");
   const maxIsSm = useMediaQuery("(max-width: 640px)");
   const maxIsMd = useMediaQuery("(max-width: 768px)");
   const minIsXl = useMediaQuery("(min-width: 1280px)");
   const minIs2Xl = useMediaQuery("(min-width: 1536px)");
 
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
-  const [selectedProducts, setSelectedProducts] = useState<MultiSelectOption[]>(
-    [],
-  );
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedProductsMap, setSelectedProductsMap] = useState<
+    Map<string, string>
+  >(new Map());
 
   const debouncedSearched = useDebounce(searchTerm, 300);
   const isDebouncing = searchTerm !== debouncedSearched;
+
+  const handleStartDateChange = (dateFrom?: Date) => {
+    if (!dateFrom) return;
+    onChange({ ...value, fromDate: dateFrom });
+  };
+
+  const handleEndDateChange = (dateTo?: Date) => {
+    if (!dateTo) return;
+    onChange({ ...value, toDate: dateTo });
+  };
+
+  const handleProductsChange = (products: string[]) => {
+    onChange({ ...value, productIds: products });
+  };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["products", debouncedSearched],
@@ -41,15 +58,14 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
         pageSize: 10,
         search: debouncedSearched,
       }),
-    getNextPageParam: (lastPage) => {
-      return lastPage.currentPage < lastPage.totalPages
+    getNextPageParam: (lastPage) =>
+      lastPage.currentPage < lastPage.totalPages
         ? lastPage.currentPage + 1
-        : undefined;
-    },
+        : undefined,
     initialPageParam: 1,
   });
 
-  const products = useMemo(() => {
+  const fetchedOptions = useMemo<MultiSelectOption[]>(() => {
     if (!data?.pages) return [];
 
     return data.pages.flatMap((page) =>
@@ -60,28 +76,40 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
     );
   }, [data]);
 
-  const options = useMemo(() => {
+  const options = useMemo<MultiSelectOption[]>(() => {
     const map = new Map<string, MultiSelectOption>();
 
-    selectedProducts.forEach((option) => map.set(option.value, option));
+    fetchedOptions.forEach((option) => map.set(option.value, option));
 
-    products.forEach((option) => map.set(option.value, option));
+    selectedProductsMap.forEach((label, id) => {
+      if (!map.has(id)) {
+        map.set(id, { label, value: id });
+      }
+    });
 
     return Array.from(map.values());
-  }, [products, selectedProducts]);
+  }, [fetchedOptions, selectedProductsMap]);
+
+  useMemo(() => {
+    const newMap = new Map(selectedProductsMap);
+    let hasChanges = false;
+
+    fetchedOptions.forEach((option) => {
+      if (products.includes(option.value) && !newMap.has(option.value)) {
+        newMap.set(option.value, option.label);
+        hasChanges = true;
+      }
+    });
+
+    if (hasChanges) {
+      setSelectedProductsMap(newMap);
+    }
+  }, [fetchedOptions, products]);
 
   const handleLoadMore = () => {
     if (hasNextPage && !isFetching) {
       fetchNextPage();
     }
-  };
-
-  const handleValueChange = (values: string[]) => {
-    const newSelection = values
-      .map((value) => options.find((opt) => opt.value === value))
-      .filter(Boolean) as MultiSelectOption[];
-
-    setSelectedProducts(newSelection);
   };
 
   const multiSelectMaxCount = maxIsXs
@@ -101,19 +129,19 @@ const DashboardFilters = ({}: DashboardFiltersProps) => {
       <Row className="w-full 2xl:w-fit gap-4">
         <Column className="gap-2 w-full 2xl:w-43.5">
           <Label>De:</Label>
-          <DatePicker value={startDate} onValueChange={setStartDate} />
+          <DatePicker value={dateFrom} onValueChange={handleStartDateChange} />
         </Column>
         <Column className="gap-2 w-full 2xl:w-43.5">
           <Label>Até:</Label>
-          <DatePicker value={endDate} onValueChange={setEndDate} />
+          <DatePicker value={dateTo} onValueChange={handleEndDateChange} />
         </Column>
       </Row>
       <Column className="gap-2 w-full">
         <Label>Produtos:</Label>
         <MultiSelect
           options={options}
-          defaultValue={selectedProducts.map((p) => p.value)}
-          onValueChange={handleValueChange}
+          value={products}
+          onValueChange={handleProductsChange}
           commandInputPlaceholder="Busque produtos..."
           maxCount={multiSelectMaxCount}
           className="w-full 2xl:max-w-90.5!"
