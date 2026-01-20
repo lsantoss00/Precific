@@ -1,4 +1,4 @@
-import DashboardPageContent from "@/src/app/(private)/dashboard/components/dashboard-page-content";
+import { DashboardPageContent } from "@/src/app/(private)/dashboard/components";
 import { Container } from "@/src/components/core";
 import { Metadata } from "next";
 

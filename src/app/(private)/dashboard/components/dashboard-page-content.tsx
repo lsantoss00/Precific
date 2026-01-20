@@ -1,7 +1,5 @@
 "use client";
 
-import CustomLineChartTooltip from "@/src/app/(private)/dashboard/components/custom-line-chart-tooltip";
-import DashboardFilters from "@/src/app/(private)/dashboard/components/dashboard-filters";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { createChartConfig } from "@/src/app/(private)/dashboard/utils/create-chart-config";
@@ -14,7 +12,12 @@ import { useQuery } from "@tanstack/react-query";
 import { subMonths } from "date-fns";
 import { LayoutDashboard } from "lucide-react";
 import { useState } from "react";
-import { ChartCard, LineChart } from "../components";
+import {
+  ChartCard,
+  CustomLineChartTooltip,
+  DashboardFilters,
+  LineChart,
+} from ".";
 
 const DashboardPageContent = () => {
   const [filters, setFilters] = useState<ChartFiltersType>({

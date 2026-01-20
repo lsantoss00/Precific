@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { getProducts } from "@/src/app/(private)/produtos/services/get-products";
 import { Label } from "@/src/components/core";
