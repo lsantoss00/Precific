@@ -31,7 +31,9 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProducts, setSelectedProducts] = useState<string[]>(products);
+  const [selectedProducts, setSelectedProducts] = useState<string[]>(
+    products || [],
+  );
   const [selectedFromDate, setSelectedFromDate] = useState<Date>(dateFrom!);
   const [selectedToDate, setSelectedToDate] = useState<Date>(dateTo!);
   const [selectedProductsMap, setSelectedProductsMap] = useState<
@@ -137,7 +139,9 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
             : 2;
 
   useEffect(() => {
-    setSelectedProducts(products);
+    if (products) {
+      setSelectedProducts(products);
+    }
   }, [products]);
 
   useEffect(() => {
