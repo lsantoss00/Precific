@@ -24,8 +24,6 @@ const PricingForm = () => {
   const isPresumedProfit = company?.taxRegime === "presumed_profit";
   const isSimpleNational = company?.taxRegime === "simple_national";
 
-  console.log("@@@@Oi", company?.taxRegime);
-
   const icmsSt = form.watch("icmsSt") ?? 0;
 
   const isImportedProduct = form.watch("importedProduct");

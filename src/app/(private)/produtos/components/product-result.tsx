@@ -558,8 +558,6 @@ const ProductResult = () => {
     return inverseTaxRegimeCalculators[companyRegime as TaxRegimeType]();
   })();
 
-  console.log(form?.getValues());
-
   const metrics2025: (MetricCardProps & {
     gridSpan?: string;
     condition?: boolean;
