@@ -26,8 +26,10 @@ const DashboardPageContent = () => {
         <ComingSoonBadge />
       </Row>
       <DashboardFilters value={filters} onChange={setFilters} />
-      <ProductsPriceCompositionChart filters={filters} />
-      <ProductPriceHistoryChart filters={filters} />
+      <div className="grid grid-cols-2 gap-4">
+        <ProductPriceHistoryChart filters={filters} />
+        <ProductsPriceCompositionChart filters={filters} />
+      </div>
     </Column>
   );
 };
