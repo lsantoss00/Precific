@@ -8,13 +8,13 @@ import { normalizeLineChartData } from "@/src/app/(private)/dashboard/utils/norm
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-interface ProductPriceHistoryChartProps {
+interface ProductsPriceHistoryChartProps {
   filters: ChartFiltersType;
 }
 
-const ProductPriceHistoryChart = ({
+const ProductsPriceHistoryChart = ({
   filters,
-}: ProductPriceHistoryChartProps) => {
+}: ProductsPriceHistoryChartProps) => {
   const { data: productsPriceHistory } = useQuery({
     queryKey: [
       "products-price-history",
@@ -61,4 +61,4 @@ const ProductPriceHistoryChart = ({
     </div>
   );
 };
-export default ProductPriceHistoryChart;
+export default ProductsPriceHistoryChart;

@@ -1,6 +1,6 @@
 "use client";
 
-import ProductPriceHistoryChart from "@/src/app/(private)/dashboard/components/product-price-history-chart";
+import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
@@ -27,7 +27,7 @@ const DashboardPageContent = () => {
       </Row>
       <DashboardFilters value={filters} onChange={setFilters} />
       <div className="grid grid-cols-2 gap-4">
-        <ProductPriceHistoryChart filters={filters} />
+        <ProductsPriceHistoryChart filters={filters} />
         <ProductsPricesAndAcquisitionCostsChart filters={filters} />
       </div>
     </Column>
