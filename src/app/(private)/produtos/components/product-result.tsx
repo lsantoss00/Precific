@@ -673,6 +673,7 @@ const ProductResult = () => {
       priceToday: finalSalePrice,
       priceIn2026: finalSalePrice,
       acquisitionCost,
+      markup,
     };
 
     if (isEditMode && productId) {

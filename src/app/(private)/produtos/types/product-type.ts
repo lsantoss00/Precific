@@ -28,7 +28,8 @@ export type ProductType = {
   hasIcmsSt: boolean;
   hasUserProductPrice: boolean;
   userProductPrice?: number;
-  acquisitionCost?: number;
+  acquisitionCost: number;
+  markup: number;
 };
 
 export type ProductFormDataType = Omit<
