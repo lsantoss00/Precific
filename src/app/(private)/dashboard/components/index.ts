@@ -7,6 +7,7 @@ export { default as KpiCard } from "./kpi-card";
 export { default as LineChart } from "./line-chart";
 export { default as CustomLineChartTooltip } from "./line-chart/custom-line-chart-tooltip";
 export { default as PieChart } from "./pie-chart";
+export { default as ProductPriceHistoryChart } from "./product-price-history-chart";
 export { default as RadarChart } from "./radar-chart";
 export { default as RadialChart } from "./radial-chart";
 export { default as StackedBarChart } from "./stacked-bar-chart";
