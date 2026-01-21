@@ -38,8 +38,7 @@ const ProductPriceHistoryChart = ({
       <ChartCard
         title="Histórico de Preços"
         description="Evolução de preços dos produtos selecionados"
-        className="sm:col-span-3 lg:col-span-2 md:row-span-1"
-        contentClassName="h-100 w-full"
+        contentClassName="h-full w-full"
       >
         <LineChart
           data={chartData}
