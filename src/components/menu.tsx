@@ -64,7 +64,6 @@ const Menu = () => {
                   fill
                   sizes="32px"
                   className="object-cover"
-                  unoptimized
                 />
               </div>
             </Show>

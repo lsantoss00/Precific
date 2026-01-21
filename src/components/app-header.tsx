@@ -68,7 +68,6 @@ export function AppHeader() {
                       fill
                       sizes="32px"
                       className="object-cover"
-                      unoptimized
                     />
                   </div>
                 </Show>
