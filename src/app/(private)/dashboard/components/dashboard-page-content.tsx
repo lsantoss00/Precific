@@ -42,6 +42,8 @@ const DashboardPageContent = () => {
           <ProductsPricesAndAcquisitionCostsChart
             productIds={filters.productIds!}
           />
+          <ProductsWithHighestMarkupChart productIds={filters.productIds} />
+          <ProductsWithLowestMarkupChart productIds={filters.productIds} />
         </div>
       </Column>
     </Column>

@@ -3,11 +3,18 @@ import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsMarkup } from "@/src/app/(private)/dashboard/services/get-products-markup";
 import { ChartConfig } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-const ProductsWithLowestMarkupChart = () => {
+interface ProductsWithLowestMarkupChartProps {
+  productIds?: string[];
+}
+
+const ProductsWithLowestMarkupChart = ({
+  productIds,
+}: ProductsWithLowestMarkupChartProps) => {
   const { data: products } = useQuery({
-    queryKey: ["products-with-lowest-markup"],
+    queryKey: ["products-with-lowest-markup", productIds],
     queryFn: () => getProductsMarkup({ sortDirection: "desc" }),
   });
 
@@ -44,6 +51,13 @@ const ProductsWithLowestMarkupChart = () => {
           }
         />
       </ChartCard>
+      <Show when={!productIds || productIds.length === 0}>
+        <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
+          <p className="text-center font-semibold text-sm sm:text-base">
+            Selecione ao menos 1 produto para visualizar o gráfico.
+          </p>
+        </div>
+      </Show>
     </div>
   );
 };

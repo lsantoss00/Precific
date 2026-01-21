@@ -3,12 +3,19 @@ import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsMarkup } from "@/src/app/(private)/dashboard/services/get-products-markup";
 import { ChartConfig } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-const ProductsWithHighestMarkupChart = () => {
+interface ProductsWithHighestMarkupChartProps {
+  productIds?: string[];
+}
+
+const ProductsWithHighestMarkupChart = ({
+  productIds,
+}: ProductsWithHighestMarkupChartProps) => {
   const { data: products } = useQuery({
-    queryKey: ["products-with-highest-markup"],
-    queryFn: () => getProductsMarkup({}),
+    queryKey: ["products-with-highest-markup", productIds],
+    queryFn: () => getProductsMarkup({ productIds }),
   });
 
   const chartData = (products || []).map((product) => ({
@@ -44,6 +51,13 @@ const ProductsWithHighestMarkupChart = () => {
           }
         />
       </ChartCard>
+      <Show when={!productIds || productIds.length === 0}>
+        <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
+          <p className="text-center font-semibold text-sm sm:text-base">
+            Selecione ao menos 1 produto para visualizar o gráfico.
+          </p>
+        </div>
+      </Show>
     </div>
   );
 };
