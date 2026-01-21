@@ -6,16 +6,24 @@ import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-interface ProductsWithHighestMarkupChartProps {
+interface ProductsMarkupChartProps {
   productIds?: string[];
+  type?: "filtered" | "unfiltered";
+  sortDirection: "asc" | "desc";
+  title?: string;
+  description: string;
 }
 
-const ProductsWithHighestMarkupChart = ({
+const ProductsMarkupChart = ({
+  type = "unfiltered",
   productIds,
-}: ProductsWithHighestMarkupChartProps) => {
+  sortDirection,
+  title = "Ranking de Markup",
+  description,
+}: ProductsMarkupChartProps) => {
   const { data: products } = useQuery({
-    queryKey: ["products-with-highest-markup", productIds],
-    queryFn: () => getProductsMarkup({ productIds }),
+    queryKey: ["products-markup", sortDirection, productIds],
+    queryFn: () => getProductsMarkup({ sortDirection, productIds }),
   });
 
   const chartData = (products || []).map((product) => ({
@@ -33,8 +41,8 @@ const ProductsWithHighestMarkupChart = ({
   return (
     <div className="relative">
       <ChartCard
-        title="Ranking de Markup"
-        description="Produtos com menor markup"
+        title={title}
+        description={description}
         className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
         headerClassName="mb-4"
       >
@@ -51,7 +59,9 @@ const ProductsWithHighestMarkupChart = ({
           }
         />
       </ChartCard>
-      <Show when={!productIds || productIds.length === 0}>
+      <Show
+        when={type === "filtered" && (!productIds || productIds.length === 0)}
+      >
         <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
           <p className="text-center font-semibold text-sm sm:text-base">
             Selecione ao menos 1 produto para visualizar o gráfico.
@@ -62,4 +72,4 @@ const ProductsWithHighestMarkupChart = ({
   );
 };
 
-export default ProductsWithHighestMarkupChart;
+export default ProductsMarkupChart;
