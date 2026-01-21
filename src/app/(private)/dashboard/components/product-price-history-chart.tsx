@@ -1,6 +1,6 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import LineChart from "@/src/app/(private)/dashboard/components/line-chart";
-import CustomLineChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-line-chart-tooltip";
+import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { createChartConfig } from "@/src/app/(private)/dashboard/utils/create-chart-config";
@@ -48,14 +48,13 @@ const ProductPriceHistoryChart = ({
           strokeWidth={3}
           className="aspect-square"
           margin={{ top: 32, left: 32, right: 32 }}
-          tooltip={<CustomLineChartTooltip chartConfig={chartConfig} />}
+          tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
       <Show when={!filters?.productIds.length}>
         <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
           <p className="text-center font-semibold text-sm sm:text-base">
-            Selecione ao menos 1 produto para visualizar o gráfico de Histórico
-            de Preços.
+            Selecione ao menos 1 produto para visualizar o gráfico.
           </p>
         </div>
       </Show>

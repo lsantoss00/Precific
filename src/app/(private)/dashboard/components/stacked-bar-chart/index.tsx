@@ -1,6 +1,12 @@
 "use client";
 
-import { Bar, CartesianGrid, BarChart as REBarChart, XAxis } from "recharts";
+import {
+  Bar,
+  CartesianGrid,
+  BarChart as REBarChart,
+  TooltipProps,
+  XAxis,
+} from "recharts";
 
 import { ChartDataType } from "@/src/app/(private)/dashboard/types/chart-data-type";
 import {
@@ -24,6 +30,9 @@ interface StackedBarChartProps {
   margin?: { left?: number; right?: number; top?: number; bottom?: number };
   className?: string;
   legend?: boolean;
+  tooltip?:
+    | React.ReactElement
+    | ((props: TooltipProps<number, string>) => React.ReactNode);
 }
 
 const StackedBarChart = ({
@@ -36,6 +45,7 @@ const StackedBarChart = ({
   margin,
   className = "",
   legend = false,
+  tooltip,
 }: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   return (
@@ -50,16 +60,16 @@ const StackedBarChart = ({
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 10)}
+          tickFormatter={(value) => value.slice(0, 5)}
         />
-        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+        <ChartTooltip content={tooltip || <ChartTooltipContent hideLabel />} />
         <Show when={legend === true}>
           <ChartLegend
             content={
               <ChartLegendContent
                 payload={keys.map((key) => ({
                   value: config[key]?.label || key,
-                  color: config[key]?.color || "var(--color-desktop)",
+                  color: config[key]?.color || "var(--secondary)",
                 }))}
               />
             }
@@ -70,7 +80,7 @@ const StackedBarChart = ({
             key={key}
             dataKey={key}
             stackId={stackId}
-            fill={config[key]?.color || "var(--color-desktop)"}
+            fill={config[key]?.color || "var(--secondary)"}
             radius={
               idx === keys.length - 1
                 ? Array.isArray(barRadius)

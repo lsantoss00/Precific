@@ -1,7 +1,7 @@
 import { ChartConfig } from "@/src/components/core/chart";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 
-interface CustomLineChartTooltipProps {
+interface CustomChartTooltipProps {
   active?: boolean;
   payload?: Array<{
     dataKey: string;
@@ -12,13 +12,23 @@ interface CustomLineChartTooltipProps {
   }>;
   label?: string | number;
   chartConfig: ChartConfig;
+  type?: "currency" | "percentage";
 }
 
-const CustomLineChartTooltip = ({
+const CustomChartTooltip = ({
   label,
   payload,
   chartConfig,
-}: CustomLineChartTooltipProps) => {
+  type = "currency",
+}: CustomChartTooltipProps) => {
+  const formatValue = (value: number) => {
+    if (value === undefined) return 0;
+
+    return type === "currency"
+      ? currencyFormatter(value * 100)
+      : `${value.toFixed(2)}%`;
+  };
+
   return (
     <div className="rounded-md border bg-background p-3 shadow-sm">
       <p className="mb-2 text-sm font-medium">{label}</p>
@@ -42,7 +52,7 @@ const CustomLineChartTooltip = ({
                 </span>
               </div>
               <span className="whitespace-nowrap font-medium">
-                {currencyFormatter(item.value as number)}
+                {formatValue(Number(item.value))}
               </span>
             </li>
           );
@@ -52,4 +62,4 @@ const CustomLineChartTooltip = ({
   );
 };
 
-export default CustomLineChartTooltip;
+export default CustomChartTooltip;
