@@ -444,9 +444,9 @@ const sectorSelectOptions = [
 ];
 
 const taxRegimeSelectOptions = [
-  { value: "realProfit", label: TAX_REGIME_LABELS.real_profit },
-  { value: "presumedProfit", label: TAX_REGIME_LABELS.presumed_profit },
-  { value: "simpleNational", label: TAX_REGIME_LABELS.simple_national },
+  { value: "real_profit", label: TAX_REGIME_LABELS.real_profit },
+  { value: "presumed_profit", label: TAX_REGIME_LABELS.presumed_profit },
+  { value: "simple_national", label: TAX_REGIME_LABELS.simple_national },
 ];
 
 const revenueRangeSelectOptions = [
