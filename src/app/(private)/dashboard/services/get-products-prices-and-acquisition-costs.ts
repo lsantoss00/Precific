@@ -26,7 +26,7 @@ export async function getProductsPricesAndAcquisitionCosts({
   ) as ProductsPricesAndAcquisitionCostsType[];
 
   if (error) {
-    throw new Error("Erro ao buscar composições de preços dos produtos");
+    throw new Error("Erro ao buscar preços e custos de aquisição dos produtos");
   }
 
   return data;
