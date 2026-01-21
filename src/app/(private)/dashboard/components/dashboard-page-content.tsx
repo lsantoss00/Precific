@@ -70,11 +70,13 @@ const DashboardPageContent = () => {
                   productIds={filters.productIds}
                   sortDirection="desc"
                   description="Produtos com maior markup"
+                  type="filtered"
                 />
                 <ProductsMarkupChart
                   productIds={filters.productIds}
                   sortDirection="asc"
                   description="Produtos com menor markup"
+                  type="filtered"
                 />
               </div>
             </Column>
