@@ -35,6 +35,8 @@ const Menu = () => {
   });
 
   const firstName = profile?.username?.split(" ")[0] || "";
+  const hasProfilePicture =
+    profile?.profile_picture_url && profile.profile_picture_url.trim() !== "";
 
   return (
     <DropdownMenu modal={false}>
@@ -50,10 +52,7 @@ const Menu = () => {
             fallback={<Skeleton className="w-8 h-8 rounded-md" />}
           >
             <Show
-              when={
-                Boolean(profile?.profile_picture_url) ||
-                profile?.profile_picture_url !== ""
-              }
+              when={hasProfilePicture}
               fallback={
                 <User className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1 shrink-0" />
               }
