@@ -2,24 +2,17 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsMarkup } from "@/src/app/(private)/dashboard/services/get-products-markup";
-import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { ChartConfig } from "@/src/components/core/chart";
 import { useQuery } from "@tanstack/react-query";
 
-interface ProductsWithHighestMarkupChartProps {
-  filters?: ChartFiltersType;
-}
-
-const ProductsWithHighestMarkupChart = ({
-  filters,
-}: ProductsWithHighestMarkupChartProps) => {
+const ProductsWithHighestMarkupChart = () => {
   const { data: products } = useQuery({
-    queryKey: ["products-with-highest-markup", filters?.productIds],
+    queryKey: ["products-with-highest-markup"],
     queryFn: () => getProductsMarkup({}),
   });
 
   const chartData = (products || []).map((product) => ({
-    productName: product.name,
+    name: product.name,
     markup: product.markup,
   }));
 
@@ -41,7 +34,7 @@ const ProductsWithHighestMarkupChart = ({
         <BarChart
           data={chartData}
           config={chartConfig}
-          yAxisKey="productName"
+          yAxisKey="name"
           barKey="markup"
           layout="horizontal"
           barRadius={8}

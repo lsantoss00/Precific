@@ -39,7 +39,9 @@ const DashboardPageContent = () => {
         <DashboardFilters value={filters} onChange={setFilters} />
         <div className="grid grid-cols-2 gap-4">
           <ProductsPriceHistoryChart filters={filters} />
-          <ProductsPricesAndAcquisitionCostsChart filters={filters} />
+          <ProductsPricesAndAcquisitionCostsChart
+            productIds={filters.productIds!}
+          />
         </div>
       </Column>
     </Column>

@@ -1,14 +1,13 @@
-import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { ProductsPricesAndAcquisitionCostsType } from "@/src/app/(private)/dashboard/types/products-prices-and-acquisition-costs-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
 interface GetProductsPricesAndAcquisitionCostsProps {
-  filters: ChartFiltersType;
+  productIds: string[];
 }
 
 export async function getProductsPricesAndAcquisitionCosts({
-  filters,
+  productIds,
 }: GetProductsPricesAndAcquisitionCostsProps): Promise<
   ProductsPricesAndAcquisitionCostsType[]
 > {
@@ -17,7 +16,7 @@ export async function getProductsPricesAndAcquisitionCosts({
   const { data: products, error } = await supabase.rpc(
     "get_products_prices_and_acquisition_costs",
     {
-      ids: filters.productIds,
+      ids: productIds,
     },
   );
 

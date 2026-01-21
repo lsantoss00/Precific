@@ -14,7 +14,7 @@ export async function getProductsMarkup({
   const supabase = createClient();
 
   const { data: products, error } = await supabase.rpc("get_product_markups", {
-    product_ids: productIds,
+    ids: productIds,
     sort_direction: sortDirection,
   });
 
