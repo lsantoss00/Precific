@@ -42,7 +42,7 @@ const DashboardPageContent = () => {
             <h2 className="text-xl font-medium">Gráficos Gerais</h2>
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ProductsMarkupChart
                 sortDirection="desc"
                 description="Os 10 produtos precificados com maior markup"
@@ -61,7 +61,7 @@ const DashboardPageContent = () => {
           <AccordionContent className="text-muted-foreground">
             <Column className="gap-4">
               <DashboardFilters value={filters} onChange={setFilters} />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ProductsPriceHistoryChart filters={filters} />
                 <ProductsPricesAndAcquisitionCostsChart
                   productIds={filters.productIds!}

@@ -39,7 +39,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
     <div className="relative">
       <ChartCard
         title="Comparativo"
-        description="Preço de Venda VS Preço de Aquisição dos produtos selecionados"
+        description="Preço de Venda X Preço de Aquisição"
         contentClassName="h-full w-full"
       >
         <StackedBarChart

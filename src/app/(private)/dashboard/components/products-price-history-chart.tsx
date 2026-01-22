@@ -42,7 +42,7 @@ const ProductsPriceHistoryChart = ({
     <div className="relative">
       <ChartCard
         title="Histórico de Preços"
-        description="Evolução de preços dos produtos selecionados"
+        description="Evolução dos preços no período selecionado"
         contentClassName="h-full w-full"
       >
         <LineChart
@@ -52,7 +52,7 @@ const ProductsPriceHistoryChart = ({
           lineType="monotone"
           strokeWidth={3}
           className="aspect-square"
-          margin={{ top: 32, left: 32, right: 32 }}
+          margin={{ top: 5, left: 32, right: 32, bottom: 5 }}
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
