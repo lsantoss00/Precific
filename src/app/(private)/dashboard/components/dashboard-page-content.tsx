@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardFilters from "@/src/app/(private)/dashboard/components/dashboard-filters";
+import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/components/products-average-price-kpi-card";
 import ProductsMarkupChart from "@/src/app/(private)/dashboard/components/products-markup-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
@@ -41,7 +42,10 @@ const DashboardPageContent = () => {
           <AccordionTrigger className="lg:text-lg font-bold">
             <h2 className="text-xl font-medium">Gráficos Gerais</h2>
           </AccordionTrigger>
-          <AccordionContent className="text-muted-foreground">
+          <AccordionContent className="grid gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
+              <ProductsAveragePriceKpiCard />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ProductsMarkupChart
                 sortDirection="desc"
