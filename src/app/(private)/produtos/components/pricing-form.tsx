@@ -57,6 +57,13 @@ const PricingForm = () => {
     company?.state,
     form,
   ]);
+
+  useEffect(() => {
+    if (!hasIcmsSt) {
+      form.setValue("mva", 0);
+    }
+  }, [hasIcmsSt, form]);
+
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
       <h3 className="text-lg">Precificação</h3>
