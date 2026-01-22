@@ -56,7 +56,7 @@ const DashboardPageContent = () => {
         </AccordionItem>
         <AccordionItem value="product-charts">
           <AccordionTrigger className="lg:text-lg font-bold">
-            <h2 className="text-xl font-medium">Gráficos por produtos</h2>
+            <h2 className="text-xl font-medium">Gráficos Comparativos</h2>
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground">
             <Column className="gap-4">
