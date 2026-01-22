@@ -99,6 +99,7 @@ const ProductResult = () => {
   const isSimpleNational = company?.taxRegime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.hasIcmsSt === true;
+  const isCostumerTaxPayer = data?.costumerTaxpayer === true;
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
@@ -112,8 +113,6 @@ const ProductResult = () => {
   const percentSum =
     ((data.fixedCosts ?? 0) + (data.shipping ?? 0) + (data.otherCosts ?? 0)) /
     100;
-
-  // const markupBase = acquisitionCost + acquisitionCost * percentSum;
 
   const markup = markupCalc({
     fixedCosts: data?.fixedCosts ?? 0,
@@ -230,6 +229,24 @@ const ProductResult = () => {
           percentage: data?.irpjPercent,
         });
 
+  const companyState = company?.state;
+  const stateDestination = data?.stateDestination;
+  const isImportedProduct = data?.importedProduct === true;
+
+  const internalTaxRate = companyState
+    ? getICMSRate(stateDestination!, stateDestination!)
+    : 0;
+
+  const interstateTaxRate = stateDestination
+    ? getICMSRate(companyState!, stateDestination)
+    : 0;
+
+  const difal = difalCalc({
+    suggestedProductPrice,
+    internalTaxRate,
+    interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
+  });
+
   const netProfit = (() => {
     const baseCalcParams = {
       suggestedProductPrice,
@@ -272,28 +289,9 @@ const ProductResult = () => {
     });
   })();
 
-  const companyState = company?.state;
-  const stateDestination = data?.stateDestination;
-  const isImportedProduct = data?.importedProduct === true;
-
-  const internalTaxRate = companyState
-    ? getICMSRate(stateDestination!, stateDestination!)
-    : 0;
-
-  const interstateTaxRate = stateDestination
-    ? getICMSRate(companyState!, stateDestination)
-    : 0;
-
-  const suggestedProductPriceWithDifal = difalCalc({
-    suggestedProductPrice,
-    internalTaxRate,
-    interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
-  });
-
-  const isCostumerTaxPayer = data?.costumerTaxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
     ? suggestedProductPrice + conditionalIcmsSt
-    : suggestedProductPrice + suggestedProductPriceWithDifal;
+    : suggestedProductPrice + difal;
 
   const revenueRangeData = getRevenueRangeDataPercentage({ business });
 
@@ -390,8 +388,15 @@ const ProductResult = () => {
         suggestedProductPrice: data?.userProductPrice ?? 0,
       });
 
-      const userFinalSalePrice =
-        (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt;
+      const inverseDifal = difalCalc({
+        suggestedProductPrice: data?.userProductPrice ?? 0,
+        internalTaxRate,
+        interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
+      });
+
+      const userFinalSalePrice = !isCostumerTaxPayer
+        ? (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt
+        : (data?.userProductPrice ?? 0) + inverseDifal;
 
       const inverseTaxes = taxCalc({
         suggestedProductPrice: data?.userProductPrice ?? 0,
@@ -415,6 +420,7 @@ const ProductResult = () => {
       return {
         realProfitInverse,
         realProfitInverseIcmsSt,
+        inverseDifal,
         realProfitInverseIrpjCsllCalc,
         userRealNetProfit,
         inverseProfitability,
@@ -501,8 +507,15 @@ const ProductResult = () => {
         suggestedProductPrice: data?.userProductPrice ?? 0,
       });
 
-      const userFinalSalePrice =
-        (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt;
+      const inverseDifal = difalCalc({
+        suggestedProductPrice: data?.userProductPrice ?? 0,
+        internalTaxRate,
+        interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
+      });
+
+      const userFinalSalePrice = !isCostumerTaxPayer
+        ? (data?.userProductPrice ?? 0) + realProfitInverseIcmsSt
+        : (data?.userProductPrice ?? 0) + inverseDifal;
 
       const inverseTaxes = taxCalc({
         suggestedProductPrice: data?.userProductPrice ?? 0,
@@ -526,6 +539,7 @@ const ProductResult = () => {
       return {
         realProfitInverse,
         realProfitInverseIcmsSt,
+        inverseDifal,
         realProfitInverseIrpjCsllCalc: presumedProfitIrpjCsll,
         userRealNetProfit: userPresumedNetProfit,
         inverseProfitability,
@@ -544,6 +558,7 @@ const ProductResult = () => {
       return {
         realProfitInverse: undefined,
         realProfitInverseIcmsSt: undefined,
+        inverseDifal: undefined,
         realProfitInverseIrpjCsllCalc: undefined,
         userRealNetProfit: undefined,
         inverseProfitability: undefined,
@@ -590,9 +605,11 @@ const ProductResult = () => {
       secondValue: inverseCalculations?.inverseTaxes,
     },
     {
-      title: "ICMS ST",
-      value: icmsSt,
-      secondValue: inverseCalculations?.realProfitInverseIcmsSt,
+      title: isCostumerTaxPayer ? "DIFAL" : "ICMS ST",
+      value: isCostumerTaxPayer ? difal : icmsSt,
+      secondValue: isCostumerTaxPayer
+        ? inverseCalculations?.inverseDifal
+        : inverseCalculations?.realProfitInverseIcmsSt,
     },
     {
       title: "DAS",
