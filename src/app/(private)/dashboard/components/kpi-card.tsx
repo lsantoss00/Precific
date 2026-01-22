@@ -43,7 +43,7 @@ const KpiCard = ({
       <Column className="justify-between h-full gap-2">
         <Row className="items-center gap-2">
           {icon}
-          <span className="text-sm max-w-25 2xl:max-w-none text-muted-foreground">
+          <span className="text-sm max-w-25 2xl:max-w-none text-muted-foreground text-nowrap">
             {title}
           </span>
         </Row>

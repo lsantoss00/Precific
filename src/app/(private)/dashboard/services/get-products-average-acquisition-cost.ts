@@ -1,21 +1,21 @@
 import { createClient } from "@/src/libs/supabase/client";
 import { camelize } from "humps";
 
-interface GetProductsMarkupProps {
+interface GetProductsAverageAcquisitionCostProps {
   fromDate?: Date;
   toDate?: Date;
   productIds?: string[];
 }
 
-export async function getProductsAveragePrice({
+export async function getProductsAverageAcquisitionCost({
   fromDate,
   toDate,
   productIds,
-}: GetProductsMarkupProps): Promise<number> {
+}: GetProductsAverageAcquisitionCostProps): Promise<number> {
   const supabase = createClient();
 
   const { data: averagePrice, error } = await supabase.rpc(
-    "get_products_average_price",
+    "get_products_average_acquisition_cost",
     {
       from_date: fromDate,
       to_date: toDate,
@@ -26,7 +26,7 @@ export async function getProductsAveragePrice({
   const data = camelize(averagePrice);
 
   if (error) {
-    throw new Error("Erro ao buscar preço médio dos produtos");
+    throw new Error("Erro ao buscar custo médio dos produtos");
   }
 
   return data;
