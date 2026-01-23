@@ -14,7 +14,7 @@ export default async function PrivateLayout({
       <AppSidebar />
       <SidebarInset className="flex flex-col min-h-screen">
         <AppHeader />
-        <div className="flex h-full w-full justify-center pb-28 2xl:pb-0">
+        <div className="flex h-full w-full justify-center pb-24 2xl:pb-0">
           {children}
         </div>
       </SidebarInset>
