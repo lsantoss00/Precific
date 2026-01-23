@@ -15,7 +15,7 @@ const ProductsAverageNetProfitKpiCard = ({
   type = "unfiltered",
   filters,
 }: ProductsAverageNetProfitKpiCardProps) => {
-  const { data: averageAcquisitionCost } = useQuery({
+  const { data: averageNetProfit } = useQuery({
     queryKey: [
       "products-average-net-profit",
       filters?.fromDate,
@@ -35,7 +35,7 @@ const ProductsAverageNetProfitKpiCard = ({
       <KpiCard
         title="Lucro Líquido Médio"
         icon={<Tag className="text-muted-foreground h-4 w-4" />}
-        value={averageAcquisitionCost ?? 0}
+        value={averageNetProfit ?? 0}
         type="currency"
       />
       <Show
