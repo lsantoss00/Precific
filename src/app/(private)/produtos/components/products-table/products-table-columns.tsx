@@ -159,7 +159,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       const product = row.original;
       const { isPremium } = useAuth();
 
-      const cannotPriceProduct = !isPremium && (product?.price_today ?? 0) > 0;
+      const cannotPriceProduct = !isPremium && (product?.priceToday ?? 0) > 0;
 
       const isDisabled =
         meta?.pendingUpdateProductStatus ||
