@@ -29,6 +29,9 @@ export function AppHeader() {
     onSuccess: () => router.push("/entrar"),
   });
 
+  const hasProfilePicture =
+    profile?.profile_picture_url && profile.profile_picture_url.trim() !== "";
+
   return (
     <header className="bg-[#fafafa] sticky top-0 z-50 border-b xl:hidden">
       <div className="h-[env(safe-area-inset-top)]" aria-hidden="true" />
@@ -50,10 +53,7 @@ export function AppHeader() {
                 fallback={<Skeleton className="w-8 h-8 rounded-md" />}
               >
                 <Show
-                  when={
-                    Boolean(profile?.profile_picture_url) ||
-                    profile?.profile_picture_url !== ""
-                  }
+                  when={hasProfilePicture}
                   fallback={
                     <User
                       className="text-primary border-2 border-primary rounded-md w-8 h-8 p-1"
@@ -68,7 +68,6 @@ export function AppHeader() {
                       fill
                       sizes="32px"
                       className="object-cover"
-                      unoptimized
                     />
                   </div>
                 </Show>

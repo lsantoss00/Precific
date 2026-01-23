@@ -2,8 +2,9 @@
 
 import logoImage from "@/public/images/precific-logo-image.webp";
 import shortLogoImage from "@/public/images/precific-short-logo-image.webp";
+import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import Menu from "@/src/components/menu";
-import { Headset, LayoutDashboard, Package } from "lucide-react";
+import { Clock, Headset, LayoutDashboard, Package } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -39,7 +40,7 @@ export function AppSidebar() {
             >
               <Image
                 src={shortLogoImage}
-                alt="Logo do Precific"
+                alt="Precific | Plataforma de Precificação Inteligente"
                 width={48}
                 height={48}
                 priority
@@ -49,7 +50,7 @@ export function AppSidebar() {
               />
               <Image
                 src={logoImage}
-                alt="Logo do Precific"
+                alt="Precific | Plataforma de Precificação Inteligente"
                 width={200}
                 height={40}
                 priority
@@ -72,7 +73,7 @@ export function AppSidebar() {
                       asChild={!item.disabled}
                       isActive={isActive}
                       disabled={item.disabled}
-                      className="flex"
+                      className="flex relative"
                       aria-current={isActive ? "page" : undefined}
                     >
                       {item.disabled ? (
@@ -81,12 +82,26 @@ export function AppSidebar() {
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
                           )}
+                          {!isCollapsed && item.soon && <ComingSoonBadge />}
+                          {isCollapsed && item.soon && (
+                            <Clock
+                              className="w-4! h-4! absolute bg-black rounded-full text-white right-2 bottom-2"
+                              aria-label="Em breve"
+                            />
+                          )}
                         </>
                       ) : (
                         <Link href={item.url}>
                           <item.icon className="w-5! h-5!" aria-hidden="true" />
                           {!isCollapsed && (
                             <span className="font-medium">{item.title}</span>
+                          )}
+                          {!isCollapsed && item.soon && <ComingSoonBadge />}
+                          {isCollapsed && item.soon && (
+                            <Clock
+                              className="w-4! h-4! absolute bg-black rounded-full text-white right-2 bottom-2"
+                              aria-label="Em breve"
+                            />
                           )}
                         </Link>
                       )}
@@ -156,12 +171,14 @@ const mainItems = [
     url: "/dashboard",
     icon: LayoutDashboard,
     disabled: false,
+    soon: true,
   },
   {
     title: "Produtos",
     url: "/produtos",
     icon: Package,
     disabled: false,
+    soon: false,
   },
 ];
 
@@ -171,5 +188,6 @@ const secondaryItems = [
     url: "/suporte",
     icon: Headset,
     disabled: false,
+    soon: false,
   },
 ];
