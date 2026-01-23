@@ -5,12 +5,14 @@ import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
+import Show from "@/src/components/core/show";
 import ExportDataButton from "@/src/components/export-data-button";
 import MultipleImportDialog from "@/src/components/multiple-import-dialog";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useDebounce } from "@/src/hooks/use-debounce";
+import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
-import { Package, PlusCircle, Upload } from "lucide-react";
+import { PlusCircle, TriangleAlert, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Papa from "papaparse";
@@ -18,6 +20,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ProductsHeaderSection = () => {
+  const { isPremium } = useAuth();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(
@@ -89,10 +93,19 @@ const ProductsHeaderSection = () => {
 
   return (
     <Column as="header" className="space-y-3 w-full">
-      <Row className="items-center gap-2">
-        <Package size={26} />
+      <Flex className="md:items-center gap-2 justify-between flex-col-reverse md:flex-row">
         <h1 className="text-3xl font-semibold">Produtos</h1>
-      </Row>
+        <Show when={!isPremium}>
+          <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 items-center">
+            <TriangleAlert className="text-secondary shrink-0" />
+            <span className="text-sm">
+              No <strong className="font-semibold">Plano Gratuito</strong> não é
+              possível editar ou excluir produtos e o limite de precificação é
+              de 10 produtos.
+            </span>
+          </Flex>
+        </Show>
+      </Flex>
       <Flex className="flex-col lg:flex-row justify-between lg:items-center w-full gap-4">
         <div className="w-full lg:max-w-120">
           <Label htmlFor="search-products" className="sr-only">

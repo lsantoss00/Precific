@@ -6,7 +6,7 @@ interface IcmsStCalcProps {
   mva: number;
   salesIcmsInput: number;
   stateDestination?: string;
-  hasIcmsSt: boolean;
+  isInterstate: boolean;
 }
 
 export function icmsStCalc({
@@ -14,7 +14,7 @@ export function icmsStCalc({
   mva,
   salesIcmsInput,
   stateDestination,
-  hasIcmsSt,
+  isInterstate,
 }: IcmsStCalcProps) {
   const base = suggestedProductPrice + (suggestedProductPrice * mva) / 100;
 
@@ -23,7 +23,7 @@ export function icmsStCalc({
     percentage: salesIcmsInput,
   });
 
-  const icmsStAliquot = hasIcmsSt
+  const icmsStAliquot = isInterstate
     ? getICMSRate(stateDestination!, stateDestination!)
     : salesIcmsInput;
 
