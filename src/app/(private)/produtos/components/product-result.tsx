@@ -691,6 +691,8 @@ const ProductResult = () => {
       priceIn2026: finalSalePrice,
       acquisitionCost,
       markup,
+      profitability,
+      netProfit,
     };
 
     if (isEditMode && productId) {
