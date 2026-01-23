@@ -97,6 +97,8 @@ const ProductResult = () => {
   const isSimpleNational = company?.tax_regime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.has_icms_st === true;
+  const isInterstate = data?.interstate_sale === true;
+  const isCostumerTaxPayer = data?.costumer_taxpayer === true;
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: unitPrice ?? 0,
@@ -162,7 +164,7 @@ const ProductResult = () => {
     suggestedProductPrice,
     salesIcmsInput: data?.sales_icms,
     stateDestination: data?.state_destination,
-    hasIcmsSt,
+    isInterstate,
   });
 
   const fixedCosts = percentageValueCalc({
@@ -209,6 +211,26 @@ const ProductResult = () => {
 
   const presumedProfitIrpjCsll = irpj + csll;
 
+  const companyState = company?.state;
+  const stateDestination = data?.state_destination;
+  const isImportedProduct = data?.imported_product === true;
+
+  const internalTaxRate = companyState
+    ? getICMSRate(stateDestination!, stateDestination!)
+    : 0;
+
+  const interstateTaxRate = stateDestination
+    ? getICMSRate(companyState!, stateDestination)
+    : 0;
+
+  const difal = difalCalc({
+    suggestedProductPrice,
+    internalTaxRate,
+    interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
+  });
+
+  const conditionalDifal = isCostumerTaxPayer ? difal : 0;
+
   // IRPJ + CSLL LUCRO REAL =======================
   const baseIrpjCsll =
     suggestedProductPrice -
@@ -218,7 +240,8 @@ const ProductResult = () => {
     salesPisCofinsValue -
     shipping -
     othersCosts -
-    conditionalIcmsSt;
+    conditionalIcmsSt -
+    conditionalDifal;
 
   const realProfitIrpjCsllCalc =
     baseIrpjCsll < 0
@@ -274,25 +297,12 @@ const ProductResult = () => {
     });
   })();
 
-  const companyState = company?.state;
-  const stateDestination = data?.state_destination;
-  const isImportedProduct = data?.imported_product === true;
-
-  const internalTaxRate = companyState
-    ? getICMSRate(stateDestination!, stateDestination!)
-    : 0;
-
-  const interstateTaxRate = stateDestination
-    ? getICMSRate(companyState!, stateDestination)
-    : 0;
-
   const suggestedProductPriceWithDifal = difalCalc({
     suggestedProductPrice,
     internalTaxRate,
     interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
   });
 
-  const isCostumerTaxPayer = data?.costumer_taxpayer === true;
   const finalSalePrice = !isCostumerTaxPayer
     ? suggestedProductPrice + conditionalIcmsSt
     : suggestedProductPrice + suggestedProductPriceWithDifal;
@@ -328,7 +338,7 @@ const ProductResult = () => {
         suggestedProductPrice: data.user_product_price!,
         salesIcmsInput: data?.sales_icms,
         stateDestination: data?.state_destination,
-        hasIcmsSt,
+        isInterstate,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
@@ -442,7 +452,7 @@ const ProductResult = () => {
         suggestedProductPrice: data.user_product_price!,
         salesIcmsInput: data?.sales_icms,
         stateDestination: data?.state_destination,
-        hasIcmsSt,
+        isInterstate,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
@@ -608,8 +618,8 @@ const ProductResult = () => {
         companyRegime === "presumed_profit"
           ? presumedProfitIrpjCsll
           : companyRegime === "real_profit"
-          ? realProfitIrpjCsllCalc
-          : 0,
+            ? realProfitIrpjCsllCalc
+            : 0,
       secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
       condition: !isSimpleNational,
     },
@@ -721,7 +731,7 @@ const ProductResult = () => {
                 {metrics2025
                   .filter(
                     (metric) =>
-                      metric.condition === undefined || metric.condition
+                      metric.condition === undefined || metric.condition,
                   )
                   .map((metric, index) => (
                     <div
