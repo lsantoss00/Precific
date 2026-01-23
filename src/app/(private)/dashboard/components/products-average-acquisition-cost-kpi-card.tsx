@@ -4,7 +4,7 @@ import { getProductsAverageAcquisitionCost } from "@/src/app/(private)/dashboard
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
-import { Tag } from "lucide-react";
+import { BanknoteArrowDown } from "lucide-react";
 
 interface ProductsAverageAcquisitionCostKpiCardProps {
   filters?: ChartFiltersType;
@@ -34,7 +34,7 @@ const ProductsAverageAcquisitionCostKpiCard = ({
     <div className="relative">
       <KpiCard
         title="Custo Médio"
-        icon={<Tag className="text-muted-foreground h-4 w-4" />}
+        icon={<BanknoteArrowDown className="text-muted-foreground h-4 w-4" />}
         value={averageAcquisitionCost ?? 0}
         type="currency"
       />

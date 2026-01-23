@@ -4,7 +4,7 @@ import { getProductsAverageProfitability } from "@/src/app/(private)/dashboard/s
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
-import { Tag } from "lucide-react";
+import { BadgePercent } from "lucide-react";
 
 interface ProductsAverageProfitabilityKpiCardProps {
   filters?: ChartFiltersType;
@@ -34,7 +34,7 @@ const ProductsAverageProfitabilityKpiCard = ({
     <div className="relative">
       <KpiCard
         title="Rentabilidade Média"
-        icon={<Tag className="text-muted-foreground h-4 w-4" />}
+        icon={<BadgePercent className="text-muted-foreground h-4 w-4" />}
         value={averageProfitability ?? 0}
         type="percentage"
       />

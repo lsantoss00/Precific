@@ -4,7 +4,7 @@ import { getProductsAverageNetProfit } from "@/src/app/(private)/dashboard/servi
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
-import { Tag } from "lucide-react";
+import { HandCoins } from "lucide-react";
 
 interface ProductsAverageNetProfitKpiCardProps {
   filters?: ChartFiltersType;
@@ -34,7 +34,7 @@ const ProductsAverageNetProfitKpiCard = ({
     <div className="relative">
       <KpiCard
         title="Lucro Líquido Médio"
-        icon={<Tag className="text-muted-foreground h-4 w-4" />}
+        icon={<HandCoins className="text-muted-foreground h-4 w-4" />}
         value={averageNetProfit ?? 0}
         type="currency"
       />
