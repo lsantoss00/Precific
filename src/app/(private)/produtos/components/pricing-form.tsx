@@ -1,7 +1,7 @@
 "use client";
 
-import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-form-context";
+import { getICMSRate } from "@/src/app/(private)/produtos/utils/icms-table";
 import { Card, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
@@ -20,33 +20,33 @@ const PricingForm = () => {
     formState: { errors },
   } = form;
 
-  const isRealProfit = company?.tax_regime === "real_profit";
-  const isPresumedProfit = company?.tax_regime === "presumed_profit";
-  const isSimpleNational = company?.tax_regime === "simple_national";
+  const isRealProfit = company?.taxRegime === "real_profit";
+  const isPresumedProfit = company?.taxRegime === "presumed_profit";
+  const isSimpleNational = company?.taxRegime === "simple_national";
 
-  const icmsSt = form.watch("icms_st") ?? 0;
+  const icmsSt = form.watch("icmsSt") ?? 0;
 
-  const isImportedProduct = form.watch("imported_product");
-  const isInterstateSale = form.watch("interstate_sale");
-  const stateDestination = form.watch("state_destination");
-  const hasIcmsSt = form.watch("has_icms_st");
+  const isImportedProduct = form.watch("importedProduct");
+  const isInterstateSale = form.watch("interstateSale");
+  const stateDestination = form.watch("stateDestination");
+  const hasIcmsSt = form.watch("hasIcmsSt");
 
-  const isSixthRevenueRange = company?.revenue_range === "range_6";
+  const isSixthRevenueRange = company?.revenueRange === "range_6";
 
   useEffect(() => {
     if (icmsSt > 0) {
-      form.setValue("sales_icms", 0);
+      form.setValue("salesIcms", 0);
       return;
     }
 
     if (isImportedProduct) {
-      form.setValue("sales_icms", 4);
+      form.setValue("salesIcms", 4);
       return;
     }
 
     if (isInterstateSale && stateDestination && company?.state) {
       const icmsRate = getICMSRate(company.state, stateDestination);
-      form.setValue("sales_icms", icmsRate);
+      form.setValue("salesIcms", icmsRate);
       return;
     }
   }, [
@@ -57,16 +57,23 @@ const PricingForm = () => {
     company?.state,
     form,
   ]);
+
+  useEffect(() => {
+    if (!hasIcmsSt) {
+      form.setValue("mva", 0);
+    }
+  }, [hasIcmsSt, form]);
+
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
       <h3 className="text-lg">Precificação</h3>
       <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-4">
         <Column className="space-y-2">
-          <Label htmlFor="fixed_costs">Custos Fixos (%)</Label>
+          <Label htmlFor="fixedCosts">Custos Fixos (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="fixed_costs"
+                name="fixedCosts"
                 control={control}
                 rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -74,7 +81,7 @@ const PricingForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="fixed_costs"
+                    id="fixedCosts"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -92,27 +99,27 @@ const PricingForm = () => {
                       }
                       field.onBlur();
                     }}
-                    error={errors.fixed_costs?.message}
+                    error={errors.fixedCosts?.message}
                   />
                 )}
               />
               <CustomTooltip message="Custos Insira o percentual dos custos fixos da sua empresa (ex: aluguel, salários, internet) que deve ser atribuído a este produto." />
             </Row>
-            <Show when={errors.fixed_costs?.message}>
+            <Show when={errors.fixedCosts?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.fixed_costs?.message}
+                {errors.fixedCosts?.message}
               </span>
             </Show>
           </Column>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="sales_icms" required>
+          <Label htmlFor="salesIcms" required>
             ICMS Venda (%)
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="sales_icms"
+                name="salesIcms"
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
@@ -121,7 +128,7 @@ const PricingForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="sales_icms"
+                    id="salesIcms"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -132,7 +139,7 @@ const PricingForm = () => {
                       const value = e.target.value;
                       field.onChange(value === "" ? "" : Number(value));
                     }}
-                    error={errors.sales_icms?.message}
+                    error={errors.salesIcms?.message}
                     disabled={
                       icmsSt > 0 ||
                       isImportedProduct ||
@@ -147,21 +154,21 @@ const PricingForm = () => {
                                         A alíquota pode variar conforme o estado de destino e o regime tributário da sua empresa."
               />
             </Row>
-            <Show when={errors.sales_icms?.message}>
+            <Show when={errors.salesIcms?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.sales_icms?.message}
+                {errors.salesIcms?.message}
               </span>
             </Show>
           </Column>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="sales_pis_cofins" required>
+          <Label htmlFor="salesPisCofins" required>
             PIS/COFINS Venda (%)
           </Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="sales_pis_cofins"
+                name="salesPisCofins"
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
@@ -170,7 +177,7 @@ const PricingForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="sales_pis_cofins"
+                    id="salesPisCofins"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -181,7 +188,7 @@ const PricingForm = () => {
                       const value = e.target.value;
                       field.onChange(value === "" ? "" : Number(value));
                     }}
-                    error={errors.sales_pis_cofins?.message}
+                    error={errors.salesPisCofins?.message}
                     disabled={isSimpleNational}
                   />
                 )}
@@ -191,22 +198,22 @@ const PricingForm = () => {
                                           O valor varia conforme o regime tributário da sua empresa."
               />
             </Row>
-            <Show when={errors.sales_pis_cofins?.message}>
+            <Show when={errors.salesPisCofins?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.sales_pis_cofins?.message}
+                {errors.salesPisCofins?.message}
               </span>
             </Show>
           </Column>
         </Column>
         <Show when={isRealProfit}>
           <Column className="space-y-2">
-            <Label htmlFor="irpj_percent" required>
+            <Label htmlFor="irpjPercent" required>
               IRPJ/CSLL (%)
             </Label>
             <Column className="gap-2">
               <Row className="items-center gap-2">
                 <Controller
-                  name="irpj_percent"
+                  name="irpjPercent"
                   control={control}
                   rules={{
                     required: "Campo obrigatório",
@@ -214,22 +221,22 @@ const PricingForm = () => {
                   render={({ field: { value, onChange } }) => (
                     <SelectInput
                       triggerProps={{
-                        id: "irpj_percent",
+                        id: "irpjPercent",
                       }}
                       placeholder="Selecione o percentual do IRPJ"
                       options={realProfitIrpjPercentOptions}
                       value={value!}
                       onChange={(value) => onChange(Number(value))}
-                      className={`${errors.irpj_percent && "border-red-600"}`}
+                      className={`${errors.irpjPercent && "border-red-600"}`}
                     />
                   )}
                 />
                 {/* TO-DO: Atualizar a mensagem desse tooltip */}
                 <CustomTooltip message="Selecione o percentual do IRPJ aplicado para este produto." />
               </Row>
-              <Show when={errors.irpj_percent?.message}>
+              <Show when={errors.irpjPercent?.message}>
                 <span className="text-xs text-red-500 -mt-1">
-                  {errors.irpj_percent?.message}
+                  {errors.irpjPercent?.message}
                 </span>
               </Show>
             </Column>
@@ -237,13 +244,13 @@ const PricingForm = () => {
         </Show>
         <Show when={isPresumedProfit}>
           <Column className="space-y-2">
-            <Label htmlFor="irpj_percent" required>
+            <Label htmlFor="irpjPercent" required>
               IRPJ/CSLL (%)
             </Label>
             <Column className="gap-2">
               <Row className="items-center gap-2">
                 <Controller
-                  name="irpj_percent"
+                  name="irpjPercent"
                   control={control}
                   rules={{
                     required: "Campo obrigatório",
@@ -251,22 +258,22 @@ const PricingForm = () => {
                   render={({ field: { value, onChange } }) => (
                     <SelectInput
                       triggerProps={{
-                        id: "irpj_percent",
+                        id: "irpjPercent",
                       }}
                       placeholder="Selecione o percentual do IRPJ"
                       options={presumedProfitIrpjPercentOptions}
                       value={value!}
                       onChange={(value) => onChange(Number(value))}
-                      className={`${errors.irpj_percent && "border-red-600"}`}
+                      className={`${errors.irpjPercent && "border-red-600"}`}
                     />
                   )}
                 />
                 {/* TO-DO: Atualizar a mensagem desse tooltip */}
                 <CustomTooltip message="Selecione o percentual do IRPJ aplicado para este produto." />
               </Row>
-              <Show when={errors.irpj_percent?.message}>
+              <Show when={errors.irpjPercent?.message}>
                 <span className="text-xs text-red-500 -mt-1">
-                  {errors.irpj_percent?.message}
+                  {errors.irpjPercent?.message}
                 </span>
               </Show>
             </Column>
@@ -350,11 +357,11 @@ const PricingForm = () => {
           </Column>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="other_costs">Outros Custos (%)</Label>
+          <Label htmlFor="otherCosts">Outros Custos (%)</Label>
           <Column className="gap-2">
             <Row className="items-center gap-2">
               <Controller
-                name="other_costs"
+                name="otherCosts"
                 control={control}
                 rules={{
                   min: { value: 0, message: "Valor mínimo é 0" },
@@ -362,7 +369,7 @@ const PricingForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    id="other_costs"
+                    id="otherCosts"
                     type="number"
                     placeholder="0,00%"
                     min="0"
@@ -373,15 +380,15 @@ const PricingForm = () => {
                       const value = e.target.value;
                       field.onChange(value === "" ? "" : Number(value));
                     }}
-                    error={errors.other_costs?.message}
+                    error={errors.otherCosts?.message}
                   />
                 )}
               />
               <CustomTooltip message="Adicione outros custos variáveis ligados à venda, como taxas de marketplace ou custos com embalagem." />
             </Row>
-            <Show when={errors.other_costs?.message}>
+            <Show when={errors.otherCosts?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.other_costs?.message}
+                {errors.otherCosts?.message}
               </span>
             </Show>
           </Column>

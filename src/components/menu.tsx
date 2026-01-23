@@ -36,7 +36,7 @@ const Menu = () => {
 
   const firstName = profile?.username?.split(" ")[0] || "";
   const hasProfilePicture =
-    profile?.profile_picture_url && profile.profile_picture_url.trim() !== "";
+    profile?.profilePictureUrl && profile.profilePictureUrl.trim() !== "";
 
   return (
     <DropdownMenu modal={false}>
@@ -59,7 +59,7 @@ const Menu = () => {
             >
               <div className="relative w-8 h-8 shrink-0 border-2 border-primary rounded-md overflow-hidden">
                 <Image
-                  src={profile?.profile_picture_url!}
+                  src={profile?.profilePictureUrl!}
                   alt="Foto de perfil"
                   fill
                   sizes="32px"

@@ -15,7 +15,7 @@ const AtlasLinkBalloon = () => {
   const whatsAppLink = `https://wa.me/${whatsAppNumber}?text=${whatsAppMessage}`;
 
   return (
-    <Row className="fixed bottom-18 right-5 flex items-center gap-3 z-50">
+    <Row className="fixed bottom-16 right-2 flex items-center gap-3 z-50">
       <Card
         className={`px-4 py-2 duration-300 whitespace-nowrap pointer-events-none ${
           isHovered ? "block" : "hidden"
@@ -24,7 +24,7 @@ const AtlasLinkBalloon = () => {
         <span className="text-sm font-medium">Conheça o Atlas Tributário</span>
       </Card>
       <a
-        className="bg-zinc-800 h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transition-shadow"
+        className="bg-zinc-800 h-12 w-12 flex items-center justify-center rounded-full shadow-lg hover:shadow-xl hover:bg-zinc-700 duration-300 transition-colors"
         href={whatsAppLink}
         target="_blank"
         rel="noopener noreferrer"

@@ -12,6 +12,7 @@ import {
   Bar,
   CartesianGrid,
   BarChart as ReBarChart,
+  TooltipProps,
   XAxis,
   YAxis,
 } from "recharts";
@@ -32,6 +33,9 @@ interface BarChartProps {
   };
   barRadius?: number;
   className?: string;
+  tooltip?:
+    | React.ReactElement
+    | ((props: TooltipProps<number, string>) => React.ReactNode);
 }
 
 const BarChart = ({
@@ -45,13 +49,14 @@ const BarChart = ({
   margin,
   barRadius = 8,
   className = "",
+  tooltip,
 }: BarChartProps) => {
   const keys =
     barKeys && barKeys.length > 0
       ? barKeys
       : barKey
-      ? [barKey]
-      : Object.keys(config);
+        ? [barKey]
+        : Object.keys(config);
 
   const isHorizontal = layout === "horizontal";
 
@@ -76,7 +81,7 @@ const BarChart = ({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value: string) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 5)}
             />
           </>
         ) : (
@@ -86,7 +91,7 @@ const BarChart = ({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value: string) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 5)}
             />
             <YAxis
               dataKey={yAxisKey}
@@ -103,7 +108,7 @@ const BarChart = ({
         )}
         <ChartTooltip
           cursor={false}
-          content={<ChartTooltipContent hideLabel />}
+          content={tooltip || <ChartTooltipContent hideLabel />}
         />
         {keys.map((key) => (
           <Bar

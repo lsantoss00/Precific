@@ -1,4 +1,4 @@
-import { openingHours } from "@/src/app/(private)/suporte/constants/opening-hours";
+import { openingHours } from "@/src/app/(private)/suporte/utils/opening-hours";
 
 type ScheduleStatusType = "open" | "closing" | "closed" | null;
 

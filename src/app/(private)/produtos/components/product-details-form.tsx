@@ -22,10 +22,14 @@ const ProductDetailsForm = () => {
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
-      if (name === "interstate_sale" && !value.interstate_sale) {
-        form.setValue("imported_product", false);
-        form.setValue("costumer_taxpayer", false);
-        form.setValue("state_destination", undefined);
+      if (name === "interstateSale" && !value.interstateSale) {
+        form.setValue("importedProduct", false);
+        form.setValue("costumerTaxpayer", false);
+        form.setValue("stateDestination", undefined);
+      }
+
+      if (name === "hasIcmsSt" && value.hasIcmsSt) {
+        form.setValue("costumerTaxpayer", false);
       }
     });
     return () => subscription.unsubscribe();
@@ -97,35 +101,35 @@ const ProductDetailsForm = () => {
         </Column>
         <Row className="gap-2 items-center">
           <Controller
-            name="has_user_product_price"
+            name="hasUserProductPrice"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="has_user_product_price"
+                id="hasUserProductPrice"
                 checked={Boolean(value)}
                 onCheckedChange={onChange}
               />
             )}
           />
-          <Label htmlFor="has_user_product_price" className="cursor-pointer">
+          <Label htmlFor="hasUserProductPrice" className="cursor-pointer">
             O seu produto já possui um valor de venda?
           </Label>
         </Row>
-        <Show when={Boolean(form.watch("has_user_product_price"))}>
+        <Show when={Boolean(form.watch("hasUserProductPrice"))}>
           <Column className="gap-2">
-            <Label htmlFor="user_product_price" required>
+            <Label htmlFor="userProductPrice" required>
               Valor (R$)
             </Label>
             <Row className="items-center gap-2">
               <Controller
-                name="user_product_price"
+                name="userProductPrice"
                 control={control}
                 render={({ field }) => {
                   const numericValue = field.value ?? 0;
 
                   return (
                     <Input
-                      id="user_product_price"
+                      id="userProductPrice"
                       placeholder="R$ 0,00"
                       type="numeric"
                       value={currencyFormatter(numericValue * 100)}
@@ -140,56 +144,56 @@ const ProductDetailsForm = () => {
                 }}
               />
             </Row>
-            <Show when={errors.user_product_price?.message}>
+            <Show when={errors.userProductPrice?.message}>
               <span className="text-xs text-red-500 -mt-1">
-                {errors.user_product_price?.message}
+                {errors.userProductPrice?.message}
               </span>
             </Show>
           </Column>
         </Show>
         <Row className="gap-2 items-center">
           <Controller
-            name="has_icms_st"
+            name="hasIcmsSt"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="has_icms_st"
+                id="hasIcmsSt"
                 checked={value}
                 onCheckedChange={onChange}
               />
             )}
           />
-          <Label htmlFor="has_icms_st" className="cursor-pointer">
+          <Label htmlFor="hasIcmsSt" className="cursor-pointer">
             A venda incide ICMS ST?
           </Label>
         </Row>
         <Row className="gap-2 items-center">
           <Controller
-            name="interstate_sale"
+            name="interstateSale"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="interstate_sale"
+                id="interstateSale"
                 checked={value}
                 onCheckedChange={onChange}
               />
             )}
           />
-          <Label htmlFor="interstate_sale" className="cursor-pointer">
+          <Label htmlFor="interstateSale" className="cursor-pointer">
             A venda é interestadual?
           </Label>
         </Row>
-        <Show when={form.watch("interstate_sale")}>
+        <Show when={form.watch("interstateSale")}>
           <Controller
-            name="state_destination"
+            name="stateDestination"
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <Column className="space-y-2">
-                <Label htmlFor="state_destination" required>
+                <Label htmlFor="stateDestination" required>
                   Estado de destino
                 </Label>
                 <SelectStateInput
-                  id="state_destination"
+                  id="stateDestination"
                   value={value || ""}
                   placeholder="Selecione o estado de destino"
                   onChange={onChange}
@@ -206,42 +210,42 @@ const ProductDetailsForm = () => {
         </Show>
         <Row className="gap-2 items-center">
           <Controller
-            name="imported_product"
+            name="importedProduct"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="imported_product"
+                id="importedProduct"
                 checked={value}
                 onCheckedChange={onChange}
                 disabled={
-                  !form.watch("interstate_sale") ||
-                  !form.watch("state_destination")
+                  !form.watch("interstateSale") ||
+                  !form.watch("stateDestination")
                 }
               />
             )}
           />
-          <Label htmlFor="imported_product" className="cursor-pointer">
+          <Label htmlFor="importedProduct" className="cursor-pointer">
             A venda é de um produto importado?
           </Label>
         </Row>
         <Row className="gap-2 items-center">
           <Controller
-            name="costumer_taxpayer"
+            name="costumerTaxpayer"
             control={control}
             render={({ field: { onChange, value } }) => (
               <Checkbox
-                id="costumer_taxpayer"
+                id="costumerTaxpayer"
                 checked={value}
                 onCheckedChange={onChange}
                 disabled={
-                  !form.watch("interstate_sale") ||
-                  !form.watch("state_destination") ||
-                  form.watch("has_icms_st")
+                  !form.watch("interstateSale") ||
+                  !form.watch("stateDestination") ||
+                  form.watch("hasIcmsSt")
                 }
               />
             )}
           />
-          <Label htmlFor="costumer_taxpayer" className="cursor-pointer">
+          <Label htmlFor="costumerTaxpayer" className="cursor-pointer">
             A venda é para um consumidor final que NÃO é contribuinte do ICMS?
           </Label>
         </Row>

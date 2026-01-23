@@ -12,7 +12,7 @@ interface PresumedProfitCalcProps {
 }
 
 export function presumedProfitCalc({
-  suggestedProductPrice, // TO-DO: GENERICO
+  suggestedProductPrice,
   acquisitionCost,
   icms,
   fixedCosts,
@@ -23,11 +23,12 @@ export function presumedProfitCalc({
   irpjCsll,
 }: PresumedProfitCalcProps): number {
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
+  const icmsRecFinal = icmsRec < 0 ? 0 : icmsRec;
 
   const result =
     suggestedProductPrice -
     (fixedCosts +
-      icmsRec +
+      icmsRecFinal +
       salesPisCofins +
       shipping +
       othersCosts +

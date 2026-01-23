@@ -1,5 +1,9 @@
 import { createClient } from "@/src/libs/supabase/client";
-import { ProductHistoryType, ProductRequestType } from "../types/product-type";
+import { camelizeKeys } from "humps";
+import {
+  ProductHistoryTableType,
+  ProductRequestType,
+} from "../types/product-type";
 
 interface GetProductPriceHistoryProps {
   productId: ProductRequestType["id"];
@@ -7,7 +11,7 @@ interface GetProductPriceHistoryProps {
 
 export async function getProductPriceHistory({
   productId,
-}: GetProductPriceHistoryProps): Promise<ProductHistoryType[]> {
+}: GetProductPriceHistoryProps): Promise<ProductHistoryTableType[]> {
   const supabase = createClient();
 
   const {
@@ -16,13 +20,15 @@ export async function getProductPriceHistory({
 
   if (!session) throw new Error("Usuário não autenticado");
 
-  const { data, error } = await supabase
+  const { data: products, error } = await supabase
     .from("product_price_history")
     .select("*")
     .eq("product_id", productId)
     .order("created_at", {
       ascending: false,
     });
+
+  const data = camelizeKeys(products) as ProductHistoryTableType[];
 
   if (error) throw error;
 

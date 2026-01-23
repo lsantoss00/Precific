@@ -13,6 +13,7 @@ import {
   CartesianGrid,
   Line,
   LineChart as RechartsLineChart,
+  TooltipProps,
   XAxis,
 } from "recharts";
 
@@ -20,7 +21,6 @@ interface LineChartProps {
   data: ChartDataType[];
   config: ChartConfig;
   xAxisKey?: string;
-  xAxisTickFormatterType?: "short" | "full";
   lineType?:
     | "step"
     | "basis"
@@ -45,13 +45,15 @@ interface LineChartProps {
     bottom?: number;
   };
   className?: string;
+  tooltip?:
+    | React.ReactElement
+    | ((props: TooltipProps<number, string>) => React.ReactNode);
 }
 
 const LineChart = ({
   data,
   config,
   xAxisKey,
-  xAxisTickFormatterType,
   lineType,
   strokeWidth = 2,
   margin = {
@@ -60,17 +62,11 @@ const LineChart = ({
     right: 12,
   },
   className = "",
+  tooltip,
 }: LineChartProps) => {
   const lineKeys = Object.keys(config).filter(
-    (key) => key !== xAxisKey && config[key]?.label
+    (key) => key !== xAxisKey && config[key]?.label,
   );
-
-  const formatTick = (value: string) => {
-    if (xAxisTickFormatterType === "short") {
-      return value.slice(0, 3);
-    }
-    return value;
-  };
 
   return (
     <ChartContainer
@@ -85,12 +81,14 @@ const LineChart = ({
             tickLine={false}
             axisLine={false}
             tickMargin={8}
-            tickFormatter={formatTick}
+            interval={0}
           />
         </Show>
         <ChartTooltip
           cursor={false}
-          content={<ChartTooltipContent hideLabel={lineKeys.length === 1} />}
+          content={
+            tooltip || <ChartTooltipContent hideLabel={lineKeys.length === 1} />
+          }
         />
         {lineKeys.map((key) => (
           <Line
@@ -99,7 +97,7 @@ const LineChart = ({
             type={lineType}
             stroke={`var(--color-${key})`}
             strokeWidth={strokeWidth}
-            dot={false}
+            dot={true}
           />
         ))}
       </RechartsLineChart>

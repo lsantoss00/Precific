@@ -1,5 +1,5 @@
-import { getICMSRate } from "@/src/app/(private)/produtos/constants/icms-table";
 import { percentageValueCalc } from "@/src/app/(private)/produtos/utils/calcs/percentage-value-calc";
+import { getICMSRate } from "@/src/app/(private)/produtos/utils/icms-table";
 
 interface IcmsStCalcProps {
   suggestedProductPrice: number;

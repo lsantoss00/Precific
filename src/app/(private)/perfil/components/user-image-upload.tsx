@@ -63,6 +63,7 @@ const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
       </Show>
       <input
         ref={ref}
+        id="profilePicture"
         type="file"
         accept="image/*"
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer pointer-events-none"

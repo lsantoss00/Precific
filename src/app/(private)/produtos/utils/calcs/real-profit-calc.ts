@@ -12,7 +12,7 @@ interface RealProfitCalcProps {
 }
 
 export function realProfitCalc({
-  suggestedProductPrice, // TO-DO: NOMEAR GENÉRICO
+  suggestedProductPrice,
   acquisitionCost,
   icms,
   pisCofins,
@@ -24,8 +24,10 @@ export function realProfitCalc({
   irpjCsll,
 }: RealProfitCalcProps): number {
   const icmsRec = salesIcms === 0 ? 0 : salesIcms - icms;
+  const icmsRecFinal = icmsRec < 0 ? 0 : icmsRec;
 
   const pisCofinsRec = salesPisCofins - pisCofins;
+  const pisCofinsRecFinal = pisCofinsRec < 0 ? 0 : pisCofinsRec;
 
   const result =
     suggestedProductPrice -
@@ -34,8 +36,8 @@ export function realProfitCalc({
     shipping -
     othersCosts -
     irpjCsll -
-    icmsRec -
-    pisCofinsRec;
+    icmsRecFinal -
+    pisCofinsRecFinal;
 
   return result;
 }

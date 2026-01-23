@@ -69,15 +69,15 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     },
   },
   {
-    id: "price_today",
-    accessorKey: "price_today",
+    id: "priceToday",
+    accessorKey: "priceToday",
     size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>HOJE (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("price_today"))}
+        {currencyFormatter(row.getValue<number>("priceToday") * 100)}
       </div>
     ),
     meta: {
@@ -85,15 +85,15 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     },
   },
   {
-    id: "price_in_2026",
-    accessorKey: "price_in_2026",
+    id: "priceIn2026",
+    accessorKey: "priceIn2026",
     size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>2026 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("price_in_2026"))}
+        {currencyFormatter(row.getValue<number>("priceIn2026") * 100)}
       </div>
     ),
     meta: {
@@ -101,15 +101,15 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     },
   },
   {
-    id: "price_in_2027",
-    accessorKey: "price_in_2027",
+    id: "priceIn2027",
+    accessorKey: "priceIn2027",
     size: 80,
     header: ({ column }) => (
       <SortableHeader column={column}>2027 (R$)</SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue("price_in_2027"))}
+        {currencyFormatter(row.getValue<number>("priceIn2027") * 100)}
       </div>
     ),
     meta: {
@@ -159,7 +159,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       const product = row.original;
       const { isPremium } = useAuth();
 
-      const cannotPriceProduct = !isPremium && (product?.price_today ?? 0) > 0;
+      const cannotPriceProduct = !isPremium && (product?.priceToday ?? 0) > 0;
 
       const isDisabled =
         meta?.pendingUpdateProductStatus ||

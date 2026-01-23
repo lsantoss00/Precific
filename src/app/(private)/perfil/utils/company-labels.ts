@@ -1,7 +1,6 @@
 import {
   RevenueRangeType,
   SectorType,
-  TaxRegimeType,
 } from "@/src/app/(private)/perfil/types/company-type";
 
 export const SECTOR_LABELS: Record<SectorType, string> = {
@@ -9,7 +8,10 @@ export const SECTOR_LABELS: Record<SectorType, string> = {
   industry: "Indústria",
 };
 
-export const TAX_REGIME_LABELS: Record<TaxRegimeType, string> = {
+export const TAX_REGIME_LABELS: Record<
+  "real_profit" | "presumed_profit" | "simple_national",
+  string
+> = {
   real_profit: "Lucro Real",
   presumed_profit: "Lucro Presumido",
   simple_national: "Simples Nacional",

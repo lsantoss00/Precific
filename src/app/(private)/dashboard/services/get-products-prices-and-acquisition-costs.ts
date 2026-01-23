@@ -1,0 +1,32 @@
+import { ProductsPricesAndAcquisitionCostsType } from "@/src/app/(private)/dashboard/types/products-prices-and-acquisition-costs-type";
+import { createClient } from "@/src/libs/supabase/client";
+import { camelizeKeys } from "humps";
+
+interface GetProductsPricesAndAcquisitionCostsProps {
+  productIds: string[];
+}
+
+export async function getProductsPricesAndAcquisitionCosts({
+  productIds,
+}: GetProductsPricesAndAcquisitionCostsProps): Promise<
+  ProductsPricesAndAcquisitionCostsType[]
+> {
+  const supabase = createClient();
+
+  const { data: products, error } = await supabase.rpc(
+    "get_products_prices_and_acquisition_costs",
+    {
+      ids: productIds,
+    },
+  );
+
+  const data = camelizeKeys(
+    products,
+  ) as ProductsPricesAndAcquisitionCostsType[];
+
+  if (error) {
+    throw new Error("Erro ao buscar preços e custos de aquisição dos produtos");
+  }
+
+  return data;
+}

@@ -9,9 +9,10 @@ import Show from "@/src/components/core/show";
 import ExportDataButton from "@/src/components/export-data-button";
 import MultipleImportDialog from "@/src/components/multiple-import-dialog";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
+import { useDebounce } from "@/src/hooks/use-debounce";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
-import { Plus, TriangleAlert, Upload } from "lucide-react";
+import { PlusCircle, TriangleAlert, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Papa from "papaparse";
@@ -26,6 +27,8 @@ const ProductsHeaderSection = () => {
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get("filtro") || "",
   );
+
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   const { refetch, isFetching } = useQuery({
     queryFn: () => getProductsForExport({ search: searchTerm }),
@@ -48,11 +51,9 @@ const ProductsHeaderSection = () => {
         SKU: product.sku || "-",
         Nome: product.name || "-",
         NCM: product.ncm || "-",
-        Preço: currencyFormatter(Number(product.price_today)) || "-",
-        "Preço em 2026":
-          currencyFormatter(Number(product.price_in_2026)) || "-",
-        "Preço em 2027":
-          currencyFormatter(Number(product.price_in_2027)) || "-",
+        Preço: currencyFormatter(Number(product.priceToday)) || "-",
+        "Preço em 2026": currencyFormatter(Number(product.priceIn2026)) || "-",
+        "Preço em 2027": currencyFormatter(Number(product.priceIn2027)) || "-",
         Status: product.status === "INACTIVE" ? "Inativo" : "Ativo",
       }));
 
@@ -78,21 +79,17 @@ const ProductsHeaderSection = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString());
 
-      if (searchTerm) {
-        params.set("pagina", "1");
-        params.set("filtro", searchTerm);
-      } else {
-        params.delete("filtro");
-      }
+    if (debouncedSearchTerm) {
+      params.set("pagina", "1");
+      params.set("filtro", debouncedSearchTerm);
+    } else {
+      params.delete("filtro");
+    }
 
-      router.push(`?${params.toString()}`);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    router.push(`?${params.toString()}`);
+  }, [debouncedSearchTerm]);
 
   return (
     <Column as="header" className="space-y-3 w-full">
@@ -121,6 +118,7 @@ const ProductsHeaderSection = () => {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             aria-label="Buscar produtos por SKU, Nome ou NCM"
+            isSearchInput
           />
         </div>
         <Row
@@ -134,7 +132,7 @@ const ProductsHeaderSection = () => {
             variant="secondary"
           >
             <Link href="/produtos/novo">
-              <Plus aria-hidden="true" />
+              <PlusCircle aria-hidden="true" />
               <span>Novo Produto</span>
             </Link>
           </Button>

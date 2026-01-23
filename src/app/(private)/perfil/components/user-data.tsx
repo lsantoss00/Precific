@@ -14,13 +14,13 @@ const UserData = ({ onImageChange }: UserDataProps) => {
 
   return (
     <Card className="w-full p-6 rounded-md flex space-y-4">
-      <h3>Dados do Usuário</h3>
+      <h3 className="text-lg">Dados do Usuário</h3>
       <div className="space-y-4">
         <Column className="space-y-2">
-          <Label htmlFor="profile_picture">Foto de Perfil</Label>
+          <Label htmlFor="profilePicture">Foto de Perfil</Label>
           <UserImageUpload
             onChange={onImageChange}
-            initialPreview={profile?.profile_picture_url || null}
+            initialPreview={profile?.profilePictureUrl || null}
           />
         </Column>
 
