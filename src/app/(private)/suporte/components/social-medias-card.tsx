@@ -11,7 +11,7 @@ const SocialMediasCard = () => {
           Siga o Grupo Viriato
         </span>
         <span className="text-muted-foreground text-sm">
-          Acompanhe novidades e conteúdos sobre gestão empresarial!
+          Acompanhe novidades e conteúdos sobre a Reforma Tributária!
         </span>
       </Column>
       <Row className="gap-3">

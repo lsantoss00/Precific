@@ -32,7 +32,7 @@ const ContactFormSchema = z.object({
     .min(1, "O campo telefone é obrigatório.")
     .refine(
       (val) => val.length === 10 || val.length === 11,
-      "Telefone inválido. Deve conter 10 ou 11 dígitos."
+      "Telefone inválido. Deve conter 10 ou 11 dígitos.",
     ),
   acceptMarketing: z.boolean(),
 });
@@ -69,7 +69,7 @@ const ContactForm = () => {
         </span>,
         {
           className: "!bg-green-600 !text-white",
-        }
+        },
       );
       reset();
     },
@@ -82,7 +82,7 @@ const ContactForm = () => {
         </span>,
         {
           className: "!bg-red-600 !text-white",
-        }
+        },
       );
     },
   });
@@ -93,7 +93,7 @@ const ContactForm = () => {
 
   const { name, cnpj, email, phone } = watch();
   const formInputFieldIsBlank = [name, cnpj, email, phone].some(
-    (value) => value === ""
+    (value) => value === "",
   );
 
   return (
@@ -228,7 +228,7 @@ const ContactForm = () => {
           htmlFor="acceptMarketing"
           className="cursor-pointer text-white font-normal text-xs md:text-sm leading-tight"
         >
-          Aceito receber comunicações de marketing e promoções exclusivas da
+          Aceito receber comunicações de marketing e promoções exclusivas do
           Precific
         </Label>
       </Row>

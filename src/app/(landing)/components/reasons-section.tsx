@@ -46,7 +46,7 @@ const reasonsMap = [
     icon: <FileSpreadsheet />,
     title: "Importe sua tabela de produtos",
     description:
-      "Através do seu sistema, exporte seus produtos e insira-os na Precific.",
+      "Através do seu sistema, exporte seus produtos e insira-os no Precific.",
   },
   {
     icon: <Brain />,

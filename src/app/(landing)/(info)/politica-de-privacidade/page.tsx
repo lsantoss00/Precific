@@ -95,7 +95,7 @@ const privacyPolicyTopics: InfoTopicType[] = [
       "o Precific não vende suas informações pessoais. Podemos compartilhar informações apenas nas seguintes situações:",
     items: [
       "Provedores de serviços: Com parceiros que auxiliam na operação da plataforma (hospedagem, processamento de pagamentos, análise de dados), todos sujeitos a acordos de confidencialidade.",
-      "Requisitos legais: Quando exigido por lei, ordem judicial ou para proteger direitos, propriedade ou segurança da Precific e seus usuários.",
+      "Requisitos legais: Quando exigido por lei, ordem judicial ou para proteger direitos, propriedade ou segurança do Precific e seus usuários.",
       "Transferência de negócios: Em caso de fusão, aquisição ou venda de ativos, suas informações podem ser transferidas, com notificação prévia.",
       "Com seu consentimento: Em qualquer outra situação, apenas com sua autorização expressa.",
     ],
