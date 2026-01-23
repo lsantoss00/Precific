@@ -4,6 +4,7 @@ import { Button, Switch } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
+import { useAuth } from "@/src/providers/auth-provider";
 import { ColumnDef } from "@tanstack/react-table";
 import { Loader2Icon, Tag, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -134,7 +135,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
             onCheckedChange={(checked) => {
               meta?.onUpdateProductStatus?.(
                 product.id!,
-                checked ? "ACTIVE" : "INACTIVE"
+                checked ? "ACTIVE" : "INACTIVE",
               );
             }}
             disabled={
@@ -156,31 +157,51 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     cell: ({ row, table }) => {
       const meta = table.options.meta as ProductTableMeta;
       const product = row.original;
+      const { isPremium } = useAuth();
+
+      const cannotPriceProduct = !isPremium && (product?.price_today ?? 0) > 0;
+
+      const isDisabled =
+        meta?.pendingUpdateProductStatus ||
+        meta?.pendingDeleteProduct ||
+        cannotPriceProduct;
 
       return (
         <Row className="justify-end space-x-2">
-          <Button
-            asChild
-            variant="secondary"
-            className="w-9 sm:w-fit"
-            disabled={
-              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
-            }
-          >
-            <Link href={`/produtos/${product.id}`}>
+          {!cannotPriceProduct ? (
+            <Button
+              asChild
+              variant="secondary"
+              className="w-9 sm:w-fit"
+              disabled={
+                meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
+              }
+            >
+              <Link href={`/produtos/${product.id}`}>
+                <Tag className="sm:hidden" />
+                <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
+                  <Tag /> Precificar
+                </span>
+              </Link>
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              className="w-9 sm:w-fit"
+              disabled={true}
+            >
               <Tag className="sm:hidden" />
               <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
                 <Tag /> Precificar
               </span>
-            </Link>
-          </Button>
+            </Button>
+          )}
+
           <Button
             variant="destructive"
             size="icon"
             onClick={() => meta?.onDeleteProduct(product.id!, product.name!)}
-            disabled={
-              meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
-            }
+            disabled={isDisabled}
             aria-label="Excluir produto"
           >
             <Show
