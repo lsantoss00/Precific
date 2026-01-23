@@ -30,6 +30,8 @@ export type ProductType = {
   userProductPrice?: number;
   acquisitionCost: number;
   markup: number;
+  profitability: number;
+  netProfit: number;
 };
 
 export type ProductFormDataType = Omit<

@@ -27,6 +27,10 @@ const ProductDetailsForm = () => {
         form.setValue("costumerTaxpayer", false);
         form.setValue("stateDestination", undefined);
       }
+
+      if (name === "hasIcmsSt" && value.hasIcmsSt) {
+        form.setValue("costumerTaxpayer", false);
+      }
     });
     return () => subscription.unsubscribe();
   }, [form]);

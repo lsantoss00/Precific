@@ -1,6 +1,10 @@
 "use client";
 
 import DashboardFilters from "@/src/app/(private)/dashboard/components/dashboard-filters";
+import ProductsAverageAcquisitionCostKpiCard from "@/src/app/(private)/dashboard/components/products-average-acquisition-cost-kpi-card";
+import ProductsAverageNetProfitKpiCard from "@/src/app/(private)/dashboard/components/products-average-net-profit-kpi-card";
+import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/components/products-average-price-kpi-card";
+import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
 import ProductsMarkupChart from "@/src/app/(private)/dashboard/components/products-markup-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
@@ -41,8 +45,14 @@ const DashboardPageContent = () => {
           <AccordionTrigger className="lg:text-lg font-bold">
             <h2 className="text-xl font-medium">Gráficos Gerais</h2>
           </AccordionTrigger>
-          <AccordionContent className="text-muted-foreground">
-            <div className="grid grid-cols-2 gap-4">
+          <AccordionContent className="grid gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
+              <ProductsAveragePriceKpiCard />
+              <ProductsAverageAcquisitionCostKpiCard />
+              <ProductsAverageNetProfitKpiCard />
+              <ProductsAverageProfitabilityKpiCard />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ProductsMarkupChart
                 sortDirection="desc"
                 description="Os 10 produtos precificados com maior markup"
@@ -56,12 +66,12 @@ const DashboardPageContent = () => {
         </AccordionItem>
         <AccordionItem value="product-charts">
           <AccordionTrigger className="lg:text-lg font-bold">
-            <h2 className="text-xl font-medium">Gráficos por produtos</h2>
+            <h2 className="text-xl font-medium">Gráficos Comparativos</h2>
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground">
             <Column className="gap-4">
               <DashboardFilters value={filters} onChange={setFilters} />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ProductsPriceHistoryChart filters={filters} />
                 <ProductsPricesAndAcquisitionCostsChart
                   productIds={filters.productIds!}

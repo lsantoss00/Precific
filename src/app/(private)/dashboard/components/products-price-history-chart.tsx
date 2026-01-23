@@ -1,4 +1,5 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
+import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import LineChart from "@/src/app/(private)/dashboard/components/line-chart";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
@@ -42,7 +43,7 @@ const ProductsPriceHistoryChart = ({
     <div className="relative">
       <ChartCard
         title="Histórico de Preços"
-        description="Evolução de preços dos produtos selecionados"
+        description="Evolução dos preços no período selecionado"
         contentClassName="h-full w-full"
       >
         <LineChart
@@ -52,16 +53,12 @@ const ProductsPriceHistoryChart = ({
           lineType="monotone"
           strokeWidth={3}
           className="aspect-square"
-          margin={{ top: 32, left: 32, right: 32 }}
+          margin={{ top: 5, left: 32, right: 32, bottom: 5 }}
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
       <Show when={!filters.productIds || filters.productIds.length === 0}>
-        <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
-          <p className="text-center font-semibold text-sm sm:text-base">
-            Selecione ao menos 1 produto para visualizar o gráfico.
-          </p>
-        </div>
+        <EmptyProductFilterMessage />
       </Show>
     </div>
   );

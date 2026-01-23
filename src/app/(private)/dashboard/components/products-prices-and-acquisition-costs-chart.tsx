@@ -1,4 +1,5 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
+import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndAcquisitionCosts } from "@/src/app/(private)/dashboard/services/get-products-prices-and-acquisition-costs";
@@ -39,7 +40,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
     <div className="relative">
       <ChartCard
         title="Comparativo"
-        description="Preço de Venda VS Preço de Aquisição dos produtos selecionados"
+        description="Preço de Venda X Custo de Aquisição"
         contentClassName="h-full w-full"
       >
         <StackedBarChart
@@ -54,11 +55,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
         />
       </ChartCard>
       <Show when={!productIds || productIds.length === 0}>
-        <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center z-10 pointer-events-auto rounded-md p-4">
-          <p className="text-center font-semibold text-sm sm:text-base">
-            Selecione ao menos 1 produto para visualizar o gráfico.
-          </p>
-        </div>
+        <EmptyProductFilterMessage />
       </Show>
     </div>
   );
