@@ -17,9 +17,10 @@ import {
   AccordionTrigger,
 } from "@/src/components/core/accordion";
 import Column from "@/src/components/core/column";
+import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import { subMonths } from "date-fns";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, TriangleAlert } from "lucide-react";
 import { useState } from "react";
 
 const DashboardPageContent = () => {
@@ -31,11 +32,20 @@ const DashboardPageContent = () => {
 
   return (
     <Column className="gap-4 relative">
-      <Row className="items-center gap-2 z-20">
-        <LayoutDashboard size={26} />
-        <h1 className="text-3xl font-semibold">Dashboard</h1>
-        <ComingSoonBadge />
-      </Row>
+      <Flex className="2xl:items-center gap-2 justify-between flex-col-reverse 2xl:flex-row">
+        <Row className="items-center gap-2">
+          <LayoutDashboard size={26} className="shrink-0" />
+          <h1 className="text-3xl font-semibold">Dashboard</h1>
+          <ComingSoonBadge />
+        </Row>
+        <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 items-center">
+          <TriangleAlert className="text-secondary shrink-0" />
+          <span className="text-sm">
+            Esta página ainda está em desenvolvimento. Os valores mostrados
+            podem estar incompletos ou incorretos.
+          </span>
+        </Flex>
+      </Flex>
       <Accordion
         type="multiple"
         className="w-full h-full"
