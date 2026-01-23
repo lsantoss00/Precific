@@ -99,6 +99,7 @@ const ProductResult = () => {
   const isSimpleNational = company?.taxRegime === "simple_national";
   const business = company?.sector === "business";
   const hasIcmsSt = data?.hasIcmsSt === true;
+  const isInterstate = data?.interstateSale === true;
   const isCostumerTaxPayer = data?.costumerTaxpayer === true;
 
   const acquisitionCost = acquisitionCostCalc({
@@ -163,7 +164,7 @@ const ProductResult = () => {
     suggestedProductPrice,
     salesIcmsInput: data?.salesIcms,
     stateDestination: data?.stateDestination,
-    hasIcmsSt,
+    isInterstate,
   });
 
   const fixedCosts = percentageValueCalc({
@@ -210,25 +211,6 @@ const ProductResult = () => {
 
   const presumedProfitIrpjCsll = irpj + csll;
 
-  // IRPJ + CSLL LUCRO REAL =======================
-  const baseIrpjCsll =
-    suggestedProductPrice -
-    unitPrice -
-    fixedCosts -
-    salesIcmsValue -
-    salesPisCofinsValue -
-    shipping -
-    othersCosts -
-    conditionalIcmsSt;
-
-  const realProfitIrpjCsllCalc =
-    baseIrpjCsll < 0
-      ? 0
-      : percentageValueCalc({
-          base: baseIrpjCsll,
-          percentage: data?.irpjPercent,
-        });
-
   const companyState = company?.state;
   const stateDestination = data?.stateDestination;
   const isImportedProduct = data?.importedProduct === true;
@@ -246,6 +228,28 @@ const ProductResult = () => {
     internalTaxRate,
     interstateTaxRate: isImportedProduct ? 4 : interstateTaxRate,
   });
+
+  const conditionalDifal = isCostumerTaxPayer ? difal : 0;
+
+  // IRPJ + CSLL LUCRO REAL =======================
+  const baseIrpjCsll =
+    suggestedProductPrice -
+    unitPrice -
+    fixedCosts -
+    salesIcmsValue -
+    salesPisCofinsValue -
+    shipping -
+    othersCosts -
+    conditionalIcmsSt -
+    conditionalDifal;
+
+  const realProfitIrpjCsllCalc =
+    baseIrpjCsll < 0
+      ? 0
+      : percentageValueCalc({
+          base: baseIrpjCsll,
+          percentage: data?.irpjPercent,
+        });
 
   const netProfit = (() => {
     const baseCalcParams = {
@@ -308,6 +312,9 @@ const ProductResult = () => {
     suggestedProductPrice,
   });
 
+  console.log("@@isCostumer", data?.costumerTaxpayer);
+  console.log("@@isCostumer2", isCostumerTaxPayer);
+
   const inverseTaxRegimeCalculators = {
     real_profit: () => {
       const realProfitInverse = realProfitInverseCalc({
@@ -324,7 +331,7 @@ const ProductResult = () => {
         suggestedProductPrice: data.userProductPrice!,
         salesIcmsInput: data?.salesIcms,
         stateDestination: data?.stateDestination,
-        hasIcmsSt,
+        isInterstate,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
@@ -446,7 +453,7 @@ const ProductResult = () => {
         suggestedProductPrice: data.userProductPrice!,
         salesIcmsInput: data?.salesIcms,
         stateDestination: data?.stateDestination,
-        hasIcmsSt,
+        isInterstate,
       });
 
       const userProductPriceFixedCosts = percentageValueCalc({
