@@ -288,8 +288,8 @@ const PricingForm = () => {
                   name="mva"
                   control={control}
                   rules={{
-                    min: { value: 0, message: "Valor mínimo é 0" },
-                    max: { value: 100, message: "Valor máximo é 100" },
+                    min: { value: 0, message: "Valor mínimo é 0%" },
+                    max: { value: 150, message: "Valor máximo é 150%" },
                   }}
                   render={({ field }) => (
                     <Input
