@@ -1,4 +1,4 @@
-export type ProductPriceHistoryType = {
+export type ProductsPriceHistoryType = {
   productId: string;
   productName: string;
   dailyHistory?: [

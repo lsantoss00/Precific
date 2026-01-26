@@ -1,4 +1,4 @@
-import { ProductPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
+import { ProductsPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
@@ -12,7 +12,7 @@ export async function getProductsPriceHistory({
   fromDate,
   toDate,
   productIds,
-}: GetProductsPriceHistoryProps): Promise<ProductPriceHistoryType[]> {
+}: GetProductsPriceHistoryProps): Promise<ProductsPriceHistoryType[]> {
   const supabase = createClient();
 
   const { data: products, error } = await supabase.rpc(
@@ -24,7 +24,7 @@ export async function getProductsPriceHistory({
     },
   );
 
-  const data = camelizeKeys(products) as ProductPriceHistoryType[];
+  const data = camelizeKeys(products) as ProductsPriceHistoryType[];
 
   if (error) {
     throw new Error("Erro ao buscar histórico de preços dos produtos");
