@@ -1,7 +1,7 @@
 import { monthYearFormatter } from "@/src/app/(private)/dashboard/helpers/month-year-formatter";
-import { ProductPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
+import { ProductsPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
 
-export const normalizeLineChartData = (data: ProductPriceHistoryType[]) => {
+export const normalizeLineChartData = (data: ProductsPriceHistoryType[]) => {
   const map = new Map<
     string,
     { date: string; rawDate: Date; [key: string]: any }
