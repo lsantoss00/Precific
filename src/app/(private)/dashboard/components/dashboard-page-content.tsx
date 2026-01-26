@@ -10,6 +10,7 @@ import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components
 import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
+import ProductsPricesAndNetProfitsChart from "@/src/app/(private)/dashboard/components/products-prices-and-net-profits-chart";
 import ProductsShippingRankingChart from "@/src/app/(private)/dashboard/components/products-shipping-ranking-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
@@ -103,14 +104,23 @@ const DashboardPageContent = () => {
         </AccordionItem>
         <AccordionItem value="product-charts">
           <AccordionTrigger className="lg:text-lg font-bold">
-            <h2 className="text-xl font-medium">Gráficos Comparativos</h2>
+            <h2 className="text-xl font-medium">Gráficos Filtráveis</h2>
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground">
             <Column className="gap-4">
               <DashboardFilters value={filters} onChange={setFilters} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
+                <ProductsAveragePriceKpiCard filters={filters} />
+                <ProductsAverageAcquisitionCostKpiCard filters={filters} />
+                <ProductsAverageNetProfitKpiCard filters={filters} />
+                <ProductsAverageProfitabilityKpiCard filters={filters} />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ProductsPriceHistoryChart filters={filters} />
                 <ProductsPricesAndAcquisitionCostsChart
+                  productIds={filters.productIds!}
+                />
+                <ProductsPricesAndNetProfitsChart
                   productIds={filters.productIds!}
                 />
                 <ProductsMarkupRankingChart
