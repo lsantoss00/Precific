@@ -2,37 +2,37 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
-import { getProductsMarkup } from "@/src/app/(private)/dashboard/services/get-products-markup";
+import { getProductsNetProfit } from "@/src/app/(private)/dashboard/services/get-products-net-profit";
 import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-interface ProductsMarkupRankingChartProps {
+interface ProductsNetProfitRankingChartProps {
   productIds?: string[];
   type?: "filtered" | "unfiltered";
   sortDirection: "asc" | "desc";
   description: string;
 }
 
-const ProductsMarkupRankingChart = ({
+const ProductsNetProfitRankingChart = ({
   type = "unfiltered",
   productIds,
   sortDirection,
   description,
-}: ProductsMarkupRankingChartProps) => {
+}: ProductsNetProfitRankingChartProps) => {
   const { data: products } = useQuery({
-    queryKey: ["products-markup", sortDirection, productIds],
-    queryFn: () => getProductsMarkup({ sortDirection, productIds }),
+    queryKey: ["products-nets-profit", sortDirection, productIds],
+    queryFn: () => getProductsNetProfit({ sortDirection, productIds }),
   });
 
   const chartData = (products || []).map((product) => ({
     name: product.name,
-    markup: product.markup,
+    netProfit: product.netProfit,
   }));
 
   const chartConfig: ChartConfig = {
-    markup: {
-      label: "Markup (%)",
+    netProfit: {
+      label: "Lucro Líquido",
       color: "var(--chart-4)",
     },
   };
@@ -40,7 +40,7 @@ const ProductsMarkupRankingChart = ({
   return (
     <div className="relative">
       <ChartCard
-        title="Ranking de Markup"
+        title="Ranking de Lucro Líquido"
         description={description}
         className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
         headerClassName="mb-4"
@@ -49,13 +49,11 @@ const ProductsMarkupRankingChart = ({
           data={chartData}
           config={chartConfig}
           yAxisKey="name"
-          barKey="markup"
+          barKey="netProfit"
           layout="horizontal"
           barRadius={8}
           className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
-          tooltip={
-            <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
-          }
+          tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
       <Show
@@ -67,4 +65,4 @@ const ProductsMarkupRankingChart = ({
   );
 };
 
-export default ProductsMarkupRankingChart;
+export default ProductsNetProfitRankingChart;

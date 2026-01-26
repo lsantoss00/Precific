@@ -6,6 +6,7 @@ import ProductsAverageNetProfitKpiCard from "@/src/app/(private)/dashboard/compo
 import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/components/products-average-price-kpi-card";
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
 import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
+import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
@@ -70,6 +71,14 @@ const DashboardPageContent = () => {
               <ProductsMarkupRankingChart
                 sortDirection="asc"
                 description="Os 10 produtos precificados com menor markup"
+              />
+              <ProductsNetProfitRankingChart
+                sortDirection="desc"
+                description="Os 10 produtos precificados com maior lucro líquido"
+              />
+              <ProductsNetProfitRankingChart
+                sortDirection="asc"
+                description="Os 10 produtos precificados com menor lucro líquido"
               />
             </div>
           </AccordionContent>
