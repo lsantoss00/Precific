@@ -12,7 +12,7 @@ import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
-import { PlusCircle, TriangleAlert, Upload } from "lucide-react";
+import { Package, PlusCircle, TriangleAlert, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Papa from "papaparse";
@@ -94,7 +94,10 @@ const ProductsHeaderSection = () => {
   return (
     <Column as="header" className="space-y-3 w-full">
       <Flex className="md:items-center gap-2 justify-between flex-col-reverse md:flex-row">
-        <h1 className="text-3xl font-semibold">Produtos</h1>
+        <Row className="items-center gap-2">
+          <Package size={26} className="shrink-0" />
+          <h1 className="text-3xl font-semibold">Produtos</h1>
+        </Row>
         <Show when={!isPremium}>
           <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 items-center">
             <TriangleAlert className="text-secondary shrink-0" />
