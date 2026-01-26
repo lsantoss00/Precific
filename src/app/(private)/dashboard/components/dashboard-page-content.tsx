@@ -9,6 +9,7 @@ import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components
 import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
+import ProductsShippingRankingChart from "@/src/app/(private)/dashboard/components/products-shipping-ranking-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import {
@@ -80,6 +81,14 @@ const DashboardPageContent = () => {
                 sortDirection="asc"
                 description="Os 10 produtos precificados com menor lucro líquido"
               />
+              <ProductsShippingRankingChart
+                sortDirection="desc"
+                description="Os 10 produtos precificados mais sensíveis a frete"
+              />
+              <ProductsShippingRankingChart
+                sortDirection="asc"
+                description="Os 10 produtos precificados menos sensíveis a frete"
+              />
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -117,6 +126,18 @@ const DashboardPageContent = () => {
                   productIds={filters.productIds}
                   sortDirection="asc"
                   description="Produtos com maior lucro líquido"
+                  type="filtered"
+                />
+                <ProductsShippingRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos menos sensíveis a frete"
+                  type="filtered"
+                />
+                <ProductsShippingRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos mais sensíveis a frete"
                   type="filtered"
                 />
               </div>
