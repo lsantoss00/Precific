@@ -1,4 +1,4 @@
-import { ProductsMarkupType } from "@/src/app/(private)/dashboard/types/products-markup";
+import { ProductsMarkupType } from "@/src/app/(private)/dashboard/types/products-markup-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 

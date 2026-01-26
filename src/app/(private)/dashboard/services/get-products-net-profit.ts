@@ -1,4 +1,4 @@
-import { ProductsNetProfitType } from "@/src/app/(private)/dashboard/types/net-profit-markup";
+import { ProductsNetProfitType } from "@/src/app/(private)/dashboard/types/products-net-profit-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
