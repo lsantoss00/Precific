@@ -5,7 +5,7 @@ import ProductsAverageAcquisitionCostKpiCard from "@/src/app/(private)/dashboard
 import ProductsAverageNetProfitKpiCard from "@/src/app/(private)/dashboard/components/products-average-net-profit-kpi-card";
 import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/components/products-average-price-kpi-card";
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
-import ProductsMarkupChart from "@/src/app/(private)/dashboard/components/products-markup-chart";
+import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
@@ -63,11 +63,11 @@ const DashboardPageContent = () => {
               <ProductsAverageProfitabilityKpiCard />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ProductsMarkupChart
+              <ProductsMarkupRankingChart
                 sortDirection="desc"
                 description="Os 10 produtos precificados com maior markup"
               />
-              <ProductsMarkupChart
+              <ProductsMarkupRankingChart
                 sortDirection="asc"
                 description="Os 10 produtos precificados com menor markup"
               />
@@ -86,13 +86,13 @@ const DashboardPageContent = () => {
                 <ProductsPricesAndAcquisitionCostsChart
                   productIds={filters.productIds!}
                 />
-                <ProductsMarkupChart
+                <ProductsMarkupRankingChart
                   productIds={filters.productIds}
                   sortDirection="desc"
                   description="Produtos com maior markup"
                   type="filtered"
                 />
-                <ProductsMarkupChart
+                <ProductsMarkupRankingChart
                   productIds={filters.productIds}
                   sortDirection="asc"
                   description="Produtos com menor markup"

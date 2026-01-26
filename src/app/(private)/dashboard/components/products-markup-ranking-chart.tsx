@@ -7,7 +7,7 @@ import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
-interface ProductsMarkupChartProps {
+interface ProductsMarkupRankingChartProps {
   productIds?: string[];
   type?: "filtered" | "unfiltered";
   sortDirection: "asc" | "desc";
@@ -15,13 +15,13 @@ interface ProductsMarkupChartProps {
   description: string;
 }
 
-const ProductsMarkupChart = ({
+const ProductsMarkupRankingChart = ({
   type = "unfiltered",
   productIds,
   sortDirection,
   title = "Ranking de Markup",
   description,
-}: ProductsMarkupChartProps) => {
+}: ProductsMarkupRankingChartProps) => {
   const { data: products } = useQuery({
     queryKey: ["products-markup", sortDirection, productIds],
     queryFn: () => getProductsMarkup({ sortDirection, productIds }),
@@ -69,4 +69,4 @@ const ProductsMarkupChart = ({
   );
 };
 
-export default ProductsMarkupChart;
+export default ProductsMarkupRankingChart;
