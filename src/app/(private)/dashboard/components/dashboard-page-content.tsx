@@ -5,6 +5,7 @@ import ProductsAverageAcquisitionCostKpiCard from "@/src/app/(private)/dashboard
 import ProductsAverageNetProfitKpiCard from "@/src/app/(private)/dashboard/components/products-average-net-profit-kpi-card";
 import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/components/products-average-price-kpi-card";
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
+import ProductsFixedCostsRankingChart from "@/src/app/(private)/dashboard/components/products-fixed-costs-ranking-chart";
 import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
 import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
@@ -89,6 +90,14 @@ const DashboardPageContent = () => {
                 sortDirection="asc"
                 description="Os 10 produtos precificados menos sensíveis a frete"
               />
+              <ProductsFixedCostsRankingChart
+                sortDirection="desc"
+                description="Os 10 produtos precificados mais sensíveis a custo fixo"
+              />
+              <ProductsFixedCostsRankingChart
+                sortDirection="asc"
+                description="Os 10 produtos precificados menos sensíveis a custo fixo"
+              />
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -138,6 +147,18 @@ const DashboardPageContent = () => {
                   productIds={filters.productIds}
                   sortDirection="asc"
                   description="Produtos mais sensíveis a frete"
+                  type="filtered"
+                />
+                <ProductsFixedCostsRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos menos sensíveis a custo fixo"
+                  type="filtered"
+                />
+                <ProductsFixedCostsRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos mais sensíveis a custo fixo"
                   type="filtered"
                 />
               </div>
