@@ -690,6 +690,9 @@ const ProductResult = () => {
       status: "ACTIVE",
       priceToday: finalSalePrice,
       priceIn2026: finalSalePrice,
+      markup,
+      netProfit,
+      acquisitionCost,
     };
 
     if (isEditMode && productId) {
