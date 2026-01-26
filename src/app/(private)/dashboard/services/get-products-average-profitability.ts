@@ -1,5 +1,4 @@
 import { createClient } from "@/src/libs/supabase/client";
-import { camelize } from "humps";
 
 interface GetProductsAverageProfitability {
   fromDate?: Date;
@@ -14,7 +13,7 @@ export async function getProductsAverageProfitability({
 }: GetProductsAverageProfitability): Promise<number> {
   const supabase = createClient();
 
-  const { data: averagePrice, error } = await supabase.rpc(
+  const { data, error } = await supabase.rpc(
     "get_products_average_profitability",
     {
       from_date: fromDate,
@@ -22,8 +21,6 @@ export async function getProductsAverageProfitability({
       product_ids: productIds,
     },
   );
-
-  const data = camelize(averagePrice);
 
   if (error) {
     throw new Error("Erro ao buscar rentabilidade média dos produtos");

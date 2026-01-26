@@ -31,11 +31,15 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProducts, setSelectedProducts] = useState<string[]>(
-    products || [],
+  const [selectedProducts, setSelectedProducts] = useState<
+    string[] | undefined
+  >(undefined);
+  const [selectedFromDate, setSelectedFromDate] = useState<Date | undefined>(
+    dateFrom,
   );
-  const [selectedFromDate, setSelectedFromDate] = useState<Date>(dateFrom!);
-  const [selectedToDate, setSelectedToDate] = useState<Date>(dateTo!);
+  const [selectedToDate, setSelectedToDate] = useState<Date | undefined>(
+    dateTo,
+  );
   const [selectedProductsMap, setSelectedProductsMap] = useState<
     Map<string, string>
   >(new Map());
@@ -48,12 +52,10 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   const isDebouncing = searchTerm !== debouncedSearched;
 
   const handleStartDateChange = (dateFrom?: Date) => {
-    if (!dateFrom) return;
     setSelectedFromDate(dateFrom);
   };
 
   const handleEndDateChange = (dateTo?: Date) => {
-    if (!dateTo) return;
     setSelectedToDate(dateTo);
   };
 
@@ -107,7 +109,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
     fetchedOptions.forEach((option) => {
       if (
-        selectedProducts.includes(option.value) &&
+        selectedProducts?.includes(option.value) &&
         !newMap.has(option.value)
       ) {
         newMap.set(option.value, option.label);
@@ -145,11 +147,11 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [products]);
 
   useEffect(() => {
-    setSelectedFromDate(dateFrom!);
+    setSelectedFromDate(dateFrom);
   }, [dateFrom]);
 
   useEffect(() => {
-    setSelectedToDate(dateTo!);
+    setSelectedToDate(dateTo);
   }, [dateTo]);
 
   useEffect(() => {
@@ -159,13 +161,25 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedProducts]);
 
   useEffect(() => {
-    if (debouncedFromDate.getTime() !== dateFrom!.getTime()) {
+    // Verifica se ambas as datas existem antes de comparar
+    if (debouncedFromDate && dateFrom) {
+      if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
+        onChange({ ...value, fromDate: debouncedFromDate });
+      }
+    } else if (debouncedFromDate !== dateFrom) {
+      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, fromDate: debouncedFromDate });
     }
   }, [debouncedFromDate]);
 
   useEffect(() => {
-    if (debouncedToDate.getTime() !== dateTo!.getTime()) {
+    // Verifica se ambas as datas existem antes de comparar
+    if (debouncedToDate && dateTo) {
+      if (debouncedToDate.getTime() !== dateTo.getTime()) {
+        onChange({ ...value, toDate: debouncedToDate });
+      }
+    } else if (debouncedToDate !== dateTo) {
+      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, toDate: debouncedToDate });
     }
   }, [debouncedToDate]);

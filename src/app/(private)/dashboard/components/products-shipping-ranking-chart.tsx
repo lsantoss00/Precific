@@ -1,21 +1,17 @@
 import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
-import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsShipping } from "@/src/app/(private)/dashboard/services/get-products-shipping";
 import { ChartConfig } from "@/src/components/core/chart";
-import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
 interface ProductsShippingRankingChartProps {
   productIds?: string[];
-  type?: "filtered" | "unfiltered";
   sortDirection: "asc" | "desc";
   description: string;
 }
 
 const ProductsShippingRankingChart = ({
-  type = "unfiltered",
   productIds,
   sortDirection,
   description,
@@ -58,11 +54,6 @@ const ProductsShippingRankingChart = ({
           }
         />
       </ChartCard>
-      <Show
-        when={type === "filtered" && (!productIds || productIds.length === 0)}
-      >
-        <EmptyProductFilterMessage />
-      </Show>
     </div>
   );
 };
