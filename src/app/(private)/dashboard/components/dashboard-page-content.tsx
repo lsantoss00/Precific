@@ -7,7 +7,7 @@ import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/component
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
 import ProductsFixedCostsRankingChart from "@/src/app/(private)/dashboard/components/products-fixed-costs-ranking-chart";
 import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
-import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-chart";
+import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-ranking-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
 import ProductsPricesAndNetProfitsChart from "@/src/app/(private)/dashboard/components/products-prices-and-net-profits-chart";

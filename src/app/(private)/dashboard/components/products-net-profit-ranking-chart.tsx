@@ -50,7 +50,7 @@ const ProductsNetProfitRankingChart = ({
           config={chartConfig}
           yAxisKey="name"
           barKey="netProfit"
-          layout="horizontal"
+          layout="vertical"
           barRadius={8}
           className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
