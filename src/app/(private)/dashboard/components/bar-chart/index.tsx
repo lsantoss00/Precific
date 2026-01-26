@@ -57,7 +57,6 @@ const BarChart = ({
       : barKey
         ? [barKey]
         : Object.keys(config);
-
   const isHorizontal = layout === "horizontal";
 
   return (
@@ -74,35 +73,32 @@ const BarChart = ({
         {!isHorizontal && <CartesianGrid vertical={false} />}
         {isHorizontal ? (
           <>
-            <XAxis type="number" dataKey={barKey || keys[0]} hide />
+            <XAxis type="number" hide />
             <YAxis
               dataKey={yAxisKey}
               type="category"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value: string) => value.slice(0, 5)}
+              tickFormatter={(value: any) => String(value).slice(0, 5)}
             />
           </>
         ) : (
           <>
             <XAxis
-              dataKey={xAxisKey}
+              dataKey={xAxisKey || yAxisKey}
+              type="category"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value: string) => value.slice(0, 5)}
+              tickFormatter={(value: any) => String(value).slice(0, 5)}
             />
             <YAxis
-              dataKey={yAxisKey}
+              type="number"
               hide
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value: number) =>
-                value?.toLocaleString?.() ?? value
-              }
-              domain={[0, "dataMax"]}
             />
           </>
         )}
