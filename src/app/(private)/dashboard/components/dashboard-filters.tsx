@@ -59,7 +59,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
     setSelectedToDate(dateTo);
   };
 
-  const handleProductsChange = (products: string[]) => {
+  const handleProductsChange = (products: string[] | undefined) => {
     setSelectedProducts(products);
   };
 

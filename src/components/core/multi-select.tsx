@@ -54,7 +54,7 @@ interface MultiSelectProps
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "animationConfig">,
     VariantProps<typeof multiSelectVariants> {
   options: MultiSelectOption[];
-  onValueChange: (value: string[]) => void;
+  onValueChange: (value: string[] | undefined) => void;
   defaultValue?: string[];
   placeholder?: string;
   animation?: number;
@@ -98,6 +98,7 @@ interface MultiSelectProps
   isLoadingMore?: boolean;
   onSearch?: (value: string) => void;
   onSearchValue?: string;
+  value?: string[];
 }
 
 export interface MultiSelectRef {
@@ -139,6 +140,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       isLoadingMore = false,
       onSearch,
       onSearchValue,
+      value,
       ...props
     },
     ref,
@@ -190,7 +192,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     const resetToDefault = React.useCallback(() => {
       setSelectedValues(defaultValue);
       setIsPopoverOpen(false);
-      onValueChange(defaultValue);
+      onValueChange(defaultValue.length > 0 ? defaultValue : undefined);
     }, [defaultValue, onValueChange]);
 
     const buttonRef = React.useRef<HTMLButtonElement>(null);
@@ -202,11 +204,11 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         getSelectedValues: () => selectedValues,
         setSelectedValues: (values: string[]) => {
           setSelectedValues(values);
-          onValueChange(values);
+          onValueChange(values.length > 0 ? values : undefined);
         },
         clear: () => {
           setSelectedValues([]);
-          onValueChange([]);
+          onValueChange(undefined);
         },
         focus: () => {
           if (buttonRef.current) {
@@ -353,7 +355,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         const newSelectedValues = [...selectedValues];
         newSelectedValues.pop();
         setSelectedValues(newSelectedValues);
-        onValueChange(newSelectedValues);
+        onValueChange(
+          newSelectedValues.length > 0 ? newSelectedValues : undefined,
+        );
       }
     };
 
@@ -361,11 +365,25 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       if (disabled) return;
       const option = getOptionByValue(optionValue);
       if (option?.disabled) return;
+
+      if (
+        !selectedValues.includes(optionValue) &&
+        selectedValues.length >= 10
+      ) {
+        announce(
+          "Limite máximo de 10 itens selecionados atingido.",
+          "assertive",
+        );
+        return;
+      }
+
       const newSelectedValues = selectedValues.includes(optionValue)
         ? selectedValues.filter((value) => value !== optionValue)
         : [...selectedValues, optionValue];
       setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
+      onValueChange(
+        newSelectedValues.length > 0 ? newSelectedValues : undefined,
+      );
       if (closeOnSelect) {
         setIsPopoverOpen(false);
       }
@@ -374,7 +392,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     const handleClear = () => {
       if (disabled) return;
       setSelectedValues([]);
-      onValueChange([]);
+      onValueChange(undefined);
     };
 
     const handleTogglePopover = () => {
@@ -389,7 +407,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         responsiveSettings.maxCount,
       );
       setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
+      onValueChange(
+        newSelectedValues.length > 0 ? newSelectedValues : undefined,
+      );
     };
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -441,6 +461,12 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         onSearch?.("");
       }
     }, [isPopoverOpen, onSearch]);
+
+    React.useEffect(() => {
+      if (value !== undefined) {
+        setSelectedValues(value);
+      }
+    }, [value]);
 
     React.useEffect(() => {
       const selectedCount = selectedValues.length;
