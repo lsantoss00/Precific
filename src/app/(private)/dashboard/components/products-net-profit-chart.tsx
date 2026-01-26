@@ -21,7 +21,7 @@ const ProductsNetProfitRankingChart = ({
   description,
 }: ProductsNetProfitRankingChartProps) => {
   const { data: products } = useQuery({
-    queryKey: ["products-nets-profit", sortDirection, productIds],
+    queryKey: ["products-net-profit", sortDirection, productIds],
     queryFn: () => getProductsNetProfit({ sortDirection, productIds }),
   });
 

@@ -13,7 +13,7 @@ export async function getProductsMarkup({
 }: GetProductsMarkupProps): Promise<ProductsMarkupType[]> {
   const supabase = createClient();
 
-  const { data: products, error } = await supabase.rpc("get_product_markups", {
+  const { data: products, error } = await supabase.rpc("get_products_markup", {
     ids: productIds,
     sort_direction: sortDirection,
   });

@@ -14,7 +14,7 @@ export async function getProductsNetProfit({
   const supabase = createClient();
 
   const { data: products, error } = await supabase.rpc(
-    "get_product_net_profits",
+    "get_products_net_profit",
     {
       ids: productIds,
       sort_direction: sortDirection,
