@@ -7,6 +7,7 @@ import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/component
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
 import ProductsFixedCostsRankingChart from "@/src/app/(private)/dashboard/components/products-fixed-costs-ranking-chart";
 import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
+import ProductsNetProfitHistoryChart from "@/src/app/(private)/dashboard/components/products-net-profit-history-chart";
 import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-ranking-chart";
 import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
 import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
@@ -117,6 +118,7 @@ const DashboardPageContent = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ProductsPriceHistoryChart filters={filters} />
+                <ProductsNetProfitHistoryChart filters={filters} />
                 <ProductsPricesAndAcquisitionCostsChart
                   productIds={filters.productIds!}
                 />
