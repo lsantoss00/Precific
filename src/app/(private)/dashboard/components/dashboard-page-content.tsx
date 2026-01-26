@@ -107,6 +107,18 @@ const DashboardPageContent = () => {
                   description="Produtos com menor markup"
                   type="filtered"
                 />
+                <ProductsNetProfitRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos com menor lucro líquido"
+                  type="filtered"
+                />
+                <ProductsNetProfitRankingChart
+                  productIds={filters.productIds}
+                  sortDirection="asc"
+                  description="Produtos com maior lucro líquido"
+                  type="filtered"
+                />
               </div>
             </Column>
           </AccordionContent>
