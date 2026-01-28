@@ -2,19 +2,22 @@
 
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { getProducts } from "@/src/app/(private)/produtos/services/get-products";
-import { Label } from "@/src/components/core";
+import { Button, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import DatePicker from "@/src/components/core/date-picker";
 import Flex from "@/src/components/core/flex";
 import {
   MultiSelect,
   MultiSelectOption,
+  MultiSelectRef,
 } from "@/src/components/core/multi-select";
 import Row from "@/src/components/core/row";
+import Show from "@/src/components/core/show";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { SearchX } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface DashboardFiltersProps {
   value: ChartFiltersType;
@@ -30,6 +33,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
   const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
+  const multiSelectRef = useRef<MultiSelectRef>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<
     string[] | undefined
@@ -140,6 +144,25 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
             ? 3
             : 2;
 
+  const hasActiveFilters =
+    selectedFromDate !== undefined ||
+    selectedToDate !== undefined ||
+    (selectedProducts !== undefined && selectedProducts.length > 0);
+
+  const handleClearFilters = () => {
+    setSelectedProducts(undefined);
+    setSelectedFromDate(undefined);
+    setSelectedToDate(undefined);
+    setSearchTerm("");
+    multiSelectRef.current?.clear();
+
+    onChange({
+      fromDate: undefined,
+      toDate: undefined,
+      productIds: undefined,
+    });
+  };
+
   useEffect(() => {
     if (products) {
       setSelectedProducts(products);
@@ -181,7 +204,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedToDate]);
 
   return (
-    <Flex className="flex-col sm:flex-row gap-4">
+    <Flex className="flex-col sm:flex-row gap-4 items-center">
       <Row className="w-full 2xl:w-fit gap-4">
         <Column className="gap-2 w-full 2xl:w-39.5">
           <Label>De:</Label>
@@ -201,6 +224,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
       <Column className="gap-2 w-full 2xl:w-83.5">
         <Label>Produtos:</Label>
         <MultiSelect
+          ref={multiSelectRef}
           options={options}
           value={selectedProducts}
           onValueChange={handleProductsChange}
@@ -213,6 +237,18 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
           onSearchValue={searchTerm}
         />
       </Column>
+      <Show when={hasActiveFilters}>
+        <Button
+          className="text-primary mt-5 p-0"
+          variant="link"
+          onClick={handleClearFilters}
+        >
+          <Row className="items-center gap-2">
+            <SearchX />
+            <span>Limpar filtros</span>
+          </Row>
+        </Button>
+      </Show>
     </Flex>
   );
 };
