@@ -161,25 +161,21 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedProducts]);
 
   useEffect(() => {
-    // Verifica se ambas as datas existem antes de comparar
     if (debouncedFromDate && dateFrom) {
       if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
         onChange({ ...value, fromDate: debouncedFromDate });
       }
     } else if (debouncedFromDate !== dateFrom) {
-      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, fromDate: debouncedFromDate });
     }
   }, [debouncedFromDate]);
 
   useEffect(() => {
-    // Verifica se ambas as datas existem antes de comparar
     if (debouncedToDate && dateTo) {
       if (debouncedToDate.getTime() !== dateTo.getTime()) {
         onChange({ ...value, toDate: debouncedToDate });
       }
     } else if (debouncedToDate !== dateTo) {
-      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, toDate: debouncedToDate });
     }
   }, [debouncedToDate]);
@@ -187,14 +183,14 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   return (
     <Flex className="flex-col sm:flex-row gap-4">
       <Row className="w-full 2xl:w-fit gap-4">
-        <Column className="gap-2 w-full 2xl:w-43.5">
+        <Column className="gap-2 w-full 2xl:w-39.5">
           <Label>De:</Label>
           <DatePicker
             value={selectedFromDate}
             onValueChange={handleStartDateChange}
           />
         </Column>
-        <Column className="gap-2 w-full 2xl:w-43.5">
+        <Column className="gap-2 w-full 2xl:w-39.5">
           <Label>Até:</Label>
           <DatePicker
             value={selectedToDate}
@@ -202,7 +198,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
           />
         </Column>
       </Row>
-      <Column className="gap-2 w-full">
+      <Column className="gap-2 w-full 2xl:w-83.5">
         <Label>Produtos:</Label>
         <MultiSelect
           options={options}
