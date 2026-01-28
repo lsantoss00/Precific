@@ -23,15 +23,15 @@ const ProductsMarkupRankingChart = ({
     queryFn: () => getProductsMarkup({ sortDirection, productIds }),
   });
 
-  const chartData = (products || []).map((product) => ({
+  const chartData = (products || []).map((product, index) => ({
     name: product.name,
     markup: product.markup,
+    fill: `var(--chart-${(index % 10) + 1})`,
   }));
 
   const chartConfig: ChartConfig = {
     markup: {
       label: "Markup (%)",
-      color: "var(--chart-4)",
     },
   };
 

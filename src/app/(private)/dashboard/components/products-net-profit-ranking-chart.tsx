@@ -23,15 +23,15 @@ const ProductsNetProfitRankingChart = ({
     queryFn: () => getProductsNetProfit({ sortDirection, productIds }),
   });
 
-  const chartData = (products || []).map((product) => ({
+  const chartData = (products || []).map((product, index) => ({
     name: product.name,
     netProfit: product.netProfit,
+    fill: `var(--chart-${(index % 10) + 1})`,
   }));
 
   const chartConfig: ChartConfig = {
     netProfit: {
       label: "Lucro Líquido",
-      color: "var(--chart-4)",
     },
   };
 

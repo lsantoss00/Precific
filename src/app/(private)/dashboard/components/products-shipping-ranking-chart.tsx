@@ -23,15 +23,15 @@ const ProductsShippingRankingChart = ({
     queryFn: () => getProductsShipping({ sortDirection, productIds }),
   });
 
-  const chartData = (products || []).map((product) => ({
+  const chartData = (products || []).map((product, index) => ({
     name: product.name,
     shipping: product.shipping,
+    fill: `var(--chart-${(index % 10) + 1})`,
   }));
 
   const chartConfig: ChartConfig = {
     shipping: {
       label: "Frete (%)",
-      color: "var(--chart-4)",
     },
   };
 
@@ -68,7 +68,7 @@ const ProductsShippingRankingChart = ({
           config={chartConfig}
           yAxisKey="name"
           barKey="shipping"
-          layout="horizontal"
+          layout="vertical"
           barRadius={8}
           className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
           tooltip={

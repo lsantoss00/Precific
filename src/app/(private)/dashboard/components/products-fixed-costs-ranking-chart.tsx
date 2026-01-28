@@ -23,15 +23,15 @@ const ProductsFixedCostsRankingChart = ({
     queryFn: () => getProductsFixedCosts({ sortDirection, productIds }),
   });
 
-  const chartData = (products || []).map((product) => ({
+  const chartData = (products || []).map((product, index) => ({
     name: product.name,
     fixedCosts: product.fixedCosts,
+    fill: `var(--chart-${(index % 10) + 1})`,
   }));
 
   const chartConfig: ChartConfig = {
     fixedCosts: {
       label: "Custo Fixo (%)",
-      color: "var(--chart-4)",
     },
   };
 

@@ -36,7 +36,7 @@ const DashboardPageContent = () => {
           <h1 className="text-3xl font-semibold">Dashboard</h1>
           <ComingSoonBadge />
         </Row>
-        <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 items-center">
+        <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 mb-4 items-center">
           <TriangleAlert className="text-secondary shrink-0" />
           <span className="text-sm">
             Esta página ainda está em desenvolvimento. Os valores mostrados
@@ -57,7 +57,6 @@ const DashboardPageContent = () => {
           <ProductsNetProfitRankingChart productIds={filters.productIds} />
           <ProductsShippingRankingChart productIds={filters.productIds} />
           <ProductsFixedCostsRankingChart productIds={filters.productIds} />
-
           <ProductsPriceHistoryChart filters={filters} />
           <ProductsNetProfitHistoryChart filters={filters} />
           <ProductsPricesAndAcquisitionCostsChart
