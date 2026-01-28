@@ -1,10 +1,8 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
-import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndNetProfits } from "@/src/app/(private)/dashboard/services/get-products-prices-and-net-profits";
 import { ChartConfig } from "@/src/components/core/chart";
-import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
 
 interface ProductsPricesAndNetProfitsChartProps {
@@ -17,7 +15,6 @@ const ProductsPricesAndNetProfitsChart = ({
   const { data: products } = useQuery({
     queryKey: ["products-prices-and-net-profits", productIds],
     queryFn: () => getProductsPricesAndNetProfits({ productIds }),
-    enabled: productIds?.length > 0,
   });
 
   const chartData = (products || []).map((product) => ({
@@ -55,9 +52,6 @@ const ProductsPricesAndNetProfitsChart = ({
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
-      <Show when={!productIds || productIds.length === 0}>
-        <EmptyProductFilterMessage />
-      </Show>
     </div>
   );
 };
