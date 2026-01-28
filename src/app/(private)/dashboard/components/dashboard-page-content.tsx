@@ -57,12 +57,12 @@ const DashboardPageContent = () => {
           <ProductsNetProfitRankingChart productIds={filters.productIds} />
           <ProductsShippingRankingChart productIds={filters.productIds} />
           <ProductsFixedCostsRankingChart productIds={filters.productIds} />
-          <ProductsPriceHistoryChart filters={filters} />
-          <ProductsNetProfitHistoryChart filters={filters} />
           <ProductsPricesAndAcquisitionCostsChart
             productIds={filters.productIds!}
           />
           <ProductsPricesAndNetProfitsChart productIds={filters.productIds!} />
+          <ProductsPriceHistoryChart filters={filters} />
+          <ProductsNetProfitHistoryChart filters={filters} />
         </div>
       </Column>
     </Column>

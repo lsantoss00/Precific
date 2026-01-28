@@ -38,8 +38,8 @@ const ProductsFixedCostsRankingChart = ({
   const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
-    ? "Mostrando produtos mais sensíveis a custo fixo"
-    : "Mostrando produtos menos sensíveis a custo fixo";
+    ? "Mostrando produtos menos sensíveis a custo fixo."
+    : "Mostrando produtos mais sensíveis a custo fixo.";
 
   const toggleSortDirection = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));

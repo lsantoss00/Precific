@@ -34,11 +34,16 @@ const ProductsPricesAndAcquisitionCostsChart = ({
     },
   };
 
+  const chartCardDescription =
+    productIds?.length > 0
+      ? "Mostrando dados para os produtos selecionados."
+      : "Mostrando dados para os últimos 10 produtos precificados.";
+
   return (
     <div className="relative">
       <ChartCard
-        title="Comparativo"
-        description="Preço de Venda X Custo de Aquisição"
+        title="Preço de Venda X Custo de Aquisição"
+        description={chartCardDescription}
         contentClassName="h-full w-full"
       >
         <StackedBarChart

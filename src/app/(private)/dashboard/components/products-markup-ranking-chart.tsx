@@ -38,8 +38,8 @@ const ProductsMarkupRankingChart = ({
   const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
-    ? "Mostrando produtos com maior markup"
-    : "Mostrando produtos com menor markup";
+    ? "Mostrando produtos com menor markup."
+    : "Mostrando produtos com maior markup.";
 
   const toggleSortDirection = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));

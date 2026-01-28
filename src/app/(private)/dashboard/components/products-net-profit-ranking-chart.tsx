@@ -38,8 +38,8 @@ const ProductsNetProfitRankingChart = ({
   const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
-    ? "Mostrando produtos com maior Lucro Líquido"
-    : "Mostrando produtos com menor Lucro Líquido";
+    ? "Mostrando produtos com menor lucro líquido."
+    : "Mostrando produtos com maior lucro líquido.";
 
   const toggleSortDirection = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));

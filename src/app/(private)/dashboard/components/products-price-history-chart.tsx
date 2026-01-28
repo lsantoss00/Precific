@@ -43,7 +43,7 @@ const ProductsPriceHistoryChart = ({
     <div className="relative">
       <ChartCard
         title="Histórico de Preços"
-        description="Evolução dos preços no período selecionado"
+        description="Evolução dos preços no período selecionado."
         contentClassName="h-full w-full"
       >
         <LineChart

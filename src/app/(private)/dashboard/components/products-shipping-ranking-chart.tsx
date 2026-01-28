@@ -38,8 +38,8 @@ const ProductsShippingRankingChart = ({
   const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
-    ? "Mostrando produtos mais sensíveis a frete"
-    : "Mostrando produtos menos sensíveis a frete";
+    ? "Mostrando produtos menos sensíveis a frete."
+    : "Mostrando produtos mais sensíveis a frete.";
 
   const toggleSortDirection = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));

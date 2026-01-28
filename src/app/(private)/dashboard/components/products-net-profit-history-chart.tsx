@@ -43,7 +43,7 @@ const ProductsNetProfitHistoryChart = ({
     <div className="relative">
       <ChartCard
         title="Histórico de Lucros Líquidos"
-        description="Evolução dos lucros líquidos no período selecionado"
+        description="Evolução dos lucros líquidos no período selecionado."
         contentClassName="h-full w-full"
       >
         <LineChart

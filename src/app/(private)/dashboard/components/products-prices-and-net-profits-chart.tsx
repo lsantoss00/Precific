@@ -34,11 +34,16 @@ const ProductsPricesAndNetProfitsChart = ({
     },
   };
 
+  const chartCardDescription =
+    productIds?.length > 0
+      ? "Mostrando dados para os produtos selecionados."
+      : "Mostrando dados para os últimos 10 produtos precificados.";
+
   return (
     <div className="relative">
       <ChartCard
-        title="Comparativo"
-        description="Preço de Venda X Lucro Líquido"
+        title="Preço de Venda X Lucro Líquido"
+        description={chartCardDescription}
         contentClassName="h-full w-full"
       >
         <StackedBarChart
