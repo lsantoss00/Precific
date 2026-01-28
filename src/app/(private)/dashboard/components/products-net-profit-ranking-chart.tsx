@@ -2,20 +2,22 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsNetProfit } from "@/src/app/(private)/dashboard/services/get-products-net-profit";
+import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
+import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { useState } from "react";
 
 interface ProductsNetProfitRankingChartProps {
   productIds?: string[];
-  sortDirection: "asc" | "desc";
-  description: string;
 }
 
 const ProductsNetProfitRankingChart = ({
   productIds,
-  sortDirection,
-  description,
 }: ProductsNetProfitRankingChartProps) => {
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+
   const { data: products } = useQuery({
     queryKey: ["products-net-profit", sortDirection, productIds],
     queryFn: () => getProductsNetProfit({ sortDirection, productIds }),
@@ -33,13 +35,33 @@ const ProductsNetProfitRankingChart = ({
     },
   };
 
+  const isAscending = sortDirection === "asc";
+
+  const chartCardDescription = isAscending
+    ? "Mostrando produtos com maior Lucro Líquido"
+    : "Mostrando produtos com menor Lucro Líquido";
+
+  const toggleSortDirection = () => {
+    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
+
   return (
     <div className="relative">
       <ChartCard
         title="Ranking de Lucro Líquido"
-        description={description}
+        description={chartCardDescription}
         className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
         headerClassName="mb-4"
+        headerAction={
+          <Button onClick={toggleSortDirection} variant="outline">
+            <Show
+              when={isAscending}
+              fallback={<ArrowDown className="h-4 w-4" />}
+            >
+              <ArrowUp className="h-4 w-4" />
+            </Show>
+          </Button>
+        }
       >
         <BarChart
           data={chartData}

@@ -53,48 +53,11 @@ const DashboardPageContent = () => {
           <ProductsAverageProfitabilityKpiCard filters={filters} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ProductsMarkupRankingChart
-            productIds={filters.productIds}
-            sortDirection="desc"
-            description="Produtos com maior markup"
-            type="filtered"
-          />
-          <ProductsMarkupRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos com menor markup"
-            type="filtered"
-          />
-          <ProductsNetProfitRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos com menor lucro líquido"
-          />
-          <ProductsNetProfitRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos com maior lucro líquido"
-          />
-          <ProductsShippingRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos menos sensíveis a frete"
-          />
-          <ProductsShippingRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos mais sensíveis a frete"
-          />
-          <ProductsFixedCostsRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos menos sensíveis a custo fixo"
-          />
-          <ProductsFixedCostsRankingChart
-            productIds={filters.productIds}
-            sortDirection="asc"
-            description="Produtos mais sensíveis a custo fixo"
-          />
+          <ProductsMarkupRankingChart productIds={filters.productIds} />
+          <ProductsNetProfitRankingChart productIds={filters.productIds} />
+          <ProductsShippingRankingChart productIds={filters.productIds} />
+          <ProductsFixedCostsRankingChart productIds={filters.productIds} />
+
           <ProductsPriceHistoryChart filters={filters} />
           <ProductsNetProfitHistoryChart filters={filters} />
           <ProductsPricesAndAcquisitionCostsChart

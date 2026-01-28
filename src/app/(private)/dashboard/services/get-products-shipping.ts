@@ -4,7 +4,7 @@ import { camelizeKeys } from "humps";
 
 interface GetProductsShippingProps {
   productIds?: string[];
-  sortDirection?: "asc" | "desc";
+  sortDirection?: "asc" | "desc" | null;
 }
 
 export async function getProductsShipping({

@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/core/card";
+import Row from "@/src/components/core/row";
 import { cn } from "@/src/libs/shadcn-ui/utils";
 import { ReactNode } from "react";
 
@@ -20,6 +21,7 @@ interface ChartCardProps {
   contentClassName?: string;
   footerContent?: ReactNode;
   footerClassName?: string;
+  headerAction?: React.ReactNode;
 }
 
 const ChartCard = ({
@@ -31,12 +33,16 @@ const ChartCard = ({
   headerClassName = "",
   contentClassName = "",
   footerClassName = "",
+  headerAction,
 }: ChartCardProps) => {
   return (
     <Card className={cn("rounded-md shadow-sm", className)}>
       <CardHeader className={headerClassName}>
         <CardTitle>{title}</CardTitle>
-        {description && <CardDescription>{description}</CardDescription>}
+        <Row className="items-center justify-between">
+          {description && <CardDescription>{description}</CardDescription>}
+          {headerAction}
+        </Row>
       </CardHeader>
       <CardContent className={contentClassName}>{children}</CardContent>
       <CardFooter className={footerClassName}>
