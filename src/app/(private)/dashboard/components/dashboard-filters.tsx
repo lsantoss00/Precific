@@ -204,42 +204,44 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedToDate]);
 
   return (
-    <Flex className="flex-col sm:flex-row gap-4 items-center">
-      <Row className="w-full 2xl:w-fit gap-4">
-        <Column className="gap-2 w-full 2xl:w-39.5">
-          <Label>De:</Label>
-          <DatePicker
-            value={selectedFromDate}
-            onValueChange={handleStartDateChange}
+    <Flex className="flex-col gap-4 2xl:flex-row">
+      <Flex className="flex-col sm:flex-row gap-4 items-center">
+        <Flex className="flex-col sm:flex-row w-full 2xl:w-fit gap-4">
+          <Column className="gap-2 w-full 2xl:w-39.5">
+            <Label>De:</Label>
+            <DatePicker
+              value={selectedFromDate}
+              onValueChange={handleStartDateChange}
+            />
+          </Column>
+          <Column className="gap-2 w-full 2xl:w-39.5">
+            <Label>Até:</Label>
+            <DatePicker
+              value={selectedToDate}
+              onValueChange={handleEndDateChange}
+            />
+          </Column>
+        </Flex>
+        <Column className="gap-2 w-full 2xl:w-83.5">
+          <Label>Produtos:</Label>
+          <MultiSelect
+            ref={multiSelectRef}
+            options={options}
+            value={selectedProducts}
+            onValueChange={handleProductsChange}
+            commandInputPlaceholder="Busque produtos..."
+            maxCount={multiSelectMaxCount}
+            className="w-full 2xl:max-w-90.5!"
+            onScrollEnd={handleLoadMore}
+            isLoadingMore={isFetching || isDebouncing}
+            onSearch={setSearchTerm}
+            onSearchValue={searchTerm}
           />
         </Column>
-        <Column className="gap-2 w-full 2xl:w-39.5">
-          <Label>Até:</Label>
-          <DatePicker
-            value={selectedToDate}
-            onValueChange={handleEndDateChange}
-          />
-        </Column>
-      </Row>
-      <Column className="gap-2 w-full 2xl:w-83.5">
-        <Label>Produtos:</Label>
-        <MultiSelect
-          ref={multiSelectRef}
-          options={options}
-          value={selectedProducts}
-          onValueChange={handleProductsChange}
-          commandInputPlaceholder="Busque produtos..."
-          maxCount={multiSelectMaxCount}
-          className="w-full 2xl:max-w-90.5!"
-          onScrollEnd={handleLoadMore}
-          isLoadingMore={isFetching || isDebouncing}
-          onSearch={setSearchTerm}
-          onSearchValue={searchTerm}
-        />
-      </Column>
+      </Flex>
       <Show when={hasActiveFilters}>
         <Button
-          className="text-primary mt-5 p-0"
+          className="text-primary p-0 self-start 2xl:self-center 2xl:mt-5"
           variant="link"
           onClick={handleClearFilters}
         >
