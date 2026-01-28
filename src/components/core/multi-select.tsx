@@ -623,7 +623,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                           <Badge
                             key={value}
                             className={cn(
-                              "text-sm w-full max-w-24",
+                              "text-sm w-full max-w-24 2xl:max-w-20",
                               multiSelectVariants({ variant }),
                               responsiveSettings.compactMode &&
                                 "text-xs py-0.5",
