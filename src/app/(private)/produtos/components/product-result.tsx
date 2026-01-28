@@ -693,6 +693,7 @@ const ProductResult = () => {
       markup,
       netProfit,
       acquisitionCost,
+      profitability,
     };
 
     if (isEditMode && productId) {
