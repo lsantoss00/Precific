@@ -17,6 +17,7 @@ const ProductsPricesAndNetProfitsChart = ({
   const { data: products } = useQuery({
     queryKey: ["products-prices-and-net-profits", productIds],
     queryFn: () => getProductsPricesAndNetProfits({ productIds }),
+    enabled: productIds?.length > 0,
   });
 
   const chartData = (products || []).map((product) => ({

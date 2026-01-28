@@ -17,6 +17,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
   const { data: products } = useQuery({
     queryKey: ["products-prices-and-acquisition-costs", productIds],
     queryFn: () => getProductsPricesAndAcquisitionCosts({ productIds }),
+    enabled: productIds?.length > 0,
   });
 
   const chartData = (products || []).map((product) => ({
