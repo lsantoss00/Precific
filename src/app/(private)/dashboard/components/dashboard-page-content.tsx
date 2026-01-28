@@ -53,10 +53,10 @@ const DashboardPageContent = () => {
           <ProductsAverageProfitabilityKpiCard filters={filters} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ProductsMarkupRankingChart productIds={filters.productIds} />
-          <ProductsNetProfitRankingChart productIds={filters.productIds} />
-          <ProductsShippingRankingChart productIds={filters.productIds} />
-          <ProductsFixedCostsRankingChart productIds={filters.productIds} />
+          <ProductsMarkupRankingChart filters={filters} />
+          <ProductsNetProfitRankingChart filters={filters} />
+          <ProductsShippingRankingChart filters={filters} />
+          <ProductsFixedCostsRankingChart filters={filters} />
           <ProductsPricesAndAcquisitionCostsChart
             productIds={filters.productIds!}
           />

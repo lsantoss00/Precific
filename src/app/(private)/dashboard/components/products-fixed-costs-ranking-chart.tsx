@@ -2,6 +2,7 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsFixedCosts } from "@/src/app/(private)/dashboard/services/get-products-fixed-costs";
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
@@ -10,17 +11,17 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
 interface ProductsFixedCostsRankingChartProps {
-  productIds?: string[];
+  filters?: ChartFiltersType;
 }
 
 const ProductsFixedCostsRankingChart = ({
-  productIds,
+  filters,
 }: ProductsFixedCostsRankingChartProps) => {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
   const { data: products } = useQuery({
-    queryKey: ["products-fixed-costs", sortDirection, productIds],
-    queryFn: () => getProductsFixedCosts({ sortDirection, productIds }),
+    queryKey: ["products-fixed-costs", sortDirection, filters],
+    queryFn: () => getProductsFixedCosts({ sortDirection, filters }),
   });
 
   const chartData = (products || []).map((product, index) => ({

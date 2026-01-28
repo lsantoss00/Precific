@@ -2,6 +2,7 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsShipping } from "@/src/app/(private)/dashboard/services/get-products-shipping";
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
@@ -10,17 +11,17 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
 interface ProductsShippingRankingChartProps {
-  productIds?: string[];
+  filters?: ChartFiltersType;
 }
 
 const ProductsShippingRankingChart = ({
-  productIds,
+  filters,
 }: ProductsShippingRankingChartProps) => {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
   const { data: products } = useQuery({
-    queryKey: ["products-shipping", sortDirection, productIds],
-    queryFn: () => getProductsShipping({ sortDirection, productIds }),
+    queryKey: ["products-shipping", sortDirection, filters],
+    queryFn: () => getProductsShipping({ sortDirection, filters }),
   });
 
   const chartData = (products || []).map((product, index) => ({

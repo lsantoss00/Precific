@@ -2,6 +2,7 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsNetProfit } from "@/src/app/(private)/dashboard/services/get-products-net-profit";
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
@@ -10,17 +11,17 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
 interface ProductsNetProfitRankingChartProps {
-  productIds?: string[];
+  filters?: ChartFiltersType;
 }
 
 const ProductsNetProfitRankingChart = ({
-  productIds,
+  filters,
 }: ProductsNetProfitRankingChartProps) => {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
   const { data: products } = useQuery({
-    queryKey: ["products-net-profit", sortDirection, productIds],
-    queryFn: () => getProductsNetProfit({ sortDirection, productIds }),
+    queryKey: ["products-net-profit", sortDirection, filters],
+    queryFn: () => getProductsNetProfit({ sortDirection, filters }),
   });
 
   const chartData = (products || []).map((product, index) => ({
