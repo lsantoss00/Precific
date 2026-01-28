@@ -10,17 +10,10 @@ interface ProductsMarkupChartProps {
 
 const ProductsAveragePriceKpiCard = ({ filters }: ProductsMarkupChartProps) => {
   const { data: averagePrice } = useQuery({
-    queryKey: [
-      "products-average-price",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+    queryKey: ["products-average-price", filters],
     queryFn: () =>
       getProductsAveragePrice({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
   });
 

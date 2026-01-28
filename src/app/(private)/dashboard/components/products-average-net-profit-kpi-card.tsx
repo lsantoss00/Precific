@@ -12,17 +12,10 @@ const ProductsAverageNetProfitKpiCard = ({
   filters,
 }: ProductsAverageNetProfitKpiCardProps) => {
   const { data: averageNetProfit } = useQuery({
-    queryKey: [
-      "products-average-net-profit",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+    queryKey: ["products-average-net-profit", filters],
     queryFn: () =>
       getProductsAverageNetProfit({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
   });
 

@@ -17,17 +17,10 @@ const ProductsNetProfitHistoryChart = ({
   filters,
 }: ProductsNetProfitHistoryChartProps) => {
   const { data: productsNetProfitHistory } = useQuery({
-    queryKey: [
-      "products-net-profit-history",
-      filters.fromDate,
-      filters.toDate,
-      filters.productIds,
-    ],
+    queryKey: ["products-net-profit-history", filters],
     queryFn: () =>
       getProductsNetProfitHistory({
-        fromDate: filters.fromDate!,
-        toDate: filters.toDate!,
-        productIds: filters.productIds!,
+        filters,
       }),
   });
 

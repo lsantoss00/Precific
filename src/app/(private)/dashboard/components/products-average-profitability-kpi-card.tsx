@@ -12,17 +12,10 @@ const ProductsAverageProfitabilityKpiCard = ({
   filters,
 }: ProductsAverageProfitabilityKpiCardProps) => {
   const { data: averageProfitability } = useQuery({
-    queryKey: [
-      "products-average-profitability",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+    queryKey: ["products-average-profitability", filters],
     queryFn: () =>
       getProductsAverageProfitability({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
   });
 

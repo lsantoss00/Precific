@@ -17,17 +17,10 @@ const ProductsPriceHistoryChart = ({
   filters,
 }: ProductsPriceHistoryChartProps) => {
   const { data: productsPriceHistory } = useQuery({
-    queryKey: [
-      "products-price-history",
-      filters.fromDate,
-      filters.toDate,
-      filters.productIds,
-    ],
+    queryKey: ["products-price-history", filters],
     queryFn: () =>
       getProductsPriceHistory({
-        fromDate: filters.fromDate!,
-        toDate: filters.toDate!,
-        productIds: filters.productIds!,
+        filters,
       }),
   });
 

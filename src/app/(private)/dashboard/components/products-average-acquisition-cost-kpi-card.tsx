@@ -12,17 +12,10 @@ const ProductsAverageAcquisitionCostKpiCard = ({
   filters,
 }: ProductsAverageAcquisitionCostKpiCardProps) => {
   const { data: averageAcquisitionCost } = useQuery({
-    queryKey: [
-      "products-average-acquisition-cost",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+    queryKey: ["products-average-acquisition-cost", filters],
     queryFn: () =>
       getProductsAverageAcquisitionCost({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
   });
 
