@@ -23,7 +23,6 @@ const CustomChartTooltip = ({
 }: CustomChartTooltipProps) => {
   const formatValue = (value: number) => {
     if (value === undefined) return 0;
-
     return type === "currency"
       ? currencyFormatter(value * 100)
       : `${value.toFixed(2)}%`;
@@ -35,6 +34,8 @@ const CustomChartTooltip = ({
       <ul className="gap-1">
         {payload?.map((item) => {
           const config = chartConfig[item.dataKey];
+          const displayColor =
+            item.payload?.fill || item.color || config?.color;
           return (
             <li
               key={item.dataKey}
@@ -44,7 +45,7 @@ const CustomChartTooltip = ({
                 <span
                   className="h-3 w-3 shrink-0 rounded-full"
                   style={{
-                    backgroundColor: config?.color,
+                    backgroundColor: displayColor,
                   }}
                 />
                 <span className="block truncate text-muted-foreground">
