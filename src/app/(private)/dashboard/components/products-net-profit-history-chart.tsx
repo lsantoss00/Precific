@@ -23,11 +23,12 @@ const ProductsNetProfitHistoryChart = ({
       getProductsNetProfitHistory({
         filters,
       }),
+    enabled: Boolean(filters.productIds && filters.productIds.length > 0),
   });
 
   const data = productsNetProfitHistory || [];
 
-  const chartData = normalizeLineChartData(data);
+  const chartData = normalizeLineChartData(data, "netProfit");
   const chartConfig = createChartConfig(data, {
     getId: (product) => product.productId,
     getLabel: (product) => product.productName,

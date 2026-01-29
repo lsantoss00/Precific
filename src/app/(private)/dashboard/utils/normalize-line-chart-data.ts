@@ -1,7 +1,21 @@
 import { monthYearFormatter } from "@/src/app/(private)/dashboard/helpers/month-year-formatter";
-import { ProductsPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
 
-export const normalizeLineChartData = (data: ProductsPriceHistoryType[]) => {
+type HistoryItem = {
+  date: string;
+  changedAt: string;
+  [key: string]: any;
+};
+
+type ProductHistory = {
+  productId: string;
+  productName: string;
+  dailyHistory?: HistoryItem[];
+};
+
+export const normalizeLineChartData = <T extends ProductHistory>(
+  data: T[],
+  valueKey: string,
+) => {
   const map = new Map<
     string,
     { date: string; rawDate: Date; [key: string]: any }
@@ -22,7 +36,7 @@ export const normalizeLineChartData = (data: ProductsPriceHistoryType[]) => {
         });
       }
 
-      map.get(formattedDate)![key] = history.priceToday;
+      map.get(formattedDate)![key] = history[valueKey];
     });
   });
 

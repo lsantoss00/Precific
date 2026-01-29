@@ -1,5 +1,5 @@
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { ProductsPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
+import { ProductNetProfitHistoryType } from "@/src/app/(private)/dashboard/types/products-net-profit-history-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
@@ -9,7 +9,7 @@ interface GetProductsNetProfitHistoryProps {
 
 export async function getProductsNetProfitHistory({
   filters,
-}: GetProductsNetProfitHistoryProps): Promise<ProductsPriceHistoryType[]> {
+}: GetProductsNetProfitHistoryProps): Promise<ProductNetProfitHistoryType[]> {
   const supabase = createClient();
 
   const { data: products, error } = await supabase.rpc(
@@ -21,7 +21,7 @@ export async function getProductsNetProfitHistory({
     },
   );
 
-  const data = camelizeKeys(products) as ProductsPriceHistoryType[];
+  const data = camelizeKeys(products) as ProductNetProfitHistoryType[];
 
   if (error) {
     throw new Error("Erro ao buscar histórico de lucro líquido dos produtos");

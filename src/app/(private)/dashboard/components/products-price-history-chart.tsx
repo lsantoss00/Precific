@@ -23,11 +23,12 @@ const ProductsPriceHistoryChart = ({
       getProductsPriceHistory({
         filters,
       }),
+    enabled: Boolean(filters.productIds && filters.productIds.length > 0),
   });
 
   const data = productsPriceHistory || [];
 
-  const chartData = normalizeLineChartData(data);
+  const chartData = normalizeLineChartData(data, "priceToday");
   const chartConfig = createChartConfig(data, {
     getId: (product) => product.productId,
     getLabel: (product) => product.productName,
