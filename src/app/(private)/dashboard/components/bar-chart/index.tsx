@@ -57,65 +57,79 @@ const BarChart = ({
       : barKey
         ? [barKey]
         : Object.keys(config);
+
   const isHorizontal = layout === "horizontal";
 
   return (
-    <ChartContainer
-      config={config}
-      className={cn("mx-auto w-full h-full", className)}
+    <div
+      className={cn(
+        `w-full h-full ${!isHorizontal && "max-md:overflow-x-auto max-md:overflow-y-hidden"}`,
+        className,
+      )}
     >
-      <ReBarChart
-        accessibilityLayer
-        data={data}
-        layout={isHorizontal ? "vertical" : "horizontal"}
-        margin={margin}
+      <ChartContainer
+        config={config}
+        style={{
+          minWidth: !isHorizontal
+            ? `${Math.max(data.length * 60, 300)}px`
+            : "100%",
+        }}
+        className="h-full w-full"
       >
-        {!isHorizontal && <CartesianGrid vertical={false} />}
-        {isHorizontal ? (
-          <>
-            <XAxis type="number" hide />
-            <YAxis
-              dataKey={yAxisKey}
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value: any) => String(value).slice(0, 5)}
-            />
-          </>
-        ) : (
-          <>
-            <XAxis
-              dataKey={xAxisKey || yAxisKey}
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value: any) => String(value).slice(0, 5)}
-            />
-            <YAxis
-              type="number"
-              hide
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            />
-          </>
-        )}
-        <ChartTooltip
-          cursor={false}
-          content={tooltip || <ChartTooltipContent hideLabel />}
-        />
-        {keys.map((key) => (
-          <Bar
-            key={key}
-            dataKey={key}
-            fill={config[key]?.color || "var(--color-desktop)"}
-            radius={barRadius}
+        <ReBarChart
+          accessibilityLayer
+          data={data}
+          layout={isHorizontal ? "vertical" : "horizontal"}
+          margin={margin}
+        >
+          {!isHorizontal && <CartesianGrid vertical={false} />}
+          {isHorizontal ? (
+            <>
+              <XAxis type="number" hide />
+              <YAxis
+                dataKey={yAxisKey}
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value: any) => String(value).slice(0, 5)}
+              />
+            </>
+          ) : (
+            <>
+              <XAxis
+                dataKey={xAxisKey || yAxisKey}
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value: any) => String(value).slice(0, 5)}
+              />
+              <YAxis
+                type="number"
+                hide
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+              />
+            </>
+          )}
+          <ChartTooltip
+            cursor={false}
+            content={tooltip || <ChartTooltipContent hideLabel />}
           />
-        ))}
-      </ReBarChart>
-    </ChartContainer>
+          {keys.map((key) => (
+            <Bar
+              key={key}
+              dataKey={key}
+              fill={config[key]?.color || "var(--color-desktop)"}
+              radius={barRadius}
+              barSize={!isHorizontal ? 60 : undefined}
+            />
+          ))}
+        </ReBarChart>
+      </ChartContainer>
+    </div>
   );
 };
 

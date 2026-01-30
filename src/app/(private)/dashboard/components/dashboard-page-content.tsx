@@ -83,32 +83,32 @@ const DashboardPageContent = () => {
             <ProductsAverageProfitabilityKpiCard filters={filters} />
           </div>
           <div className="grid grid-cols-8 gap-4 items-stretch">
-            <div className="col-span-6 h-full">
+            <div className="col-span-8 2xl:col-span-6 h-full">
               <ProductsNetProfitRankingChart filters={filters} />
             </div>
-            <div className="col-span-2">
+            <div className="col-span-8 lg:col-span-4 2xl:col-span-2">
               <ProductsMarkupRankingChart filters={filters} />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-8 lg:col-span-4">
               <ProductsFixedCostsRankingChart filters={filters} />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-8 2xl:col-span-4">
               <ProductsShippingRankingChart filters={filters} />
             </div>
-            <div className="col-span-4 h-full">
+            <div className="col-span-8">
               <ProductsPricesAndAcquisitionCostsChart
                 productIds={filters.productIds!}
               />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-8">
               <ProductsPricesAndNetProfitsChart
                 productIds={filters.productIds!}
               />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-8 lg:col-span-4">
               <ProductsPriceHistoryChart filters={filters} />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-8 lg:col-span-4">
               <ProductsNetProfitHistoryChart filters={filters} />
             </div>
           </div>

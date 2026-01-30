@@ -52,7 +52,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
         barKeys={["Custo de Aquisição", "Preço de Venda"]}
         stackId="a"
         barRadius={8}
-        className="max-h-72"
+        className="h-72"
         tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
       />
     </ChartCard>

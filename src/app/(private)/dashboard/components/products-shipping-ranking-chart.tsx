@@ -66,7 +66,7 @@ const ProductsShippingRankingChart = ({
         barKey="shipping"
         layout="vertical"
         barRadius={8}
-        className="max-h-72"
+        className="h-72"
         tooltip={
           <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
         }

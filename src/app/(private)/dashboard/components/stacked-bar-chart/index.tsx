@@ -48,50 +48,64 @@ const StackedBarChart = ({
   tooltip,
 }: StackedBarChartProps) => {
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
+
   return (
-    <ChartContainer
-      config={config}
-      className={cn("mx-auto w-full h-full", className)}
+    <div
+      className={cn(
+        `w-full h-full max-md:overflow-x-auto max-md:overflow-y-hidden`,
+        className,
+      )}
     >
-      <REBarChart accessibilityLayer data={data} margin={margin}>
-        <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey={xAxisKey}
-          tickLine={false}
-          tickMargin={10}
-          axisLine={false}
-          tickFormatter={(value) => value.slice(0, 5)}
-        />
-        <ChartTooltip content={tooltip || <ChartTooltipContent hideLabel />} />
-        <Show when={legend === true}>
-          <ChartLegend
-            content={
-              <ChartLegendContent
-                payload={keys.map((key) => ({
-                  value: config[key]?.label || key,
-                  color: config[key]?.color || "var(--secondary)",
-                }))}
-              />
-            }
+      <ChartContainer
+        config={config}
+        style={{
+          minWidth: `${Math.max(data.length * 60, 300)}px`,
+        }}
+        className="h-full w-full"
+      >
+        <REBarChart accessibilityLayer data={data} margin={margin}>
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey={xAxisKey}
+            tickLine={false}
+            tickMargin={10}
+            axisLine={false}
+            tickFormatter={(value) => value.slice(0, 5)}
           />
-        </Show>
-        {keys.map((key, idx) => (
-          <Bar
-            key={key}
-            dataKey={key}
-            stackId={stackId}
-            fill={config[key]?.color || "var(--secondary)"}
-            radius={
-              idx === keys.length - 1
-                ? Array.isArray(barRadius)
-                  ? barRadius
-                  : [barRadius, barRadius, 0, 0]
-                : 0
-            }
+          <ChartTooltip
+            content={tooltip || <ChartTooltipContent hideLabel />}
           />
-        ))}
-      </REBarChart>
-    </ChartContainer>
+          <Show when={legend === true}>
+            <ChartLegend
+              content={
+                <ChartLegendContent
+                  payload={keys.map((key) => ({
+                    value: config[key]?.label || key,
+                    color: config[key]?.color || "var(--secondary)",
+                  }))}
+                />
+              }
+            />
+          </Show>
+          {keys.map((key, idx) => (
+            <Bar
+              key={key}
+              dataKey={key}
+              stackId={stackId}
+              fill={config[key]?.color || "var(--secondary)"}
+              radius={
+                idx === keys.length - 1
+                  ? Array.isArray(barRadius)
+                    ? barRadius
+                    : [barRadius, barRadius, 0, 0]
+                  : 0
+              }
+              barSize={60}
+            />
+          ))}
+        </REBarChart>
+      </ChartContainer>
+    </div>
   );
 };
 

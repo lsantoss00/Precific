@@ -66,7 +66,7 @@ const ProductsMarkupRankingChart = ({
         barKey="markup"
         layout="horizontal"
         barRadius={8}
-        className="lg:aspect-square"
+        className="h-72 lg:aspect-square"
         tooltip={
           <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
         }

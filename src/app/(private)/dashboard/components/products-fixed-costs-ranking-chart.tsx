@@ -66,7 +66,7 @@ const ProductsFixedCostsRankingChart = ({
         barKey="fixedCosts"
         layout="horizontal"
         barRadius={8}
-        className="max-h-72"
+        className="h-72 lg:aspect-square"
         tooltip={
           <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
         }
