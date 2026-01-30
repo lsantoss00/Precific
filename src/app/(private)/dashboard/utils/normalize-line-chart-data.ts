@@ -1,4 +1,4 @@
-import { monthYearFormatter } from "@/src/app/(private)/dashboard/helpers/month-year-formatter";
+import { dateFormatter } from "@/src/helpers/date-formatter";
 
 type HistoryItem = {
   date: string;
@@ -27,16 +27,16 @@ export const normalizeLineChartData = <T extends ProductHistory>(
     const key = product.productId;
 
     product.dailyHistory.forEach((history) => {
-      const formattedDate = monthYearFormatter(history.date);
+      const dateKey = dateFormatter(history.date) ?? history.date;
 
-      if (!map.has(formattedDate)) {
-        map.set(formattedDate, {
-          date: formattedDate,
+      if (!map.has(dateKey)) {
+        map.set(dateKey, {
+          date: dateKey,
           rawDate: new Date(history.date),
         });
       }
 
-      map.get(formattedDate)![key] = history[valueKey];
+      map.get(dateKey)![key] = history[valueKey];
     });
   });
 
