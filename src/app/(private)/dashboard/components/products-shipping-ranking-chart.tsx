@@ -51,7 +51,6 @@ const ProductsShippingRankingChart = ({
       <ChartCard
         title="Ranking de Frete"
         description={chartCardDescription}
-        className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
         headerClassName="mb-4"
         headerAction={
           <Button onClick={toggleSortDirection} variant="outline">
@@ -71,7 +70,7 @@ const ProductsShippingRankingChart = ({
           barKey="shipping"
           layout="vertical"
           barRadius={8}
-          className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
+          className="max-h-72"
           tooltip={
             <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
           }

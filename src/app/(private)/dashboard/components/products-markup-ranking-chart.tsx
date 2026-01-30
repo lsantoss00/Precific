@@ -47,13 +47,12 @@ const ProductsMarkupRankingChart = ({
   };
 
   return (
-    <div className="relative">
-      <ChartCard
-        title="Ranking de Markup"
-        description={chartCardDescription}
-        className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
-        headerClassName="mb-4"
-        headerAction={
+    <ChartCard
+      title="Ranking de Markup"
+      description={chartCardDescription}
+      headerClassName="mb-4"
+      headerAction={
+        <div className="2xl:ml-8">
           <Button onClick={toggleSortDirection} variant="outline">
             <Show
               when={isAscending}
@@ -62,22 +61,22 @@ const ProductsMarkupRankingChart = ({
               <ArrowUp className="h-4 w-4" />
             </Show>
           </Button>
+        </div>
+      }
+    >
+      <BarChart
+        data={chartData}
+        config={chartConfig}
+        yAxisKey="name"
+        barKey="markup"
+        layout="horizontal"
+        barRadius={8}
+        className="lg:aspect-square"
+        tooltip={
+          <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
         }
-      >
-        <BarChart
-          data={chartData}
-          config={chartConfig}
-          yAxisKey="name"
-          barKey="markup"
-          layout="horizontal"
-          barRadius={8}
-          className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
-          tooltip={
-            <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
-          }
-        />
-      </ChartCard>
-    </div>
+      />
+    </ChartCard>
   );
 };
 

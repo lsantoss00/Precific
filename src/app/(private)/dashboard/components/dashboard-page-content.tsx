@@ -82,19 +82,35 @@ const DashboardPageContent = () => {
             <ProductsAverageNetProfitKpiCard filters={filters} />
             <ProductsAverageProfitabilityKpiCard filters={filters} />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <ProductsMarkupRankingChart filters={filters} />
-            <ProductsNetProfitRankingChart filters={filters} />
-            <ProductsShippingRankingChart filters={filters} />
-            <ProductsFixedCostsRankingChart filters={filters} />
-            <ProductsPricesAndAcquisitionCostsChart
-              productIds={filters.productIds!}
-            />
-            <ProductsPricesAndNetProfitsChart
-              productIds={filters.productIds!}
-            />
-            <ProductsPriceHistoryChart filters={filters} />
-            <ProductsNetProfitHistoryChart filters={filters} />
+          <div className="grid grid-cols-8 gap-4">
+            <div className="col-span-6">
+              <ProductsNetProfitRankingChart filters={filters} />
+            </div>
+            <div className="col-span-2">
+              <ProductsMarkupRankingChart filters={filters} />
+            </div>
+            <div className="col-span-4">
+              <ProductsFixedCostsRankingChart filters={filters} />
+            </div>
+            <div className="col-span-4">
+              <ProductsShippingRankingChart filters={filters} />
+            </div>
+            <div className="col-span-4">
+              <ProductsPricesAndAcquisitionCostsChart
+                productIds={filters.productIds!}
+              />
+            </div>
+            <div className="col-span-4">
+              <ProductsPricesAndNetProfitsChart
+                productIds={filters.productIds!}
+              />
+            </div>
+            <div className="col-span-4">
+              <ProductsPriceHistoryChart filters={filters} />
+            </div>
+            <div className="col-span-4">
+              <ProductsNetProfitHistoryChart filters={filters} />
+            </div>
           </div>
         </Column>
       </Show>

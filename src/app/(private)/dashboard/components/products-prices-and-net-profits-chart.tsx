@@ -53,7 +53,7 @@ const ProductsPricesAndNetProfitsChart = ({
           barKeys={["Lucro Líquido", "Preço de Venda"]}
           stackId="a"
           barRadius={8}
-          className="aspect-square"
+          className="max-h-72"
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>

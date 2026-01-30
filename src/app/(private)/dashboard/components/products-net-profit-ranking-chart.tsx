@@ -47,35 +47,29 @@ const ProductsNetProfitRankingChart = ({
   };
 
   return (
-    <div className="relative">
-      <ChartCard
-        title="Ranking de Lucro Líquido"
-        description={chartCardDescription}
-        className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
-        headerClassName="mb-4"
-        headerAction={
-          <Button onClick={toggleSortDirection} variant="outline">
-            <Show
-              when={isAscending}
-              fallback={<ArrowDown className="h-4 w-4" />}
-            >
-              <ArrowUp className="h-4 w-4" />
-            </Show>
-          </Button>
-        }
-      >
-        <BarChart
-          data={chartData}
-          config={chartConfig}
-          yAxisKey="name"
-          barKey="netProfit"
-          layout="vertical"
-          barRadius={8}
-          className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
-          tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
-        />
-      </ChartCard>
-    </div>
+    <ChartCard
+      title="Ranking de Lucro Líquido"
+      description={chartCardDescription}
+      headerClassName="mb-4"
+      headerAction={
+        <Button onClick={toggleSortDirection} variant="outline">
+          <Show when={isAscending} fallback={<ArrowDown className="h-4 w-4" />}>
+            <ArrowUp className="h-4 w-4" />
+          </Show>
+        </Button>
+      }
+    >
+      <BarChart
+        data={chartData}
+        config={chartConfig}
+        yAxisKey="name"
+        barKey="netProfit"
+        layout="vertical"
+        barRadius={8}
+        className="max-h-72"
+        tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
+      />
+    </ChartCard>
   );
 };
 

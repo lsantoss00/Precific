@@ -56,7 +56,7 @@ const ProductsNetProfitHistoryChart = ({
           xAxisKey="date"
           lineType="monotone"
           strokeWidth={3}
-          className="aspect-square"
+          className="max-h-72"
           margin={{ top: 5, left: 32, right: 32, bottom: 5 }}
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
