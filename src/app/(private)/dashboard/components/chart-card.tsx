@@ -37,7 +37,7 @@ const ChartCard = ({
 }: ChartCardProps) => {
   return (
     <Card className={cn("rounded-md shadow-sm h-full w-full", className)}>
-      <CardHeader className={headerClassName}>
+      <CardHeader className={cn("mb-4", headerClassName)}>
         <CardTitle>{title}</CardTitle>
         <Row className="items-center justify-between">
           {description && <CardDescription>{description}</CardDescription>}

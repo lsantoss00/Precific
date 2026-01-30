@@ -5,9 +5,8 @@ import { getProductsNetProfit } from "@/src/app/(private)/dashboard/services/get
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
-import Show from "@/src/components/core/show";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
 
 interface ProductsNetProfitRankingChartProps {
@@ -50,12 +49,13 @@ const ProductsNetProfitRankingChart = ({
     <ChartCard
       title="Ranking de Lucro Líquido"
       description={chartCardDescription}
-      headerClassName="mb-4"
       headerAction={
-        <Button onClick={toggleSortDirection} variant="outline">
-          <Show when={isAscending} fallback={<ArrowDown className="h-4 w-4" />}>
-            <ArrowUp className="h-4 w-4" />
-          </Show>
+        <Button
+          onClick={toggleSortDirection}
+          variant="outline"
+          className="w-8 h-8 relative"
+        >
+          <ArrowDownUp className={`${isAscending && "text-primary"}`} />
         </Button>
       }
     >

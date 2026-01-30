@@ -40,24 +40,22 @@ const ProductsPricesAndNetProfitsChart = ({
       : "Mostrando dados para os últimos 10 produtos precificados.";
 
   return (
-    <div className="relative">
-      <ChartCard
-        title="Preço de Venda X Lucro Líquido"
-        description={chartCardDescription}
-        contentClassName="h-full w-full"
-      >
-        <StackedBarChart
-          data={chartData}
-          config={chartConfig}
-          xAxisKey="name"
-          barKeys={["Lucro Líquido", "Preço de Venda"]}
-          stackId="a"
-          barRadius={8}
-          className="max-h-72"
-          tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
-        />
-      </ChartCard>
-    </div>
+    <ChartCard
+      title="Preço de Venda X Lucro Líquido"
+      description={chartCardDescription}
+      contentClassName="h-full w-full"
+    >
+      <StackedBarChart
+        data={chartData}
+        config={chartConfig}
+        xAxisKey="name"
+        barKeys={["Lucro Líquido", "Preço de Venda"]}
+        stackId="a"
+        barRadius={8}
+        className="max-h-72"
+        tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
+      />
+    </ChartCard>
   );
 };
 

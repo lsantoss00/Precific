@@ -82,8 +82,8 @@ const DashboardPageContent = () => {
             <ProductsAverageNetProfitKpiCard filters={filters} />
             <ProductsAverageProfitabilityKpiCard filters={filters} />
           </div>
-          <div className="grid grid-cols-8 gap-4">
-            <div className="col-span-6">
+          <div className="grid grid-cols-8 gap-4 items-stretch">
+            <div className="col-span-6 h-full">
               <ProductsNetProfitRankingChart filters={filters} />
             </div>
             <div className="col-span-2">
@@ -95,7 +95,7 @@ const DashboardPageContent = () => {
             <div className="col-span-4">
               <ProductsShippingRankingChart filters={filters} />
             </div>
-            <div className="col-span-4">
+            <div className="col-span-4 h-full">
               <ProductsPricesAndAcquisitionCostsChart
                 productIds={filters.productIds!}
               />
