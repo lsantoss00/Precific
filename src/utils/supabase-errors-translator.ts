@@ -1,51 +1,30 @@
 const errorMessagesTranslation: Record<string, string> = {
-  // LOGIN
-  "Invalid login credentials": "E-mail ou senha inválidos.",
   invalid_credentials: "E-mail ou senha inválidos.",
   email_not_confirmed:
     "E-mail não confirmado. Verifique sua caixa de entrada ou reenvie a confirmação.",
-
-  // PASSWORD
-  "Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789, !@#$%^&*()_+-=[]{};':\"|<>?,./`~.":
+  weak_password:
     "A senha deve conter ao menos um caractere de cada tipo: letras minúsculas, letras maiúsculas, números e símbolos.",
-
-  // OTP / MAGIC LINK
-  otp_expired: "Código expirado. Solicite um novo código.",
-  otp_disabled: "Login por código (OTP/magic link) está desativado.",
-  provider_email_needs_verification:
-    "Finalize a verificação do e-mail enviada após o login pelo provedor.",
-
-  // LIMITS
   over_request_rate_limit:
     "Muitas solicitações. Tente novamente em alguns instantes.",
   over_email_send_rate_limit:
     "Muitos e-mails enviados. Aguarde antes de tentar novamente.",
-  over_sms_send_rate_limit:
-    "Muitas SMS enviadas. Aguarde antes de tentar novamente.",
   request_timeout: "Tempo de processamento excedido. Tente novamente.",
-
-  // SESSION
   refresh_token_not_found: "Sessão expirada. Faça login novamente.",
   refresh_token_already_used: "Sessão inválida. Faça login novamente.",
   bad_jwt: "Sessão inválida. Faça login novamente.",
   no_authorization: "Autorização ausente. Faça login para continuar.",
-
-  // FIELDS
   bad_json: "Requisição inválida. Verifique os dados enviados.",
   email_address_invalid: "Endereço de e-mail inválido.",
-
-  // ACCOUNT
-  "User not found": "Usuário não encontrado.",
-  "Email not confirmed": "O e-mail ainda não foi confirmado.",
-  "User is banned":
-    "Usuário banido. Caso acredite que foi um erro, entre em contato conosco.",
-
-  // OTHERS
+  user_not_found: "Usuário não encontrado.",
+  user_banned:
+    "Seu acesso à plataforma expirou. Caso queira continuar usando o Precific, entre em contato conosco.",
   conflict: "Conflito de operação. Aguarde um instante e tente novamente.",
 
-  // COMPANY
   'duplicate key value violates unique constraint "companies_cnpj_unique"':
     "Já existe uma empresa cadastrada com esse CNPJ.",
+
+  "Unable to validate email address: invalid format":
+    "Endereço de e-mail inválido.",
 };
 
 type SupabaseError =
