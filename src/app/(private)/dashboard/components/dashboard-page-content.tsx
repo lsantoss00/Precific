@@ -14,13 +14,11 @@ import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboar
 import ProductsPricesAndNetProfitsChart from "@/src/app/(private)/dashboard/components/products-prices-and-net-profits-chart";
 import ProductsShippingRankingChart from "@/src/app/(private)/dashboard/components/products-shipping-ranking-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import ComingSoonBadge from "@/src/components/coming-soon-badge";
 import Column from "@/src/components/core/column";
-import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { useAuth } from "@/src/providers/auth-provider";
-import { CircleX, LayoutDashboard, Loader2, TriangleAlert } from "lucide-react";
+import { CircleX, LayoutDashboard, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const DashboardPageContent = () => {
@@ -34,28 +32,15 @@ const DashboardPageContent = () => {
 
   const companyHasProducts = company ? company.productsQuantity > 0 : null;
 
-  console.log("@fromDate", filters?.fromDate);
-  console.log("@toDate", filters?.toDate);
-
   if (isLoadingAuth)
     return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
 
   return (
     <Column className="gap-4 relative flex-1">
-      <Flex className="2xl:items-center gap-2 justify-between flex-col-reverse 2xl:flex-row">
-        <Row className="items-center gap-2">
-          <LayoutDashboard size={26} className="shrink-0" />
-          <h1 className="text-3xl font-semibold">Dashboard</h1>
-          <ComingSoonBadge />
-        </Row>
-        <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 mb-4 items-center">
-          <TriangleAlert className="text-secondary shrink-0" />
-          <span className="text-sm">
-            Esta página ainda está em desenvolvimento. Os valores mostrados
-            podem estar incompletos ou incorretos.
-          </span>
-        </Flex>
-      </Flex>
+      <Row className="items-center gap-2">
+        <LayoutDashboard size={26} className="shrink-0" />
+        <h1 className="text-3xl font-semibold">Dashboard</h1>
+      </Row>
       <Show
         when={companyHasProducts}
         fallback={

@@ -171,7 +171,7 @@ const mainItems = [
     url: "/dashboard",
     icon: LayoutDashboard,
     disabled: false,
-    soon: true,
+    soon: false,
   },
   {
     title: "Produtos",
