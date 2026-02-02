@@ -35,7 +35,7 @@ const ProductsNetProfitHistoryChart = ({
     placeholderData: keepPreviousData,
   });
 
-  const data = productsNetProfitHistory || [];
+  const data = (hasProductsSelected ? productsNetProfitHistory : []) || [];
 
   const productsWithHistory = data.filter(
     (product) => product.dailyHistory && product.dailyHistory.length > 1,
