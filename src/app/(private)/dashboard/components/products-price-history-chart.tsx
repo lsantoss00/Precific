@@ -17,6 +17,10 @@ interface ProductsPriceHistoryChartProps {
 const ProductsPriceHistoryChart = ({
   filters,
 }: ProductsPriceHistoryChartProps) => {
+  const hasProductsSelected = Boolean(
+    filters.productIds && filters.productIds.length > 0,
+  );
+
   const {
     data: productsPriceHistory,
     isPending,
@@ -31,22 +35,20 @@ const ProductsPriceHistoryChart = ({
     placeholderData: keepPreviousData,
   });
 
-  const data = productsPriceHistory || [];
+  const data = (hasProductsSelected ? productsPriceHistory : []) || [];
+
+  const productsWithHistory = data.filter(
+    (product) => product.dailyHistory && product.dailyHistory.length > 1,
+  );
+
+  const noProductsHaveHistory =
+    hasProductsSelected && productsWithHistory.length === 0;
 
   const chartData = normalizeLineChartData(data, "priceToday");
   const chartConfig = createChartConfig(data, {
     getId: (product) => product.productId,
     getLabel: (product) => product.productName,
   });
-
-  const productsWithHistory = data.filter(
-    (product) => product.dailyHistory && product.dailyHistory.length > 1,
-  );
-
-  const hasProductsSelected =
-    filters.productIds && filters.productIds.length > 0;
-  const noProductsHaveHistory =
-    hasProductsSelected && productsWithHistory.length === 0;
 
   return (
     <div className="relative">
