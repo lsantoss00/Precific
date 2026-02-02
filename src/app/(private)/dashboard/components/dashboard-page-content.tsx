@@ -34,6 +34,9 @@ const DashboardPageContent = () => {
 
   const companyHasProducts = company ? company.productsQuantity > 0 : null;
 
+  console.log("@fromDate", filters?.fromDate);
+  console.log("@toDate", filters?.toDate);
+
   if (isLoadingAuth)
     return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
 

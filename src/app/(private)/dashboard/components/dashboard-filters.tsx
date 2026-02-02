@@ -184,9 +184,12 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedProducts]);
 
   useEffect(() => {
-    if (debouncedFromDate && dateFrom) {
-      if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
-        onChange({ ...value, fromDate: debouncedFromDate });
+    if (debouncedFromDate) {
+      const startOfDay = new Date(debouncedFromDate);
+      startOfDay.setHours(0, 0, 0, 0);
+
+      if (!dateFrom || startOfDay.getTime() !== dateFrom.getTime()) {
+        onChange({ ...value, fromDate: startOfDay });
       }
     } else if (debouncedFromDate !== dateFrom) {
       onChange({ ...value, fromDate: debouncedFromDate });
@@ -194,9 +197,12 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedFromDate]);
 
   useEffect(() => {
-    if (debouncedToDate && dateTo) {
-      if (debouncedToDate.getTime() !== dateTo.getTime()) {
-        onChange({ ...value, toDate: debouncedToDate });
+    if (debouncedToDate) {
+      const endOfDay = new Date(debouncedToDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      if (!dateTo || endOfDay.getTime() !== dateTo.getTime()) {
+        onChange({ ...value, toDate: endOfDay });
       }
     } else if (debouncedToDate !== dateTo) {
       onChange({ ...value, toDate: debouncedToDate });
