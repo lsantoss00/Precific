@@ -8,7 +8,7 @@ import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filt
 import { createChartConfig } from "@/src/app/(private)/dashboard/utils/create-chart-config";
 import { normalizeLineChartData } from "@/src/app/(private)/dashboard/utils/normalize-line-chart-data";
 import Show from "@/src/components/core/show";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 interface ProductsPriceHistoryChartProps {
   filters: ChartFiltersType;
@@ -17,13 +17,18 @@ interface ProductsPriceHistoryChartProps {
 const ProductsPriceHistoryChart = ({
   filters,
 }: ProductsPriceHistoryChartProps) => {
-  const { data: productsPriceHistory } = useQuery({
+  const {
+    data: productsPriceHistory,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-price-history", filters],
     queryFn: () =>
       getProductsPriceHistory({
         filters,
       }),
     enabled: Boolean(filters.productIds && filters.productIds.length > 0),
+    placeholderData: keepPreviousData,
   });
 
   const data = productsPriceHistory || [];
@@ -49,6 +54,8 @@ const ProductsPriceHistoryChart = ({
         title="Histórico de Preços"
         description="Evolução dos preços no período selecionado."
         contentClassName="h-full w-full"
+        pending={isPending}
+        fetching={isFetching}
       >
         <LineChart
           data={chartData}
@@ -58,6 +65,7 @@ const ProductsPriceHistoryChart = ({
           strokeWidth={3}
           className="h-72"
           margin={{ top: 5, left: 32, right: 32, bottom: 5 }}
+          pending={isPending}
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
