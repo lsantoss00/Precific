@@ -64,8 +64,6 @@ const LineChart = ({
     (key) => key !== xAxisKey && config[key]?.label,
   );
 
-  const skeletonCount = 8;
-
   return (
     <div
       className={cn(
@@ -99,11 +97,7 @@ const LineChart = ({
       >
         <ChartContainer config={config} className="h-full w-full">
           <RechartsLineChart accessibilityLayer data={data} margin={margin}>
-            <CartesianGrid
-              vertical={false}
-              strokeDasharray="3 3"
-              opacity={0.5}
-            />
+            <CartesianGrid vertical={false} />
             <Show when={xAxisKey}>
               <XAxis
                 dataKey={xAxisKey}
@@ -111,7 +105,6 @@ const LineChart = ({
                 axisLine={false}
                 tickMargin={8}
                 interval="preserveStartEnd"
-                tickFormatter={(value) => String(value).slice(0, 10)}
               />
             </Show>
             <ChartTooltip

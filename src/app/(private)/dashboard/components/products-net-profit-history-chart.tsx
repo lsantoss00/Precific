@@ -65,7 +65,7 @@ const ProductsNetProfitHistoryChart = ({
           strokeWidth={3}
           className="h-72"
           margin={{ top: 5, left: 32, right: 32, bottom: 5 }}
-          pending={isPending}
+          pending={hasProductsSelected && isPending}
           tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
         />
       </ChartCard>
