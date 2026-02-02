@@ -12,6 +12,7 @@ interface KpiCardProps {
   icon?: React.ReactNode;
   type?: "currency" | "percentage" | "number";
   pending?: boolean;
+  fetching?: boolean;
   percentage?: number;
 }
 
@@ -21,6 +22,7 @@ const KpiCard = ({
   type = "number",
   icon,
   pending,
+  fetching,
   percentage,
 }: KpiCardProps) => {
   const isPositivePercentage = percentage !== undefined && percentage > 0;
@@ -40,16 +42,24 @@ const KpiCard = ({
 
   return (
     <Card className="p-6 flex flex-row justify-between items-center w-full min-h-28 rounded-md shadow-sm">
-      <Column className="justify-between h-full gap-2">
+      <Column className="justify-between h-full gap-2 w-full">
         <Row className="items-center gap-2">
           {icon}
           <span className="text-sm max-w-25 2xl:max-w-none text-muted-foreground text-nowrap">
             {title}
           </span>
         </Row>
-        <Show when={!pending} fallback={<Skeleton className="h-8 w-20 mb-1" />}>
-          <Flex className="flex-col lg:flex-row xl:flex-col 2xl:flex-row lg:gap-2 xl:gap-0 2xl:gap-2 items-start lg:items-center xl:items-start 2xl:items-center">
+
+        <Show when={!pending} fallback={<Skeleton className="h-8 w-32 mb-1" />}>
+          <Flex
+            className={`
+              flex-col lg:flex-row xl:flex-col 2xl:flex-row lg:gap-2 xl:gap-0 2xl:gap-2 items-start lg:items-center xl:items-start 2xl:items-center
+              transition-all duration-300 ease-in-out
+              ${fetching ? "opacity-40 blur-[1px] pointer-events-none" : "opacity-100 blur-0"}
+            `}
+          >
             <p className="text-3xl font-semibold">{formatValue(value)}</p>
+
             <span className="text-xs font-semibold flex items-center gap-1">
               {typeof percentage === "number" && percentage !== 0 && (
                 <span

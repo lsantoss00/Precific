@@ -1,7 +1,7 @@
 import KpiCard from "@/src/app/(private)/dashboard/components/kpi-card";
 import { getProductsAverageProfitability } from "@/src/app/(private)/dashboard/services/get-products-average-profitability";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { BadgePercent } from "lucide-react";
 
 interface ProductsAverageProfitabilityKpiCardProps {
@@ -11,12 +11,17 @@ interface ProductsAverageProfitabilityKpiCardProps {
 const ProductsAverageProfitabilityKpiCard = ({
   filters,
 }: ProductsAverageProfitabilityKpiCardProps) => {
-  const { data: averageProfitability } = useQuery({
+  const {
+    data: averageProfitability,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-average-profitability", filters],
     queryFn: () =>
       getProductsAverageProfitability({
         filters,
       }),
+    placeholderData: keepPreviousData,
   });
 
   return (
@@ -25,6 +30,8 @@ const ProductsAverageProfitabilityKpiCard = ({
       icon={<BadgePercent className="text-muted-foreground h-4 w-4" />}
       value={averageProfitability ?? 0}
       type="percentage"
+      pending={isPending}
+      fetching={isFetching}
     />
   );
 };
