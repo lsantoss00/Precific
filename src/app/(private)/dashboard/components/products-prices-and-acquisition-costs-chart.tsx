@@ -1,9 +1,11 @@
+"use client";
+
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndAcquisitionCosts } from "@/src/app/(private)/dashboard/services/get-products-prices-and-acquisition-costs";
 import { ChartConfig } from "@/src/components/core/chart";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 interface ProductsPricesAndAcquisitionCostsChartProps {
   productIds: string[];
@@ -12,9 +14,14 @@ interface ProductsPricesAndAcquisitionCostsChartProps {
 const ProductsPricesAndAcquisitionCostsChart = ({
   productIds,
 }: ProductsPricesAndAcquisitionCostsChartProps) => {
-  const { data: products } = useQuery({
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-prices-and-acquisition-costs", productIds],
     queryFn: () => getProductsPricesAndAcquisitionCosts({ productIds }),
+    placeholderData: keepPreviousData,
   });
 
   const chartData = (products || []).map((product) => ({
@@ -44,6 +51,8 @@ const ProductsPricesAndAcquisitionCostsChart = ({
       title="Preço de Venda X Custo de Aquisição"
       description={chartCardDescription}
       contentClassName="h-full w-full"
+      pending={isPending}
+      fetching={isFetching}
     >
       <StackedBarChart
         data={chartData}
@@ -53,6 +62,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
         stackId="a"
         barRadius={8}
         className="h-72"
+        pending={isPending}
         tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
       />
     </ChartCard>

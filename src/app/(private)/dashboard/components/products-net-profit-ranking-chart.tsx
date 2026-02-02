@@ -5,7 +5,7 @@ import { getProductsNetProfit } from "@/src/app/(private)/dashboard/services/get
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
 
@@ -18,9 +18,14 @@ const ProductsNetProfitRankingChart = ({
 }: ProductsNetProfitRankingChartProps) => {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
-  const { data: products } = useQuery({
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-net-profit", sortDirection, filters],
     queryFn: () => getProductsNetProfit({ sortDirection, filters }),
+    placeholderData: keepPreviousData,
   });
 
   const chartData = (products || []).map((product, index) => ({
@@ -49,11 +54,14 @@ const ProductsNetProfitRankingChart = ({
     <ChartCard
       title="Ranking de Lucro Líquido"
       description={chartCardDescription}
+      pending={isPending}
+      fetching={isFetching}
       headerAction={
         <Button
           onClick={toggleSortDirection}
           variant="outline"
           className="w-8 h-8 relative"
+          disabled={isPending || isFetching}
         >
           <ArrowDownUp className={`${isAscending && "text-primary"}`} />
         </Button>
@@ -68,6 +76,7 @@ const ProductsNetProfitRankingChart = ({
         barRadius={8}
         className="h-72"
         tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
+        pending={isPending}
       />
     </ChartCard>
   );

@@ -5,7 +5,7 @@ import { getProductsMarkup } from "@/src/app/(private)/dashboard/services/get-pr
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
 
@@ -18,9 +18,14 @@ const ProductsMarkupRankingChart = ({
 }: ProductsMarkupRankingChartProps) => {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
-  const { data: products } = useQuery({
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-markup", sortDirection, filters],
     queryFn: () => getProductsMarkup({ sortDirection, filters }),
+    placeholderData: keepPreviousData,
   });
 
   const chartData = (products || []).map((product, index) => ({
@@ -49,11 +54,14 @@ const ProductsMarkupRankingChart = ({
     <ChartCard
       title="Ranking de Markup"
       description={chartCardDescription}
+      pending={isPending}
+      fetching={isFetching}
       headerAction={
         <Button
           onClick={toggleSortDirection}
           variant="outline"
           className="w-8 h-8 relative 2xl:ml-8"
+          disabled={isPending || isFetching}
         >
           <ArrowDownUp className={`${isAscending && "text-primary"}`} />
         </Button>
@@ -67,6 +75,7 @@ const ProductsMarkupRankingChart = ({
         layout="horizontal"
         barRadius={8}
         className="h-72 lg:aspect-square"
+        pending={isPending}
         tooltip={
           <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
         }

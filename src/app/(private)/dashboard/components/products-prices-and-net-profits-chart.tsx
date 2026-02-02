@@ -3,7 +3,7 @@ import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-ch
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndNetProfits } from "@/src/app/(private)/dashboard/services/get-products-prices-and-net-profits";
 import { ChartConfig } from "@/src/components/core/chart";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 interface ProductsPricesAndNetProfitsChartProps {
   productIds: string[];
@@ -12,9 +12,14 @@ interface ProductsPricesAndNetProfitsChartProps {
 const ProductsPricesAndNetProfitsChart = ({
   productIds,
 }: ProductsPricesAndNetProfitsChartProps) => {
-  const { data: products } = useQuery({
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-prices-and-net-profits", productIds],
     queryFn: () => getProductsPricesAndNetProfits({ productIds }),
+    placeholderData: keepPreviousData,
   });
 
   const chartData = (products || []).map((product) => ({
@@ -44,6 +49,8 @@ const ProductsPricesAndNetProfitsChart = ({
       title="Preço de Venda X Lucro Líquido"
       description={chartCardDescription}
       contentClassName="h-full w-full"
+      pending={isPending}
+      fetching={isFetching}
     >
       <StackedBarChart
         data={chartData}
@@ -53,6 +60,7 @@ const ProductsPricesAndNetProfitsChart = ({
         stackId="a"
         barRadius={8}
         className="h-72"
+        pending={isPending}
         tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
       />
     </ChartCard>
