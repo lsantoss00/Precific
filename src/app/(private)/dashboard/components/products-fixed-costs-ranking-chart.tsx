@@ -28,19 +28,24 @@ const ProductsFixedCostsRankingChart = ({
     placeholderData: keepPreviousData,
   });
 
-  const chartData = (products || []).map((product, index) => ({
-    name: product.name,
-    fixedCosts: product.fixedCosts,
-    fill: `var(--chart-${(index % 10) + 1})`,
-  }));
+  const isAscending = sortDirection === "asc";
 
+  const chartData = (products || []).map((product, index, currentArray) => {
+    const colorIndex = isAscending
+      ? (currentArray.length - 1 - index) % 10
+      : index % 10;
+
+    return {
+      name: product.name,
+      fixedCosts: product.fixedCosts,
+      fill: `var(--chart-${colorIndex + 1})`,
+    };
+  });
   const chartConfig: ChartConfig = {
     fixedCosts: {
       label: "Custo Fixo (%)",
     },
   };
-
-  const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
     ? "Mostrando produtos menos sensíveis a custo fixo."

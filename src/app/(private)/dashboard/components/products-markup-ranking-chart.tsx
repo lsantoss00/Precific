@@ -28,19 +28,25 @@ const ProductsMarkupRankingChart = ({
     placeholderData: keepPreviousData,
   });
 
-  const chartData = (products || []).map((product, index) => ({
-    name: product.name,
-    markup: product.markup,
-    fill: `var(--chart-${(index % 10) + 1})`,
-  }));
+  const isAscending = sortDirection === "asc";
+
+  const chartData = (products || []).map((product, index, currentArray) => {
+    const colorIndex = isAscending
+      ? (currentArray.length - 1 - index) % 10
+      : index % 10;
+
+    return {
+      name: product.name,
+      markup: product.markup,
+      fill: `var(--chart-${colorIndex + 1})`,
+    };
+  });
 
   const chartConfig: ChartConfig = {
     markup: {
       label: "Markup (%)",
     },
   };
-
-  const isAscending = sortDirection === "asc";
 
   const chartCardDescription = isAscending
     ? "Mostrando produtos com menor markup."
