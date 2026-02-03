@@ -36,6 +36,7 @@ const ProductsMarkupRankingChart = ({
       : index % 10;
 
     return {
+      key: index,
       name: product.name,
       markup: product.markup,
       fill: `var(--chart-${colorIndex + 1})`,

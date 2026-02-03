@@ -36,6 +36,7 @@ const ProductsFixedCostsRankingChart = ({
       : index % 10;
 
     return {
+      key: index,
       name: product.name,
       fixedCosts: product.fixedCosts,
       fill: `var(--chart-${colorIndex + 1})`,
