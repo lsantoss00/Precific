@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/src/components/core";
 import Row from "@/src/components/core/row";
+import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
 import { ReactNode } from "react";
 
@@ -41,8 +42,14 @@ const ChartCard = ({
       <CardHeader className={cn("mb-4", headerClassName)}>
         <CardTitle>{title}</CardTitle>
         <Row className="items-center justify-between">
-          {description && <CardDescription>{description}</CardDescription>}
-          {headerAction}
+          <Show when={Boolean(description)}>
+            <CardDescription
+              className={`${Boolean(headerAction) && "max-w-44"} sm:max-w-none`}
+            >
+              {description}
+            </CardDescription>
+            {headerAction}
+          </Show>
         </Row>
       </CardHeader>
       <CardContent className={contentClassName}>
@@ -57,9 +64,9 @@ const ChartCard = ({
           {children}
         </div>
       </CardContent>
-      <CardFooter className={footerClassName}>
-        {footerContent && <div>{footerContent}</div>}
-      </CardFooter>
+      <Show when={Boolean(footerContent)}>
+        <CardFooter className={footerClassName}>{footerContent}</CardFooter>
+      </Show>
     </Card>
   );
 };
