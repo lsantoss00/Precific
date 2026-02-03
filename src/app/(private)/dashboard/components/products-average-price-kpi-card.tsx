@@ -1,7 +1,7 @@
 import KpiCard from "@/src/app/(private)/dashboard/components/kpi-card";
 import { getProductsAveragePrice } from "@/src/app/(private)/dashboard/services/get-products-average-price";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { BanknoteArrowUp } from "lucide-react";
 
 interface ProductsMarkupChartProps {
@@ -9,19 +9,17 @@ interface ProductsMarkupChartProps {
 }
 
 const ProductsAveragePriceKpiCard = ({ filters }: ProductsMarkupChartProps) => {
-  const { data: averagePrice } = useQuery({
-    queryKey: [
-      "products-average-price",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+  const {
+    data: averagePrice,
+    isFetching,
+    isPending,
+  } = useQuery({
+    queryKey: ["products-average-price", filters],
     queryFn: () =>
       getProductsAveragePrice({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
+    placeholderData: keepPreviousData,
   });
 
   return (
@@ -30,6 +28,8 @@ const ProductsAveragePriceKpiCard = ({ filters }: ProductsMarkupChartProps) => {
       icon={<BanknoteArrowUp className="text-muted-foreground h-4 w-4" />}
       value={averagePrice ?? 0}
       type="currency"
+      pending={isPending}
+      fetching={isFetching}
     />
   );
 };

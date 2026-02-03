@@ -2,19 +2,22 @@
 
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { getProducts } from "@/src/app/(private)/produtos/services/get-products";
-import { Label } from "@/src/components/core";
+import { Button, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import DatePicker from "@/src/components/core/date-picker";
 import Flex from "@/src/components/core/flex";
 import {
   MultiSelect,
   MultiSelectOption,
+  MultiSelectRef,
 } from "@/src/components/core/multi-select";
 import Row from "@/src/components/core/row";
+import Show from "@/src/components/core/show";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { useMediaQuery } from "@/src/hooks/use-media-query";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { SearchX } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface DashboardFiltersProps {
   value: ChartFiltersType;
@@ -30,6 +33,7 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
 
   const { fromDate: dateFrom, toDate: dateTo, productIds: products } = value;
 
+  const multiSelectRef = useRef<MultiSelectRef>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<
     string[] | undefined
@@ -140,6 +144,25 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
             ? 3
             : 2;
 
+  const hasActiveFilters =
+    selectedFromDate !== undefined ||
+    selectedToDate !== undefined ||
+    (selectedProducts !== undefined && selectedProducts.length > 0);
+
+  const handleClearFilters = () => {
+    setSelectedProducts(undefined);
+    setSelectedFromDate(undefined);
+    setSelectedToDate(undefined);
+    setSearchTerm("");
+    multiSelectRef.current?.clear();
+
+    onChange({
+      fromDate: undefined,
+      toDate: undefined,
+      productIds: undefined,
+    });
+  };
+
   useEffect(() => {
     if (products) {
       setSelectedProducts(products);
@@ -161,62 +184,79 @@ const DashboardFilters = ({ value, onChange }: DashboardFiltersProps) => {
   }, [debouncedProducts]);
 
   useEffect(() => {
-    // Verifica se ambas as datas existem antes de comparar
-    if (debouncedFromDate && dateFrom) {
-      if (debouncedFromDate.getTime() !== dateFrom.getTime()) {
-        onChange({ ...value, fromDate: debouncedFromDate });
+    if (debouncedFromDate) {
+      const startOfDay = new Date(debouncedFromDate);
+      startOfDay.setHours(0, 0, 0, 0);
+
+      if (!dateFrom || startOfDay.getTime() !== dateFrom.getTime()) {
+        onChange({ ...value, fromDate: startOfDay });
       }
     } else if (debouncedFromDate !== dateFrom) {
-      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, fromDate: debouncedFromDate });
     }
   }, [debouncedFromDate]);
 
   useEffect(() => {
-    // Verifica se ambas as datas existem antes de comparar
-    if (debouncedToDate && dateTo) {
-      if (debouncedToDate.getTime() !== dateTo.getTime()) {
-        onChange({ ...value, toDate: debouncedToDate });
+    if (debouncedToDate) {
+      const endOfDay = new Date(debouncedToDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      if (!dateTo || endOfDay.getTime() !== dateTo.getTime()) {
+        onChange({ ...value, toDate: endOfDay });
       }
     } else if (debouncedToDate !== dateTo) {
-      // Se uma é undefined e a outra não, atualiza
       onChange({ ...value, toDate: debouncedToDate });
     }
   }, [debouncedToDate]);
 
   return (
-    <Flex className="flex-col sm:flex-row gap-4">
-      <Row className="w-full 2xl:w-fit gap-4">
-        <Column className="gap-2 w-full 2xl:w-43.5">
-          <Label>De:</Label>
-          <DatePicker
-            value={selectedFromDate}
-            onValueChange={handleStartDateChange}
+    <Flex className="flex-col gap-4 2xl:flex-row">
+      <Flex className="flex-col sm:flex-row gap-4 items-center">
+        <Flex className="flex-col sm:flex-row w-full 2xl:w-fit gap-4">
+          <Column className="gap-2 w-full 2xl:w-39.5">
+            <Label>De:</Label>
+            <DatePicker
+              value={selectedFromDate}
+              onValueChange={handleStartDateChange}
+            />
+          </Column>
+          <Column className="gap-2 w-full 2xl:w-39.5">
+            <Label>Até:</Label>
+            <DatePicker
+              value={selectedToDate}
+              onValueChange={handleEndDateChange}
+            />
+          </Column>
+        </Flex>
+        <Column className="gap-2 w-full 2xl:w-83.5">
+          <Label>Produtos:</Label>
+          <MultiSelect
+            ref={multiSelectRef}
+            options={options}
+            value={selectedProducts}
+            onValueChange={handleProductsChange}
+            commandInputPlaceholder="Busque produtos..."
+            maxCount={multiSelectMaxCount}
+            className="w-full 2xl:max-w-90.5!"
+            onScrollEnd={handleLoadMore}
+            isLoadingMore={isFetching || isDebouncing}
+            onSearch={setSearchTerm}
+            onSearchValue={searchTerm}
           />
         </Column>
-        <Column className="gap-2 w-full 2xl:w-43.5">
-          <Label>Até:</Label>
-          <DatePicker
-            value={selectedToDate}
-            onValueChange={handleEndDateChange}
-          />
-        </Column>
-      </Row>
-      <Column className="gap-2 w-full">
-        <Label>Produtos:</Label>
-        <MultiSelect
-          options={options}
-          value={selectedProducts}
-          onValueChange={handleProductsChange}
-          commandInputPlaceholder="Busque produtos..."
-          maxCount={multiSelectMaxCount}
-          className="w-full 2xl:max-w-90.5!"
-          onScrollEnd={handleLoadMore}
-          isLoadingMore={isFetching || isDebouncing}
-          onSearch={setSearchTerm}
-          onSearchValue={searchTerm}
-        />
-      </Column>
+      </Flex>
+      <Show when={hasActiveFilters}>
+        <Button
+          className="text-primary p-0 self-start 2xl:self-center 2xl:mt-5"
+          variant="link"
+          onClick={handleClearFilters}
+        >
+          <Row className="items-center gap-2">
+            <SearchX />
+            <span>Limpar filtros</span>
+          </Row>
+        </Button>
+      </Show>
     </Flex>
   );
 };

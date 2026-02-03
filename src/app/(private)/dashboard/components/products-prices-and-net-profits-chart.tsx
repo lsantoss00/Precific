@@ -1,11 +1,9 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
-import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndNetProfits } from "@/src/app/(private)/dashboard/services/get-products-prices-and-net-profits";
 import { ChartConfig } from "@/src/components/core/chart";
-import Show from "@/src/components/core/show";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 interface ProductsPricesAndNetProfitsChartProps {
   productIds: string[];
@@ -14,9 +12,14 @@ interface ProductsPricesAndNetProfitsChartProps {
 const ProductsPricesAndNetProfitsChart = ({
   productIds,
 }: ProductsPricesAndNetProfitsChartProps) => {
-  const { data: products } = useQuery({
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
     queryKey: ["products-prices-and-net-profits", productIds],
     queryFn: () => getProductsPricesAndNetProfits({ productIds }),
+    placeholderData: keepPreviousData,
   });
 
   const chartData = (products || []).map((product) => ({
@@ -36,28 +39,31 @@ const ProductsPricesAndNetProfitsChart = ({
     },
   };
 
+  const chartCardDescription =
+    productIds?.length > 0
+      ? "Mostrando dados para os produtos selecionados."
+      : "Mostrando dados para os últimos 10 produtos precificados.";
+
   return (
-    <div className="relative">
-      <ChartCard
-        title="Comparativo"
-        description="Preço de Venda X Lucro Líquido"
-        contentClassName="h-full w-full"
-      >
-        <StackedBarChart
-          data={chartData}
-          config={chartConfig}
-          xAxisKey="name"
-          barKeys={["Lucro Líquido", "Preço de Venda"]}
-          stackId="a"
-          barRadius={8}
-          className="aspect-square"
-          tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
-        />
-      </ChartCard>
-      <Show when={!productIds || productIds.length === 0}>
-        <EmptyProductFilterMessage />
-      </Show>
-    </div>
+    <ChartCard
+      title="Preço de Venda X Lucro Líquido"
+      description={chartCardDescription}
+      contentClassName="h-full w-full"
+      pending={isPending}
+      fetching={isFetching}
+    >
+      <StackedBarChart
+        data={chartData}
+        config={chartConfig}
+        xAxisKey="name"
+        barKeys={["Lucro Líquido", "Preço de Venda"]}
+        stackId="a"
+        barRadius={8}
+        className="h-72"
+        pending={isPending}
+        tooltip={<CustomChartTooltip chartConfig={chartConfig} />}
+      />
+    </ChartCard>
   );
 };
 

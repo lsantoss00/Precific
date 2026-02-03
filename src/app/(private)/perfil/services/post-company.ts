@@ -3,7 +3,7 @@ import { createClient } from "@/src/libs/supabase/client";
 import { decamelizeKeys } from "humps";
 
 interface PostCompanyProps {
-  company: CompanyType;
+  company: Partial<CompanyType>;
 }
 
 export async function postCompany({ company }: PostCompanyProps) {

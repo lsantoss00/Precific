@@ -1,26 +1,23 @@
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { ProductsPriceHistoryType } from "@/src/app/(private)/dashboard/types/products-price-history-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
 interface GetProductsPriceHistoryProps {
-  fromDate: Date;
-  toDate: Date;
-  productIds: string[];
+  filters?: ChartFiltersType;
 }
 
 export async function getProductsPriceHistory({
-  fromDate,
-  toDate,
-  productIds,
+  filters,
 }: GetProductsPriceHistoryProps): Promise<ProductsPriceHistoryType[]> {
   const supabase = createClient();
 
   const { data: products, error } = await supabase.rpc(
     "get_products_price_history",
     {
-      from_date: fromDate,
-      to_date: toDate,
-      product_ids: productIds,
+      from_date: filters?.fromDate,
+      to_date: filters?.toDate,
+      product_ids: filters?.productIds,
     },
   );
 

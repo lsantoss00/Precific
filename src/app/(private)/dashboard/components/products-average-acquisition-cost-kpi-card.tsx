@@ -1,7 +1,7 @@
 import KpiCard from "@/src/app/(private)/dashboard/components/kpi-card";
 import { getProductsAverageAcquisitionCost } from "@/src/app/(private)/dashboard/services/get-products-average-acquisition-cost";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { BanknoteArrowDown } from "lucide-react";
 
 interface ProductsAverageAcquisitionCostKpiCardProps {
@@ -11,19 +11,17 @@ interface ProductsAverageAcquisitionCostKpiCardProps {
 const ProductsAverageAcquisitionCostKpiCard = ({
   filters,
 }: ProductsAverageAcquisitionCostKpiCardProps) => {
-  const { data: averageAcquisitionCost } = useQuery({
-    queryKey: [
-      "products-average-acquisition-cost",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+  const {
+    data: averageAcquisitionCost,
+    isPending,
+    isFetching,
+  } = useQuery({
+    queryKey: ["products-average-acquisition-cost", filters],
     queryFn: () =>
       getProductsAverageAcquisitionCost({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
+    placeholderData: keepPreviousData,
   });
 
   return (
@@ -32,6 +30,8 @@ const ProductsAverageAcquisitionCostKpiCard = ({
       icon={<BanknoteArrowDown className="text-muted-foreground h-4 w-4" />}
       value={averageAcquisitionCost ?? 0}
       type="currency"
+      pending={isPending}
+      fetching={isFetching}
     />
   );
 };

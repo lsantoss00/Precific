@@ -2,59 +2,85 @@ import BarChart from "@/src/app/(private)/dashboard/components/bar-chart";
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
 import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import { getProductsShipping } from "@/src/app/(private)/dashboard/services/get-products-shipping";
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
+import { Button } from "@/src/components/core";
 import { ChartConfig } from "@/src/components/core/chart";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { ArrowDownUp } from "lucide-react";
+import { useState } from "react";
 
 interface ProductsShippingRankingChartProps {
-  productIds?: string[];
-  sortDirection: "asc" | "desc";
-  description: string;
+  filters?: ChartFiltersType;
 }
 
 const ProductsShippingRankingChart = ({
-  productIds,
-  sortDirection,
-  description,
+  filters,
 }: ProductsShippingRankingChartProps) => {
-  const { data: products } = useQuery({
-    queryKey: ["products-shipping", sortDirection, productIds],
-    queryFn: () => getProductsShipping({ sortDirection, productIds }),
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+
+  const {
+    data: products,
+    isPending,
+    isFetching,
+  } = useQuery({
+    queryKey: ["products-shipping", sortDirection, filters],
+    queryFn: () => getProductsShipping({ sortDirection, filters }),
+    placeholderData: keepPreviousData,
   });
 
-  const chartData = (products || []).map((product) => ({
+  const chartData = (products || []).map((product, index) => ({
     name: product.name,
     shipping: product.shipping,
+    fill: `var(--chart-${(index % 10) + 1})`,
   }));
 
   const chartConfig: ChartConfig = {
     shipping: {
       label: "Frete (%)",
-      color: "var(--chart-4)",
     },
   };
 
+  const isAscending = sortDirection === "asc";
+
+  const chartCardDescription = isAscending
+    ? "Mostrando produtos menos sensíveis a frete."
+    : "Mostrando produtos mais sensíveis a frete.";
+
+  const toggleSortDirection = () => {
+    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
+
   return (
-    <div className="relative">
-      <ChartCard
-        title="Ranking de Frete"
-        description={description}
-        className="sm:col-span-6 md:col-span-3 lg:col-span-2 xl:col-span-4"
-        headerClassName="mb-4"
-      >
-        <BarChart
-          data={chartData}
-          config={chartConfig}
-          yAxisKey="name"
-          barKey="shipping"
-          layout="horizontal"
-          barRadius={8}
-          className="max-sm:aspect-square lg:aspect-square xl:aspect-video max-h-62.5"
-          tooltip={
-            <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
-          }
-        />
-      </ChartCard>
-    </div>
+    <ChartCard
+      title="Ranking de Frete"
+      description={chartCardDescription}
+      pending={isPending}
+      fetching={isFetching}
+      headerAction={
+        <Button
+          onClick={toggleSortDirection}
+          variant="outline"
+          className="w-8 h-8 relative 2xl:ml-8"
+          disabled={isPending || isFetching}
+        >
+          <ArrowDownUp className={`${isAscending && "text-primary"}`} />
+        </Button>
+      }
+    >
+      <BarChart
+        data={chartData}
+        config={chartConfig}
+        yAxisKey="name"
+        barKey="shipping"
+        layout="vertical"
+        barRadius={8}
+        className="h-72"
+        pending={isPending}
+        tooltip={
+          <CustomChartTooltip chartConfig={chartConfig} type="percentage" />
+        }
+      />
+    </ChartCard>
   );
 };
 

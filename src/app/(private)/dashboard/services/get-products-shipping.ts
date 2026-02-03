@@ -1,14 +1,15 @@
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { ProductsShippingType } from "@/src/app/(private)/dashboard/types/products-shipping-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
 interface GetProductsShippingProps {
-  productIds?: string[];
-  sortDirection?: "asc" | "desc";
+  filters?: ChartFiltersType;
+  sortDirection?: "asc" | "desc" | null;
 }
 
 export async function getProductsShipping({
-  productIds,
+  filters,
   sortDirection = "asc",
 }: GetProductsShippingProps): Promise<ProductsShippingType[]> {
   const supabase = createClient();
@@ -16,7 +17,9 @@ export async function getProductsShipping({
   const { data: products, error } = await supabase.rpc(
     "get_products_shipping",
     {
-      ids: productIds,
+      product_ids: filters?.productIds,
+      from_date: filters?.fromDate,
+      to_date: filters?.toDate,
       sort_direction: sortDirection,
     },
   );

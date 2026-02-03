@@ -1,14 +1,15 @@
+import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import { ProductsFixedCostsType } from "@/src/app/(private)/dashboard/types/products-fixed-costs-type";
 import { createClient } from "@/src/libs/supabase/client";
 import { camelizeKeys } from "humps";
 
 interface GetProductsFixedCostsProps {
-  productIds?: string[];
+  filters?: ChartFiltersType;
   sortDirection?: "asc" | "desc";
 }
 
 export async function getProductsFixedCosts({
-  productIds,
+  filters,
   sortDirection = "asc",
 }: GetProductsFixedCostsProps): Promise<ProductsFixedCostsType[]> {
   const supabase = createClient();
@@ -16,7 +17,9 @@ export async function getProductsFixedCosts({
   const { data: products, error } = await supabase.rpc(
     "get_products_fixed_costs",
     {
-      ids: productIds,
+      product_ids: filters?.productIds,
+      from_date: filters?.fromDate,
+      to_date: filters?.toDate,
       sort_direction: sortDirection,
     },
   );

@@ -1,7 +1,7 @@
 import KpiCard from "@/src/app/(private)/dashboard/components/kpi-card";
 import { getProductsAverageNetProfit } from "@/src/app/(private)/dashboard/services/get-products-average-net-profit";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { HandCoins } from "lucide-react";
 
 interface ProductsAverageNetProfitKpiCardProps {
@@ -11,19 +11,17 @@ interface ProductsAverageNetProfitKpiCardProps {
 const ProductsAverageNetProfitKpiCard = ({
   filters,
 }: ProductsAverageNetProfitKpiCardProps) => {
-  const { data: averageNetProfit } = useQuery({
-    queryKey: [
-      "products-average-net-profit",
-      filters?.fromDate,
-      filters?.toDate,
-      filters?.productIds,
-    ],
+  const {
+    data: averageNetProfit,
+    isPending,
+    isFetching,
+  } = useQuery({
+    queryKey: ["products-average-net-profit", filters],
     queryFn: () =>
       getProductsAverageNetProfit({
-        fromDate: filters?.fromDate,
-        toDate: filters?.toDate,
-        productIds: filters?.productIds,
+        filters,
       }),
+    placeholderData: keepPreviousData,
   });
 
   return (
@@ -32,6 +30,8 @@ const ProductsAverageNetProfitKpiCard = ({
       icon={<HandCoins className="text-muted-foreground h-4 w-4" />}
       value={averageNetProfit ?? 0}
       type="currency"
+      pending={isPending}
+      fetching={isFetching}
     />
   );
 };
