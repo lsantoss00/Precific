@@ -38,7 +38,8 @@ const CustomTooltip = ({
         </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={`${tooltipClassName} bg-black max-w-55 md:max-w-105 p-2 mr-2`}
+        align="end"
+        className={`${tooltipClassName} bg-black max-w-55 md:max-w-105`}
       >
         <p className="text-base text-white">{message}</p>
       </TooltipContent>
