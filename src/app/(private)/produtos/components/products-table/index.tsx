@@ -13,6 +13,7 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
+import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   flexRender,
@@ -31,6 +32,7 @@ import { productsTableColumns } from "./products-table-columns";
 import { ProductsTablePagination } from "./products-table-pagination";
 
 const ProductsTable = () => {
+  const { company } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,6 +42,8 @@ const ProductsTable = () => {
   const sortOrder = (searchParams.get("ordem") as "asc" | "desc") || "desc";
 
   const pageSize = 10;
+
+  const pricedProductsQuantity = company?.pricedProductsQuantity;
 
   const [products, setProducts] = useState<ProductResponseType[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -122,6 +126,7 @@ const ProductsTable = () => {
       onUpdateProductStatus: (productId: string, productStatus: string) =>
         updateStatus({ productId, status: productStatus }),
       pendingUpdateProductStatus,
+      pricedProductsQuantity,
     },
   });
 

@@ -16,6 +16,7 @@ interface ProductTableMeta {
   pendingDeleteProduct: boolean;
   onUpdateProductStatus: (productId: string, productStatus: string) => void;
   pendingUpdateProductStatus: boolean;
+  pricedProductsQuantity: number;
 }
 
 export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
@@ -77,7 +78,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue<number>("priceToday") * 100)}
+        {currencyFormatter((row.getValue<number>("priceToday") ?? 0) * 100)}
       </div>
     ),
     meta: {
@@ -93,7 +94,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue<number>("priceIn2026") * 100)}
+        {currencyFormatter((row.getValue<number>("priceIn2026") ?? 0) * 100)}
       </div>
     ),
     meta: {
@@ -109,7 +110,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     ),
     cell: ({ row }) => (
       <div className="uppercase truncate text-ellipsis w-20">
-        {currencyFormatter(row.getValue<number>("priceIn2027") * 100)}
+        {currencyFormatter((row.getValue<number>("priceIn2027") ?? 0) * 100)}
       </div>
     ),
     meta: {
@@ -159,16 +160,37 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       const product = row.original;
       const { isPremium } = useAuth();
 
-      const cannotPriceProduct = !isPremium && (product?.priceToday ?? 0) > 0;
+      const priceToday = product?.priceToday ?? 0;
+      const isPriced = priceToday > 0;
+      const freeLimitReached = (meta?.pricedProductsQuantity ?? 0) >= 10;
+
+      const isOverLimit = !isPremium && !isPriced && freeLimitReached;
+
+      const cannotEditExisting = !isPremium && isPriced;
 
       const isDisabled =
         meta?.pendingUpdateProductStatus ||
         meta?.pendingDeleteProduct ||
-        cannotPriceProduct;
+        isOverLimit ||
+        cannotEditExisting;
 
       return (
         <Row className="justify-end space-x-2">
-          {!cannotPriceProduct ? (
+          <Show
+            when={!isDisabled}
+            fallback={
+              <Button
+                variant="secondary"
+                className="w-9 sm:w-fit"
+                disabled={true}
+              >
+                <Tag className="sm:hidden" />
+                <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
+                  <Tag /> Precificar
+                </span>
+              </Button>
+            }
+          >
             <Button
               asChild
               variant="secondary"
@@ -184,18 +206,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
                 </span>
               </Link>
             </Button>
-          ) : (
-            <Button
-              variant="secondary"
-              className="w-9 sm:w-fit"
-              disabled={true}
-            >
-              <Tag className="sm:hidden" />
-              <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
-                <Tag /> Precificar
-              </span>
-            </Button>
-          )}
+          </Show>
 
           <Button
             variant="destructive"

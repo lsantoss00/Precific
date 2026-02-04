@@ -16,7 +16,7 @@ const CompanySubscriptionDetails = () => {
       <h3 className="text-lg">Assinatura</h3>
       <Row className="items-center gap-2">
         <div className="h-12 w-12">
-          <PlanCrownBadge />
+          <PlanCrownBadge isPremium={isPremium} />
         </div>
         <Column>
           <p>{isPremium ? "Plano Pago" : "Plano Gratuito"}</p>

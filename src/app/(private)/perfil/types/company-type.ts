@@ -25,4 +25,5 @@ export interface CompanyType {
   streetNumber: string;
   addressComplement?: string;
   productsQuantity: number;
+  pricedProductsQuantity?: number;
 }
