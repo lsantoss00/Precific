@@ -124,6 +124,22 @@ const ProductDetailsForm = () => {
               <Controller
                 name="userProductPrice"
                 control={control}
+                rules={{
+                  validate: (value) => {
+                    const hasPrice = form.getValues("hasUserProductPrice");
+                    if (
+                      hasPrice &&
+                      (value === undefined || value === null || value === 0)
+                    ) {
+                      return "Campo obrigatório";
+                    }
+                    return true;
+                  },
+                  min: {
+                    value: 0.01,
+                    message: "O valor deve ser maior que zero.",
+                  },
+                }}
                 render={({ field }) => {
                   const numericValue = field.value ?? 0;
 
