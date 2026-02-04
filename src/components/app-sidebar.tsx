@@ -167,16 +167,16 @@ export function AppSidebar() {
 
 const mainItems = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
+    title: "Produtos",
+    url: "/produtos",
+    icon: Package,
     disabled: false,
     soon: false,
   },
   {
-    title: "Produtos",
-    url: "/produtos",
-    icon: Package,
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
     disabled: false,
     soon: false,
   },

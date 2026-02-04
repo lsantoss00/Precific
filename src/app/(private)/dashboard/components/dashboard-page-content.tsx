@@ -17,12 +17,13 @@ import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filt
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import PremiumFeatureWrapper from "@/src/components/premium-feature-wrapper";
 import { useAuth } from "@/src/providers/auth-provider";
 import { CircleX, LayoutDashboard, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const DashboardPageContent = () => {
-  const { company, isLoadingAuth } = useAuth();
+  const { company, isLoadingAuth, isPremium } = useAuth();
 
   const [filters, setFilters] = useState<ChartFiltersType>({
     fromDate: undefined,
@@ -75,29 +76,43 @@ const DashboardPageContent = () => {
               <ProductsNetProfitRankingChart filters={filters} />
             </div>
             <div className="col-span-8 lg:col-span-4 2xl:col-span-2">
-              <ProductsMarkupRankingChart filters={filters} />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsMarkupRankingChart filters={filters} />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
-              <ProductsFixedCostsRankingChart filters={filters} />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsFixedCostsRankingChart filters={filters} />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 2xl:col-span-4">
-              <ProductsShippingRankingChart filters={filters} />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsShippingRankingChart filters={filters} />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8">
-              <ProductsPricesAndAcquisitionCostsChart
-                productIds={filters.productIds!}
-              />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsPricesAndAcquisitionCostsChart
+                  productIds={filters.productIds!}
+                />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8">
-              <ProductsPricesAndNetProfitsChart
-                productIds={filters.productIds!}
-              />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsPricesAndNetProfitsChart
+                  productIds={filters.productIds!}
+                />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
-              <ProductsPriceHistoryChart filters={filters} />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsPriceHistoryChart filters={filters} />
+              </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
-              <ProductsNetProfitHistoryChart filters={filters} />
+              <PremiumFeatureWrapper isPremium={!isPremium}>
+                <ProductsNetProfitHistoryChart filters={filters} />
+              </PremiumFeatureWrapper>
             </div>
           </div>
         </Column>
