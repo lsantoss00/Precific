@@ -147,19 +147,25 @@ const ProductDetailsForm = () => {
                 }}
                 render={({ field }) => {
                   const numericValue = field.value ?? 0;
-
                   return (
                     <Input
                       id="userProductPrice"
                       placeholder="R$ 0,00"
                       type="numeric"
-                      value={currencyFormatter(numericValue * 100)}
+                      {...field}
+                      value={
+                        field.value === null || field.value === undefined
+                          ? ""
+                          : currencyFormatter(numericValue * 100)
+                      }
                       onChange={(e) => {
                         const raw = e.target.value.replace(/\D/g, "");
-                        const numberValue = Number(raw) / 100;
+                        const numberValue =
+                          raw === "" ? null : Number(raw) / 100;
 
                         field.onChange(numberValue);
                       }}
+                      error={errors.userProductPrice?.message}
                     />
                   );
                 }}
