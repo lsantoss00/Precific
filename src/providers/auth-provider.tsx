@@ -123,7 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           queryClient.invalidateQueries({
             queryKey: ["company-subscription", profile.companyId],
           });
-        }
+        },
       )
       .subscribe();
 

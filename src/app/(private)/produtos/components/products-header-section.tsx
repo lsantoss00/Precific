@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ProductsHeaderSection = () => {
-  const { isPremium } = useAuth();
+  const { isLoadingAuth, isPremium } = useAuth();
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -98,8 +98,8 @@ const ProductsHeaderSection = () => {
           <Package size={26} className="shrink-0" />
           <h1 className="text-3xl font-semibold">Produtos</h1>
         </Row>
-        <Show when={!isPremium}>
-          <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-2 items-center">
+        <Show when={!isLoadingAuth && !isPremium}>
+          <Flex className="bg-secondary/5 border border-secondary rounded-md gap-2 p-1.5 items-center">
             <TriangleAlert className="text-secondary shrink-0" />
             <span className="text-sm">
               No <strong className="font-semibold">Plano Gratuito</strong> não é
