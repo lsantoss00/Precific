@@ -68,8 +68,12 @@ const DashboardPageContent = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
             <ProductsAveragePriceKpiCard filters={filters} />
             <ProductsAverageAcquisitionCostKpiCard filters={filters} />
-            <ProductsAverageNetProfitKpiCard filters={filters} />
-            <ProductsAverageProfitabilityKpiCard filters={filters} />
+            <PremiumFeatureWrapper isPremium={!isPremium}>
+              <ProductsAverageNetProfitKpiCard filters={filters} />
+            </PremiumFeatureWrapper>
+            <PremiumFeatureWrapper isPremium={!isPremium}>
+              <ProductsAverageProfitabilityKpiCard filters={filters} />
+            </PremiumFeatureWrapper>
           </div>
           <div className="grid grid-cols-8 gap-4 items-stretch">
             <div className="col-span-8 2xl:col-span-6 h-full">

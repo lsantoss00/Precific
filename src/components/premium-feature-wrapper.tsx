@@ -1,6 +1,5 @@
 "use client";
 
-import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import Show from "@/src/components/core/show";
 import PlanCrownBadge from "@/src/components/plan-crown-badge";
@@ -19,16 +18,10 @@ const PremiumFeatureWrapper = ({
     <div className="relative w-full h-full">
       {children}
       <Show when={isPremium}>
-        <Flex className="absolute m-0.5 inset-0 backdrop-blur-sm flex items-center justify-center z-10 rounded-md ">
-          <Column className="flex flex-col items-center gap-2 p-4 bg-white shadow-sm backdrop-blur-sm rounded-xl border-2 border-amber-500/50 mx-4">
+        <Flex className="absolute m-0.5 inset-0 backdrop-blur-sm items-start p-2 justify-end z-10 rounded-md">
+          <div className="h-12 w-12 bg-white rounded-full">
             <PlanCrownBadge isPremium={isPremium} />
-            <Column className="text-center">
-              <p className="text-lg font-semibold mb-1">Plano Pago</p>
-              <span className="text-sm text-muted-foreground">
-                Faça upgrade do seu plano para visualizar este gráfico.
-              </span>
-            </Column>
-          </Column>
+          </div>
         </Flex>
       </Show>
     </div>

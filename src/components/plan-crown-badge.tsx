@@ -11,7 +11,7 @@ interface PlanCrownBadgeProps {
 const PlanCrownBadge = ({ isPremium = false }: PlanCrownBadgeProps) => {
   return (
     <Flex
-      className={`w-12 h-12 rounded-full  items-center justify-center border-2 shrink-0 ${
+      className={`h-full w-full rounded-full items-center justify-center border-2 shrink-0 ${
         isPremium
           ? "border-secondary bg-secondary/20"
           : "border-muted-foreground bg-zinc-100"
