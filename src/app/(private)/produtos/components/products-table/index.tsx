@@ -157,10 +157,10 @@ const ProductsTable = () => {
   const hasData = !isPending && table.getRowModel().rows?.length > 0;
 
   return (
-    <Column className="bg-white shadow-sm flex flex-col h-[630.5px]! overflow-hidden rounded-md">
+    <Column className="bg-white shadow-sm flex flex-col h-160.5! overflow-hidden rounded-md">
       <div className="flex-1 overflow-hidden">
         <Table className="w-full table-fixed">
-          <TableHeader className="sticky top-0 z-10 shadow-sm">
+          <TableHeader className="sticky top-0 z-10 shadow-sm h-14">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent!">
                 {headerGroup.headers.map((header) => (
@@ -182,7 +182,6 @@ const ProductsTable = () => {
               </TableRow>
             ))}
           </TableHeader>
-
           <TableBody>
             <Show
               when={hasData}
@@ -190,7 +189,7 @@ const ProductsTable = () => {
                 <TableRow className="hover:bg-transparent!">
                   <TableCell
                     colSpan={table.getAllColumns().length}
-                    className="h-125 text-center text-gray-500"
+                    className="h-130 text-center text-gray-500"
                   >
                     <div className="flex items-center justify-center h-full">
                       <Show
@@ -229,7 +228,7 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </div>
-      <Row className="bg-neutral-50 border-t h-13 md:pr-2">
+      <Row className="bg-neutral-50 border-t h-14 md:pr-3">
         <ProductsTablePagination currentPage={page} totalPages={totalPages} />
       </Row>
       <ConfirmDeleteProductDialog
