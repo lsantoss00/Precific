@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <Column className="items-center justify-center h-screen w-screen px-2">
+    <Column className="items-center justify-center h-screen w-screen px-4">
       <LoginForm />
       <Link href="/" className="flex self-center w-fit my-2" passHref>
         <Button type="button" variant="link" className="text-xs sm:text-sm">

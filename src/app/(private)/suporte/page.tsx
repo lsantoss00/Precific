@@ -27,7 +27,7 @@ export default function SupportPage() {
         <Headset size={26} />
         <h1 className="text-3xl font-semibold">Suporte</h1>
       </Row>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <SupportPresentationCard />
         <div className="flex flex-col gap-4">
           <SupportLinkCard
