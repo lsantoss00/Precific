@@ -28,6 +28,11 @@ const ProductDetailsForm = () => {
         form.setValue("stateDestination", undefined);
       }
 
+      if (name === "hasUserProductPrice" && !value.hasUserProductPrice) {
+        form.setValue("userProductPrice", 0);
+        form.clearErrors("userProductPrice");
+      }
+
       if (name === "hasIcmsSt" && value.hasIcmsSt) {
         form.setValue("costumerTaxpayer", false);
       }
