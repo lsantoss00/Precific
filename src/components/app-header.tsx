@@ -35,7 +35,7 @@ export function AppHeader() {
   return (
     <header className="bg-[#fafafa] sticky top-0 z-50 border-b xl:hidden">
       <div className="h-[env(safe-area-inset-top)]" aria-hidden="true" />
-      <Row className="w-full h-20 justify-between items-center px-4">
+      <Row className="w-full h-20 justify-between items-center px-2">
         <SidebarTrigger
           className="p-2! hover:bg-gray-100 rounded-md transition-colors shrink-0"
           aria-label="Abrir menu de navegação"
