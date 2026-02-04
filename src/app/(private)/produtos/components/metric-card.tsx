@@ -39,7 +39,7 @@ const MetricCard = ({
       <Column>
         <p className="text-2xl font-semibold">{formatValue(value)}</p>
         <Show when={secondValue}>
-          <Row className="items-center bg-primary/20 min-w-fit w-20 pl-1.5 rounded-md">
+          <Row className="items-center bg-primary/20 justify-center w-22 rounded-md">
             <p className="text-sm font-semibold text-center">
               {formatValue(secondValue || 0)}
             </p>

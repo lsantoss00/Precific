@@ -679,6 +679,7 @@ const ProductResult = () => {
     {
       title: "Preço de venda final",
       value: finalSalePrice,
+      secondValue: inverseCalculations?.userFinalSalePrice,
       variant: "secondary" as const,
       gridSpan: "col-span-1 md:col-span-2 row-6",
     },
@@ -774,7 +775,7 @@ const ProductResult = () => {
                 {metrics2026.map((metric, index) => (
                   <div
                     key={`metric-2026-${index}`}
-                    className={`h-30 ${metric.gridSpan}`}
+                    className={`${inverseCalculations && "h-30"}${metric.gridSpan}`}
                   >
                     <MetricCard
                       title={metric.title}

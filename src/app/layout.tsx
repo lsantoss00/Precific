@@ -34,6 +34,8 @@ export const metadata: Metadata = {
     "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
   metadataBase: new URL("https://precificapp.com"),
   keywords: [
+    "precifica",
+    "precificar",
     "precificação",
     "formação de preços",
     "cálculo de impostos",

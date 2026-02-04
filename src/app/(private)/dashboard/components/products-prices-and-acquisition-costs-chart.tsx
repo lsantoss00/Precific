@@ -1,7 +1,7 @@
 "use client";
 
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
-import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
+import CustomChartTooltip from "@/src/app/(private)/dashboard/components/custom-chart-tooltip";
 import StackedBarChart from "@/src/app/(private)/dashboard/components/stacked-bar-chart";
 import { getProductsPricesAndAcquisitionCosts } from "@/src/app/(private)/dashboard/services/get-products-prices-and-acquisition-costs";
 import { ChartConfig } from "@/src/components/core/chart";

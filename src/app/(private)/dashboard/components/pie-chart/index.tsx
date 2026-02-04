@@ -9,6 +9,7 @@ import {
 } from "@/src/components/core/chart";
 import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 import { Label, Pie, PieChart as REPieChart } from "recharts";
 
 interface PieChartProps {
@@ -34,6 +35,8 @@ const PieChart = ({
   strokeWidth,
   className = "",
 }: PieChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <ChartContainer
       config={config}
@@ -50,6 +53,7 @@ const PieChart = ({
           nameKey={nameKey}
           innerRadius={innerRadius}
           strokeWidth={strokeWidth}
+          isAnimationActive={!prefersReducedMotion}
         >
           <Show when={centralText}>
             <Label

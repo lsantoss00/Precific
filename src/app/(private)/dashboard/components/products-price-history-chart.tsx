@@ -1,7 +1,7 @@
 import ChartCard from "@/src/app/(private)/dashboard/components/chart-card";
+import CustomChartTooltip from "@/src/app/(private)/dashboard/components/custom-chart-tooltip";
 import EmptyProductFilterMessage from "@/src/app/(private)/dashboard/components/empty-product-filter-message";
 import LineChart from "@/src/app/(private)/dashboard/components/line-chart";
-import CustomChartTooltip from "@/src/app/(private)/dashboard/components/line-chart/custom-chart-tooltip";
 import ProductsWithNoHistoryFilterMessage from "@/src/app/(private)/dashboard/components/products-with-no-history-filter-message";
 import { getProductsPriceHistory } from "@/src/app/(private)/dashboard/services/get-products-price-history";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";

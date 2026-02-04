@@ -12,6 +12,7 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 import {
   CartesianGrid,
   Line,
@@ -60,6 +61,8 @@ const LineChart = ({
   tooltip,
   pending,
 }: LineChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const lineKeys = Object.keys(config).filter(
     (key) => key !== xAxisKey && config[key]?.label,
   );
@@ -124,6 +127,7 @@ const LineChart = ({
                 strokeWidth={strokeWidth}
                 dot={{ r: 4, fill: config[key]?.color }}
                 activeDot={{ r: 6 }}
+                isAnimationActive={!prefersReducedMotion}
               />
             ))}
           </RechartsLineChart>

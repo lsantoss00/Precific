@@ -57,8 +57,8 @@ const ChartCard = ({
           className={cn(
             "h-full w-full transition-all duration-300 ease-in-out",
             fetching
-              ? "opacity-40 blur-[1px] pointer-events-none scale-[0.99]"
-              : "opacity-100 blur-0 scale-100",
+              ? "opacity-40 blur-[1px] pointer-events-none"
+              : "opacity-100 blur-0",
           )}
         >
           {children}

@@ -223,7 +223,7 @@ const PricingForm = () => {
                       triggerProps={{
                         id: "irpjPercent",
                       }}
-                      placeholder="Selecione o percentual do IRPJ"
+                      placeholder="Selecione"
                       options={realProfitIrpjPercentOptions}
                       value={value!}
                       onChange={(value) => onChange(Number(value))}
@@ -260,7 +260,7 @@ const PricingForm = () => {
                       triggerProps={{
                         id: "irpjPercent",
                       }}
-                      placeholder="Selecione o percentual do IRPJ"
+                      placeholder="Selecione"
                       options={presumedProfitIrpjPercentOptions}
                       value={value!}
                       onChange={(value) => onChange(Number(value))}

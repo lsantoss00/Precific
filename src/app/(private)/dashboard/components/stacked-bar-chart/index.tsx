@@ -22,6 +22,7 @@ import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 
 interface StackedBarChartProps {
   data: ChartDataType[];
@@ -52,6 +53,8 @@ const StackedBarChart = ({
   tooltip,
   pending,
 }: StackedBarChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const keys = barKeys && barKeys.length > 0 ? barKeys : Object.keys(config);
   const skeletonCount = 10;
 
@@ -144,6 +147,7 @@ const StackedBarChart = ({
                       : 0
                   }
                   barSize={60}
+                  isAnimationActive={!prefersReducedMotion}
                 />
               ))}
             </REBarChart>

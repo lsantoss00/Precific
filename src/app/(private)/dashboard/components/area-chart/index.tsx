@@ -8,6 +8,7 @@ import {
   ChartTooltipContent,
 } from "@/src/components/core/chart";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 import { Area, CartesianGrid, AreaChart as REAreaChart, XAxis } from "recharts";
 
 interface AreaChartProps {
@@ -29,14 +30,19 @@ const AreaChart = ({
   margin = { left: 12, right: 12 },
   className = "",
 }: AreaChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const keys = areaKeys && areaKeys.length > 0 ? areaKeys : Object.keys(config);
-  const defaultGradients = keys.reduce((acc, key) => {
-    acc[key] = {
-      from: config[key]?.color || "var(--color-desktop)",
-      to: config[key]?.color || "var(--color-desktop)",
-    };
-    return acc;
-  }, {} as Record<string, { from: string; to: string }>);
+  const defaultGradients = keys.reduce(
+    (acc, key) => {
+      acc[key] = {
+        from: config[key]?.color || "var(--color-desktop)",
+        to: config[key]?.color || "var(--color-desktop)",
+      };
+      return acc;
+    },
+    {} as Record<string, { from: string; to: string }>,
+  );
   const usedGradients = gradients || defaultGradients;
 
   return (
@@ -86,6 +92,7 @@ const AreaChart = ({
             fillOpacity={0.4}
             stroke={config[key]?.color || "var(--color-desktop)"}
             stackId="a"
+            isAnimationActive={!prefersReducedMotion}
           />
         ))}
       </REAreaChart>

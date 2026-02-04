@@ -8,6 +8,7 @@ import {
   type ChartConfig,
 } from "@/src/components/core/chart";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -32,6 +33,8 @@ const RadarChart = ({
   strokeWidth = 2,
   className = "",
 }: RadarChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const keys =
     radarKeys && radarKeys.length > 0 ? radarKeys : Object.keys(config);
 
@@ -55,6 +58,7 @@ const RadarChart = ({
             fillOpacity={0}
             stroke={config[key]?.color || "var(--color-desktop)"}
             strokeWidth={strokeWidth}
+            isAnimationActive={!prefersReducedMotion}
           />
         ))}
       </RERadarChart>

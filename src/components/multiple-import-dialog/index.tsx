@@ -73,6 +73,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
                   alt="Exemplo de preenchimento correto da planilha de importação de produtos"
                   width={1040}
                   height={150}
+                  placeholder="blur"
                   className="min-w-137.5"
                   priority
                 />

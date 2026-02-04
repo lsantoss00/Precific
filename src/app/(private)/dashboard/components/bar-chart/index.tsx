@@ -13,6 +13,7 @@ import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 import {
   Bar,
   CartesianGrid,
@@ -58,6 +59,8 @@ const BarChart = ({
   tooltip,
   pending,
 }: BarChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const isHorizontal = layout === "horizontal";
   const skeletonCount = 10;
 
@@ -162,6 +165,7 @@ const BarChart = ({
                   fill={config[key]?.color || "var(--color-desktop)"}
                   radius={barRadius}
                   barSize={!isHorizontal ? 60 : undefined}
+                  isAnimationActive={!prefersReducedMotion}
                 />
               ))}
             </ReBarChart>

@@ -15,6 +15,7 @@ import {
 
 import { ChartDataType } from "@/src/app/(private)/dashboard/types/chart-data-type";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import { useReducedMotion } from "framer-motion";
 
 interface RadialChartProps {
   data: ChartDataType[];
@@ -37,6 +38,8 @@ const RadialChart = ({
   barBackground = true,
   className = "",
 }: RadialChartProps) => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <ChartContainer
       config={config}
@@ -51,7 +54,11 @@ const RadialChart = ({
           cursor={false}
           content={<ChartTooltipContent hideLabel nameKey={nameKey} />}
         />
-        <RadialBar dataKey={dataKey} background={barBackground}>
+        <RadialBar
+          dataKey={dataKey}
+          background={barBackground}
+          isAnimationActive={!prefersReducedMotion}
+        >
           <LabelList
             position="insideStart"
             dataKey={nameKey || dataKey}

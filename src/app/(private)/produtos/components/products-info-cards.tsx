@@ -18,7 +18,7 @@ const ProductInfoCards = () => {
       title: pluralize(
         summary?.registeredProducts || 0,
         "Produto Cadastrado",
-        "Produtos Cadastrados"
+        "Produtos Cadastrados",
       ),
       value: summary?.registeredProducts || 0,
       icon: (
@@ -30,7 +30,7 @@ const ProductInfoCards = () => {
       title: pluralize(
         summary?.precifiedProducts || 0,
         "Produto Precificado",
-        "Produtos Precificados"
+        "Produtos Precificados",
       ),
       value: summary?.precifiedProducts || 0,
       icon: (
@@ -42,7 +42,7 @@ const ProductInfoCards = () => {
       title: pluralize(
         summary?.activeProducts || 0,
         "Produto Ativo",
-        "Produtos Ativos"
+        "Produtos Ativos",
       ),
       value: summary?.activeProducts || 0,
       icon: (
@@ -54,7 +54,7 @@ const ProductInfoCards = () => {
       title: pluralize(
         summary?.inactiveProducts || 0,
         "Produto Inativo",
-        "Produtos Inativos"
+        "Produtos Inativos",
       ),
       value: summary?.inactiveProducts || 0,
       icon: (
