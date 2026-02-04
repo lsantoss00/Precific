@@ -19,7 +19,7 @@ const PremiumFeatureWrapper = ({
     <div className="relative w-full h-full">
       {children}
       <Show when={isPremium}>
-        <Flex className="absolute mb-0.5 inset-0 backdrop-blur-sm flex items-center justify-center z-10 rounded-md ">
+        <Flex className="absolute m-0.5 inset-0 backdrop-blur-sm flex items-center justify-center z-10 rounded-md ">
           <Column className="flex flex-col items-center gap-2 p-4 bg-white shadow-sm backdrop-blur-sm rounded-xl border-2 border-amber-500/50 mx-4">
             <PlanCrownBadge isPremium={isPremium} />
             <Column className="text-center">
