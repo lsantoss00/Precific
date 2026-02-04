@@ -111,7 +111,7 @@ const ProductDetailsForm = () => {
             render={({ field: { onChange, value } }) => (
               <Checkbox
                 id="hasUserProductPrice"
-                checked={Boolean(value)}
+                checked={value}
                 onCheckedChange={onChange}
               />
             )}

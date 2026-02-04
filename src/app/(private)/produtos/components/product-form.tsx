@@ -4,8 +4,9 @@ import { useProductForm } from "@/src/app/(private)/produtos/contexts/product-fo
 import { Button } from "@/src/components/core";
 import Flex from "@/src/components/core/flex";
 import Row from "@/src/components/core/row";
+import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
-import { Calculator, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calculator, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { getProductById } from "../services/get-product-by-id";
@@ -19,6 +20,7 @@ interface ProductFormProps {
 }
 
 const ProductForm = ({ productId }: ProductFormProps) => {
+  const { isLoadingAuth } = useAuth();
   const { form, isEditMode } = useProductForm();
 
   const { data: product } = useQuery({
@@ -65,6 +67,9 @@ const ProductForm = ({ productId }: ProductFormProps) => {
     isEditMode && productId
       ? `/produtos/${productId}/resultado`
       : `/produtos/novo/resultado`;
+
+  if (isLoadingAuth)
+    return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
 
   return (
     <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4">
