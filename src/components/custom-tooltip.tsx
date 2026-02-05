@@ -24,7 +24,7 @@ const CustomTooltip = ({
         <Button
           type="button"
           tabIndex={-1}
-          className={`${className} bg-transparent shadow-none text-foreground hover:bg-transparent p-1.5! pr-0! h-fit w-fit! cursor-default`}
+          className={`${className} bg-transparent shadow-none text-foreground hover:bg-transparent h-fit w-fit! cursor-default p-0! m-0!`}
           onClick={() => setOpenTooltip(!openTooltip)}
           onMouseEnter={() => setOpenTooltip(true)}
           onMouseLeave={() => setOpenTooltip(false)}

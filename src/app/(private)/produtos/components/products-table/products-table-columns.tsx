@@ -3,10 +3,11 @@
 import { Button, Switch } from "@/src/components/core";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { ColumnDef } from "@tanstack/react-table";
-import { Loader2Icon, Tag, Trash2 } from "lucide-react";
+import { Info, Loader2Icon, Tag, Trash2 } from "lucide-react";
 import Link from "next/link";
 import SortableHeader from "../../../../../components/core/sortable-header";
 import { ProductResponseType } from "../../types/product-type";
@@ -74,10 +75,17 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     accessorKey: "priceToday",
     size: 80,
     header: ({ column }) => (
-      <SortableHeader column={column}>HOJE (R$)</SortableHeader>
+      <SortableHeader column={column}>
+        <CustomTooltip
+          className="text-primary!"
+          message="Preço de Venda do seu produto ANTES de usar a plataforma"
+          icon={<Info />}
+        />
+        HOJE (R$)
+      </SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-20">
+      <div className="uppercase truncate text-ellipsis w-20  ml-2">
         {currencyFormatter((row.getValue<number>("priceToday") ?? 0) * 100)}
       </div>
     ),
@@ -90,10 +98,17 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     accessorKey: "priceIn2026",
     size: 80,
     header: ({ column }) => (
-      <SortableHeader column={column}>2026 (R$)</SortableHeader>
+      <SortableHeader column={column}>
+        <CustomTooltip
+          className="text-primary!"
+          message="Preço de Venda do seu produto DEPOIS de usar a plataforma"
+          icon={<Info />}
+        />
+        2026 (R$)
+      </SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-20">
+      <div className="uppercase truncate text-ellipsis w-20  ml-2">
         {currencyFormatter((row.getValue<number>("priceIn2026") ?? 0) * 100)}
       </div>
     ),
@@ -106,10 +121,17 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
     accessorKey: "priceIn2027",
     size: 80,
     header: ({ column }) => (
-      <SortableHeader column={column}>2027 (R$)</SortableHeader>
+      <SortableHeader column={column}>
+        <CustomTooltip
+          className="text-primary!"
+          message="Em breve"
+          icon={<Info />}
+        />
+        2027 (R$)
+      </SortableHeader>
     ),
     cell: ({ row }) => (
-      <div className="uppercase truncate text-ellipsis w-20">
+      <div className="uppercase truncate text-ellipsis w-20 ml-2">
         {currencyFormatter((row.getValue<number>("priceIn2027") ?? 0) * 100)}
       </div>
     ),
