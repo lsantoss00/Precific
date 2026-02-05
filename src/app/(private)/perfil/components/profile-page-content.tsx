@@ -12,7 +12,7 @@ import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { useMutation } from "@tanstack/react-query";
-import { Check, CircleUserRound, Loader2, Loader2Icon } from "lucide-react";
+import { Check, CircleUserRound, Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -61,43 +61,33 @@ const ProfilePageContent = () => {
 
   return (
     <Container variant="page">
-      <Show
-        when={!isLoadingAuth}
-        fallback={
-          <Loader2
-            className="text-primary animate-spin m-auto w-10 h-10"
-            aria-label="Carregando perfil"
-          />
-        }
+      <Row className="items-center gap-2">
+        <CircleUserRound size={26} />
+        <h1 className="text-3xl font-semibold">Perfil</h1>
+      </Row>
+      <Flex
+        className="flex-col lg:flex-row w-full flex-1 gap-4"
+        aria-label="Informações do perfil"
       >
-        <Row className="items-center gap-2">
-          <CircleUserRound size={26} />
-          <h1 className="text-3xl font-semibold">Perfil</h1>
-        </Row>
-        <Flex
-          className="flex-col lg:flex-row w-full flex-1 gap-4"
-          aria-label="Informações do perfil"
-        >
-          <UserData onImageChange={handleImageChange} />
-          <Flex className="flex-col w-full h-full gap-4">
-            <CompanySubscriptionDetails />
-            <CompanyData />
-          </Flex>
+        <UserData onImageChange={handleImageChange} />
+        <Flex className="flex-col w-full h-full gap-4">
+          <CompanySubscriptionDetails />
+          <CompanyData />
         </Flex>
-        <Button
-          className="w-full md:w-40 h-12 self-end"
-          onClick={handleUpdateProfilePicture}
-          disabled={isSaving || !hasChanges}
+      </Flex>
+      <Button
+        className="w-full md:w-40 h-12 self-end"
+        onClick={handleUpdateProfilePicture}
+        disabled={isSaving || !hasChanges}
+      >
+        <Show
+          when={!isSaving}
+          fallback={<Loader2Icon className="animate-spin" />}
         >
-          <Show
-            when={!isSaving}
-            fallback={<Loader2Icon className="animate-spin" />}
-          >
-            <Check />
-          </Show>
-          Salvar
-        </Button>
-      </Show>
+          <Check />
+        </Show>
+        Salvar
+      </Button>
     </Container>
   );
 };
