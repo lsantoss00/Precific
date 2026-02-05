@@ -7,12 +7,13 @@ import CustomTooltip from "@/src/components/custom-tooltip";
 import { currencyFormatter } from "@/src/helpers/currency-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { ColumnDef } from "@tanstack/react-table";
-import { Info, Loader2Icon, Tag, Trash2 } from "lucide-react";
+import { Eye, Info, Loader2Icon, Tag, Trash2 } from "lucide-react";
 import Link from "next/link";
 import SortableHeader from "../../../../../components/core/sortable-header";
 import { ProductResponseType } from "../../types/product-type";
 
 interface ProductTableMeta {
+  onViewProductDetails: (product: Partial<ProductResponseType>) => void;
   onDeleteProduct: (productId: string, productName: string) => void;
   pendingDeleteProduct: boolean;
   onUpdateProductStatus: (productId: string, productStatus: string) => void;
@@ -198,6 +199,14 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
 
       return (
         <Row className="justify-end space-x-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => meta?.onViewProductDetails(product)}
+            aria-label="Visualizar Produto"
+          >
+            <Eye className="w-4 h-4" />
+          </Button>
           <Show
             when={!isDisabled}
             fallback={
@@ -206,10 +215,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
                 className="w-9 sm:w-fit"
                 disabled={true}
               >
-                <Tag className="sm:hidden" />
-                <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
-                  <Tag /> Precificar
-                </span>
+                <Tag />
               </Button>
             }
           >
@@ -220,16 +226,13 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
               disabled={
                 meta?.pendingUpdateProductStatus || meta?.pendingDeleteProduct
               }
+              aria-label="Precificar Produto"
             >
               <Link href={`/produtos/${product.id}`}>
-                <Tag className="sm:hidden" />
-                <span className="hidden sm:inline-flex sm:size-auto items-center gap-2">
-                  <Tag /> Precificar
-                </span>
+                <Tag />
               </Link>
             </Button>
           </Show>
-
           <Button
             variant="destructive"
             size="icon"

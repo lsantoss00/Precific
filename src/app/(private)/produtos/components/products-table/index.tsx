@@ -1,6 +1,7 @@
 "use client";
 
 import ConfirmDeleteProductDialog from "@/src/app/(private)/produtos/components/products-table/confirm-delete-product-dialog";
+import ProductDetailsDialog from "@/src/app/(private)/produtos/components/products-table/product-details-dialog";
 import {
   Table,
   TableBody,
@@ -57,6 +58,10 @@ const ProductsTable = () => {
     productId: string;
     productName: string;
   } | null>(null);
+  const [openProductDetailsDialog, setOpenProductDetailsDialog] =
+    useState<boolean>(false);
+  const [productToView, setProductToView] =
+    useState<Partial<ProductResponseType> | null>(null);
 
   const { data, isPending } = useQuery({
     queryFn: () => getProducts({ page, pageSize, search, sortBy, sortOrder }),
@@ -126,6 +131,10 @@ const ProductsTable = () => {
       router.push(`?${params.toString()}`);
     },
     meta: {
+      onViewProductDetails: (product: Partial<ProductResponseType>) => {
+        setProductToView(product);
+        setOpenProductDetailsDialog(true);
+      },
       onDeleteProduct: (productId: string, productName: string) => {
         setProductToDelete({ productId, productName });
         setOpenConfirmDeleteDialog(true);
@@ -139,9 +148,14 @@ const ProductsTable = () => {
     },
   });
 
-  const handleOnOpenChange = () => {
+  const handleOnOpenChangeDeleteDialog = () => {
     setOpenConfirmDeleteDialog(false);
     setProductToDelete(null);
+  };
+
+  const handleOnOpenChangeProductDetailsDialog = () => {
+    setOpenProductDetailsDialog(false);
+    setProductToView(null);
   };
 
   useEffect(() => {
@@ -248,7 +262,12 @@ const ProductsTable = () => {
       <ConfirmDeleteProductDialog
         product={productToDelete!}
         open={openConfirmDeleteDialog}
-        onOpenChange={handleOnOpenChange}
+        onOpenChange={handleOnOpenChangeDeleteDialog}
+      />
+      <ProductDetailsDialog
+        product={productToView!}
+        open={openProductDetailsDialog}
+        onOpenChange={handleOnOpenChangeProductDetailsDialog}
       />
     </Column>
   );
