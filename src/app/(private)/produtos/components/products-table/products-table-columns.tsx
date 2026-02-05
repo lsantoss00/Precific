@@ -81,7 +81,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           message="Preço de Venda do seu produto ANTES de usar a plataforma"
           icon={<Info />}
         />
-        HOJE (R$)
+        HOJE
       </SortableHeader>
     ),
     cell: ({ row }) => (
@@ -104,7 +104,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           message="Preço de Venda do seu produto DEPOIS de usar a plataforma"
           icon={<Info />}
         />
-        2026 (R$)
+        2026
       </SortableHeader>
     ),
     cell: ({ row }) => (
@@ -127,7 +127,7 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
           message="Em breve"
           icon={<Info />}
         />
-        2027 (R$)
+        2027
       </SortableHeader>
     ),
     cell: ({ row }) => (
