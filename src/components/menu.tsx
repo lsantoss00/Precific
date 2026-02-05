@@ -106,7 +106,7 @@ const Menu = () => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="!text-red-600 cursor-pointer"
+          className="text-red-600! cursor-pointer"
           onClick={() => doLogout()}
         >
           Sair

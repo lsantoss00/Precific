@@ -53,7 +53,7 @@ const ProductResult = () => {
       isEditMode && productId ? `/produtos/${productId}` : `/produtos/novo`;
     router.replace(redirectPath);
 
-    return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
+    return <Loader2 className="text-primary animate-spin m-auto w-12 h-12" />;
   }
 
   const { mutate: post, isPending: pendingPostProduct } = useMutation({

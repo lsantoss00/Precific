@@ -17,13 +17,7 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       {
         src: "/images/precific-short-logo-image.webp",
-        sizes: "192x192",
-        type: "image/webp",
-        purpose: "maskable",
-      },
-      {
-        src: "/images/precific-short-logo-image.webp",
-        sizes: "512x512",
+        sizes: "128x70",
         type: "image/webp",
         purpose: "any",
       },

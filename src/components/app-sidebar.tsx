@@ -51,10 +51,8 @@ export function AppSidebar() {
               <Image
                 src={logoImage}
                 alt="Precific | Plataforma de Precificação Inteligente"
-                width={200}
-                height={40}
                 priority
-                className={`hover:cursor-pointer shrink-0 ${
+                className={`w-full h-auto max-w-50 hover:cursor-pointer shrink-0 ${
                   isCollapsed && "hidden"
                 }`}
               />
