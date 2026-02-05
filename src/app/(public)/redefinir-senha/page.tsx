@@ -7,15 +7,11 @@ export const metadata: Metadata = {
   description:
     "Esqueceu sua senha? Redefina sua senha de acesso ao Precific de forma rápida e segura.",
   openGraph: {
-    type: "website",
-    locale: "pt-BR",
-    siteName: "Precific",
     title: "Redefinir Senha | Precific",
     description:
       "Esqueceu sua senha? Redefina sua senha de acesso ao Precific de forma rápida e segura.",
   },
   twitter: {
-    card: "summary",
     title: "Redefinir Senha | Precific",
     description:
       "Esqueceu sua senha? Redefina sua senha de acesso ao Precific de forma rápida e segura.",

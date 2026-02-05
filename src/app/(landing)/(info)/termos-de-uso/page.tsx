@@ -18,28 +18,15 @@ export const metadata: Metadata = {
     "precific",
   ],
   openGraph: {
-    type: "website",
-    locale: "pt-BR",
-    siteName: "Precific",
     title: "Termos de Uso | Precific",
     description:
       "Leia os termos de uso do Precific. Conheça as condições de utilização, direitos e responsabilidades ao usar nossa plataforma.",
     url: "https://precificapp.com/termos-de-uso",
-    images: [
-      {
-        url: "/opengraph-image.webp",
-        width: 1200,
-        height: 630,
-        alt: "Termos de Uso | Precific",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
     title: "Termos de Uso | Precific",
     description:
-      "Leia os termos de uso do Precific. Conheça as condições de utilização, direitos e responsabilidades.",
-    images: ["/opengraph-image.webp"],
+      "Leia os termos de uso do Precific. Conheça as condições de utilização, direitos e responsabilidades ao usar nossa plataforma.",
   },
   alternates: {
     canonical: "/termos-de-uso",

@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description:
-    "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações no Precific.",
+    "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais.",
   keywords: [
     "política de privacidade",
     "lgpd",
@@ -18,28 +18,15 @@ export const metadata: Metadata = {
     "precific",
   ],
   openGraph: {
-    type: "website",
-    locale: "pt-BR",
-    siteName: "Precific",
-    title: "Política de Privacidade | Precific",
-    description:
-      "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais. Transparência e segurança no tratamento de informações.",
-    url: "https://precificapp.com/politica-de-privacidade",
-    images: [
-      {
-        url: "/opengraph-image.webp",
-        width: 1200,
-        height: 630,
-        alt: "Política de Privacidade | Precific",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
     title: "Política de Privacidade | Precific",
     description:
       "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais.",
-    images: ["/opengraph-image.webp"],
+    url: "https://precificapp.com/politica-de-privacidade",
+  },
+  twitter: {
+    title: "Política de Privacidade | Precific",
+    description:
+      "Conheça nossa política de privacidade e saiba como protegemos seus dados pessoais.",
   },
   alternates: {
     canonical: "/politica-de-privacidade",

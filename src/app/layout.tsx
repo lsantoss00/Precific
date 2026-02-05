@@ -75,13 +75,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt-BR",
     siteName: "Precific",
-    title: "Precific",
+    title: "Precific | Plataforma de Precificação Inteligente",
     description:
-      "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
+      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
     url: "https://precificapp.com",
     images: [
       {
-        url: "/opengraph-image.webp",
+        url: "/images/opengraph-image.webp",
         width: 1200,
         height: 630,
         alt: "Precific",
@@ -90,10 +90,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Precific",
+    title: "Precific | Plataforma de Precificação Inteligente",
     description:
-      "Sistema de precificação e gestão tributária. Automatize cálculos e simule a Reforma Tributária.",
-    images: ["/opengraph-image.webp"],
+      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
+    images: ["/images/opengraph-image.webp"],
   },
 };
 

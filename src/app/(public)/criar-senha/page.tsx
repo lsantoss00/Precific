@@ -6,15 +6,11 @@ export const metadata: Metadata = {
   description:
     "Configure sua senha de acesso ao Precific e comece a utilizar as ferramentas de precificação e gestão tributária.",
   openGraph: {
-    type: "website",
-    locale: "pt-BR",
-    siteName: "Precific",
     title: "Criar Senha | Precific",
     description:
       "Configure sua senha de acesso ao Precific e comece a utilizar as ferramentas de precificação e gestão tributária.",
   },
   twitter: {
-    card: "summary",
     title: "Criar Senha | Precific",
     description:
       "Configure sua senha de acesso ao Precific e comece a utilizar as ferramentas de precificação.",
