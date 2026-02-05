@@ -22,7 +22,7 @@ const PremiumFeatureWrapper = ({
       <Show when={isPremium}>
         <Flex className="absolute m-0.5 inset-0 backdrop-blur-sm items-start justify-end z-10 rounded-md">
           <CustomTooltip
-            className="mr-1.5!"
+            className="m-1.5!"
             tooltipClassName="max-w-xs!"
             icon={
               <div className="h-10 w-10 bg-white rounded-full">
