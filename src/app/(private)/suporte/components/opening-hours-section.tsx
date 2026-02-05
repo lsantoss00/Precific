@@ -1,3 +1,5 @@
+"use client";
+
 import { getCurrentDay } from "@/src/app/(private)/suporte/utils/get-current-day";
 import {
   getScheduleStatus,
@@ -7,9 +9,14 @@ import { openingHours } from "@/src/app/(private)/suporte/utils/opening-hours";
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import { CircleAlert, Clock } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const OpeningHoursSection = () => {
-  const currentDay = getCurrentDay();
+  const [currentDay, setCurrentDay] = useState<string>("");
+
+  useEffect(() => {
+    setCurrentDay(getCurrentDay());
+  }, []);
 
   return (
     <Column className="gap-3">
