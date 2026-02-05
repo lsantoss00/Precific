@@ -20,16 +20,53 @@ import Show from "@/src/components/core/show";
 import PremiumFeatureWrapper from "@/src/components/premium-feature-wrapper";
 import { useAuth } from "@/src/providers/auth-provider";
 import { CircleX, LayoutDashboard } from "lucide-react";
-import { useState } from "react";
+import {
+  parseAsArrayOf,
+  parseAsIsoDate,
+  parseAsString,
+  useQueryStates,
+} from "nuqs";
+import { useMemo } from "react";
 
 const DashboardPageContent = () => {
   const { company, isPremium } = useAuth();
 
-  const [filters, setFilters] = useState<ChartFiltersType>({
-    fromDate: undefined,
-    toDate: undefined,
-    productIds: undefined,
-  });
+  const [filters, setFilters] = useQueryStates(
+    {
+      dataInicial: parseAsIsoDate,
+      dataFinal: parseAsIsoDate,
+      produtos: parseAsArrayOf(parseAsString),
+    },
+    {
+      shallow: false,
+      history: "replace",
+      clearOnDefault: true,
+    },
+  );
+
+  const apiFilters = useMemo(() => {
+    const from = filters.dataInicial
+      ? new Date(filters.dataInicial)
+      : undefined;
+    const to = filters.dataFinal ? new Date(filters.dataFinal) : undefined;
+
+    if (from) from.setHours(0, 0, 0, 0);
+    if (to) to.setHours(23, 59, 59, 999);
+
+    return {
+      fromDate: from,
+      toDate: to,
+      productIds: filters.produtos ?? undefined,
+    };
+  }, [filters]);
+
+  const handleFilterChange = (newFilters: ChartFiltersType) => {
+    setFilters({
+      dataInicial: newFilters.fromDate || null,
+      dataFinal: newFilters.toDate || null,
+      produtos: newFilters.productIds?.length ? newFilters.productIds : null,
+    });
+  };
 
   const companyHasProducts = company ? company.productsQuantity > 0 : null;
 
@@ -61,58 +98,67 @@ const DashboardPageContent = () => {
         }
       >
         <Column className="gap-4">
-          <DashboardFilters value={filters} onChange={setFilters} />
+          <DashboardFilters
+            value={{
+              fromDate: filters.dataInicial ?? undefined,
+              toDate: filters.dataFinal ?? undefined,
+              productIds: filters.produtos ?? undefined,
+            }}
+            onChange={handleFilterChange}
+          />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
-            <ProductsAveragePriceKpiCard filters={filters} />
-            <ProductsAverageAcquisitionCostKpiCard filters={filters} />
+            <ProductsAveragePriceKpiCard filters={apiFilters} />
+            <ProductsAverageAcquisitionCostKpiCard filters={apiFilters} />
             <PremiumFeatureWrapper isPremium={!isPremium}>
-              <ProductsAverageNetProfitKpiCard filters={filters} />
+              <ProductsAverageNetProfitKpiCard filters={apiFilters} />
             </PremiumFeatureWrapper>
             <PremiumFeatureWrapper isPremium={!isPremium}>
-              <ProductsAverageProfitabilityKpiCard filters={filters} />
+              <ProductsAverageProfitabilityKpiCard filters={apiFilters} />
             </PremiumFeatureWrapper>
           </div>
+
           <div className="grid grid-cols-8 gap-4 items-stretch">
             <div className="col-span-8 2xl:col-span-6 h-full">
-              <ProductsNetProfitRankingChart filters={filters} />
+              <ProductsNetProfitRankingChart filters={apiFilters} />
             </div>
             <div className="col-span-8 lg:col-span-4 2xl:col-span-2">
               <PremiumFeatureWrapper isPremium={!isPremium}>
-                <ProductsMarkupRankingChart filters={filters} />
+                <ProductsMarkupRankingChart filters={apiFilters} />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
               <PremiumFeatureWrapper isPremium={!isPremium}>
-                <ProductsFixedCostsRankingChart filters={filters} />
+                <ProductsFixedCostsRankingChart filters={apiFilters} />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 2xl:col-span-4">
               <PremiumFeatureWrapper isPremium={!isPremium}>
-                <ProductsShippingRankingChart filters={filters} />
+                <ProductsShippingRankingChart filters={apiFilters} />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8">
               <PremiumFeatureWrapper isPremium={!isPremium}>
                 <ProductsPricesAndAcquisitionCostsChart
-                  productIds={filters.productIds!}
+                  productIds={apiFilters.productIds ?? []}
                 />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8">
               <PremiumFeatureWrapper isPremium={!isPremium}>
                 <ProductsPricesAndNetProfitsChart
-                  productIds={filters.productIds!}
+                  productIds={apiFilters.productIds ?? []}
                 />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
               <PremiumFeatureWrapper isPremium={!isPremium}>
-                <ProductsPriceHistoryChart filters={filters} />
+                <ProductsPriceHistoryChart filters={apiFilters} />
               </PremiumFeatureWrapper>
             </div>
             <div className="col-span-8 lg:col-span-4">
               <PremiumFeatureWrapper isPremium={!isPremium}>
-                <ProductsNetProfitHistoryChart filters={filters} />
+                <ProductsNetProfitHistoryChart filters={apiFilters} />
               </PremiumFeatureWrapper>
             </div>
           </div>
