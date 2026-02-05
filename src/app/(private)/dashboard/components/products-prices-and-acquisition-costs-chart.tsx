@@ -27,7 +27,7 @@ const ProductsPricesAndAcquisitionCostsChart = ({
   const chartData = (products || []).map((product) => ({
     name: product.name,
     "Custo de Aquisição": product.acquisitionCost,
-    "Preço de Venda": product.priceToday,
+    "Preço de Venda": product.priceIn2026,
   }));
 
   const chartConfig: ChartConfig = {

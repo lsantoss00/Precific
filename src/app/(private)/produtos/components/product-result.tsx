@@ -689,7 +689,7 @@ const ProductResult = () => {
     const productPayload: ProductType = {
       ...formData,
       status: "ACTIVE",
-      priceToday: finalSalePrice,
+      priceToday: inverseCalculations?.userFinalSalePrice ?? 0,
       priceIn2026: finalSalePrice,
       markup,
       netProfit,

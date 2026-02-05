@@ -5,7 +5,7 @@ export type ProductsPriceHistoryType = {
     {
       date: string;
       changedAt: string;
-      priceToday: number;
+      priceIn2026: number;
     },
   ];
 };

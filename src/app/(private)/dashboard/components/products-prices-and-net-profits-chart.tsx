@@ -25,7 +25,7 @@ const ProductsPricesAndNetProfitsChart = ({
   const chartData = (products || []).map((product) => ({
     name: product.name,
     "Lucro Líquido": product.netProfit,
-    "Preço de Venda": product.priceToday,
+    "Preço de Venda": product.priceIn2026,
   }));
 
   const chartConfig: ChartConfig = {

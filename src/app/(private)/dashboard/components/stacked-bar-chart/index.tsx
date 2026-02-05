@@ -96,7 +96,7 @@ const StackedBarChart = ({
                 ))}
               </Row>
               <Row className="justify-between border-t pt-4 px-2">
-                {Array.from({ length: 6 }).map((_, i) => (
+                {Array.from({ length: 10 }).map((_, i) => (
                   <Skeleton key={i} className="h-3 w-12" />
                 ))}
               </Row>

@@ -44,7 +44,7 @@ const ProductsPriceHistoryChart = ({
   const noProductsHaveHistory =
     hasProductsSelected && productsWithHistory.length === 0;
 
-  const chartData = normalizeLineChartData(data, "priceToday");
+  const chartData = normalizeLineChartData(data, "priceIn2026");
   const chartConfig = createChartConfig(data, {
     getId: (product) => product.productId,
     getLabel: (product) => product.productName,

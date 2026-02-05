@@ -1,6 +1,6 @@
 export type ProductsPricesAndAcquisitionCostsType = {
   id: string;
   name: string;
-  priceToday: number;
+  priceIn2026: number;
   acquisitionCost: number;
 };

@@ -160,8 +160,8 @@ export const productsTableColumns: ColumnDef<Partial<ProductResponseType>>[] = [
       const product = row.original;
       const { isPremium } = useAuth();
 
-      const priceToday = product?.priceToday ?? 0;
-      const isPriced = priceToday > 0;
+      const priceIn2026 = product?.priceIn2026 ?? 0;
+      const isPriced = priceIn2026 > 0;
       const freeLimitReached = (meta?.pricedProductsQuantity ?? 0) >= 10;
 
       const isOverLimit = !isPremium && !isPriced && freeLimitReached;

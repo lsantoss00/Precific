@@ -1,6 +1,6 @@
 export type ProductsPricesAndNetProfitsType = {
   id: string;
   name: string;
-  priceToday: number;
+  priceIn2026: number;
   netProfit: number;
 };
