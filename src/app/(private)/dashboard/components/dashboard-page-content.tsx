@@ -19,11 +19,11 @@ import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
 import PremiumFeatureWrapper from "@/src/components/premium-feature-wrapper";
 import { useAuth } from "@/src/providers/auth-provider";
-import { CircleX, LayoutDashboard, Loader2 } from "lucide-react";
+import { CircleX, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 
 const DashboardPageContent = () => {
-  const { company, isLoadingAuth, isPremium } = useAuth();
+  const { company, isPremium } = useAuth();
 
   const [filters, setFilters] = useState<ChartFiltersType>({
     fromDate: undefined,
@@ -32,9 +32,6 @@ const DashboardPageContent = () => {
   });
 
   const companyHasProducts = company ? company.productsQuantity > 0 : null;
-
-  if (isLoadingAuth)
-    return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
 
   return (
     <Column className="gap-4 relative flex-1">
