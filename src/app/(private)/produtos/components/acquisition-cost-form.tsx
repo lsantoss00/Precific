@@ -49,6 +49,16 @@ const AcquisitionCostForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que zero.";
+                    }
+                    return true;
+                  },
                   min: {
                     value: 0.01,
                     message: "O valor deve ser maior que zero.",
@@ -62,10 +72,15 @@ const AcquisitionCostForm = () => {
                       placeholder="R$ 0,00"
                       type="numeric"
                       {...field}
-                      value={currencyFormatter(numericValue * 100)}
+                      value={
+                        field.value === null || field.value === undefined
+                          ? ""
+                          : currencyFormatter(numericValue * 100)
+                      }
                       onChange={(e) => {
                         const raw = e.target.value.replace(/\D/g, "");
-                        const numberValue = Number(raw) / 100;
+                        const numberValue =
+                          raw === "" ? null : Number(raw) / 100;
 
                         field.onChange(numberValue);
                       }}
@@ -94,7 +109,17 @@ const AcquisitionCostForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que 0";
+                    }
+                    return true;
+                  },
+                  min: { value: 0.01, message: "O valor deve ser maior que 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
                 }}
                 render={({ field }) => (
@@ -105,10 +130,14 @@ const AcquisitionCostForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.icms?.message}
                   />
@@ -134,7 +163,17 @@ const AcquisitionCostForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que 0";
+                    }
+                    return true;
+                  },
+                  min: { value: 0.01, message: "O valor deve ser maior que 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
                 }}
                 render={({ field }) => (
@@ -145,10 +184,14 @@ const AcquisitionCostForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.pisCofins?.message}
                     disabled={ísPresumedProfit}
@@ -184,17 +227,14 @@ const AcquisitionCostForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    onBlur={(e) => {
-                      const value = e.target.value;
-                      if (value === "" || value === null) {
-                        field.onChange(0);
-                      }
-                      field.onBlur();
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.icmsSt?.message}
                   />
@@ -228,17 +268,14 @@ const AcquisitionCostForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    onBlur={(e) => {
-                      const value = e.target.value;
-                      if (value === "" || value === null) {
-                        field.onChange(0);
-                      }
-                      field.onBlur();
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.ipi?.message}
                   />
@@ -272,17 +309,14 @@ const AcquisitionCostForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    onBlur={(e) => {
-                      const value = e.target.value;
-                      if (value === "" || value === null) {
-                        field.onChange(0);
-                      }
-                      field.onBlur();
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.others?.message}
                   />

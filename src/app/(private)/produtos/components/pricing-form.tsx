@@ -87,17 +87,14 @@ const PricingForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
-                    }}
-                    onBlur={(e) => {
-                      const value = e.target.value;
-                      if (value === "" || value === null) {
-                        field.onChange(0);
-                      }
-                      field.onBlur();
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.fixedCosts?.message}
                   />
@@ -123,7 +120,17 @@ const PricingForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que 0";
+                    }
+                    return true;
+                  },
+                  min: { value: 0.01, message: "O valor deve ser maior que 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
                 }}
                 render={({ field }) => (
@@ -134,10 +141,14 @@ const PricingForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.salesIcms?.message}
                     disabled={
@@ -172,7 +183,17 @@ const PricingForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que 0";
+                    }
+                    return true;
+                  },
+                  min: { value: 0.01, message: "O valor deve ser maior que 0" },
                   max: { value: 100, message: "Valor máximo é 100" },
                 }}
                 render={({ field }) => (
@@ -183,10 +204,14 @@ const PricingForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.salesPisCofins?.message}
                     disabled={isSimpleNational}
@@ -299,10 +324,14 @@ const PricingForm = () => {
                       min="0"
                       max="100"
                       {...field}
-                      value={field.value ?? ""}
+                      value={
+                        field.value === null || field.value === undefined
+                          ? ""
+                          : field.value
+                      }
                       onChange={(e) => {
                         const value = e.target.value;
-                        field.onChange(value === "" ? "" : Number(value));
+                        field.onChange(value === "" ? null : Number(value));
                       }}
                       error={errors.mva?.message}
                       disabled={!hasIcmsSt}
@@ -338,10 +367,14 @@ const PricingForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.shipping?.message}
                   />
@@ -375,10 +408,14 @@ const PricingForm = () => {
                     min="0"
                     max="100"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.otherCosts?.message}
                   />
@@ -404,7 +441,17 @@ const PricingForm = () => {
                 control={control}
                 rules={{
                   required: "Campo obrigatório",
-                  min: { value: 0, message: "Valor mínimo é 0" },
+                  validate: (value) => {
+                    if (
+                      value === null ||
+                      value === undefined ||
+                      Number(value) === 0
+                    ) {
+                      return "O valor deve ser maior que 0";
+                    }
+                    return true;
+                  },
+                  min: { value: 0.01, message: "O valor deve ser maior que 0" },
                 }}
                 render={({ field }) => (
                   <Input
@@ -412,10 +459,14 @@ const PricingForm = () => {
                     type="number"
                     placeholder="0,00%"
                     {...field}
-                    value={field.value ?? ""}
+                    value={
+                      field.value === null || field.value === undefined
+                        ? ""
+                        : field.value
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value === "" ? "" : Number(value));
+                      field.onChange(value === "" ? null : Number(value));
                     }}
                     error={errors.profit?.message}
                   />
