@@ -97,9 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (event === "SIGNED_OUT") {
-        queryClient.removeQueries({ queryKey: ["profile"] });
-        queryClient.removeQueries({ queryKey: ["company"] });
-        queryClient.removeQueries({ queryKey: ["company-subscription"] });
+        queryClient.clear();
       }
     });
 

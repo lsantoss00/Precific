@@ -32,7 +32,7 @@ import { productsTableColumns } from "./products-table-columns";
 import { ProductsTablePagination } from "./products-table-pagination";
 
 const ProductsTable = () => {
-  const { company } = useAuth();
+  const { company, profile } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -60,7 +60,16 @@ const ProductsTable = () => {
 
   const { data, isPending } = useQuery({
     queryFn: () => getProducts({ page, pageSize, search, sortBy, sortOrder }),
-    queryKey: ["products", page, pageSize, search, sortBy, sortOrder],
+    queryKey: [
+      "products",
+      profile?.companyId,
+      page,
+      pageSize,
+      search,
+      sortBy,
+      sortOrder,
+    ],
+    enabled: !!profile?.companyId,
   });
 
   const { mutate: updateStatus, isPending: pendingUpdateProductStatus } =
