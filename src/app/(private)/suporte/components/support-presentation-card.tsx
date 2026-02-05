@@ -12,7 +12,7 @@ const SupportPresentationCard = () => {
             src="/svgs/undraw_contact-us.svg"
             alt="Imagem ilustrativa de contato"
             fill
-            className="object-center py-2 max-md:-ml-2"
+            className="object-contain py-2 max-md:-ml-2"
             priority
           />
         </div>
