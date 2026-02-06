@@ -14,7 +14,7 @@ import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 import { Package, PlusCircle, TriangleAlert, Upload } from "lucide-react";
 import Link from "next/link";
-import { parseAsString, useQueryState } from "nuqs";
+import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -30,7 +30,10 @@ const ProductsHeaderSection = () => {
     }),
   );
 
-  const [, setPagina] = useQueryState("pagina");
+  const [, setPage] = useQueryState(
+    "pagina",
+    parseAsInteger.withDefault(1).withOptions({ clearOnDefault: true }),
+  );
 
   const [inputValue, setInputValue] = useState(search);
   const debouncedSearch = useDebounce(inputValue, 300);
@@ -39,7 +42,7 @@ const ProductsHeaderSection = () => {
     setSearch(debouncedSearch || null);
 
     if (debouncedSearch !== search) {
-      setPagina("1");
+      setPage(null);
     }
   }, [debouncedSearch]);
 

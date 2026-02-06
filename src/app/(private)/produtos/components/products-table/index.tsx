@@ -23,8 +23,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  parseAsInteger,
+  parseAsString,
+  parseAsStringLiteral,
+  useQueryState,
+} from "nuqs";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { getProducts } from "../../services/get-products";
 import { updateProductStatus } from "../../services/update-product-status";
@@ -35,33 +41,40 @@ import { ProductsTablePagination } from "./products-table-pagination";
 const ProductsTable = () => {
   const { company, profile } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const search = searchParams.get("filtro") || "";
-  const page = Number(searchParams.get("pagina")) || 1;
-  const sortBy = searchParams.get("ordenar") || "created_at";
-  const sortOrder = (searchParams.get("ordem") as "asc" | "desc") || "desc";
+  const [search] = useQueryState("filtro", parseAsString.withDefault(""));
+  const [page, setPage] = useQueryState(
+    "pagina",
+    parseAsInteger.withDefault(1),
+  );
+  const [sortBy, setSortBy] = useQueryState(
+    "ordenar",
+    parseAsString.withDefault("created_at"),
+  );
+  const [sortOrder, setSortOrder] = useQueryState(
+    "ordem",
+    parseAsStringLiteral(["asc", "desc"] as const).withDefault("desc"),
+  );
 
   const pageSize = 10;
-
   const pricedProductsQuantity = company?.pricedProductsQuantity;
 
   const [products, setProducts] = useState<ProductResponseType[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [_, setTotalCount] = useState(0);
-  const [sorting, setSorting] = useState<SortingState>([
-    { id: sortBy, desc: sortOrder === "desc" },
-  ]);
-  const [openConfirmDeleteDialog, setOpenConfirmDeleteDialog] =
-    useState<boolean>(false);
+  const [openConfirmDeleteDialog, setOpenConfirmDeleteDialog] = useState(false);
   const [productToDelete, setProductToDelete] = useState<{
     productId: string;
     productName: string;
   } | null>(null);
   const [openProductDetailsDialog, setOpenProductDetailsDialog] =
-    useState<boolean>(false);
+    useState(false);
   const [productToView, setProductToView] =
     useState<Partial<ProductResponseType> | null>(null);
+
+  const sorting = useMemo<SortingState>(
+    () => [{ id: sortBy, desc: sortOrder === "desc" }],
+    [sortBy, sortOrder],
+  );
 
   const { data, isPending } = useQuery({
     queryFn: () => getProducts({ page, pageSize, search, sortBy, sortOrder }),
@@ -99,9 +112,7 @@ const ProductsTable = () => {
         });
       },
       onError: (error) => {
-        toast.error(error.message, {
-          className: "!bg-red-600 !text-white",
-        });
+        toast.error(error.message, { className: "!bg-red-600 !text-white" });
       },
     });
 
@@ -110,25 +121,20 @@ const ProductsTable = () => {
     columns: productsTableColumns,
     getCoreRowModel: getCoreRowModel(),
     manualSorting: true,
-    state: {
-      sorting,
-    },
+    state: { sorting },
     onSortingChange: (updater) => {
-      const newSorting =
+      const nextSorting =
         typeof updater === "function" ? updater(sorting) : updater;
-      setSorting(newSorting);
+      const sortItem = nextSorting[0];
 
-      const params = new URLSearchParams(searchParams.toString());
-      if (newSorting.length > 0) {
-        params.set("ordenar", newSorting[0].id);
-        params.set("ordem", newSorting[0].desc ? "desc" : "asc");
+      if (sortItem) {
+        setSortBy(sortItem.id);
+        setSortOrder(sortItem.desc ? "desc" : "asc");
       } else {
-        params.delete("ordenar");
-        params.delete("ordem");
+        setSortBy(null);
+        setSortOrder(null);
       }
-      params.set("pagina", "1");
-
-      router.push(`?${params.toString()}`);
+      setPage(1);
     },
     meta: {
       onViewProductDetails: (product: Partial<ProductResponseType>) => {
@@ -148,41 +154,18 @@ const ProductsTable = () => {
     },
   });
 
-  const handleOnOpenChangeDeleteDialog = () => {
-    setOpenConfirmDeleteDialog(false);
-    setProductToDelete(null);
-  };
-
-  const handleOnOpenChangeProductDetailsDialog = () => {
-    setOpenProductDetailsDialog(false);
-    setProductToView(null);
-  };
-
   useEffect(() => {
     if (data?.data) setProducts(data.data);
     if (data?.totalPages !== undefined) setTotalPages(data.totalPages);
-    if (data?.count !== undefined) setTotalCount(data.count);
   }, [data]);
 
   useEffect(() => {
-    if (
-      !isPending &&
-      data?.data &&
-      data.data.length === 0 &&
-      page > 1 &&
-      totalPages > 0
-    ) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("pagina", String(page - 1));
-      router.push(`?${params.toString()}`);
+    if (!isPending && data?.data && data.data.length === 0 && page > 1) {
+      setPage(page - 1);
     }
-  }, [data, isPending, page, totalPages, searchParams, router]);
+  }, [data, isPending, page, setPage]);
 
-  useEffect(() => {
-    setSorting([{ id: sortBy, desc: sortOrder === "desc" }]);
-  }, [sortBy, sortOrder]);
-
-  const hasData = !isPending && table.getRowModel().rows?.length > 0;
+  const hasData = !isPending && products.length > 0;
 
   return (
     <Column className="bg-white shadow-sm flex flex-col h-160.5! overflow-hidden rounded-md">
@@ -195,9 +178,7 @@ const ProductsTable = () => {
                   <TableHead
                     key={header.id}
                     style={{ width: header.column.columnDef.size }}
-                    className={`text-gray-400 ${
-                      header.column.columnDef.meta?.className ?? ""
-                    }`}
+                    className={`text-gray-400 ${header.column.columnDef.meta?.className ?? ""}`}
                   >
                     {header.isPlaceholder
                       ? null
@@ -240,9 +221,7 @@ const ProductsTable = () => {
                     <TableCell
                       key={cell.id}
                       style={{ width: cell.column.columnDef.size }}
-                      className={`px-4 ${
-                        cell.column.columnDef.meta?.className ?? ""
-                      }`}
+                      className={`px-4 ${cell.column.columnDef.meta?.className ?? ""}`}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -257,17 +236,23 @@ const ProductsTable = () => {
         </Table>
       </div>
       <Row className="bg-neutral-50 border-t h-14 md:pr-3">
-        <ProductsTablePagination currentPage={page} totalPages={totalPages} />
+        <ProductsTablePagination totalPages={totalPages} />
       </Row>
       <ConfirmDeleteProductDialog
         product={productToDelete!}
         open={openConfirmDeleteDialog}
-        onOpenChange={handleOnOpenChangeDeleteDialog}
+        onOpenChange={(open) => {
+          setOpenConfirmDeleteDialog(open);
+          if (!open) setProductToDelete(null);
+        }}
       />
       <ProductDetailsDialog
         product={productToView!}
         open={openProductDetailsDialog}
-        onOpenChange={handleOnOpenChangeProductDetailsDialog}
+        onOpenChange={(open) => {
+          setOpenProductDetailsDialog(open);
+          if (!open) setProductToView(null);
+        }}
       />
     </Column>
   );
