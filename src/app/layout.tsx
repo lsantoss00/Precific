@@ -1,7 +1,7 @@
 import AtlasLinkBalloon from "@/src/components/atlas-link-balloon";
 import WhatsAppHelpLinkBalloon from "@/src/components/whatsapp-help-link-balloon";
 import { OrganizationJsonLd } from "@/src/scripts/json-ld/";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
@@ -25,14 +25,24 @@ const poppins = Poppins({
   ],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#66289B",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   title: {
-    default: "Precific",
+    default: "Precific | Inteligência em Precificação e Gestão Tributária",
     template: "%s | Precific",
   },
   description:
-    "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
+    "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços em tempo real.",
   metadataBase: new URL("https://precificapp.com"),
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "precifica",
     "precificar",
@@ -69,7 +79,6 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "7V6UhSUMH_29t_gDjX5_MR_Wo86jwLj9TT2HjaTYwOo",
-    // bing: "key",
   },
   openGraph: {
     type: "website",
@@ -77,14 +86,14 @@ export const metadata: Metadata = {
     siteName: "Precific",
     title: "Precific | Plataforma de Precificação Inteligente",
     description:
-      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
+      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus lucros.",
     url: "https://precificapp.com",
     images: [
       {
         url: "/images/opengraph-image.webp",
         width: 1200,
         height: 630,
-        alt: "Precific",
+        alt: "Precific | Plataforma de Precificação Inteligente",
       },
     ],
   },
@@ -92,8 +101,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Precific | Plataforma de Precificação Inteligente",
     description:
-      "Sistema de precificação e gestão tributária. Automatize cálculos de custos, impostos e margens. Simule a Reforma Tributária (IBS/CBS) e otimize seus preços.",
+      "A solução completa para gestão de preços e simulação da nova Reforma Tributária.",
     images: ["/images/opengraph-image.webp"],
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -104,21 +116,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=5"
-        />
-        <meta name="theme-color" content="#66289B" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body
         className={`${poppins.className} antialiased bg-background`}
         suppressHydrationWarning
@@ -139,7 +136,6 @@ export default function RootLayout({
             speed={300}
             crawl={false}
             easing="ease"
-            showAtBottom={false}
           />
 
           {children}
