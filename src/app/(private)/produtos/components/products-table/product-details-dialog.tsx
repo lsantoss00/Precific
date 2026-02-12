@@ -44,59 +44,59 @@ const ProductDetailsDialog = ({
   })[] = [
     {
       title: "Valor de aquisição",
-      value: 10,
+      value: product?.acquisitionCost ?? 0,
     },
     {
       title: "Outros custos",
-      value: 10,
+      value: product?.otherCosts ?? 0,
     },
     {
       title: "Custos fixos",
-      value: 10,
+      value: product?.fixedCosts ?? 0,
     },
     {
       title: "Frete",
-      value: 10,
+      value: product?.shipping ?? 0,
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: 10,
+      value: 999,
     },
     {
       title: "ICMS ST",
-      value: 10,
+      value: product?.icmsSt ?? 0,
     },
     {
       title: "DAS",
-      value: 10,
+      value: 999,
       variant: "neutral" as const,
       condition: isSimpleNational,
     },
     {
       title: "IRPJ + CSLL",
-      value: 10,
+      value: 999,
       condition: !isSimpleNational,
     },
     {
       title: "Markup",
-      value: 10,
+      value: product?.markup ?? 0,
       type: "percentage" as const,
     },
     {
       title: "Rentabilidade",
-      value: 10,
+      value: product?.profitability ?? 0,
       type: "percentage" as const,
       variant: "success" as const,
     },
     {
       title: "Lucro líquido",
-      value: 10,
+      value: product?.netProfit ?? 0,
       variant: "success" as const,
       gridSpan: "col-span-1",
     },
     {
       title: "Preço de venda final",
-      value: 10,
+      value: product?.priceIn2026 ?? 0,
       variant: "secondary" as const,
       gridSpan: "col-span-1 sm:col-span-2",
     },
@@ -121,7 +121,7 @@ const ProductDetailsDialog = ({
     },
     {
       title: "Preço de venda final",
-      value: 10,
+      value: product?.priceIn2026 ?? 0,
       variant: "secondary" as const,
       gridSpan: "col-span-1 sm:col-span-2 md:col-span-3",
     },
