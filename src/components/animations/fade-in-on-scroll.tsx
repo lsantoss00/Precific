@@ -120,7 +120,7 @@ const FadeInOnScroll = ({
   direction = "up",
   delay = 0,
   duration = 0.5,
-  amount = 1,
+  amount = 0.1,
   className,
   as = "div",
   offset = 24,
