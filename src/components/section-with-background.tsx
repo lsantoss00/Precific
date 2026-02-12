@@ -1,5 +1,6 @@
 import backgroundSectionImage from "@/public/images/hero-section-background.webp";
 import { cn } from "@/src/libs/shadcn-ui/utils";
+import Image from "next/image";
 import { ComponentProps, ReactNode } from "react";
 
 type SectionWithBackgroundProps = ComponentProps<"div"> & {
@@ -18,16 +19,16 @@ const SectionWithBackground = ({
       className={cn("relative bg-primary flex flex-col", className)}
       {...props}
     >
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundImage: `url(${backgroundSectionImage.src})`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "auto",
-          backgroundPosition: "center",
-        }}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src={backgroundSectionImage}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          aria-hidden="true"
+        />
+      </div>
       {children}
     </Component>
   );
