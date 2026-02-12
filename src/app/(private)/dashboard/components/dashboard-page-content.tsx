@@ -7,11 +7,7 @@ import ProductsAveragePriceKpiCard from "@/src/app/(private)/dashboard/component
 import ProductsAverageProfitabilityKpiCard from "@/src/app/(private)/dashboard/components/products-average-profitability-kpi-card";
 import ProductsFixedCostsRankingChart from "@/src/app/(private)/dashboard/components/products-fixed-costs-ranking-chart";
 import ProductsMarkupRankingChart from "@/src/app/(private)/dashboard/components/products-markup-ranking-chart";
-import ProductsNetProfitHistoryChart from "@/src/app/(private)/dashboard/components/products-net-profit-history-chart";
 import ProductsNetProfitRankingChart from "@/src/app/(private)/dashboard/components/products-net-profit-ranking-chart";
-import ProductsPriceHistoryChart from "@/src/app/(private)/dashboard/components/products-price-history-chart";
-import ProductsPricesAndAcquisitionCostsChart from "@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart";
-import ProductsPricesAndNetProfitsChart from "@/src/app/(private)/dashboard/components/products-prices-and-net-profits-chart";
 import ProductsShippingRankingChart from "@/src/app/(private)/dashboard/components/products-shipping-ranking-chart";
 import { ChartFiltersType } from "@/src/app/(private)/dashboard/types/chart-filters-type";
 import Column from "@/src/components/core/column";
@@ -20,6 +16,7 @@ import Show from "@/src/components/core/show";
 import PremiumFeatureWrapper from "@/src/components/premium-feature-wrapper";
 import { useAuth } from "@/src/providers/auth-provider";
 import { CircleX, LayoutDashboard } from "lucide-react";
+import dynamic from "next/dynamic";
 import {
   parseAsArrayOf,
   parseAsIsoDate,
@@ -27,6 +24,38 @@ import {
   useQueryStates,
 } from "nuqs";
 import { useMemo } from "react";
+
+const ProductsPricesAndAcquisitionCostsChart = dynamic(
+  () =>
+    import("@/src/app/(private)/dashboard/components/products-prices-and-acquisition-costs-chart"),
+  {
+    ssr: false,
+  },
+);
+
+const ProductsPricesAndNetProfitsChart = dynamic(
+  () =>
+    import("@/src/app/(private)/dashboard/components/products-prices-and-net-profits-chart"),
+  {
+    ssr: false,
+  },
+);
+
+const ProductsPriceHistoryChart = dynamic(
+  () =>
+    import("@/src/app/(private)/dashboard/components/products-price-history-chart"),
+  {
+    ssr: false,
+  },
+);
+
+const ProductsNetProfitHistoryChart = dynamic(
+  () =>
+    import("@/src/app/(private)/dashboard/components/products-net-profit-history-chart"),
+  {
+    ssr: false,
+  },
+);
 
 const DashboardPageContent = () => {
   const { company, isPremium } = useAuth();
@@ -106,7 +135,6 @@ const DashboardPageContent = () => {
             }}
             onChange={handleFilterChange}
           />
-
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4">
             <ProductsAveragePriceKpiCard filters={apiFilters} />
             <ProductsAverageAcquisitionCostKpiCard filters={apiFilters} />
