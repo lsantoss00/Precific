@@ -14,9 +14,11 @@ import {
 import Column from "@/src/components/core/column";
 import Row from "@/src/components/core/row";
 import Show from "@/src/components/core/show";
+import CustomTooltip from "@/src/components/custom-tooltip";
 import { dateFormatter } from "@/src/helpers/date-formatter";
 import { useAuth } from "@/src/providers/auth-provider";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { CircleAlert } from "lucide-react";
 
 interface ProductDetailsDialogProps {
   open?: boolean;
@@ -97,9 +99,33 @@ const ProductDetailsDialog = ({
     },
   ];
 
+  const metrics2026: (MetricCardProps & {
+    gridSpan?: string;
+    condition?: boolean;
+  })[] = [
+    {
+      title: "Base de cálculo IBS/CBS",
+      value: 10,
+    },
+    {
+      title: "IBS (0.1%)",
+      value: 10,
+    },
+    {
+      title: "CBS (0.9%)",
+      value: 10,
+    },
+    {
+      title: "Preço de venda final",
+      value: 10,
+      variant: "secondary" as const,
+      gridSpan: "col-span-1 md:col-span-3",
+    },
+  ];
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange} modal>
-      <DialogContent className="flex flex-col md:min-w-3xl md:p-12 overflow-y-auto h-[96dvh]">
+      <DialogContent className="flex flex-col md:min-w-4xl md:p-8 overflow-y-auto h-[96dvh]">
         <DialogHeader className="gap-4">
           <Column className="gap-1">
             <DialogTitle className="text-2xl">{product?.name}</DialogTitle>
@@ -147,7 +173,7 @@ const ProductDetailsDialog = ({
           <span>
             Pré-Reforma Tributária <strong>2025</strong>
           </span>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-4 gap-2">
             {metrics2025
               .filter(
                 (metric) => metric.condition === undefined || metric.condition,
@@ -163,6 +189,31 @@ const ProductDetailsDialog = ({
                   />
                 </div>
               ))}
+          </div>
+        </Column>
+        <Separator />
+        <Column className="space-y-4 flex-1">
+          <Row className="gap-1 items-center">
+            <h3 className="text-lg">
+              Transição Reforma Tributária <strong>2026</strong>
+            </h3>
+            <CustomTooltip
+              icon={<CircleAlert className="w-4 h-4" />}
+              message="O valor de IBS/CBS é exibido para transparência fiscal, conforme Art. 348, § 1º. O recolhimento deste tributo não é de responsabilidade do contribuinte nesta nota, sendo o destaque meramente informativo."
+            />
+          </Row>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {metrics2026.map((metric, index) => (
+              <div key={`metric-2026-${index}`} className={metric.gridSpan}>
+                <MetricCard
+                  title={metric.title}
+                  value={metric.value}
+                  secondValue={metric.secondValue}
+                  variant={metric.variant}
+                  type={metric.type}
+                />
+              </div>
+            ))}
           </div>
         </Column>
       </DialogContent>
