@@ -700,6 +700,9 @@ const ProductResult = () => {
       taxes,
       das,
       irpjCsll,
+      ibsCbsBase: suggestedProductPriceIbsCbsBase,
+      ibs,
+      cbs,
     };
 
     if (isEditMode && productId) {

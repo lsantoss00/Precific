@@ -108,16 +108,16 @@ const ProductDetailsDialog = ({
   })[] = [
     {
       title: "Base de cálculo IBS/CBS",
-      value: 10,
+      value: product?.ibsCbsBase ?? 0,
       gridSpan: "col-span-1 sm:col-span-2 md:col-span-1",
     },
     {
       title: "IBS (0.1%)",
-      value: 10,
+      value: product?.ibs ?? 0,
     },
     {
       title: "CBS (0.9%)",
-      value: 10,
+      value: product?.cbs ?? 0,
     },
     {
       title: "Preço de venda final",

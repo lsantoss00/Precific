@@ -35,6 +35,9 @@ export type ProductType = {
   das?: number;
   taxes: number;
   irpjCsll?: number;
+  ibsCbsBase: number;
+  ibs: number;
+  cbs: number;
 };
 
 export type ProductFormDataType = Omit<
