@@ -19,6 +19,8 @@ const AuthFormCard = ({ children }: AuthFormCardProps) => {
           alt="Precific | Plataforma de Precificação Inteligente"
           className="w-full h-auto max-w-75"
           priority
+          fetchPriority="high"
+          loading="eager"
         />
       </Flex>
       {children}
