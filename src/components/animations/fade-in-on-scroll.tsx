@@ -28,7 +28,7 @@ interface FadeInOnScrollProps {
 }
 
 const createFadeInVariants = (
-  offset: number
+  offset: number,
 ): Record<AnimationDirection, Variants> => ({
   up: {
     hidden: {
@@ -120,7 +120,7 @@ const FadeInOnScroll = ({
   direction = "up",
   delay = 0,
   duration = 0.5,
-  amount = 0.1,
+  amount = 1,
   className,
   as = "div",
   offset = 24,
@@ -152,7 +152,7 @@ const FadeInOnScroll = ({
       delay: prefersReducedMotion ? 0 : delay,
       ease: SMOOTH_EASING,
     }),
-    [prefersReducedMotion, duration, delay]
+    [prefersReducedMotion, duration, delay],
   );
 
   const MotionComponent = motionComponents[as];
