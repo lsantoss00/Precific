@@ -25,6 +25,8 @@ const SectionWithBackground = ({
           alt=""
           fill
           priority
+          fetchPriority="high"
+          loading="eager"
           className="object-cover object-center"
           aria-hidden="true"
         />
