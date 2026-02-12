@@ -14,7 +14,7 @@ import { useAuth } from "@/src/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 import { Package, PlusCircle, TriangleAlert, Upload } from "lucide-react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -22,17 +22,33 @@ import { toast } from "sonner";
 const ProductsHeaderSection = () => {
   const { isLoadingAuth, isPremium } = useAuth();
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(
-    searchParams.get("filtro") || "",
+  const [search, setSearch] = useQueryState(
+    "filtro",
+    parseAsString.withDefault("").withOptions({
+      shallow: false,
+      clearOnDefault: true,
+    }),
   );
 
-  const debouncedSearchTerm = useDebounce(searchTerm);
+  const [, setPage] = useQueryState(
+    "pagina",
+    parseAsInteger.withDefault(1).withOptions({ clearOnDefault: true }),
+  );
+
+  const [inputValue, setInputValue] = useState(search);
+  const debouncedSearch = useDebounce(inputValue, 300);
+
+  useEffect(() => {
+    setSearch(debouncedSearch || null);
+
+    if (debouncedSearch !== search) {
+      setPage(null);
+    }
+  }, [debouncedSearch]);
 
   const { refetch, isFetching } = useQuery({
-    queryFn: () => getProductsForExport({ search: searchTerm }),
-    queryKey: ["products-export", searchTerm],
+    queryFn: () => getProductsForExport({ search }),
+    queryKey: ["products-export", search],
     enabled: false,
   });
 
@@ -58,7 +74,6 @@ const ProductsHeaderSection = () => {
       }));
 
       const csv = Papa.unparse(formattedData);
-
       const blob = new Blob(["\uFEFF" + csv], {
         type: "text/csv;charset=utf-8;",
       });
@@ -68,6 +83,7 @@ const ProductsHeaderSection = () => {
       link.download = `produtos_${new Date().toISOString().split("T")[0]}.csv`;
       link.click();
       URL.revokeObjectURL(url);
+
       toast.success("Dados exportados com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
@@ -77,19 +93,6 @@ const ProductsHeaderSection = () => {
       });
     }
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (debouncedSearchTerm) {
-      params.set("pagina", "1");
-      params.set("filtro", debouncedSearchTerm);
-    } else {
-      params.delete("filtro");
-    }
-
-    router.push(`?${params.toString()}`);
-  }, [debouncedSearchTerm]);
 
   return (
     <Column as="header" className="space-y-3 w-full">
@@ -118,8 +121,8 @@ const ProductsHeaderSection = () => {
             id="search-products"
             className="w-full"
             placeholder="Buscar por SKU, Nome ou NCM"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
             aria-label="Buscar produtos por SKU, Nome ou NCM"
             isSearchInput
           />

@@ -32,6 +32,9 @@ export type ProductType = {
   markup: number;
   profitability: number;
   netProfit: number;
+  das?: number;
+  taxes: number;
+  irpjCsll?: number;
 };
 
 export type ProductFormDataType = Omit<

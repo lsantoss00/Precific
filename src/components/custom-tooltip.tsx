@@ -11,7 +11,7 @@ interface CustomTooltipProps {
 
 const CustomTooltip = ({
   message,
-  icon = <CircleQuestionMark size={24} />,
+  icon = <CircleQuestionMark size={16} />,
   className,
   tooltipClassName,
 }: CustomTooltipProps) => {
