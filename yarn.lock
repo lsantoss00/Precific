@@ -1655,31 +1655,31 @@
   dependencies:
     jose "^4.14.4"
 
-"@supabase/auth-js@2.95.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/auth-js/-/auth-js-2.95.0.tgz#8ff03bdb1a31a8e25f93a0cb2e4d8e5d8fe45db1"
-  integrity sha512-n8EyMn8JL6aaUA8krQcFUGEd+/Qwlu/49dvSi68nHsAMMENGKixE67Pf43mo9iR42FH30Hcm9jACGflQi43e3w==
+"@supabase/auth-js@2.95.3":
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/auth-js/-/auth-js-2.95.3.tgz#217883fafe10cad57ab3327bff3c0b3381fac5b1"
+  integrity sha512-vD2YoS8E2iKIX0F7EwXTmqhUpaNsmbU6X2R0/NdFcs02oEfnHyNP/3M716f3wVJ2E5XHGiTFXki6lRckhJ0Thg==
   dependencies:
     tslib "2.8.1"
 
-"@supabase/functions-js@2.95.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/functions-js/-/functions-js-2.95.0.tgz#f9c1a39845ab7107aa2410d238fbcd23b9201832"
-  integrity sha512-kxT4iw1phb9V8cH5M+rfH0++l/QdHVrTYvvpMUqKtni/gTL9SDpV1rWa+xjoksV+M0pwDVjJ3zv1PoKhh83ZuA==
+"@supabase/functions-js@2.95.3":
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/functions-js/-/functions-js-2.95.3.tgz#4c133a31a897f626a3fe6cc692b85dfdfc934630"
+  integrity sha512-uTuOAKzs9R/IovW1krO0ZbUHSJnsnyJElTXIRhjJTqymIVGcHzkAYnBCJqd7468Fs/Foz1BQ7Dv6DCl05lr7ig==
   dependencies:
     tslib "2.8.1"
 
-"@supabase/postgrest-js@2.95.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-2.95.0.tgz#565b124a152b48cd92d20c36c51c2ded3f074670"
-  integrity sha512-D3HorePM6CDks+YjM/NwRxRnAH17LtxjSG9GbjuTz9vV9G3eiz5UdBU5psZYRg6t2mSrA5xvMPrPOnNvQohOKw==
+"@supabase/postgrest-js@2.95.3":
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-2.95.3.tgz#8eeb4a795e64923dac38e4c4c0fb4375fc2da09c"
+  integrity sha512-LTrRBqU1gOovxRm1vRXPItSMPBmEFqrfTqdPTRtzOILV4jPSueFz6pES5hpb4LRlkFwCPRmv3nQJ5N625V2Xrg==
   dependencies:
     tslib "2.8.1"
 
-"@supabase/realtime-js@2.95.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-2.95.0.tgz#5d0f9617462ddc32fe04b071971cf2a0986ddf55"
-  integrity sha512-4S68GsuwugDGPBWJ2lRVcPatIF+x1Q3mskNwfl4m/69K2IwfVcDESHVd/bvy6YRB/cNnqeSPJIwjaPX7fV9y7g==
+"@supabase/realtime-js@2.95.3":
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-2.95.3.tgz#aff3c95119fb93356971f117605ecec32a6dd0f3"
+  integrity sha512-D7EAtfU3w6BEUxDACjowWNJo/ZRo7sDIuhuOGKHIm9FHieGeoJV5R6GKTLtga/5l/6fDr2u+WcW/m8I9SYmaIw==
   dependencies:
     "@types/phoenix" "^1.6.6"
     "@types/ws" "^8.18.1"
@@ -1693,24 +1693,24 @@
   dependencies:
     cookie "^1.0.2"
 
-"@supabase/storage-js@2.95.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/storage-js/-/storage-js-2.95.0.tgz#1f861f089942dea6d4c5174cff3c1f3090cd9b0d"
-  integrity sha512-TPf4DCX8tVkKLbbI78fDdxy0eKCBbXvG2oz4itaPK4M6RZS4FzaP3XZf6apodJWa95Ghkqok4qeWWaEsVpOqdw==
+"@supabase/storage-js@2.95.3":
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/storage-js/-/storage-js-2.95.3.tgz#986772ed5a4761e6735b0efd9312d598caf44715"
+  integrity sha512-4GxkJiXI3HHWjxpC3sDx1BVrV87O0hfX+wvJdqGv67KeCu+g44SPnII8y0LL/Wr677jB7tpjAxKdtVWf+xhc9A==
   dependencies:
     iceberg-js "^0.8.1"
     tslib "2.8.1"
 
 "@supabase/supabase-js@^2.58.0":
-  version "2.95.0"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.95.0.tgz#2125f9012fdc5cd50ce8e80f0db825365c523291"
-  integrity sha512-fO5O650mkPIgUOZ/s86RZ19ZZhvxTBbatQmECGUtB5/sUb6DtIyoR7rFBBMV9oLbtyDCi1UU4wv3Jd6EY3d03Q==
+  version "2.95.3"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.95.3.tgz#a5dc4839ded76483402b8b1fbc1672fbad358330"
+  integrity sha512-Fukw1cUTQ6xdLiHDJhKKPu6svEPaCEDvThqCne3OaQyZvuq2qjhJAd91kJu3PXLG18aooCgYBaB6qQz35hhABg==
   dependencies:
-    "@supabase/auth-js" "2.95.0"
-    "@supabase/functions-js" "2.95.0"
-    "@supabase/postgrest-js" "2.95.0"
-    "@supabase/realtime-js" "2.95.0"
-    "@supabase/storage-js" "2.95.0"
+    "@supabase/auth-js" "2.95.3"
+    "@supabase/functions-js" "2.95.3"
+    "@supabase/postgrest-js" "2.95.3"
+    "@supabase/realtime-js" "2.95.3"
+    "@supabase/storage-js" "2.95.3"
 
 "@svgr/babel-plugin-add-jsx-attribute@8.0.0":
   version "8.0.0"
@@ -1940,9 +1940,9 @@
   integrity sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==
 
 "@tanstack/react-query@^5.90.2":
-  version "5.90.20"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.90.20.tgz#42bb7018bfedc72f216b6e9b4052c919063f350b"
-  integrity sha512-vXBxa+qeyveVO7OA0jX1z+DeyCA4JKnThKv411jd5SORpBKgkcVnYKCiBgECvADvniBX7tobwBmg01qq9JmMJw==
+  version "5.90.21"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.90.21.tgz#e0eb40831a76510be438109435b8807ef63ab1b9"
+  integrity sha512-0Lu6y5t+tvlTJMTO7oh5NSpJfpg/5D41LlThfepTixPYkJ0sE2Jj0m0f6yYqujBwIXlId87e234+MxG3D3g7kg==
   dependencies:
     "@tanstack/query-core" "5.90.20"
 
@@ -2027,16 +2027,16 @@
   integrity sha512-Fagm1/a/1J9gDKzGdtlPmmTN5eSw/aaTzHtj740oSfo+MODsSY2WglxMmhTdOglC8nxqUhGGQ+5HfVtBvxo3Kg==
 
 "@types/node@*":
-  version "25.2.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.2.1.tgz#378021f9e765bb65ba36de16f3c3a8622c1fa03d"
-  integrity sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg==
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.2.3.tgz#9c18245be768bdb4ce631566c7da303a5c99a7f8"
+  integrity sha512-m0jEgYlYz+mDJZ2+F4v8D1AyQb+QzsNqRuI7xg1VQX/KlKS0qT9r1Mo16yo5F/MtifXFgaofIFsdFMox2SxIbQ==
   dependencies:
     undici-types "~7.16.0"
 
 "@types/node@^20":
-  version "20.19.32"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.19.32.tgz#d2958783ac4cde2d501d145ac7174400a39c3da0"
-  integrity sha512-Ez8QE4DMfhjjTsES9K2dwfV258qBui7qxUsoaixZDiTzbde4U12e1pXGNu/ECsUIOi5/zoCxAQxIhQnaUQ2VvA==
+  version "20.19.33"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.19.33.tgz#ac8364c623b72d43125f0e7dd722bbe968f0c65e"
+  integrity sha512-Rs1bVAIdBs5gbTIKza/tgpMuG1k3U/UMJLWecIMxNdJFDMzcM5LOiLVRYh3PilWEYDIeUDv7bpiHPLPsbydGcw==
   dependencies:
     undici-types "~6.21.0"
 
@@ -2058,9 +2058,9 @@
   integrity sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==
 
 "@types/react@^19":
-  version "19.2.13"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.2.13.tgz#7cea30d7f60a01d97e4ece039c04e9056682218a"
-  integrity sha512-KkiJeU6VbYbUOp5ITMIc7kBfqlYkKA5KhEHVrGMmUUMt7NeaZg65ojdPk+FtNrBAOXNVM5QM72jnADjM+XVRAQ==
+  version "19.2.14"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.2.14.tgz#39604929b5e3957e3a6fa0001dafb17c7af70bad"
+  integrity sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==
   dependencies:
     csstype "^3.2.2"
 
@@ -2156,9 +2156,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001759:
-  version "1.0.30001768"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001768.tgz#546bfaf4ec33305096e842906df911bcf3ac0d1f"
-  integrity sha512-qY3aDRZC5nWPgHUgIB84WL+nySuo19wk0VJpp/XI9T34lrvkyhRvNVOFJOp2kxClQhiFBu+TaUSudf6oa3vkSA==
+  version "1.0.30001769"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001769.tgz#1ad91594fad7dc233777c2781879ab5409f7d9c2"
+  integrity sha512-BCfFL1sHijQlBGWBMuJyhZUhzo7wer5sVj9hqekB/7xn0Ypy+pER/edCYQm4exbXj4WiySGp40P8UuTh6w1srg==
 
 cfb@~1.2.1:
   version "1.2.2"
@@ -2521,11 +2521,11 @@ frac@~1.1.2:
   integrity sha512-w/XBfkibaTl3YDqASwfDUqkna4Z2p9cFSr1aHDt0WoMTECnRfBOv2WArlZILlqgWlmdIlALXGpM2AOhEk5W3IA==
 
 framer-motion@^12.23.25:
-  version "12.33.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.33.0.tgz#b3928ec8b3d85826922c91815ce8c6af06d02ced"
-  integrity sha512-ca8d+rRPcDP5iIF+MoT3WNc0KHJMjIyFAbtVLvM9eA7joGSpeqDfiNH/kCs1t4CHi04njYvWyj0jS4QlEK/rJQ==
+  version "12.34.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.34.0.tgz#0cecdf015cc4cbee55bd53130d043137642a5ced"
+  integrity sha512-+/H49owhzkzQyxtn7nZeF4kdH++I2FWrESQ184Zbcw5cEqNHYkE5yxWxcTLSj5lNx3NWdbIRy5FHqUvetD8FWg==
   dependencies:
-    motion-dom "^12.33.0"
+    motion-dom "^12.34.0"
     motion-utils "^12.29.2"
     tslib "^2.4.0"
 
@@ -2594,9 +2594,9 @@ immer@^10.1.1:
   integrity sha512-d/+XTN3zfODyjr89gM3mPq1WNX2B8pYsu7eORitdwyA2sBubnTl3laYlBk4sXY5FUa5qTZGBDPJICVbvqzjlbw==
 
 immer@^11.0.0:
-  version "11.1.3"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-11.1.3.tgz#78681e1deb6cec39753acf04eb16d7576c04f4d6"
-  integrity sha512-6jQTc5z0KJFtr1UgFpIL3N9XSC3saRaI9PwWtzM2pSqkNGtiNkYY2OSwkOGDK2XcTRcLb1pi/aNkKZz0nxVH4Q==
+  version "11.1.4"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-11.1.4.tgz#37aee86890b134a8f1a2fadd44361fb86c6ae67e"
+  integrity sha512-XREFCPo6ksxVzP4E0ekD5aMdf8WMwmdNaz6vuvxgI40UaEiu6q3p8X52aU6GdyvLY3XXX/8R7JOTXStz/nBbRw==
 
 import-fresh@^3.3.0:
   version "3.3.1"
@@ -2787,10 +2787,10 @@ mdn-data@2.0.30:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.30.tgz#ce4df6f80af6cfbe218ecd5c552ba13c4dfa08cc"
   integrity sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==
 
-motion-dom@^12.33.0:
-  version "12.33.0"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.33.0.tgz#7001b53c119909dd6245be10c145ca1b44c7929d"
-  integrity sha512-XRPebVypsl0UM+7v0Hr8o9UAj0S2djsQWRdHBd5iVouVpMrQqAI0C/rDAT3QaYnXnHuC5hMcwDHCboNeyYjPoQ==
+motion-dom@^12.34.0:
+  version "12.34.0"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.34.0.tgz#d1776aaff750e09db66237c66daec31232a4cba8"
+  integrity sha512-Lql3NuEcScRDxTAO6GgUsRHBZOWI/3fnMlkMcH5NftzcN37zJta+bpbMAV9px4Nj057TuvRooMK7QrzMCgtz6Q==
   dependencies:
     motion-utils "^12.29.2"
 
@@ -2951,9 +2951,9 @@ prop-types@^15.8.1:
     react-is "^16.13.1"
 
 react-day-picker@^9.11.0:
-  version "9.13.0"
-  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-9.13.0.tgz#889a0ee413881abdc295109e775235c8a046c4dc"
-  integrity sha512-euzj5Hlq+lOHqI53NiuNhCP8HWgsPf/bBAVijR50hNaY1XwjKjShAnIe8jm8RD2W9IJUvihDIZ+KrmqfFzNhFQ==
+  version "9.13.2"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-9.13.2.tgz#64dd06ca149adb1488e331f6888befb4b0833fe0"
+  integrity sha512-IMPiXfXVIAuR5Yk58DDPBC8QKClrhdXV+Tr/alBrwrHUw0qDDYB1m5zPNuTnnPIr/gmJ4ChMxmtqPdxm8+R4Eg==
   dependencies:
     "@date-fns/tz" "^1.4.1"
     date-fns "^4.1.0"
@@ -3117,9 +3117,9 @@ semver@^6.3.1:
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
 semver@^7.7.3:
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
-  integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
+  version "7.7.4"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.4.tgz#28464e36060e991fa7a11d0279d2d3f3b57a7e8a"
+  integrity sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==
 
 set-cookie-parser@^2.6.0:
   version "2.7.2"

@@ -1,8 +1,6 @@
 import AboutUsHeroSection from "@/src/app/(landing)/(info)/sobre-nos/components/about-us-hero-section";
-import CompanyMissionAndValuesSection from "@/src/app/(landing)/(info)/sobre-nos/components/company-mission-and-values-section";
-import CompanyMissionStatementSection from "@/src/app/(landing)/(info)/sobre-nos/components/company-mission-statement-section";
-import OurCompaniesSection from "@/src/app/(landing)/(info)/sobre-nos/components/our-companies-section";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "Sobre Nós",
@@ -39,6 +37,24 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+const CompanyMissionStatementSection = dynamic(
+  () =>
+    import("@/src/app/(landing)/(info)/sobre-nos/components/company-mission-statement-section"),
+  { ssr: true },
+);
+
+const OurCompaniesSection = dynamic(
+  () =>
+    import("@/src/app/(landing)/(info)/sobre-nos/components/our-companies-section"),
+  { ssr: true },
+);
+
+const CompanyMissionAndValuesSection = dynamic(
+  () =>
+    import("@/src/app/(landing)/(info)/sobre-nos/components/company-mission-and-values-section"),
+  { ssr: true },
+);
 
 export default function AboutUsPage() {
   return (

@@ -1,22 +1,42 @@
 "use client";
 
-import GetAheadSection from "@/src/app/(landing)/components/get-ahead-section";
 import HeroSection from "@/src/app/(landing)/components/hero-section";
-import LogoSection from "@/src/app/(landing)/components/logo-section";
-import ReasonsSection from "@/src/app/(landing)/components/reasons-section";
-import StartUsingSection from "@/src/app/(landing)/components/start-using-section";
-import ValuePropositionSection from "@/src/app/(landing)/components/value-proposition-section";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
+const ReasonsSection = dynamic(
+  () => import("@/src/app/(landing)/components/reasons-section"),
+  { ssr: true },
+);
+
+const GetAheadSection = dynamic(
+  () => import("@/src/app/(landing)/components/get-ahead-section"),
+  { ssr: true },
+);
+
+const ValuePropositionSection = dynamic(
+  () => import("@/src/app/(landing)/components/value-proposition-section"),
+  { ssr: true },
+);
+
+const LogoSection = dynamic(
+  () => import("@/src/app/(landing)/components/logo-section"),
+  { ssr: true },
+);
+
 const ContactSection = dynamic(
   () => import("@/src/app/(landing)/components/contact-section"),
-  { ssr: true }
+  { ssr: true },
+);
+
+const StartUsingSection = dynamic(
+  () => import("@/src/app/(landing)/components/start-using-section"),
+  { ssr: true },
 );
 
 const FAQSection = dynamic(
   () => import("@/src/app/(landing)/components/faq-section"),
-  { ssr: true }
+  { ssr: true },
 );
 
 export default function LandingPageContent() {
