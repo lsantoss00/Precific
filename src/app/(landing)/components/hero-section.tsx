@@ -1,21 +1,11 @@
-"use client";
-
-import { Button, Container } from "@/src/components/core";
+import { Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import SectionWithBackground from "@/src/components/section-with-background";
-import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
-import dynamic from "next/dynamic";
-
-const YouTubeEmbed = dynamic(() => import("@/src/components/youtube-embed"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full bg-black/20 rounded-md animate-pulse" />
-  ),
-});
+import YouTubeEmbed from "@/src/components/youtube-embed";
 
 const HeroSection = () => {
-  const { scrollToSection } = useScrollToSection();
+  // const { scrollToSection } = useScrollToSection();
 
   return (
     <SectionWithBackground
@@ -45,13 +35,13 @@ const HeroSection = () => {
                 simulando cenários futuros da Reforma Tributária.
               </p>
             </Column>
-            <Button
+            {/* <Button
               className="w-full sm:w-fit h-12 md:h-14 px-6 md:px-8 hover:cursor-pointer font-medium text-sm md:text-base"
               variant="secondary"
               onClick={() => scrollToSection("contato")}
             >
               Agendar Demonstração
-            </Button>
+            </Button> */}
           </Column>
           <Flex as="figure" className="aspect-video shrink-0">
             <YouTubeEmbed
