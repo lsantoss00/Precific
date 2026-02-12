@@ -17,7 +17,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const ProfilePageContent = () => {
-  const { isLoadingAuth, profile } = useAuth();
+  const { profile } = useAuth();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isImageRemoved, setIsImageRemoved] = useState(false);
