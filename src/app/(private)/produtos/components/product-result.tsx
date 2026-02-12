@@ -575,6 +575,13 @@ const ProductResult = () => {
     return inverseTaxRegimeCalculators[companyRegime as TaxRegimeType]();
   })();
 
+  const irpjCsll =
+    companyRegime === "presumed_profit"
+      ? presumedProfitIrpjCsll
+      : companyRegime === "real_profit"
+        ? realProfitIrpjCsllCalc
+        : 0;
+
   const metrics2025: (MetricCardProps & {
     gridSpan?: string;
     condition?: boolean;
@@ -619,12 +626,7 @@ const ProductResult = () => {
     },
     {
       title: "IRPJ + CSLL",
-      value:
-        companyRegime === "presumed_profit"
-          ? presumedProfitIrpjCsll
-          : companyRegime === "real_profit"
-            ? realProfitIrpjCsllCalc
-            : 0,
+      value: irpjCsll,
       secondValue: inverseCalculations?.realProfitInverseIrpjCsllCalc,
       condition: !isSimpleNational,
     },
@@ -695,6 +697,9 @@ const ProductResult = () => {
       netProfit,
       acquisitionCost,
       profitability,
+      taxes,
+      das,
+      irpjCsll,
     };
 
     if (isEditMode && productId) {

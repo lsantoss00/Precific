@@ -60,7 +60,7 @@ const ProductDetailsDialog = ({
     },
     {
       title: "ICMS + PIS/COFINS",
-      value: 999,
+      value: product?.taxes ?? 0,
     },
     {
       title: "ICMS ST",
@@ -68,13 +68,13 @@ const ProductDetailsDialog = ({
     },
     {
       title: "DAS",
-      value: 999,
+      value: product?.das ?? 0,
       variant: "neutral" as const,
       condition: isSimpleNational,
     },
     {
       title: "IRPJ + CSLL",
-      value: 999,
+      value: product?.irpjCsll ?? 0,
       condition: !isSimpleNational,
     },
     {
