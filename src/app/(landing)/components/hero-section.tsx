@@ -1,12 +1,15 @@
+"use client";
+
 import FadeInOnScroll from "@/src/components/animations/fade-in-on-scroll";
-import { Container } from "@/src/components/core";
+import { Button, Container } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Flex from "@/src/components/core/flex";
 import SectionWithBackground from "@/src/components/section-with-background";
 import YouTubeEmbed from "@/src/components/youtube-embed";
+import { useScrollToSection } from "@/src/hooks/use-scroll-to-section";
 
 const HeroSection = () => {
-  // const { scrollToSection } = useScrollToSection();
+  const { scrollToSection } = useScrollToSection();
 
   return (
     <SectionWithBackground
@@ -41,13 +44,13 @@ const HeroSection = () => {
                   simulando cenários futuros da Reforma Tributária.
                 </p>
               </Column>
-              {/* <Button
-              className="w-full sm:w-fit h-12 md:h-14 px-6 md:px-8 hover:cursor-pointer font-medium text-sm md:text-base"
-              variant="secondary"
-              onClick={() => scrollToSection("contato")}
-            >
-              Agendar Demonstração
-            </Button> */}
+              <Button
+                className="w-full sm:w-fit h-12 md:h-14 px-6 md:px-8 hover:cursor-pointer font-medium text-sm md:text-base"
+                variant="secondary"
+                onClick={() => scrollToSection("contato")}
+              >
+                Agendar Demonstração
+              </Button>
             </Column>
           </FadeInOnScroll>
           <FadeInOnScroll
