@@ -6,4 +6,5 @@ export interface ProfileType {
   profilePictureUrl: string;
   updatedAt: string;
   username: string;
+  systemRole: string;
 }
