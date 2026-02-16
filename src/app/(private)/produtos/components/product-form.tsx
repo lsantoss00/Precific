@@ -71,6 +71,8 @@ const ProductForm = ({ productId }: ProductFormProps) => {
   if (isLoadingAuth)
     return <Loader2 className="text-primary animate-spin m-auto w-10 h-10" />;
 
+  console.log("uai sö", isFormValid);
+
   return (
     <Flex className="flex flex-col lg:flex-row w-full flex-1 gap-4">
       <ProductDetailsForm />
