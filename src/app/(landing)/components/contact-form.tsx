@@ -10,6 +10,7 @@ import Show from "@/src/components/core/show";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -35,6 +36,9 @@ const ContactFormSchema = z.object({
       "Telefone inválido. Deve conter 10 ou 11 dígitos.",
     ),
   acceptMarketing: z.boolean(),
+  acceptTerms: z
+    .boolean()
+    .refine((val) => val === true, "Você deve aceitar os termos."),
 });
 
 type ContactFormSchemaType = z.infer<typeof ContactFormSchema>;
@@ -55,6 +59,7 @@ const ContactForm = () => {
       email: "",
       phone: "",
       acceptMarketing: false,
+      acceptTerms: false,
     },
   });
 
@@ -100,7 +105,7 @@ const ContactForm = () => {
     <form
       id="contactForm"
       onSubmit={handleSubmit(handleSubmitContactForm)}
-      className="space-y-3 md:space-y-4 flex flex-col justify-between w-full max-w-sm self-center"
+      className="space-y-3 md:space-y-4 flex flex-col justify-between w-full max-w-md self-center"
     >
       <Controller
         name="name"
@@ -230,6 +235,42 @@ const ContactForm = () => {
         >
           Aceito receber comunicações de marketing e promoções exclusivas do
           Precific
+        </Label>
+      </Row>
+      <Row className="gap-2 items-center">
+        <Controller
+          name="acceptTerms"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Checkbox
+              id="acceptTerms"
+              checked={value}
+              onCheckedChange={onChange}
+              className="bg-black/20! data-[state=checked]:border-white focus-visible:border-white focus-visible:ring-white/50"
+            />
+          )}
+        />
+        <Label
+          htmlFor="acceptTerms"
+          required
+          className="cursor-pointer text-white font-normal text-xs md:text-sm leading-tight"
+        >
+          Li e aceito os{" "}
+          <Link
+            target="_blank"
+            href="/termos-de-uso"
+            className="underline hover:text-secondary"
+          >
+            Termos de Uso
+          </Link>{" "}
+          e a{" "}
+          <Link
+            target="_blank"
+            href="/politica-de-privacidade"
+            className="underline hover:text-secondary"
+          >
+            Política de Privacidade
+          </Link>{" "}
         </Label>
       </Row>
       <Button
