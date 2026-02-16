@@ -21,7 +21,8 @@ const ContactFormSchema = z.object({
   name: z
     .string()
     .min(1, "O campo nome é obrigatório.")
-    .min(3, "O nome deve ter no mínimo 3 caracteres."),
+    .min(3, "O nome deve ter no mínimo 3 caracteres.")
+    .max(80, "O nome deve ter no máximo 80 caracteres."),
   cnpj: z
     .string()
     .min(1, "O campo CNPJ é obrigatório.")
@@ -29,14 +30,16 @@ const ContactFormSchema = z.object({
   email: z
     .string()
     .min(1, "O campo email é obrigatório.")
-    .email("Email inválido."),
+    .email("Email inválido.")
+    .max(100, "O email deve ter no máximo 100 caracteres."),
   phone: z
     .string()
     .min(1, "O campo telefone é obrigatório.")
     .refine(
       (val) => val.length === 10 || val.length === 11,
       "Telefone inválido. Deve conter 10 ou 11 dígitos.",
-    ),
+    )
+    .max(11, "O telefone não pode exceder 11 dígitos."),
   acceptMarketing: z.boolean(),
   acceptTerms: z
     .boolean()
@@ -135,6 +138,7 @@ const ContactForm = () => {
               autoComplete="name"
               value={value}
               onChange={onChange}
+              maxLength={80}
               className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
@@ -161,6 +165,7 @@ const ContactForm = () => {
               value={value}
               onAccept={onChange}
               unmask={true}
+              maxLength={18}
               className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
@@ -186,6 +191,7 @@ const ContactForm = () => {
               autoComplete="email"
               value={value}
               onChange={onChange}
+              maxLength={100}
               className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
@@ -212,6 +218,7 @@ const ContactForm = () => {
               value={value}
               onAccept={onChange}
               unmask={true}
+              maxLength={15}
               className={`bg-black/20 placeholder:text-zinc-400! text-white border-white focus-visible:border-white focus-visible:ring-white/50 h-10 md:h-11 text-sm md:text-base ${
                 error && "border-red-600"
               }`}
