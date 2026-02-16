@@ -23,7 +23,7 @@ const ProductsFixedCostsRankingChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-fixed-costs", sortDirection, filters],
+    queryKey: ["dashboard", "products-fixed-costs", sortDirection, filters],
     queryFn: () => getProductsFixedCosts({ sortDirection, filters }),
     placeholderData: keepPreviousData,
   });

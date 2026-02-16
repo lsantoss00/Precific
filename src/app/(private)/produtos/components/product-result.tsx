@@ -60,6 +60,7 @@ const ProductResult = () => {
     mutationFn: postProduct,
     onSuccess: async () => {
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      await queryClient?.invalidateQueries({ queryKey: ["dashboard"] });
       toast.success("Produto adicionado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });

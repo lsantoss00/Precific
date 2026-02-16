@@ -23,7 +23,7 @@ const ProductsNetProfitRankingChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-net-profit", sortDirection, filters],
+    queryKey: ["dashboard", "products-net-profit", sortDirection, filters],
     queryFn: () => getProductsNetProfit({ sortDirection, filters }),
     placeholderData: keepPreviousData,
   });
