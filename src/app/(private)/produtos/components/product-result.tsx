@@ -59,6 +59,7 @@ const ProductResult = () => {
   const { mutate: post, isPending: pendingPostProduct } = useMutation({
     mutationFn: postProduct,
     onSuccess: async () => {
+      await queryClient?.invalidateQueries({ queryKey: ["product"] });
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       await queryClient?.invalidateQueries({ queryKey: ["dashboard"] });
       toast.success("Produto adicionado com sucesso!", {
@@ -76,6 +77,9 @@ const ProductResult = () => {
   const { mutate: update, isPending: pendingUpdateProduct } = useMutation({
     mutationFn: updateProduct,
     onSuccess: async () => {
+      await queryClient?.invalidateQueries({
+        queryKey: ["product", productId],
+      });
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
       toast.success("Produto atualizado com sucesso!", {
         className: "!bg-green-600 !text-white",

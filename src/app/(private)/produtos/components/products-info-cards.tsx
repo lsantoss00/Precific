@@ -9,7 +9,7 @@ import InfoCard from "./info-card";
 const ProductInfoCards = () => {
   const { data: summary, isPending: pendingProductSummaries } = useQuery({
     queryFn: getProductSummaries,
-    queryKey: ["product-summaries"],
+    queryKey: ["product", "summaries"],
   });
 
   const infoCards = [

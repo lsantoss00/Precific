@@ -105,7 +105,7 @@ const ProductsTable = () => {
           ),
         );
         await queryClient.invalidateQueries({
-          queryKey: ["product-summaries"],
+          queryKey: ["product", "summaries"],
         });
         toast.success(`Status atualizado com sucesso!`, {
           className: "!bg-green-600 !text-white",

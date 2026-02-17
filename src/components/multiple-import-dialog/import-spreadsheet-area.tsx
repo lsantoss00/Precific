@@ -72,7 +72,9 @@ export default function ImportSpreadsheetArea({
       updateProgress(95);
 
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
-      await queryClient?.invalidateQueries({ queryKey: ["product-summaries"] });
+      await queryClient?.invalidateQueries({
+        queryKey: ["product", "summaries"],
+      });
 
       updateProgress(100);
 
@@ -92,7 +94,7 @@ export default function ImportSpreadsheetArea({
         "Erro ao importar dados. Verifique o arquivo e tente novamente.",
         {
           className: "!bg-red-600 !text-white",
-        }
+        },
       );
       if (fileInputRef.current) fileInputRef.current.value = "";
       setIsImporting(false);
@@ -150,7 +152,7 @@ export default function ImportSpreadsheetArea({
         {
           className: "!bg-red-600 !text-white",
           duration: 5000,
-        }
+        },
       );
       if (fileInputRef.current) fileInputRef.current.value = "";
       setIsImporting(false);
@@ -164,7 +166,7 @@ export default function ImportSpreadsheetArea({
         {
           className: "!bg-yellow-600 !text-white",
           duration: 5000,
-        }
+        },
       );
     }
 
