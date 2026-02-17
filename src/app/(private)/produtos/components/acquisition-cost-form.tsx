@@ -18,10 +18,11 @@ const AcquisitionCostForm = () => {
 
   const {
     control,
+    watch,
     formState: { errors },
   } = form;
 
-  const data = form.watch();
+  const data = watch();
 
   const acquisitionCost = acquisitionCostCalc({
     unitPrice: data?.unitPrice ?? 0,

@@ -16,7 +16,7 @@ const ProductsAverageProfitabilityKpiCard = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-average-profitability", filters],
+    queryKey: ["dashboard", "products-average-profitability", filters],
     queryFn: () =>
       getProductsAverageProfitability({
         filters,

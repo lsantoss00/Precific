@@ -19,7 +19,11 @@ const ProductsPricesAndAcquisitionCostsChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-prices-and-acquisition-costs", productIds],
+    queryKey: [
+      "dashboard",
+      "products-prices-and-acquisition-costs",
+      productIds,
+    ],
     queryFn: () => getProductsPricesAndAcquisitionCosts({ productIds }),
     placeholderData: keepPreviousData,
   });

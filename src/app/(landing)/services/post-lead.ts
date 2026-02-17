@@ -3,7 +3,7 @@ import { decamelizeKeys } from "humps";
 import { LeadType } from "../types/lead-type";
 
 interface PostLeadProps {
-  lead: LeadType;
+  lead: LeadType & { recaptcha: string };
 }
 
 export async function postLead({ lead }: PostLeadProps) {
@@ -11,9 +11,14 @@ export async function postLead({ lead }: PostLeadProps) {
 
   const leadData = decamelizeKeys(lead);
 
-  const { error } = await supabase.from("leads").insert(leadData).single();
+  const { data, error } = await supabase.functions.invoke("submit-lead", {
+    body: {
+      ...leadData,
+      recaptcha: lead.recaptcha,
+    },
+  });
 
-  if (error) throw error;
+  if (error) throw new Error(error.message || "Erro ao processar lead");
 
-  return;
+  return data;
 }

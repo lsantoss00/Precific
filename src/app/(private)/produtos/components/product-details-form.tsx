@@ -17,8 +17,13 @@ const ProductDetailsForm = () => {
   const {
     register,
     control,
+    watch,
     formState: { errors },
   } = form;
+
+  const nameValue = watch("name") || "";
+  const skuValue = watch("sku") || "";
+  const obsValue = watch("observations") || "";
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
@@ -42,40 +47,54 @@ const ProductDetailsForm = () => {
 
   return (
     <Card className="w-full p-6 rounded-md flex flex-col space-y-6 flex-1">
-      <h3 className="text-lg">Detalhes do Produto</h3>
+      <h3 className="text-lg font-medium text-gray-800">Detalhes do Produto</h3>
       <form className="flex flex-col space-y-4">
         <Column className="space-y-2">
-          <Label htmlFor="name" required>
-            Nome
-          </Label>
+          <Row className="justify-between items-end">
+            <Label htmlFor="name" required>
+              Nome
+            </Label>
+            <span className="text-[10px] text-gray-400 tabular-nums">
+              {nameValue.length}/64
+            </span>
+          </Row>
           <Input
             id="name"
             type="text"
-            placeholder="Digite o nome do produto"
+            placeholder="Ex: Teclado Mecânico RGB"
+            maxLength={64}
             error={errors.name?.message}
-            {...register("name", { required: "Nome é obrigatório" })}
+            {...register("name", {
+              required: "Nome é obrigatório",
+              maxLength: { value: 64, message: "Limite de 64 caracteres" },
+            })}
           />
           <Show when={errors.name?.message}>
-            <span className="text-xs text-red-500 -mt-1">
-              {errors.name?.message}
-            </span>
+            <span className="text-xs text-red-500">{errors.name?.message}</span>
           </Show>
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="sku" required>
-            SKU
-          </Label>
+          <Row className="justify-between items-end">
+            <Label htmlFor="sku" required>
+              SKU
+            </Label>
+            <span className="text-[10px] text-gray-400 tabular-nums">
+              {skuValue.length}/32
+            </span>
+          </Row>
           <Input
             id="sku"
             type="text"
-            placeholder="Digite o SKU do produto"
+            placeholder="SKU-123456"
+            maxLength={32}
             error={errors.sku?.message}
-            {...register("sku", { required: "SKU é obrigatório" })}
+            {...register("sku", {
+              required: "SKU é obrigatório",
+              maxLength: { value: 32, message: "Limite de 32 caracteres" },
+            })}
           />
           <Show when={errors.sku?.message}>
-            <span className="text-xs text-red-500 -mt-1">
-              {errors.sku?.message}
-            </span>
+            <span className="text-xs text-red-500">{errors.sku?.message}</span>
           </Show>
         </Column>
         <Column className="space-y-2">
@@ -96,13 +115,26 @@ const ProductDetailsForm = () => {
           />
         </Column>
         <Column className="space-y-2">
-          <Label htmlFor="observations">Observações</Label>
+          <Row className="justify-between items-end">
+            <Label htmlFor="observations">Observações</Label>
+            <span className="text-[10px] text-gray-400 tabular-nums">
+              {obsValue.length}/256
+            </span>
+          </Row>
           <Input
             id="observations"
             type="text"
             placeholder="Adicione informações relevantes"
-            {...register("observations")}
+            maxLength={256}
+            {...register("observations", {
+              maxLength: { value: 256, message: "Limite de 256 caracteres" },
+            })}
           />
+          <Show when={errors.observations?.message}>
+            <span className="text-xs text-red-500">
+              {errors.observations?.message}
+            </span>
+          </Show>
         </Column>
         <Row className="gap-2 items-center">
           <Controller
@@ -120,59 +152,49 @@ const ProductDetailsForm = () => {
             O seu produto já possui um valor de venda?
           </Label>
         </Row>
-        <Show when={Boolean(form.watch("hasUserProductPrice"))}>
+        <Show when={Boolean(watch("hasUserProductPrice"))}>
           <Column className="gap-2">
             <Label htmlFor="userProductPrice" required>
               Valor (R$)
             </Label>
-            <Row className="items-center gap-2">
-              <Controller
-                name="userProductPrice"
-                control={control}
-                rules={{
-                  validate: (value) => {
-                    const hasPrice = form.getValues("hasUserProductPrice");
-                    if (
-                      hasPrice &&
-                      (value === undefined || value === null || value === 0)
-                    ) {
-                      return "Campo obrigatório";
-                    }
-                    return true;
-                  },
-                  min: {
-                    value: 0.01,
-                    message: "O valor deve ser maior que zero.",
-                  },
-                }}
-                render={({ field }) => {
-                  const numericValue = field.value ?? 0;
-                  return (
-                    <Input
-                      id="userProductPrice"
-                      placeholder="R$ 0,00"
-                      type="numeric"
-                      {...field}
-                      value={
-                        field.value === null || field.value === undefined
-                          ? ""
-                          : currencyFormatter(numericValue * 100)
-                      }
-                      onChange={(e) => {
-                        const raw = e.target.value.replace(/\D/g, "");
-                        const numberValue =
-                          raw === "" ? null : Number(raw) / 100;
-
-                        field.onChange(numberValue);
-                      }}
-                      error={errors.userProductPrice?.message}
-                    />
-                  );
-                }}
-              />
-            </Row>
+            <Controller
+              name="userProductPrice"
+              control={control}
+              rules={{
+                validate: (value) => {
+                  const hasPrice = form.getValues("hasUserProductPrice");
+                  if (
+                    hasPrice &&
+                    (value === undefined || value === null || value === 0)
+                  ) {
+                    return "Campo obrigatório";
+                  }
+                  return true;
+                },
+                min: {
+                  value: 0.01,
+                  message: "O valor deve ser maior que zero.",
+                },
+              }}
+              render={({ field }) => (
+                <Input
+                  id="userProductPrice"
+                  placeholder="R$ 0,00"
+                  type="numeric"
+                  {...field}
+                  value={
+                    !field.value ? "" : currencyFormatter(field.value * 100)
+                  }
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, "");
+                    field.onChange(raw === "" ? null : Number(raw) / 100);
+                  }}
+                  error={errors.userProductPrice?.message}
+                />
+              )}
+            />
             <Show when={errors.userProductPrice?.message}>
-              <span className="text-xs text-red-500 -mt-1">
+              <span className="text-xs text-red-500">
                 {errors.userProductPrice?.message}
               </span>
             </Show>
@@ -210,7 +232,7 @@ const ProductDetailsForm = () => {
             A venda é interestadual?
           </Label>
         </Row>
-        <Show when={form.watch("interstateSale")}>
+        <Show when={watch("interstateSale")}>
           <Controller
             name="stateDestination"
             control={control}
@@ -227,9 +249,7 @@ const ProductDetailsForm = () => {
                   error={Boolean(error)}
                 />
                 <Show when={error}>
-                  <span className="text-xs text-red-500 -mt-1">
-                    {error?.message}
-                  </span>
+                  <span className="text-xs text-red-500">{error?.message}</span>
                 </Show>
               </Column>
             )}
@@ -245,8 +265,7 @@ const ProductDetailsForm = () => {
                 checked={value}
                 onCheckedChange={onChange}
                 disabled={
-                  !form.watch("interstateSale") ||
-                  !form.watch("stateDestination")
+                  !watch("interstateSale") || !watch("stateDestination")
                 }
               />
             )}
@@ -265,9 +284,9 @@ const ProductDetailsForm = () => {
                 checked={value}
                 onCheckedChange={onChange}
                 disabled={
-                  !form.watch("interstateSale") ||
-                  !form.watch("stateDestination") ||
-                  form.watch("hasIcmsSt")
+                  !watch("interstateSale") ||
+                  !watch("stateDestination") ||
+                  watch("hasIcmsSt")
                 }
               />
             )}

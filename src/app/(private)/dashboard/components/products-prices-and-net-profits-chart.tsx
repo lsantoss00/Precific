@@ -17,7 +17,7 @@ const ProductsPricesAndNetProfitsChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-prices-and-net-profits", productIds],
+    queryKey: ["dashboard", "products-prices-and-net-profits", productIds],
     queryFn: () => getProductsPricesAndNetProfits({ productIds }),
     placeholderData: keepPreviousData,
   });
