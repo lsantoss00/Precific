@@ -178,7 +178,7 @@ const ProductsTable = () => {
                   <TableHead
                     key={header.id}
                     style={{ width: header.column.columnDef.size }}
-                    className={`text-gray-400 ${header.column.columnDef.meta?.className ?? ""}`}
+                    className={`text-gray-200 ${header.column.columnDef.meta?.className ?? ""}`}
                   >
                     {header.isPlaceholder
                       ? null

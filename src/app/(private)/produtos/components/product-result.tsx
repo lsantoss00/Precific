@@ -81,6 +81,8 @@ const ProductResult = () => {
         queryKey: ["product", productId],
       });
       await queryClient?.invalidateQueries({ queryKey: ["products"] });
+      await queryClient?.invalidateQueries({ queryKey: ["company"] });
+      await queryClient?.invalidateQueries({ queryKey: ["dashboard"] });
       toast.success("Produto atualizado com sucesso!", {
         className: "!bg-green-600 !text-white",
       });
