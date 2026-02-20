@@ -11,8 +11,6 @@ interface LoginProps {
 export async function login({ email, password }: LoginProps) {
   const supabase = await createServer();
 
-  let isSuccess = false;
-
   try {
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -20,15 +18,14 @@ export async function login({ email, password }: LoginProps) {
     });
 
     if (error) {
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: { code: error.code, message: error.message },
+      };
     }
-
-    isSuccess = true;
   } catch (err) {
-    return { success: false, error: "Erro inesperado. Tente novamente." };
+    return { success: false, error: "unexpected_error" };
   }
 
-  if (isSuccess) {
-    redirect("/produtos");
-  }
+  redirect("/produtos");
 }

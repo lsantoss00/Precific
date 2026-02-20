@@ -37,7 +37,6 @@ const LoginForm = () => {
         toast.error(supabaseErrorsTranslator(result.error), {
           className: "!bg-red-600 !text-white",
         });
-        return;
       }
     },
   });

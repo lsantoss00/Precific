@@ -35,15 +35,20 @@ type SupabaseError =
 
 export function supabaseErrorsTranslator(error: SupabaseError): string {
   if (!error) return "Ocorreu um erro inesperado.";
-  const key =
-    typeof error === "string"
-      ? error
-      : error.code || error.message || "Ocorreu um erro inesperado.";
-  return (
-    errorMessagesTranslation[key] ||
-    errorMessagesTranslation[error as string] ||
-    (typeof error === "string"
-      ? error
-      : error.message || "Ocorreu um erro inesperado.")
-  );
+
+  let key: string;
+
+  if (typeof error === "string") {
+    key = error;
+  } else {
+    key = error.code || error.message || "";
+  }
+
+  if (errorMessagesTranslation[key]) {
+    return errorMessagesTranslation[key];
+  }
+
+  if (typeof error === "string") return error;
+
+  return error.message || "Ocorreu um erro inesperado.";
 }
