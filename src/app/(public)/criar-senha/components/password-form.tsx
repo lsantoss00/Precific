@@ -4,7 +4,6 @@ import AuthFormCard from "@/src/components/auth-form-card";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
-import { createClient } from "@/src/libs/supabase/client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -37,7 +36,7 @@ const PasswordForm = () => {
   useEffect(() => {
     const cookies = document.cookie.split(";");
     const hasInviteCookie = cookies.some((cookie) =>
-      cookie.trim().startsWith("invite_mode=true")
+      cookie.trim().startsWith("invite_mode=true"),
     );
     setIsInviteFlow(hasInviteCookie);
   }, []);
@@ -60,29 +59,16 @@ const PasswordForm = () => {
     useMutation({
       mutationFn: newPassword,
       onSuccess: async (result) => {
-        if (result.error) {
-          toast.error(supabaseErrorsTranslator(result.error), {
-            className: "!bg-red-600 !text-white",
-          });
-          return;
+        if (result?.success) {
+          toast.success(
+            isInviteFlow
+              ? "Senha criada com sucesso!"
+              : "Senha alterada com sucesso!",
+          );
+          router.push("/entrar");
+        } else {
+          toast.error(supabaseErrorsTranslator(result.error));
         }
-
-        const successMessage = isInviteFlow
-          ? "Senha criada com sucesso!"
-          : "Senha alterada com sucesso!";
-
-        toast.success(successMessage, {
-          className: "!bg-green-600 !text-white",
-        });
-
-        document.cookie =
-          "recovery_mode=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie =
-          "invite_mode=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-        const supabase = createClient();
-        await supabase.auth.signOut();
-        router.push("/entrar");
       },
     });
 
@@ -92,7 +78,7 @@ const PasswordForm = () => {
 
   const { password, confirmPassword } = watch();
   const formInputFieldIsBlank = [password, confirmPassword].some(
-    (value) => value === ""
+    (value) => value === "",
   );
 
   return (

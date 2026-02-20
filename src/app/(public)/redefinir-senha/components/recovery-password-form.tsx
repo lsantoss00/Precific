@@ -37,15 +37,15 @@ const RecoveryPasswordForm = () => {
     useMutation({
       mutationFn: recoveryPassword,
       onSuccess: (result) => {
-        if (result.error) {
+        if (result.success) {
+          toast.success("E-mail enviado com sucesso!", {
+            className: "!bg-green-600 !text-white",
+          });
+        } else {
           toast.error(supabaseErrorsTranslator(result.error), {
             className: "!bg-red-600 !text-white",
           });
-          return;
         }
-        toast.success("E-mail enviado com sucesso!", {
-          className: "!bg-green-600 !text-white",
-        });
       },
     });
 
@@ -64,7 +64,7 @@ const RecoveryPasswordForm = () => {
         "Link de recuperação inválido ou expirado. Aguarde alguns instantes e solicite um novo.",
         {
           className: "!bg-red-600 !text-white",
-        }
+        },
       );
 
       const supabase = createClient();

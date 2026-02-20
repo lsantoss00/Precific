@@ -1,4 +1,7 @@
-import { createClient } from "@/src/libs/supabase/client";
+"use server";
+
+import { createServer } from "@/src/libs/supabase/server";
+import { redirect } from "next/navigation";
 
 interface LoginProps {
   email: string;
@@ -6,14 +9,26 @@ interface LoginProps {
 }
 
 export async function login({ email, password }: LoginProps) {
-  const supabase = createClient();
+  const supabase = await createServer();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  let isSuccess = false;
 
-  if (error) throw error;
+  try {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  return;
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    isSuccess = true;
+  } catch (err) {
+    return { success: false, error: "Erro inesperado. Tente novamente." };
+  }
+
+  if (isSuccess) {
+    redirect("/produtos");
+  }
 }
