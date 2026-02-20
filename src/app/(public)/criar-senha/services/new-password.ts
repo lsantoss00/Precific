@@ -9,7 +9,11 @@ export async function newPassword({ password }: { password: string }) {
 
   try {
     const { error } = await supabase.auth.updateUser({ password });
-    if (error) return { success: false, error: error.message };
+    if (error)
+      return {
+        success: false,
+        error: { code: error.code, message: error.message },
+      };
 
     cookieStore.set("recovery_mode", "", { expires: new Date(0), path: "/" });
     cookieStore.set("invite_mode", "", { expires: new Date(0), path: "/" });

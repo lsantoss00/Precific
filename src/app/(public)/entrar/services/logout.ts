@@ -1,20 +1,23 @@
 "use server";
 
 import { createServer } from "@/src/libs/supabase/server";
-import { ServiceResponseType } from "@/src/types/service-response-type";
+import { redirect } from "next/navigation";
 
-export async function logout(): Promise<ServiceResponseType> {
+export async function logout() {
   const supabase = await createServer();
 
   try {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: { code: error.code, message: error.message },
+      };
     }
-
-    return { success: true, error: null };
   } catch (err) {
     return { success: false, error: "Erro inesperado. Tente novamente." };
   }
+
+  redirect("/entrar");
 }
