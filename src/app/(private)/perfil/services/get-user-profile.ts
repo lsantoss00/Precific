@@ -12,21 +12,15 @@ export async function getUserProfile({
 }: GetUserProfileProps): Promise<ProfileType> {
   const supabase = createClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) throw new Error("Usuário não autenticado");
-
   const { data: profile, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
 
-  const data = camelizeKeys(profile) as ProfileType;
-
   if (error) throw error;
+
+  const data = camelizeKeys(profile) as ProfileType;
 
   if (data?.profilePictureUrl) {
     const isSignedUrl = data.profilePictureUrl.includes("?token=");
@@ -35,7 +29,7 @@ export async function getUserProfile({
       const { data: signedUrlData, error: signedUrlError } =
         await supabase.storage
           .from("profile-pictures")
-          .createSignedUrl(data.profilePictureUrl, 3600);
+          .createSignedUrl(data.profilePictureUrl, 86400, {});
 
       if (signedUrlData && !signedUrlError) {
         data.profilePictureUrl = signedUrlData.signedUrl;

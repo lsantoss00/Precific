@@ -67,8 +67,9 @@ const Menu = () => {
                   src={profile?.profilePictureUrl!}
                   alt="Foto de perfil"
                   fill
-                  sizes="32px"
+                  sizes="64px"
                   className="object-cover"
+                  priority
                 />
               </div>
             </Show>

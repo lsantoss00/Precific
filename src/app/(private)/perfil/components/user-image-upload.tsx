@@ -35,9 +35,10 @@ const UserImageUpload = ({ initialPreview, onChange }: UserUploadProps) => {
             src={preview!}
             alt="Preview"
             fill
-            sizes="96px"
+            sizes="192px"
             className="object-cover"
-            unoptimized={preview?.startsWith("blob:") ? false : true}
+            priority
+            unoptimized={preview?.startsWith("blob:")}
           />
         </Show>
       </div>
