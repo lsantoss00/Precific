@@ -38,22 +38,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return user;
     },
     queryKey: ["user"],
-    staleTime: Infinity,
-    gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: true,
   });
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryFn: () => getUserProfile({ userId: user!.id }),
     queryKey: ["profile", user?.id],
     enabled: !!user?.id,
-    staleTime: Infinity,
-    gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 15,
+    gcTime: 1000 * 60 * 60,
   });
 
   const { data: company, isLoading: isLoadingCompany } =
@@ -61,11 +56,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       queryFn: () => getCompanyById({ companyId: profile!.companyId! }),
       queryKey: ["company", profile?.companyId],
       enabled: !!profile?.companyId,
-      staleTime: Infinity,
-      gcTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
+      staleTime: 1000 * 60 * 15,
+      gcTime: 1000 * 60 * 60,
     });
 
   const { data: subscription, isLoading: isLoadingSubscription } = useQuery({
@@ -77,10 +69,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     enabled: !!profile?.companyId,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
-    refetchInterval: 1000 * 60 * 10,
+    refetchInterval: 1000 * 60 * 5,
   });
 
   useEffect(() => {

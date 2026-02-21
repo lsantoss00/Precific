@@ -4,6 +4,7 @@ import AuthFormCard from "@/src/components/auth-form-card";
 import { Button, Input, Label } from "@/src/components/core";
 import Column from "@/src/components/core/column";
 import Show from "@/src/components/core/show";
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { supabaseErrorsTranslator } from "@/src/utils/supabase-errors-translator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -35,8 +36,9 @@ const LoginForm = () => {
 
   const { mutate: doLogin, isPending: pendingLogin } = useMutation({
     mutationFn: login,
-    onSuccess: (result) => {
+    onSuccess: async (result) => {
       if (result?.success) {
+        await queryClient.invalidateQueries({ queryKey: ["user"] });
         router.push("/produtos");
       }
       if (result?.error) {
