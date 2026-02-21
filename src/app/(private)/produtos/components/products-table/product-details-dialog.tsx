@@ -133,7 +133,7 @@ const ProductDetailsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange} modal>
-      <DialogContent className="flex flex-col min-w-[96dvw] lg:min-w-4xl py-10 sm:p-8 overflow-y-auto h-[96dvh]">
+      <DialogContent className="flex flex-col max-w-[90dvw] lg:min-w-4xl py-10 sm:p-8 overflow-y-auto h-[96dvh]">
         <DialogHeader className="sm:gap-4 text-start">
           <Column className="sm:gap-1">
             <DialogTitle className="text-2xl text-ellipsis truncate">

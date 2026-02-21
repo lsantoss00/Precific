@@ -29,7 +29,7 @@ const ProductPriceHistoryDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-[90dvw]">
         <DialogTitle>Histórico de Preços</DialogTitle>
         <ProductPriceHistoryTable productPriceHistory={productPriceHistory} />
       </DialogContent>
