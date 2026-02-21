@@ -1,7 +1,6 @@
 "use server";
 
 import { createServer } from "@/src/libs/supabase/server";
-import { redirect } from "next/navigation";
 
 interface LoginProps {
   email: string;
@@ -26,6 +25,4 @@ export async function login({ email, password }: LoginProps) {
   } catch (err) {
     return { success: false, error: "unexpected_error" };
   }
-
-  redirect("/produtos");
 }

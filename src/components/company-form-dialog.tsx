@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "@/src/components/core";
 import Column from "@/src/components/core/column";
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,11 @@ const CompanyFormDialog = () => {
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
-    onSuccess: () => router.push("/entrar"),
+    onSuccess: () => {
+      queryClient.clear();
+
+      router.push("/entrar");
+    },
   });
 
   const handleOpenChange = (open: boolean) => {

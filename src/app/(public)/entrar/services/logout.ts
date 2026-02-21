@@ -1,7 +1,6 @@
 "use server";
 
 import { createServer } from "@/src/libs/supabase/server";
-import { redirect } from "next/navigation";
 
 export async function logout() {
   const supabase = await createServer();
@@ -18,6 +17,4 @@ export async function logout() {
   } catch (err) {
     return { success: false, error: "Erro inesperado. Tente novamente." };
   }
-
-  redirect("/entrar");
 }

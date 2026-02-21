@@ -1,5 +1,6 @@
 "use client";
 
+import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { useAuth } from "@/src/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon, LogOut, Menu as MenuIcon, User } from "lucide-react";
@@ -26,7 +27,11 @@ export function AppHeader() {
 
   const { mutate: doLogout, isPending: pendingDoLogout } = useMutation({
     mutationFn: logout,
-    onSuccess: () => router.push("/entrar"),
+    onSuccess: () => {
+      queryClient.clear();
+
+      router.push("/entrar");
+    },
   });
 
   const hasProfilePicture =
