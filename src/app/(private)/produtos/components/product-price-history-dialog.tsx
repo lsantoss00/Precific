@@ -21,7 +21,7 @@ const ProductPriceHistoryDialog = ({
 
   const { data, isPending } = useQuery({
     queryFn: () => getProductPriceHistory({ productId: productId! }),
-    queryKey: ["product-price-history", productId],
+    queryKey: ["product", productId, "history"],
   });
 
   const productPriceHistory = data || [];

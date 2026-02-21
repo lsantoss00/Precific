@@ -14,7 +14,7 @@ const ProductsAveragePriceKpiCard = ({ filters }: ProductsMarkupChartProps) => {
     isFetching,
     isPending,
   } = useQuery({
-    queryKey: ["products-average-price", filters],
+    queryKey: ["dashboard", "products-average-price", filters],
     queryFn: () =>
       getProductsAveragePrice({
         filters,

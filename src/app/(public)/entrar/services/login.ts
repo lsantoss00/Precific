@@ -1,4 +1,7 @@
-import { createClient } from "@/src/libs/supabase/client";
+"use server";
+
+import { createServer } from "@/src/libs/supabase/server";
+import { redirect } from "next/navigation";
 
 interface LoginProps {
   email: string;
@@ -6,14 +9,23 @@ interface LoginProps {
 }
 
 export async function login({ email, password }: LoginProps) {
-  const supabase = createClient();
+  const supabase = await createServer();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  try {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) throw error;
+    if (error) {
+      return {
+        success: false,
+        error: { code: error.code, message: error.message },
+      };
+    }
+  } catch (err) {
+    return { success: false, error: "unexpected_error" };
+  }
 
-  return;
+  redirect("/produtos");
 }

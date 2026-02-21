@@ -23,7 +23,7 @@ const ProductsShippingRankingChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-shipping", sortDirection, filters],
+    queryKey: ["dashboard", "products-shipping", sortDirection, filters],
     queryFn: () => getProductsShipping({ sortDirection, filters }),
     placeholderData: keepPreviousData,
   });

@@ -36,7 +36,7 @@ const ConfirmDeleteProductDialog = ({
         queryKey: ["products"],
       });
       await queryClient.invalidateQueries({
-        queryKey: ["product-summaries"],
+        queryKey: ["product", "summaries"],
       });
       toast.success("Produto deletado com sucesso!", {
         className: "!bg-green-600 !text-white",

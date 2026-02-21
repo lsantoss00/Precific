@@ -4,4 +4,5 @@ export interface LeadType {
   email: string;
   phone: string;
   acceptMarketing: boolean;
+  acceptTerms: boolean;
 }

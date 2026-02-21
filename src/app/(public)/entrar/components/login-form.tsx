@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -23,8 +22,6 @@ const LoginFormSchema = z.object({
 type LoginFormSchemaType = z.infer<typeof LoginFormSchema>;
 
 const LoginForm = () => {
-  const router = useRouter();
-
   const { handleSubmit, control, watch } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -35,13 +32,12 @@ const LoginForm = () => {
 
   const { mutate: doLogin, isPending: pendingLogin } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
-      router.push("/produtos");
-    },
-    onError: (error) => {
-      toast.error(supabaseErrorsTranslator(error), {
-        className: "!bg-red-600 !text-white",
-      });
+    onSuccess: (result) => {
+      if (result?.error) {
+        toast.error(supabaseErrorsTranslator(result.error), {
+          className: "!bg-red-600 !text-white",
+        });
+      }
     },
   });
 

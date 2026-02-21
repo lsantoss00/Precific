@@ -23,7 +23,7 @@ const ProductsMarkupRankingChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-markup", sortDirection, filters],
+    queryKey: ["dashboard", "products-markup", sortDirection, filters],
     queryFn: () => getProductsMarkup({ sortDirection, filters }),
     placeholderData: keepPreviousData,
   });

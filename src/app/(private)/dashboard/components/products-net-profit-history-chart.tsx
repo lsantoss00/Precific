@@ -26,7 +26,7 @@ const ProductsNetProfitHistoryChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-net-profit-history", filters],
+    queryKey: ["dashboard", "products-net-profit-history", filters],
     queryFn: () =>
       getProductsNetProfitHistory({
         filters,

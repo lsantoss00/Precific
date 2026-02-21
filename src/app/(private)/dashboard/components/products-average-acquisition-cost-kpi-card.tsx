@@ -16,7 +16,7 @@ const ProductsAverageAcquisitionCostKpiCard = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-average-acquisition-cost", filters],
+    queryKey: ["dashboard", "products-average-acquisition-cost", filters],
     queryFn: () =>
       getProductsAverageAcquisitionCost({
         filters,

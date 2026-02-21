@@ -26,7 +26,7 @@ const ProductsPriceHistoryChart = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-price-history", filters],
+    queryKey: ["dashboard", "products-price-history", filters],
     queryFn: () =>
       getProductsPriceHistory({
         filters,

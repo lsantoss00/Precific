@@ -15,7 +15,7 @@ const CompanySubscriptionDetails = () => {
     <Card className="w-full p-6 rounded-md flex space-y-4">
       <h3 className="text-lg">Assinatura</h3>
       <Row className="items-center gap-2">
-        <div className="h-12 w-12">
+        <div className="h-12 w-12 shrink-0">
           <PlanCrownBadge isPremium={isPremium} />
         </div>
         <Column>

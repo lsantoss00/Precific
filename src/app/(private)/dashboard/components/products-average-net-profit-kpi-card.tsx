@@ -16,7 +16,7 @@ const ProductsAverageNetProfitKpiCard = ({
     isPending,
     isFetching,
   } = useQuery({
-    queryKey: ["products-average-net-profit", filters],
+    queryKey: ["dashboard", "products-average-net-profit", filters],
     queryFn: () =>
       getProductsAverageNetProfit({
         filters,
