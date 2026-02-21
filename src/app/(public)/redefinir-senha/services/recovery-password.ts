@@ -19,7 +19,7 @@ export async function recoveryPassword({ email }: RecoveryPasswordProps) {
       };
     }
 
-    return { success: true, error: null };
+    return { success: true };
   } catch (err) {
     return { success: false, error: "Erro inesperado. Tente novamente." };
   }

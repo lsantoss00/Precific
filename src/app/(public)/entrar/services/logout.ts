@@ -14,6 +14,8 @@ export async function logout() {
         error: { code: error.code, message: error.message },
       };
     }
+
+    return { success: true };
   } catch (err) {
     return { success: false, error: "Erro inesperado. Tente novamente." };
   }

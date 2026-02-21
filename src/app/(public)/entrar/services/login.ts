@@ -22,6 +22,8 @@ export async function login({ email, password }: LoginProps) {
         error: { code: error.code, message: error.message },
       };
     }
+
+    return { success: true };
   } catch (err) {
     return { success: false, error: "unexpected_error" };
   }
