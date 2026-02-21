@@ -15,7 +15,7 @@ const ContactSection = () => {
   return (
     <SectionWithBackground
       id="contato"
-      className="w-full 2xl:h-200 overflow-hidden"
+      className="w-full overflow-hidden"
       aria-labelledby="contact-heading"
     >
       <Flex className="flex-col lg:flex-row items-stretch justify-between h-full">
