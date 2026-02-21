@@ -109,7 +109,7 @@ const ProductDetailsDialog = ({
     {
       title: "Base de cálculo IBS/CBS",
       value: product?.ibsCbsBase ?? 0,
-      gridSpan: "col-span-1 sm:col-span-2 md:col-span-1",
+      gridSpan: "col-span-1 sm:col-span-2 lg:col-span-1",
     },
     {
       title: "IBS (0.1%)",
@@ -123,7 +123,7 @@ const ProductDetailsDialog = ({
       title: "Preço de venda final",
       value: product?.priceIn2026 ?? 0,
       variant: "secondary" as const,
-      gridSpan: "col-span-1 sm:col-span-2 md:col-span-3",
+      gridSpan: "col-span-1 sm:col-span-2 lg:col-span-3",
     },
   ];
 
@@ -133,7 +133,7 @@ const ProductDetailsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange} modal>
-      <DialogContent className="flex flex-col max-w-[90dvw] lg:min-w-4xl py-10 sm:p-8 overflow-y-auto h-[96dvh]">
+      <DialogContent className="flex flex-col max-w-[90dvw] md:max-w-[96dvw] lg:max-w-4xl py-10 sm:p-8 overflow-y-auto max-h-[96dvh] 2xl:max-h-full">
         <DialogHeader className="sm:gap-4 text-start">
           <Column className="sm:gap-1">
             <DialogTitle className="text-2xl text-ellipsis truncate">
@@ -172,7 +172,7 @@ const ProductDetailsDialog = ({
           <Column>
             <span className="text-sm text-muted-foreground">Observações:</span>
             <p>
-              {product?.observations || "Nenhuma observação foi adicionada."}
+              {!product?.observations || "Nenhuma observação foi adicionada."}
             </p>
           </Column>
         </DialogHeader>
@@ -200,8 +200,8 @@ const ProductDetailsDialog = ({
           </div>
         </Column>
         <Separator />
-        <Column className="space-y-4 flex-1">
-          <h3 className="text-lg">
+        <Column className="gap-2">
+          <h3>
             Transição Reforma Tributária{" "}
             <span className="inline-flex items-center gap-2">
               <strong>2026</strong>
@@ -211,7 +211,7 @@ const ProductDetailsDialog = ({
               />
             </span>
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {metrics2026.map((metric, index) => (
               <div key={`metric-2026-${index}`} className={metric.gridSpan}>
                 <MetricCard

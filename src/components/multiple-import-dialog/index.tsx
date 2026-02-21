@@ -40,7 +40,7 @@ const MultipleImportDialog = ({ trigger }: MultipleImportDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="flex flex-col md:min-w-2xl md:p-8 overflow-y-auto h-[96dvh]">
+      <DialogContent className="flex flex-col max-w-[90dvw] md:max-w-[96dvw] lg:max-w-3xl py-10 sm:p-8 overflow-y-auto max-h-[96dvh] 2xl:max-h-full">
         {isImporting ? (
           <MultipleImportLoadingState progress={importProgress} />
         ) : (
