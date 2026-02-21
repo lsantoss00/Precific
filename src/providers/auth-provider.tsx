@@ -8,7 +8,7 @@ import { ProfileType } from "@/src/app/(private)/perfil/types/profile-type";
 import { queryClient } from "@/src/libs/tanstack-query/query-client";
 import { User } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import { createClient } from "../libs/supabase/client";
 
 interface AuthContextType {
@@ -30,70 +30,65 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
 
-  const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    isFetching: isFetchingUser,
+  } = useQuery<User | null>({
+    queryKey: ["user"],
     queryFn: async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       return user;
     },
-    queryKey: ["user"],
-    staleTime: Infinity,
-    gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 60,
   });
 
-  const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryFn: () => getUserProfile({ userId: user!.id }),
+  const {
+    data: profile,
+    isLoading: isLoadingProfile,
+    isFetching: isFetchingProfile,
+  } = useQuery({
     queryKey: ["profile", user?.id],
+    queryFn: () => getUserProfile({ userId: user!.id }),
     enabled: !!user?.id,
-    staleTime: Infinity,
-    gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 30,
   });
 
-  const { data: company, isLoading: isLoadingCompany } =
-    useQuery<CompanyType | null>({
-      queryFn: () => getCompanyById({ companyId: profile!.companyId! }),
-      queryKey: ["company", profile?.companyId],
-      enabled: !!profile?.companyId,
-      staleTime: Infinity,
-      gcTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-    });
+  const {
+    data: company,
+    isLoading: isLoadingCompany,
+    isFetching: isFetchingCompany,
+  } = useQuery<CompanyType | null>({
+    queryKey: ["company", profile?.companyId],
+    queryFn: () => getCompanyById({ companyId: profile!.companyId! }),
+    enabled: !!profile?.companyId,
+    staleTime: 1000 * 60 * 30,
+  });
 
-  const { data: subscription, isLoading: isLoadingSubscription } = useQuery({
+  const {
+    data: subscription,
+    isLoading: isLoadingSubscription,
+    isFetching: isFetchingSubscription,
+  } = useQuery({
+    queryKey: ["company-subscription", profile?.companyId],
     queryFn: () => {
       if (!profile?.companyId) return null;
       return getCompanySubscriptionStatus({ companyId: profile.companyId });
     },
-    queryKey: ["company-subscription", profile?.companyId],
     enabled: !!profile?.companyId,
     staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 10,
-    refetchOnMount: false,
     refetchOnWindowFocus: true,
-    refetchOnReconnect: true,
-    refetchInterval: 1000 * 60 * 10,
   });
 
   useEffect(() => {
     const {
-      data: { subscription: authSubscription },
-    } = supabase.auth.onAuthStateChange((event) => {
-      const relevantAuthEvents =
-        event === "SIGNED_IN" ||
-        event === "SIGNED_OUT" ||
-        event === "TOKEN_REFRESHED";
-
-      if (relevantAuthEvents) {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange(async (event) => {
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         queryClient.invalidateQueries({ queryKey: ["user"] });
+        queryClient.invalidateQueries({ queryKey: ["profile"] });
       }
 
       if (event === "SIGNED_OUT") {
@@ -101,14 +96,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
-    return () => authSubscription.unsubscribe();
-  }, [supabase]);
+    return () => authListener.unsubscribe();
+  }, [supabase, queryClient]);
 
   useEffect(() => {
     if (!profile?.companyId) return;
 
     const channel = supabase
-      .channel("company-subscription-changes")
+      .channel(`subscription-change-${profile.companyId}`)
       .on(
         "postgres_changes",
         {
@@ -128,13 +123,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [profile?.companyId, supabase]);
+  }, [profile?.companyId, supabase, queryClient]);
 
-  const isLoadingAuth =
-    isLoadingUser ||
-    (!!user && isLoadingProfile) ||
-    (!!profile?.companyId && isLoadingCompany) ||
-    (!!company && isLoadingSubscription);
+  const isLoadingAuth = useMemo(() => {
+    if (isLoadingUser || isFetchingUser) return true;
+    if (user && (isLoadingProfile || isFetchingProfile)) return true;
+    if (profile?.companyId && (isLoadingCompany || isFetchingCompany))
+      return true;
+    if (profile?.companyId && (isLoadingSubscription || isFetchingSubscription))
+      return true;
+    return false;
+  }, [
+    user,
+    profile?.companyId,
+    isLoadingUser,
+    isFetchingUser,
+    isLoadingProfile,
+    isFetchingProfile,
+    isLoadingCompany,
+    isFetchingCompany,
+    isLoadingSubscription,
+    isFetchingSubscription,
+  ]);
 
   const isPremium = subscription?.hasActiveSubscription ?? false;
   const expiresAt = subscription?.expiresAt ?? null;

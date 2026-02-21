@@ -27,7 +27,9 @@ const CompanyFormDialog = () => {
     if (!profile?.companyId && !open) return;
   };
 
-  if (isLoadingAuth || profile?.companyId) return null;
+  if (isLoadingAuth || !profile || profile.companyId) {
+    return null;
+  }
 
   return (
     <Dialog open={true} onOpenChange={handleOpenChange} modal>
