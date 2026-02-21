@@ -1,4 +1,4 @@
-import { Button } from "@/src/components/core";
+import { Button } from "@/src/components/core/button";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 interface SortableHeaderProps {
@@ -7,16 +7,28 @@ interface SortableHeaderProps {
 }
 
 const SortableHeader = ({ column, children }: SortableHeaderProps) => {
+  const isSorted = column.getIsSorted();
+
+  const handleSort = () => {
+    if (isSorted === "asc") {
+      column.toggleSorting(true);
+    } else if (isSorted === "desc") {
+      column.clearSorting();
+    } else {
+      column.toggleSorting(false);
+    }
+  };
+
   return (
     <Button
       variant="ghost"
-      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      onClick={handleSort}
       className="px-0 hover:bg-transparent"
     >
       {children}
-      {column.getIsSorted() === "asc" ? (
+      {isSorted === "asc" ? (
         <ArrowUp className="ml-2 h-4 w-4" />
-      ) : column.getIsSorted() === "desc" ? (
+      ) : isSorted === "desc" ? (
         <ArrowDown className="ml-2 h-4 w-4" />
       ) : (
         <ArrowUpDown className="ml-2 h-4 w-4" />
