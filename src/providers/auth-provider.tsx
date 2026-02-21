@@ -38,22 +38,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return user;
     },
     queryKey: ["user"],
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 60,
     gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryFn: () => getUserProfile({ userId: user!.id }),
     queryKey: ["profile", user?.id],
     enabled: !!user?.id,
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 30,
     gcTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 
   const { data: company, isLoading: isLoadingCompany } =
@@ -61,11 +55,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       queryFn: () => getCompanyById({ companyId: profile!.companyId! }),
       queryKey: ["company", profile?.companyId],
       enabled: !!profile?.companyId,
-      staleTime: Infinity,
+      staleTime: 1000 * 60 * 30,
       gcTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
     });
 
   const { data: subscription, isLoading: isLoadingSubscription } = useQuery({
@@ -77,9 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     enabled: !!profile?.companyId,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
-    refetchOnMount: false,
     refetchOnWindowFocus: true,
-    refetchOnReconnect: true,
     refetchInterval: 1000 * 60 * 10,
   });
 
@@ -108,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!profile?.companyId) return;
 
     const channel = supabase
-      .channel("company-subscription-changes")
+      .channel(`subscription-change-${profile.companyId}`)
       .on(
         "postgres_changes",
         {
